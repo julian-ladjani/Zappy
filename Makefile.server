@@ -15,6 +15,10 @@ SRCS 	= 	src/linked_list/linked_list_add.c					\
 			src/linked_list/linked_list_basic.c					\
 			src/linked_list/linked_list_advanced.c				\
 			src/linked_list/list_clean.c						\
+			src/arg_parser_cleanup.c							\
+			src/arg_parser_initialisation.c						\
+			src/argument_regex.c								\
+			src/parse_arguments.c								\
 
 OBJDIR = obj
 

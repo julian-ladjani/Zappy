@@ -19,11 +19,11 @@ void cleanup_argument_parsing_output(arg_parser_output_t *output)
 }
 
 void *cleanup_argument_parsing(arg_parser_output_t *output,
-	regex_t *search_regex, regex_t *stop_regex, void *return_value)
+	regex_t *start_regex, regex_t *stop_regex, void *return_value)
 {
 	if (return_value == NULL)
 		cleanup_argument_parsing_output(output);
 	cleanup_regex(stop_regex);
-	cleanup_regex(search_regex);
+	cleanup_regex(start_regex);
 	return (output);
 }
