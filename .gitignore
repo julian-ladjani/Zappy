@@ -1,0 +1,9 @@
+.idea
+zappy_ai
+zappy_server
+*.rb
+data
+CMake*
+cmake*
+obj
+data
