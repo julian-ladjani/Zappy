@@ -7,14 +7,14 @@ LDFLAGS =
 
 NAME = server
 
-SRCS 	= 	src/linked_list/linked_list_add.c					\
-			src/linked_list/linked_list_get.c					\
-			src/linked_list/linked_list_delete.c				\
-			src/linked_list/linked_list_create.c				\
-			src/linked_list/linked_list_conditional.c			\
-			src/linked_list/linked_list_basic.c					\
-			src/linked_list/linked_list_advanced.c				\
-			src/linked_list/list_clean.c						\
+SRCS 	= 	src/common/linked_list/linked_list_add.c				\
+		src/common/linked_list/linked_list_get.c				\
+		src/common/linked_list/linked_list_delete.c				\
+		src/common/linked_list/linked_list_create.c				\
+		src/common/linked_list/linked_list_conditional.c			\
+		src/common/linked_list/linked_list_basic.c				\
+		src/common/linked_list/linked_list_advanced.c				\
+		src/common/linked_list/list_clean.c					\
 
 OBJDIR = obj
 
