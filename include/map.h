@@ -8,6 +8,7 @@
 #ifndef PSU_ZAPPY_2017_MAP_H
 #define PSU_ZAPPY_2017_MAP_H
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -19,24 +20,27 @@
 #define MAX_PHIRAS() 4
 #define MAX_THYSTAME() 2
 
-typedef struct tile_s {
-	size_t x;
-	size_t y;
-	size_t food;
-	size_t linemate;
-	size_t deraumere;
-	size_t sibur;
-	size_t mendiane;
-	size_t phiras;
-	size_t thystame;
-	
-} tile_t;
+enum object {
+	FODD = 0,
+	LINEMATE,
+	DERAUMERE,
+	SIBUR,
+	MENDIANE,
+	PHIRAS,
+	THYSTAME
+};
+
+typedef size_t tile_t[7];
 
 typedef struct map_s {
 	size_t width;
 	size_t height;
 	size_t seed;
-	tile_t tiles[][];
+	tile_t **tiles;
 } map_t;
+
+map_t *create_map(size_t width, size_t height);
+void free_map(map_t *map);
+void print_map(map_t *map);
 
 #endif /* PSU_ZAPPY_2017_MAP_H */

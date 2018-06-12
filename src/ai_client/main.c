@@ -8,12 +8,11 @@
 #include <stdio.h>
 #include <malloc.h>
 #include "../../include/parser.h"
+#include "../../include/map.h"
 
 int main(int ac, char **av)
 {
-	cmdparams_t *cmd = parse_arguments(av[1], ";", 1);
-	for(unsigned int i = 0; i < cmd->nb_args; ++i)
-		printf("[%s]\n", cmd->args[i]);
-	free(cmd->args);
-	free(cmd);
+	map_t *map = create_map(100, 100);
+	print_map(map);
+	return (0);
 }

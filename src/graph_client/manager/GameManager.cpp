@@ -25,7 +25,7 @@ bool zappy::client::GameManager::isOpen()
 bool zappy::client::GameManager::start()
 {
 	_window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(),
-				       	"SfmlTests");
+					"SfmlTests");
         return isOpen();
 }
 
