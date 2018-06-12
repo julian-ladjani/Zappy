@@ -62,6 +62,13 @@ set(SERVER
         src/server/connection/poll_cleanup.c
         src/server/connection/poll_initialisation.c
         src/server/connection/poll_loop.c
+        src/server/user/user_action.c
+        src/server/user/user_cleanup.c
+        src/server/user/user_config_check_file.c
+        src/server/user/user_get.c
+        src/server/user/user_initialisation.c
+        src/server/user/user_quit.c
+        src/server/user/user_search.c
         include/server_struct.h
         include/server_const.h
         include/server_function.h)
