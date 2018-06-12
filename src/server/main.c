@@ -36,10 +36,6 @@ int main(int ac, char **av)
 		printf("Error: Too few arguments\n");
 		exit(ZAPPY_EXIT_FAILURE);
 	}
-	if (ac > 2) {
-		printf("Error: Too many arguments\n");
-		exit(ZAPPY_EXIT_FAILURE);
-	}
 	server_config = initialisation(av);
 	if (server_config == NULL)
 		exit(ZAPPY_EXIT_FAILURE);

@@ -38,7 +38,6 @@ SRCS =	src/server/ai_commands/broadcast.c		\
 	src/server/team/team_search.c			\
 	src/server/user/user_action.c			\
 	src/server/user/user_cleanup.c			\
-	src/server/user/user_config_check_file.c	\
 	src/server/user/user_get.c			\
 	src/server/user/user_initialisation.c		\
 	src/server/user/user_quit.c			\
