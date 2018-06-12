@@ -14,7 +14,6 @@
 
 server_config_t *initialise_server(char *s_port);
 server_user_t *initialise_server_user(int fd);
-zappy_socket_t *initialise_socket(int port);
 int initialise_socket_poll(server_config_t *server_config);
 server_channel_t *initialise_server_channel(char *name);
 
@@ -53,7 +52,6 @@ void cleanup_server(server_config_t *server_config);
 void cleanup_server_exit(server_config_t *server_config,
 	unsigned int exit_status);
 void cleanup_users(list_t *server_users);
-void cleanup_socket(zappy_socket_t *master);
 void cleanup_socket_poll(struct pollfd *poll_fd);
 void compress_socket_poll(server_config_t *server_config);
 void close_socket_poll(server_config_t *server_config, int index);
@@ -67,28 +65,5 @@ void read_write(int from_fd, int to_fd);
 void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message);
 void user_connect(server_user_t *user);
-
-void irc_command_nick(server_config_t *server_config, server_user_t *user,
-	command_t *command);
-void irc_command_user(server_config_t *server_config, server_user_t *user,
-	command_t *command);
-void irc_command_users(server_config_t *server_config,
-	server_user_t *user, command_t *command);
-void irc_command_names(server_config_t *server_config,
-	server_user_t *user, command_t *command);
-void irc_command_join(server_config_t *server_config,
-	server_user_t *user, command_t *command);
-void irc_command_privmsg(server_config_t *server_config,
-	server_user_t *user, command_t *command);
-void irc_command_part(server_config_t *server_config,
-	server_user_t *user, command_t *command);
-void irc_command_quit(server_config_t *server_config,
-	server_user_t *user, command_t *command);
-void irc_command_list(server_config_t *server_config,
-	server_user_t *user, command_t *command);
-void irc_command_privmsg_channel(server_config_t *server_config,
-	server_user_t *user, char *name, char *message);
-void irc_command_privmsg_user(server_config_t *server_config,
-	server_user_t *user, char *name, char *message);
 
 #endif //PSU_MYIRC_2017_SERVER_FUNCTION_H
