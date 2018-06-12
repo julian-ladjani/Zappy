@@ -18,21 +18,10 @@ int initialise_socket_poll(server_config_t *server_config);
 server_team_t *initialise_server_team(char *name);
 
 void server_main_loop(server_config_t *server_config);
-char *read_line(int fd);
 void parse_command(server_config_t *server_config, server_user_t *user);
 int poll_loop(server_config_t *server_config);
 void poll_accept_client(server_config_t *server_config);
 
-list_t *list_files_and_folders_at_path(char *path);
-list_t *list_files_at_path(char *path);
-void delete_file_list_elem(void *elem);
-FILE *open_filename_path(char *path, char *filename, char *rights);
-char *get_filename_path(char *path, char *filename);
-list_t *check_user_file_list(list_t *file_list);
-int path_is_dir(char *path);
-int path_exist(char *path);
-char *get_command_str(server_user_t *server_user);
-command_t *tokenize_command(char *command_str);
 int user_nick_search_criteria(void *user, void *nick);
 int user_name_search_criteria(void *user, void *name);
 int user_fd_search_criteria(void *user, void *fd);
@@ -55,13 +44,9 @@ void cleanup_users(list_t *server_users);
 void cleanup_socket_poll(struct pollfd *poll_fd);
 void compress_socket_poll(server_config_t *server_config);
 void close_socket_poll(server_config_t *server_config, int index);
-void cleanup_command(command_t *command);
 void cleanup_team_list_elem(void *elem);
 void cleanup_teams(list_t *server_teams);
 
-void fill_command_arg(char **args, char *command_arg);
-int check_user_pass(server_user_t *user, char *password);
-void read_write(int from_fd, int to_fd);
 void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message);
 void user_connect(server_user_t *user);
