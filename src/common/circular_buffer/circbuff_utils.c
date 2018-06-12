@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** PSU_myirc_2017
+** PSU_zappy_2017
 ** File description:
 ** circbuff_utils.c
 */
