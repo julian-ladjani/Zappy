@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2018
-** PSU_myirc_2017
+** PSU_zappy_2017
 ** File description:
 ** circbuff.h
 */
 
-#ifndef PSU_MYIRC_2017_CIRCBUFF_H
-#define PSU_MYIRC_2017_CIRCBUFF_H
+#ifndef PSU_ZAPPY_2017_CIRCBUFF_H
+#define PSU_ZAPPY_2017_CIRCBUFF_H
 
 #define CIRCBUF_SIZE() 1024
 
@@ -61,4 +61,4 @@ long int circbuf_free_nspace(circbuf_t *cb, unsigned int size);
 void circbuf_free_space(circbuf_t *cb);
 long int circbuf_strstr(circbuf_t *cb, char *to_find);
 
-#endif /* PSU_MYIRC_2017_CIRCBUFF_H */
+#endif /* PSU_ZAPPY_2017_CIRCBUFF_H */
