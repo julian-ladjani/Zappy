@@ -3,7 +3,7 @@ CC = gcc -g
 RM = rm -f
 
 CFLAGS += -I./include -Wall -Wextra
-LDFLAGS = -lmath
+LDFLAGS = -lm
 
 NAME = zappy_server
 
