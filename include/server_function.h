@@ -51,4 +51,31 @@ void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message);
 void user_connect(server_user_t *user);
 
+uint8_t srv_cmd_msz(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_bct(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_mct(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_tna(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_ppo(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_plv(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_pln(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_sgt(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_sst(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_forward(server_config_t *server,
+				server_user_t *user, char *args);
+uint8_t srv_cmd_right(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_left(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_look(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_inventory(server_config_t *server,
+				server_user_t *user, char *args);
+uint8_t srv_cmd_broadcast(server_config_t *server,
+				server_user_t *user, char *args);
+uint8_t srv_cmd_connect_nbr(server_config_t *server,
+				server_user_t *user, char *args);
+uint8_t srv_cmd_fork(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_eject(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_take(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_set(server_config_t *server, server_user_t *user, char *args);
+uint8_t srv_cmd_incantation(server_config_t *server,
+				server_user_t *user, char *args);
+
 #endif //PSU_ZAPPY_2017_SERVER_FUNCTION_H

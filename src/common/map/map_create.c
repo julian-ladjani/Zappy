@@ -9,7 +9,7 @@
 
 static void fill_tile(tile_t *tile)
 {
-	*tile[FODD] = (size_t) (random() % MAX_FOOD());
+	*tile[FOOD] = (size_t) (random() % MAX_FOOD());
 	*tile[LINEMATE] = (size_t) (random() % MAX_LINEMATE());
 	*tile[DERAUMERE] = (size_t) (random() % MAX_DERAUMERE());
 	*tile[SIBUR] = (size_t) (random() % MAX_SIBUR());
@@ -47,8 +47,10 @@ map_t *map_create(size_t width, size_t height)
 {
 	map_t *map = malloc(sizeof(map_t));
 
-	if (!map)
+	if (!map) {
+		dprintf(2, "Invalid malloc\n");
 		return (NULL);
+	}
 	map->width = width;
 	map->height = height;
 	map->seed = (size_t) time(NULL);
