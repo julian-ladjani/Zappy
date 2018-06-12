@@ -9,6 +9,7 @@
 #define PSU_ZAPPY_2017_SOCKET_H
 
 #include <sys/socket.h>
+#include <netinet/in.h>
 
 typedef struct zappy_socket_s {
 	int fd;

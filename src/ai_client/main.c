@@ -12,9 +12,8 @@
 
 int main(int ac, char **av)
 {
-	char headings[8][3] = {"E", "NE", "N", "NW", "W", "SW", "S", "SE" };
 	vec_t v = {(size_t) atoi(av[1]), (size_t) atoi(av[2])};
-	int o = map_get_orientation(v, NORTH);
-	printf("%d : %s\n", o, headings[o]);
+	int o = map_get_orientation(v);
+	printf("%d : ", o);
 	return (0);
 }
