@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 project(PSU_zappy_2017 C)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/")
 set(CMAKE_C_STANDARD 99)
+include_directories(include)
+
 
 set(CIRCULAR BUFFER
         src/common/circular_buffer/circbuff.c
@@ -68,7 +70,7 @@ set(CLIENT)
 
 add_executable(server src/ai_client/main.c ${CLIENT} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER}
-        ${MAP})
+        ${MAP} ${SERVER})
 
 add_executable(client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET}
