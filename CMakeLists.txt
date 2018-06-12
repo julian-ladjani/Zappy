@@ -52,9 +52,9 @@ set(SOCKET
 
 
 set(MAP
-        src/common/map/create_map.c
-        src/common/map/free_map.c
-        src/common/map/print_map.c
+        src/common/map/map_create.c
+        src/common/map/map_free.c
+        src/common/map/map_print.c
         include/map.h)
 
 set(SERVER

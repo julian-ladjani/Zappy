@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2018
 ** PSU_zappy_2017
 ** File description:
-** create_map.c
+** map_create.c
 */
 
-#include "../../../include/map.h"
+#include "map.h"
 
-void free_map(map_t *map)
+void map_free(map_t *map)
 {
 	if (!map)
 		return;

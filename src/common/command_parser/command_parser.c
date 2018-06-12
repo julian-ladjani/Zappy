@@ -13,7 +13,7 @@ static unsigned int count_sep(const char *str, const char *sep)
 	return (tmp ? count_sep(tmp + strlen(sep), sep) + (tmp != str) : 0);
 }
 
-static cmdparams_t *new_cmdparams(const char *str, const char *sep, int index)
+static cmdparams_t *new_cmdparams(const char *str, const char *sep)
 {
 	cmdparams_t *cmd = calloc(sizeof(cmdparams_t), sizeof(cmdparams_t));
 
@@ -27,7 +27,6 @@ static cmdparams_t *new_cmdparams(const char *str, const char *sep, int index)
 		dprintf(2, "Invalid malloc in new_cmdparams\n");
 		return (NULL);
 	}
-	cmd->from = index;
 	return (cmd);
 }
 
@@ -43,9 +42,9 @@ static void parse_parameters(cmdparams_t *cmdparams, char *cmd, const char *sep)
 	}
 }
 
-cmdparams_t *parse_arguments(char *cmd, const char *sep, int from)
+cmdparams_t *parse_arguments(char *cmd, const char *sep)
 {
-	cmdparams_t *cmdparams = new_cmdparams(cmd, sep, from);
+	cmdparams_t *cmdparams = new_cmdparams(cmd, sep);
 
 	if (!cmdparams)
 		return (NULL);
