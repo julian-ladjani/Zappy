@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2018
-** PSU_myirc_2017
+** PSU_zappy_2017
 ** File description:
 ** 	server_struct header file_dir
 */
 
-#ifndef PSU_MYIRC_2017_SERVER_STRUCT_H
-#define PSU_MYIRC_2017_SERVER_STRUCT_H
+#ifndef PSU_ZAPPY_2017_SERVER_STRUCT_H
+#define PSU_ZAPPY_2017_SERVER_STRUCT_H
 
 #define _GNU_SOURCE
 
@@ -45,7 +45,7 @@ typedef struct server_config_s {
 	list_t *users;
 	list_t *channels;
 	nfds_t nfds;
-	struct pollfd poll_fd[MYIRC_MAX_CLIENT + 1];
+	struct pollfd poll_fd[ZAPPY_MAX_CLIENT + 1];
 } server_config_t;
 
 typedef struct command_s {
@@ -62,4 +62,4 @@ typedef struct server_command_s {
 	user_logged_state_t state;
 } server_command_t;
 
-#endif //PSU_MYIRC_2017_SERVER_STRUCT_H
+#endif //PSU_ZAPPY_2017_SERVER_STRUCT_H

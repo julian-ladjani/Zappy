@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** PSU_myirc_2017
+** PSU_zappy_2017
 ** File description:
 ** 	initialise_socket source file
 */
@@ -50,11 +50,11 @@ static int bind_socket_to_port(zappy_socket_t *master, int port)
 	if (ret == -1) {
 		printf("Error: Cannot Bind Port\n");
 		close(master->fd);
-		return (MYIRC_EXIT_FAILURE);
+		return (ZAPPY_EXIT_FAILURE);
 	}
 	master->port = s_in.sin_port;
 	master->ip = inet_ntoa(s_in.sin_addr);
-	return (MYIRC_EXIT_SUCCESS);
+	return (ZAPPY_EXIT_SUCCESS);
 }
 
 static int set_socket_non_blocking(int fd)
@@ -63,9 +63,9 @@ static int set_socket_non_blocking(int fd)
 
 	if (ioctl(fd, FIONBIO, (char *) &true) < 0) {
 		printf("Error: Cannot Set Socket No Blocking\n");
-		return (MYIRC_EXIT_FAILURE);
+		return (ZAPPY_EXIT_FAILURE);
 	}
-	return (MYIRC_EXIT_SUCCESS);
+	return (ZAPPY_EXIT_SUCCESS);
 }
 
 zappy_socket_t *initialise_socket(int port)
@@ -85,9 +85,9 @@ zappy_socket_t *initialise_socket(int port)
 		printf("Error: Cannot Initialise Socket FD\n");
 		return (initialisation_error(master));
 	}
-	if (set_socket_non_blocking(master->fd) == MYIRC_EXIT_FAILURE)
+	if (set_socket_non_blocking(master->fd) == ZAPPY_EXIT_FAILURE)
 		return (initialisation_error(master));
-	if (bind_socket_to_port(master, port) == MYIRC_EXIT_FAILURE)
+	if (bind_socket_to_port(master, port) == ZAPPY_EXIT_FAILURE)
 		return (initialisation_error(master));
 	return (master);
 }

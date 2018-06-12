@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** PSU_myirc_2017
+** PSU_zappy_2017
 ** File description:
 ** 	poll_cleanup source file
 */
@@ -12,7 +12,7 @@
 
 void cleanup_socket_poll(struct pollfd *poll_fd)
 {
-	for (int i = 0; i <= MYIRC_MAX_CLIENT; i++) {
+	for (int i = 0; i <= ZAPPY_MAX_CLIENT; i++) {
 		if (poll_fd->fd > 0)
 			close(poll_fd->fd);
 	}
@@ -39,7 +39,7 @@ void close_socket_poll(server_config_t *server_config, int index)
 
 	if (user != NULL && user->elem != NULL &&
 		((server_user_t *) user->elem)->logged_state !=
-			MYIRC_USER_QUIT)
+			ZAPPY_USER_QUIT)
 		user_quit(server_config, user->elem, "Connection Closed");
 	printf("A Client Left Server - %d\n",
 		server_config->poll_fd[index].fd);

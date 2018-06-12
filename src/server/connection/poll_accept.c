@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** PSU_myirc_2017
+** PSU_zappy_2017
 ** File description:
 ** 	poll_accept source file
 */
@@ -40,7 +40,7 @@ void poll_accept_client(server_config_t *server_config)
 		if (client_fd == -1 && errno != EWOULDBLOCK) {
 			printf("Error: When Accept Incoming Connection\n");
 			cleanup_server_exit(server_config,
-				MYIRC_EXIT_FAILURE);
+				ZAPPY_EXIT_FAILURE);
 		} else if (client_fd != -1)
 			accept_client(server_config, client_fd);
 	} while (client_fd != -1);

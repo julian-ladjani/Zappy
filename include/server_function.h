@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2018
-** PSU_myirc_2017
+** PSU_zappy_2017
 ** File description:
 ** 	server_function header file_dir
 */
 
-#ifndef PSU_MYIRC_2017_SERVER_FUNCTION_H
-#define PSU_MYIRC_2017_SERVER_FUNCTION_H
+#ifndef PSU_ZAPPY_2017_SERVER_FUNCTION_H
+#define PSU_ZAPPY_2017_SERVER_FUNCTION_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -66,4 +66,4 @@ void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message);
 void user_connect(server_user_t *user);
 
-#endif //PSU_MYIRC_2017_SERVER_FUNCTION_H
+#endif //PSU_ZAPPY_2017_SERVER_FUNCTION_H
