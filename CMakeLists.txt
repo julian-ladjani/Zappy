@@ -5,7 +5,7 @@ set(CMAKE_C_STANDARD 99)
 include_directories(include)
 
 
-set(CIRCULAR BUFFER
+set(CIRCULAR_BUFFER
         src/common/circular_buffer/circbuff.c
         src/common/circular_buffer/circbuff_buf.c
         src/common/circular_buffer/circbuff_file.c
@@ -82,10 +82,23 @@ set(SERVER
         include/server_const.h
         include/server_function.h)
 
-set(CLIENT)
+set(CLIENT
+        src/ai_client/commands/send/broadcast.c
+        src/ai_client/commands/send/connect_nbr.c
+        src/ai_client/commands/send/eject.c
+        src/ai_client/commands/send/fork.c
+        src/ai_client/commands/send/forward.c
+        src/ai_client/commands/send/incantation.c
+        src/ai_client/commands/send/inventory.c
+        src/ai_client/commands/send/left.c
+        src/ai_client/commands/send/look.c
+        src/ai_client/commands/send/right.c
+        src/ai_client/commands/send/set.c
+        src/ai_client/commands/send/take.c
+        include/client.h)
 
-add_executable(server src/ai_client/main.c ${SERVER} ${LKN_LIST}
-        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})
+add_executable(server src/server/main.c ${SERVER} ${LKN_LIST}
+        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP} ${CIRCULAR_BUFFER})
 
 add_executable(client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})

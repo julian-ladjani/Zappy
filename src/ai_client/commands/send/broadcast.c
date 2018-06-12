@@ -7,8 +7,9 @@
 
 #include "client.h"
 
-uint8_t srv_cmd_broadcast(server_config_t *server,
-				server_user_t *user, char *args)
+uint8_t clt_cmd_broadcast(client_config_t *client, void *params)
 {
+	(void) client;
+	(void) params;
 	return (1);
 }

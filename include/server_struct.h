@@ -52,6 +52,7 @@ typedef struct server_config_s {
 	server_argument_t *arguments;
 	zappy_socket_t *master;
 	server_state_t state;
+	unsigned short port;
 	list_t *users;
 	list_t *teams;
 	nfds_t nfds;
