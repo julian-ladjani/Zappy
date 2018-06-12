@@ -2,11 +2,10 @@
 ** EPITECH PROJECT, 2018
 ** PSU_zappy_2017
 ** File description:
-** create_map.c
+** map_create.c
 */
 
-#include <stdint.h>
-#include "../../../include/map.h"
+#include "map.h"
 
 static void fill_tile(tile_t *tile)
 {
@@ -32,19 +31,19 @@ static uint8_t malloc_map(map_t *map)
 {
 	map->tiles = malloc(sizeof(tile_t) * map->height);
 	if (!map->tiles) {
-		dprintf(1, "Invalid malloc\n");
+		dprintf(2, "Invalid malloc\n");
 		return (0);
 	}
 	map->tiles[0] = malloc(sizeof(tile_t) * map->height * map->width);
 	if (!map->tiles[0]) {
-		free_map(map);
-		dprintf(1, "Invalid malloc\n");
+		map_free(map);
+		dprintf(2, "Invalid malloc\n");
 		return (0);
 	}
 	return (1);
 }
 
-map_t *create_map(size_t width, size_t height)
+map_t *map_create(size_t width, size_t height)
 {
 	map_t *map = malloc(sizeof(map_t));
 

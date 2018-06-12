@@ -8,6 +8,7 @@
 #ifndef PSU_ZAPPY_2017_MAP_H
 #define PSU_ZAPPY_2017_MAP_H
 
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -32,6 +33,13 @@ enum object {
 
 typedef size_t tile_t[7];
 
+typedef enum cardinal_dir {
+	NORTH = 1,
+	EAST = 2,
+	SOUTH = 3,
+	WEST = 4
+} cardinal_dir;
+
 typedef struct map_s {
 	size_t width;
 	size_t height;
@@ -39,8 +47,14 @@ typedef struct map_s {
 	tile_t **tiles;
 } map_t;
 
-map_t *create_map(size_t width, size_t height);
-void free_map(map_t *map);
-void print_map(map_t *map);
+typedef struct vec_s {
+	size_t x;
+	size_t y;
+} vec_t;
+
+map_t *map_create(size_t width, size_t height);
+void map_free(map_t *map);
+void map_print(map_t *map);
+int map_get_orientation(vec_t dir, cardinal_dir cd);
 
 #endif /* PSU_ZAPPY_2017_MAP_H */
