@@ -46,7 +46,6 @@ map_t *create_map(size_t width, size_t height)
 	return (map);
 }
 
-
 void free_map(map_t *map)
 {
 	if (!map)
@@ -59,6 +58,6 @@ void free_map(map_t *map)
 		if (map->tiles[x])
 			free(map->tiles[x]);
 	}
-	free(map->tiles);      
+	free(map->tiles);
 	free(map);
 }
