@@ -8,7 +8,8 @@
 #ifndef PSU_ZAPPY_2017_ARG_PARSER_H
 #define PSU_ZAPPY_2017_ARG_PARSER_H
 
-#include "unistd.h"
+#include <unistd.h>
+#include <regex.h>
 
 #define ARG_PARSER_UNLIMITED (0)
 #define ARG_PARSER_SUCCESS (0)

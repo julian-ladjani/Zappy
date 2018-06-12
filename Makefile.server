@@ -19,6 +19,8 @@ SRCS 	= 	src/common/linked_list/linked_list_add.c				\
 		src/common/arg_parser/arg_parser_initalisation.c			\
 		src/common/arg_parser/argument_regex.c					\
 		src/common/arg_parser/parse_arguments.c					\
+		src/common/socket/socket_cleanup.c					\
+		src/common/socket/socket_initialisation.c				\
 
 OBJDIR = obj
 
