@@ -8,27 +8,27 @@
 #include "server_struct.h"
 #include "server_function.h"
 
-void user_quit_part_channels(server_config_t *server_config,
+void user_quit_part_teams(server_config_t *server_config,
 	server_user_t *user)
 {
-	list_t *channels = user->teams;
+	list_t *teams = user->teams;
 	server_team_t *elem;
 
-	while (channels != NULL) {
-		elem = channels->elem;
+	while (teams != NULL) {
+		elem = teams->elem;
 		elem->users = list_delete_elem(
 			list_get_elem_with_content(elem->users, user), NULL);
 		user->teams = list_delete_elem(
 			list_get_elem_with_content(user->teams, elem),
 			NULL);
-		channels = user->teams;
+		teams = user->teams;
 		if (elem->users != NULL)
 			return;
-		printf("Remove Channel: %s\n", elem->name);
+		printf("Remove Team: %s\n", elem->name);
 		server_config->teams = list_delete_elem(
 			list_get_elem_with_content(server_config->teams,
 				elem),
-			cleanup_channel_list_elem);
+			cleanup_team_list_elem);
 	}
 }
 
@@ -43,7 +43,7 @@ void user_quit(server_config_t *server_config, server_user_t *user,
 		message);
 	user->logged_state = ZAPPY_USER_QUIT;
 	asprintf(&str, ":%s QUIT :%s", user->nick, message);
-	user_send_message_users_same_channel(server_config, user, str);
+	user_send_message_users_same_team(server_config, user, str);
 	free(str);
-	user_quit_part_channels(server_config, user);
+	user_quit_part_teams(server_config, user);
 }
