@@ -48,13 +48,13 @@ typedef struct map_s {
 } map_t;
 
 typedef struct vec_s {
-	size_t x;
-	size_t y;
+	ssize_t x;
+	ssize_t y;
 } vec_t;
 
 map_t *map_create(size_t width, size_t height);
 void map_free(map_t *map);
 void map_print(map_t *map);
-int map_get_orientation(vec_t dir, cardinal_dir cd);
+uint8_t map_get_orientation(vec_t dir);
 
 #endif /* PSU_ZAPPY_2017_MAP_H */

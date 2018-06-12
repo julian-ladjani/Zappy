@@ -55,6 +55,7 @@ set(MAP
         src/common/map/map_create.c
         src/common/map/map_free.c
         src/common/map/map_print.c
+        src/common/map/map_vector.c
         include/map.h)
 
 set(SERVER
@@ -90,3 +91,7 @@ add_executable(server src/ai_client/main.c ${CLIENT} ${LKN_LIST}
 add_executable(client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET}
         ${MAP})
+
+target_link_libraries(client -lm)
+
+target_link_libraries(server -lm)

@@ -5,7 +5,7 @@
 ** command_parser.cpp
 */
 
-#include "../../../include/parser.h"
+#include "parser.h"
 
 static unsigned int count_sep(const char *str, const char *sep)
 {
