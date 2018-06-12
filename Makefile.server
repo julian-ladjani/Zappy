@@ -5,7 +5,7 @@ RM = rm -f
 CFLAGS += -I./include -Wall -Wextra
 LDFLAGS =
 
-NAME = server
+NAME = zappy_server
 
 SRCS =	src/common/arg_parser/arg_parser_cleanup.c		\
 	src/common/arg_parser/arg_parser_initialisation.c	\
