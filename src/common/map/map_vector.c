@@ -19,7 +19,7 @@ static ssize_t get_dir(ssize_t from, ssize_t to, size_t size)
 vec_t map_get_dir(map_t *map, vec_t from, vec_t to)
 {
 	vec_t vec = {get_dir(to.x, from.x, map->width),
-		     get_dir(to.y, from.y, map->height)};
+			get_dir(to.y, from.y, map->height)};
 	return (vec);
 }
 

@@ -8,6 +8,8 @@
 #ifndef PSU_ZAPPY_2017_MAP_H
 #define PSU_ZAPPY_2017_MAP_H
 
+#define _GNU_SOURCE
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,7 +24,7 @@
 #define MAX_THYSTAME() 2
 
 enum object {
-	FODD = 0,
+	FOOD = 0,
 	LINEMATE,
 	DERAUMERE,
 	SIBUR,
@@ -57,5 +59,8 @@ void map_free(map_t *map);
 void map_print(map_t *map);
 uint8_t map_get_orientation(vec_t dir);
 tile_t *map_get_tile(map_t *map, ssize_t x, ssize_t y);
+char *tile_to_str(tile_t tile);
+char *tile_to_str_quantity(tile_t tile);
+char *str_append(char *str, char *append);
 
 #endif /* PSU_ZAPPY_2017_MAP_H */

@@ -30,9 +30,11 @@ SRCS =	src/common/arg_parser/arg_parser_cleanup.c		\
 	src/common/map/map_free.c				\
 	src/common/map/map_print.c				\
 	src/common/map/map_str_to_tile.c			\
+	src/common/map/map_tile_to_str.c			\
 	src/common/map/map_vector.c				\
 	src/common/socket/socket_cleanup.c			\
 	src/common/socket/socket_initialisation.c		\
+	src/common/utils/str_append.c				\
 	src/server/ai_commands/broadcast.c			\
 	src/server/ai_commands/connect_nbr.c			\
 	src/server/ai_commands/eject.c				\
