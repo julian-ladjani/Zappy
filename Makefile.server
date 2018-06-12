@@ -7,46 +7,46 @@ LDFLAGS =
 
 NAME = server
 
-SRCS 	= 	src/server/ai_commands/broadcast.c		\
-		src/server/ai_commands/connect_nbr.c		\
-		src/server/ai_commands/eject.c			\
-		src/server/ai_commands/fork.c			\
-		src/server/ai_commands/forward.c		\
-		src/server/ai_commands/incantation.c		\
-		src/server/ai_commands/inventory.c		\
-		src/server/ai_commands/left.c			\
-		src/server/ai_commands/look.c			\
-		src/server/ai_commands/right.c			\
-		src/server/ai_commands/set.c			\
-		src/server/ai_commands/take.c			\
-		src/server/connection/poll_accept.c		\
-		src/server/connection/poll_cleanup.c		\
-		src/server/connection/poll_initialisation.c	\
-		src/server/connection/poll_loop.c		\
-		src/server/graphic_commands/bct.c		\
-		src/server/graphic_commands/mct.c		\
-		src/server/graphic_commands/msz.c		\
-		src/server/graphic_commands/pln.c		\
-		src/server/graphic_commands/plv.c		\
-		src/server/graphic_commands/ppo.c		\
-		src/server/graphic_commands/sgt.c		\
-		src/server/graphic_commands/sst.c		\
-		src/server/graphic_commands/tna.c		\
-		src/server/team/team_action.c			\
-		src/server/team/team_cleanup.c			\
-		src/server/team/team_initialisation.c		\
-		src/server/team/team_search.c			\
-		src/server/user/user_action.c			\
-		src/server/user/user_cleanup.c			\
-		src/server/user/user_config_check_file.c	\
-		src/server/user/user_get.c			\
-		src/server/user/user_initialisationc.		\
-		src/server/user/user_quit.c			\
-		src/server/user/user_search.c			\
-		src/server/main.c				\
-		src/server/server_cleanup.c			\
-		src/server/server_initialisation.c		\
-		src/server/server_loop.c
+SRCS =	src/server/ai_commands/broadcast.c		\
+	src/server/ai_commands/connect_nbr.c		\
+	src/server/ai_commands/eject.c			\
+	src/server/ai_commands/fork.c			\
+	src/server/ai_commands/forward.c		\
+	src/server/ai_commands/incantation.c		\
+	src/server/ai_commands/inventory.c		\
+	src/server/ai_commands/left.c			\
+	src/server/ai_commands/look.c			\
+	src/server/ai_commands/right.c			\
+	src/server/ai_commands/set.c			\
+	src/server/ai_commands/take.c			\
+	src/server/connection/poll_accept.c		\
+	src/server/connection/poll_cleanup.c		\
+	src/server/connection/poll_initialisation.c	\
+	src/server/connection/poll_loop.c		\
+	src/server/graphic_commands/bct.c		\
+	src/server/graphic_commands/mct.c		\
+	src/server/graphic_commands/msz.c		\
+	src/server/graphic_commands/pln.c		\
+	src/server/graphic_commands/plv.c		\
+	src/server/graphic_commands/ppo.c		\
+	src/server/graphic_commands/sgt.c		\
+	src/server/graphic_commands/sst.c		\
+	src/server/graphic_commands/tna.c		\
+	src/server/team/team_action.c			\
+	src/server/team/team_cleanup.c			\
+	src/server/team/team_initialisation.c		\
+	src/server/team/team_search.c			\
+	src/server/user/user_action.c			\
+	src/server/user/user_cleanup.c			\
+	src/server/user/user_config_check_file.c	\
+	src/server/user/user_get.c			\
+	src/server/user/user_initialisation.c		\
+	src/server/user/user_quit.c			\
+	src/server/user/user_search.c			\
+	src/server/main.c				\
+	src/server/server_cleanup.c			\
+	src/server/server_initialisation.c		\
+	src/server/server_loop.c
 
 OBJDIR = obj
 
