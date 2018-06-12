@@ -26,7 +26,7 @@ typedef struct server_user_s {
 	circbuf_t *circular_buffer;
 	user_logged_state_t logged_state;
 	int fd;
-	list_t *channels;
+	list_t *teams;
 } server_user_t;
 
 typedef struct server_team_s {
@@ -44,7 +44,7 @@ typedef struct server_config_s {
 	zappy_socket_t *master;
 	server_state_t state;
 	list_t *users;
-	list_t *channels;
+	list_t *teams;
 	nfds_t nfds;
 	struct pollfd poll_fd[ZAPPY_MAX_CLIENT + 1];
 } server_config_t;

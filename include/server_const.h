@@ -32,9 +32,9 @@ typedef enum user_logged_state_e {
 	ZAPPY_USER_QUIT,
 } user_logged_state_t;
 
-typedef enum user_channel_right_e {
-	ZAPPY_USER_CHANNEL_USER,
-	ZAPPY_USER_CHANNEL_OPERATOR,
-} user_channel_right_t;
+typedef enum user_team_right_e {
+	ZAPPY_USER_TEAM_USER,
+	ZAPPY_USER_TEAM_OPERATOR,
+} user_team_right_t;
 
 #endif //PSU_ZAPPY_2017_SERVER_CONST_H
