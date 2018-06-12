@@ -16,7 +16,6 @@ typedef struct command_parameters_s
 {
 	char **args;
 	char *name;
-	int from;
 	unsigned int nb_args;
 } cmdparams_t;
 

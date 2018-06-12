@@ -18,8 +18,8 @@ static ssize_t get_dir(ssize_t from, ssize_t to, size_t size)
 
 vec_t map_get_dir(map_t *map, vec_t from, vec_t to)
 {
-	vec_t vec = {get_dir(from.x, to.x, map->width),
-		     get_dir(from.y, to.y, map->height)};
+	vec_t vec = {get_dir(to.x, from.x, map->width),
+		     get_dir(to.y, from.y, map->height)};
 	return (vec);
 }
 
@@ -35,4 +35,16 @@ uint8_t map_get_orientation(vec_t dir)
 		piece = 0;
 	piece = (uint8_t) (8 - (piece + 1));
 	return (uint8_t) (piece == 0 ? 8 : piece);
+}
+
+static size_t map_get_abs(ssize_t n, size_t size)
+{
+	n = n % size;
+	return (n < 0 ? size + n: n);
+}
+
+tile_t *map_get_tile(map_t *map, ssize_t x, ssize_t y)
+{
+	return (map->tiles[map_get_abs(y, map->height)]
+		+ map_get_abs(x, map->width));
 }
