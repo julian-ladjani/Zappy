@@ -31,7 +31,7 @@ set(LKN_LIST
 
 set(ARG_PARSER
         src/common/arg_parser/arg_parser_cleanup.c
-        src/common/arg_parser/arg_parser_initalisation.c
+        src/common/arg_parser/arg_parser_initialisation.c
         src/common/arg_parser/argument_regex.c
         src/common/arg_parser/parse_arguments.c
         include/arg_parser.h)
@@ -58,10 +58,25 @@ set(MAP
         include/map.h)
 
 set(SERVER
+        src/server/main.c
+        src/server/server_cleanup.c
+        src/server/server_initialisation.c
+        src/server/server_loop.c
         src/server/connection/poll_accept.c
         src/server/connection/poll_cleanup.c
         src/server/connection/poll_initialisation.c
         src/server/connection/poll_loop.c
+        src/server/team/team_action.c
+        src/server/team/team_cleanup.c
+        src/server/team/team_initialisation.c
+        src/server/team/team_search.c
+        src/server/user/user_action.c
+        src/server/user/user_cleanup.c
+        src/server/user/user_config_check_file.c
+        src/server/user/user_get.c
+        src/server/user/user_initialisation.c
+        src/server/user/user_quit.c
+        src/server/user/user_search.c
         include/server_struct.h
         include/server_const.h
         include/server_function.h)
