@@ -27,6 +27,7 @@ typedef struct server_user_s {
 	user_logged_state_t logged_state;
 	int fd;
 	list_t *teams;
+	list_t *commands;
 } server_user_t;
 
 typedef struct server_team_s {
@@ -39,8 +40,16 @@ typedef union server_port_u {
 	in_port_t port;
 } server_port_t;
 
-typedef struct server_config_s {
+typedef struct server_argument_s {
 	unsigned short port;
+	unsigned int width;
+	unsigned int height;
+	size_t client_nb;
+	unsigned int frequency;
+} server_argument_t;
+
+typedef struct server_config_s {
+	server_argument_t *arguments;
 	zappy_socket_t *master;
 	server_state_t state;
 	list_t *users;
