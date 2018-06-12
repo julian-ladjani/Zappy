@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** PSU_myirc_2017
+** PSU_zappy_2017
 ** File description:
 ** 	poll_loop source file
 */
@@ -29,19 +29,19 @@ int poll_exec(server_config_t *server_config, int poll_index)
 	server_user_t *user;
 
 	if (server_config == NULL)
-		return (MYIRC_EXIT_FAILURE);
+		return (ZAPPY_EXIT_FAILURE);
 	user = get_user_by_fd(server_config,
 		server_config->poll_fd[poll_index].fd);
 	if (user == NULL) {
 		close_socket_poll(server_config, poll_index);
-		return (MYIRC_EXIT_FAILURE);
+		return (ZAPPY_EXIT_FAILURE);
 	}
 	if (poll_exec_loop(server_config, user) < 0 ||
-		user->logged_state == MYIRC_USER_QUIT) {
+		user->logged_state == ZAPPY_USER_QUIT) {
 		close_socket_poll(server_config, poll_index);
-		return (MYIRC_EXIT_SUCCESS);
+		return (ZAPPY_EXIT_SUCCESS);
 	}
-	return (MYIRC_EXIT_SUCCESS);
+	return (ZAPPY_EXIT_SUCCESS);
 }
 
 int poll_loop(server_config_t *server_config)
@@ -51,7 +51,7 @@ int poll_loop(server_config_t *server_config)
 			continue;
 		if (server_config->poll_fd[i].revents != POLLIN)
 			cleanup_server_exit(server_config,
-				MYIRC_EXIT_FAILURE);
+				ZAPPY_EXIT_FAILURE);
 		if (server_config->poll_fd[i].fd ==
 			server_config->master->fd)
 			poll_accept_client(server_config);
@@ -59,5 +59,5 @@ int poll_loop(server_config_t *server_config)
 			poll_exec(server_config, i);
 	}
 	compress_socket_poll(server_config);
-	return (MYIRC_EXIT_SUCCESS);
+	return (ZAPPY_EXIT_SUCCESS);
 }
