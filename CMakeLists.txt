@@ -43,13 +43,33 @@ set(COMMAND_PARSER
         circbuff_utils.c
         include/circbuff.h)
 
+set(SOCKET
+        src/common/socket/socket_initialisation.c
+        src/common/socket/socket_cleanup.c
+        include/zappy_socket.h)
+
+
 set(MAP
         src/common/map/create_map.c
         src/common/map/free_map.c
         src/common/map/print_map.c
         include/map.h)
 
+set(SERVER
+        src/server/connection/poll_accept.c
+        src/server/connection/poll_cleanup.c
+        src/server/connection/poll_initialisation.c
+        src/server/connection/poll_loop.c
+        include/server_struct.h
+        include/server_const.h
+        include/server_function.h)
+
 set(CLIENT)
 
-add_executable(client src/ai_client/main.c ${CLIENT} ${COMMON} ${CMD_PARSER}
+add_executable(server src/ai_client/main.c ${CLIENT} ${LKN_LIST}
+        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER}
+        ${MAP})
+
+add_executable(client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
+        ${CMD_PARSER} ${SOCKET}
         ${MAP})
