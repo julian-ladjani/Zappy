@@ -37,14 +37,14 @@ int user_nick_search_criteria(void *user, void *nick);
 int user_name_search_criteria(void *user, void *name);
 int user_fd_search_criteria(void *user, void *fd);
 server_user_t *get_user_by_fd(server_config_t *server_config, int fd);
-int channel_name_search_criteria(void *channel, void *name);
-int user_no_channel_search_criteria(void *user, void *name);
-void channel_name_reply(list_t *channel, server_user_t *user, char *name);
+int team_name_search_criteria(void *team, void *name);
+int user_no_team_search_criteria(void *user, void *name);
+void team_name_reply(list_t *team, server_user_t *user, char *name);
 void user_send_message(server_user_t *user, char *message);
-void channel_send_message(server_team_t *channel, char *message);
-void user_send_message_users_same_channel(server_config_t *server_config,
+void team_send_message(server_team_t *team, char *message);
+void user_send_message_users_same_team(server_config_t *server_config,
 	server_user_t *user, char *message);
-void channel_priv_msg_send_message(server_team_t *channel, char *message,
+void team_priv_msg_send_message(server_team_t *team, char *message,
 	server_user_t *cur_user);
 
 void cleanup_user_list_elem(void *elem);
@@ -56,7 +56,7 @@ void cleanup_socket_poll(struct pollfd *poll_fd);
 void compress_socket_poll(server_config_t *server_config);
 void close_socket_poll(server_config_t *server_config, int index);
 void cleanup_command(command_t *command);
-void cleanup_channel_list_elem(void *elem);
+void cleanup_team_list_elem(void *elem);
 void cleanup_teams(list_t *server_teams);
 
 void fill_command_arg(char **args, char *command_arg);

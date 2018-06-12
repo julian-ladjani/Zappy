@@ -44,12 +44,12 @@ int user_name_search_criteria(void *user, void *name)
 	return (0);
 }
 
-int user_no_channel_search_criteria(void *user,
+int user_no_team_search_criteria(void *user,
 	__attribute__((unused)) void *name)
 {
 	if (user == NULL)
 		return (0);
-	if (((server_user_t *) user)->channels == NULL)
+	if (((server_user_t *) user)->teams == NULL)
 		return (1);
 	return (0);
 }

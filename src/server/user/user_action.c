@@ -14,21 +14,21 @@ void user_send_message(server_user_t *user, char *message)
 	dprintf(user->fd, "%s\r\n", message);
 }
 
-static int channel_lists_have_same_elem(list_t *channel_list,
-	list_t *o_channel_list)
+static int team_lists_have_same_elem(list_t *team_list,
+	list_t *o_team_list)
 {
-	if (o_channel_list == NULL || channel_list == NULL)
+	if (o_team_list == NULL || team_list == NULL)
 		return (ZAPPY_EXIT_FAILURE);
-	while (channel_list != NULL) {
-		if (list_get_elem_with_content(o_channel_list,
-			channel_list->elem) != NULL)
+	while (team_list != NULL) {
+		if (list_get_elem_with_content(o_team_list,
+			team_list->elem) != NULL)
 			return (ZAPPY_EXIT_SUCCESS);
-		channel_list = channel_list->next;
+		team_list = team_list->next;
 	}
 	return (ZAPPY_EXIT_FAILURE);
 }
 
-void user_send_message_users_same_channel(server_config_t *server_config,
+void user_send_message_users_same_team(server_config_t *server_config,
 	server_user_t *user, char *message)
 {
 	list_t *users;
@@ -41,7 +41,7 @@ void user_send_message_users_same_channel(server_config_t *server_config,
 		o_user = users->elem;
 		if (o_user != NULL &&
 			o_user->logged_state != ZAPPY_USER_QUIT &&
-			channel_lists_have_same_elem(user->teams,
+			team_lists_have_same_elem(user->teams,
 				o_user->teams) == ZAPPY_EXIT_SUCCESS)
 			dprintf(o_user->fd, "%s\r\n", message);
 		users = users->next;

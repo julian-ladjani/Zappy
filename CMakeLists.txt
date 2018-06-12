@@ -62,6 +62,10 @@ set(SERVER
         src/server/connection/poll_cleanup.c
         src/server/connection/poll_initialisation.c
         src/server/connection/poll_loop.c
+        src/server/team/team_action.c
+        src/server/team/team_cleanup.c
+        src/server/team/team_initialisation.c
+        src/server/team/team_search.c
         src/server/user/user_action.c
         src/server/user/user_cleanup.c
         src/server/user/user_config_check_file.c
