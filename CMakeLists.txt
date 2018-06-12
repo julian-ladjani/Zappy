@@ -84,13 +84,11 @@ set(SERVER
 
 set(CLIENT)
 
-add_executable(server src/ai_client/main.c ${CLIENT} ${LKN_LIST}
-        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER}
-        ${MAP} ${SERVER})
+add_executable(server src/ai_client/main.c ${SERVER} ${LKN_LIST}
+        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})
 
 add_executable(client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
-        ${CMD_PARSER} ${SOCKET}
-        ${MAP})
+        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})
 
 target_link_libraries(client -lm)
 
