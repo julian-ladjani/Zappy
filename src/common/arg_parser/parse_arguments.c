@@ -65,7 +65,7 @@ static void *parse_argument_loop(arg_parser_input_t *input_data,
 	return (output_data);
 }
 
-void *parse_arguments(arg_parser_input_t *input_data)
+void *parse_program_arguments(arg_parser_input_t *input_data)
 {
 	regex_t *start_regex = NULL;
 	regex_t *stop_regex = NULL;

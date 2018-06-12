@@ -19,7 +19,7 @@ static ssize_t poll_exec_loop(server_config_t *server_config,
 	nb_read = user->circular_buffer->recv(user->fd,
 		user->circular_buffer, 512);
 	if (nb_read > 0) {
-		parse_command(server_config, user);
+		//parse_command(server_config, user);
 	}
 	return (nb_read);
 }

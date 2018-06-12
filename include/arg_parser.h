@@ -50,5 +50,6 @@ arg_parser_output_t *initialise_arg_parser_output(void);
 
 //use this
 arg_parser_input_t *initialise_arg_parser_input(void);
+void *parse_program_arguments(arg_parser_input_t *input_data);
 
 #endif //PSU_ZAPPY_2017_ARG_PARSER_H

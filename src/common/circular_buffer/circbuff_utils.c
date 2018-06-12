@@ -6,7 +6,7 @@
 */
 
 #include <unistd.h>
-#include "include/circbuff.h"
+#include "circbuff.h"
 
 char *circbuf_next(circbuf_t *cb, char *pos)
 {

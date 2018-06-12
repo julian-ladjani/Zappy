@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <memory.h>
 #include <stdlib.h>
-#include "include/circbuff.h"
+#include "circbuff.h"
 
 char *circbuf_bufferise(circbuf_t *cb)
 {
