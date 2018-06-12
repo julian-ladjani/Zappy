@@ -56,6 +56,7 @@ set(MAP
         src/common/map/map_free.c
         src/common/map/map_print.c
         src/common/map/map_vector.c
+        src/common/map/map_str_to_tile.c
         include/map.h)
 
 set(SERVER
@@ -73,7 +74,6 @@ set(SERVER
         src/server/team/team_search.c
         src/server/user/user_action.c
         src/server/user/user_cleanup.c
-        src/server/user/user_config_check_file.c
         src/server/user/user_get.c
         src/server/user/user_initialisation.c
         src/server/user/user_quit.c
