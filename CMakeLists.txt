@@ -31,7 +31,7 @@ set(LKN_LIST
 
 set(ARG_PARSER
         src/common/arg_parser/arg_parser_cleanup.c
-        src/common/arg_parser/arg_parser_initalisation.c
+        src/common/arg_parser/arg_parser_initialisation.c
         src/common/arg_parser/argument_regex.c
         src/common/arg_parser/parse_arguments.c
         include/arg_parser.h)
