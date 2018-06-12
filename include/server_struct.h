@@ -29,10 +29,10 @@ typedef struct server_user_s {
 	list_t *channels;
 } server_user_t;
 
-typedef struct server_channel_s {
+typedef struct server_team_s {
 	char *name;
 	list_t *users;
-} server_channel_t;
+} server_team_t;
 
 typedef union server_port_u {
 	uint8_t port_part[2];
@@ -48,19 +48,5 @@ typedef struct server_config_s {
 	nfds_t nfds;
 	struct pollfd poll_fd[ZAPPY_MAX_CLIENT + 1];
 } server_config_t;
-
-typedef struct command_s {
-	char *prefix;
-	char *command;
-	char *arg[15];
-	size_t command_len;
-} command_t;
-
-typedef struct server_command_s {
-	char *command;
-	void (*func)(server_config_t *server_config, server_user_t *user,
-		command_t *command);
-	user_logged_state_t state;
-} server_command_t;
 
 #endif //PSU_ZAPPY_2017_SERVER_STRUCT_H
