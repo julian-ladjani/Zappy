@@ -58,6 +58,10 @@ set(MAP
         include/map.h)
 
 set(SERVER
+        src/server/main.c
+        src/server/server_cleanup.c
+        src/server/server_initialisation.c
+        src/server/server_loop.c
         src/server/connection/poll_accept.c
         src/server/connection/poll_cleanup.c
         src/server/connection/poll_initialisation.c
