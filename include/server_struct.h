@@ -18,6 +18,7 @@
 #include "linked_list.h"
 #include "server_const.h"
 #include "zappy_socket.h"
+#include "parser.h"
 
 typedef struct server_user_s {
 	char *name;
