@@ -19,16 +19,20 @@
 #include "server_const.h"
 #include "zappy_socket.h"
 #include "parser.h"
+#include "map.h"
 
 typedef struct server_user_s {
+	int id;
 	char *name;
 	char *password;
 	char *nick;
 	circbuf_t *circular_buffer;
+	user_type_t type;
 	user_logged_state_t logged_state;
 	int fd;
 	list_t *teams;
 	list_t *commands;
+	tile_t inventory;
 } server_user_t;
 
 typedef struct server_team_s {
@@ -57,6 +61,7 @@ typedef struct server_config_s {
 	list_t *teams;
 	nfds_t nfds;
 	struct pollfd poll_fd[ZAPPY_MAX_CLIENT + 1];
+	map_t *map;
 } server_config_t;
 
 #endif //PSU_ZAPPY_2017_SERVER_STRUCT_H

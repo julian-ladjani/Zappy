@@ -46,10 +46,10 @@ cmdparams_t *parse_arguments(char *cmd, const char *sep)
 {
 	cmdparams_t *cmdparams = new_cmdparams(cmd, sep);
 
-	if (!cmdparams)
+	if (!cmdparams || !cmd)
 		return (NULL);
 	parse_parameters(cmdparams, cmd, sep);
-	return cmdparams;
+	return (cmdparams);
 }
 
 void free_arguments(cmdparams_t *cmd)

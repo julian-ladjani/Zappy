@@ -47,6 +47,7 @@ SRCS =	src/common/arg_parser/arg_parser_cleanup.c		\
 	src/server/ai_commands/right.c				\
 	src/server/ai_commands/set.c				\
 	src/server/ai_commands/take.c				\
+	src/server/commands/command_parse.c			\
 	src/server/connection/poll_accept.c			\
 	src/server/connection/poll_cleanup.c			\
 	src/server/connection/poll_initialisation.c		\
@@ -73,7 +74,7 @@ SRCS =	src/common/arg_parser/arg_parser_cleanup.c		\
 	src/server/main.c					\
 	src/server/server_cleanup.c				\
 	src/server/server_initialisation.c			\
-	src/server/server_loop.c				\
+	src/server/server_loop.c
 
 OBJDIR = obj
 

@@ -25,10 +25,15 @@ typedef enum server_state_e {
 	ZAPPY_SERVER_STOP,
 } server_state_t;
 
+typedef enum user_type_e {
+	ZAPPY_USER_AI,
+	ZAPPY_USER_GRAPHIC,
+} user_type_t;
+
 typedef enum user_logged_state_e {
-	ZAPPY_USER_ALL_STATUS,
+	ZAPPY_USER_NOT_CONNECTED = 1,
 	ZAPPY_USER_CONNECTED,
-	ZAPPY_USER_NOT_CONNECTED,
+	ZAPPY_USER_ALL_STATUS,
 	ZAPPY_USER_QUIT,
 } user_logged_state_t;
 
