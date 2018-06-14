@@ -48,12 +48,13 @@ typedef struct arg_parser_input_s {
 	size_t offset;
 	char **argv;
 	int argc;
-	arg_parser_occurrence_t *occurrence_action;
+	arg_parser_occurrence_t occurrence_action;
 	arg_parser_interval_t interval;
 	void *(*tokenize_func)(arg_parser_output_t *output, char *data);
 } arg_parser_input_t;
 
 //do not use this functions
+void cleanup_argument_parsing_output_args(arg_parser_output_t *output);
 void cleanup_regex(regex_t *regex);
 regex_t *init_regex(char *regex_string);
 int argument_check_regex(char *string, regex_t *regex);
@@ -69,4 +70,8 @@ void cleanup_argument_parsing_output(arg_parser_output_t *output);
 arg_parser_input_t *initialise_arg_parser_input(void);
 arg_parser_output_t *arg_parser_parse_arguments
 	(arg_parser_input_t *input_data);
+
+//parsing_functions
+void *parse_string_arg(arg_parser_output_t *output, char *data);
+
 #endif //PSU_ZAPPY_2017_ARG_PARSER_H

@@ -30,6 +30,7 @@ set(LKN_LIST
         include/linked_list.h)
 
 set(ARG_PARSER
+        src/common/arg_parser/parsing_functions/arg_parser_string.c
         src/common/arg_parser/arg_parser_cleanup.c
         src/common/arg_parser/arg_parser_initialisation.c
         src/common/arg_parser/argument_regex.c
