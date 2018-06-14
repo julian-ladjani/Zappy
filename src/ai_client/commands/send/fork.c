@@ -7,9 +7,8 @@
 
 #include "client.h"
 
-uint8_t clt_cmd_fork(client_config_t *client, void *params)
+uint8_t clt_cmd_fork(client_config_t *client, ...)
 {
 	(void) client;
-	(void) params;
 	return (1);
 }

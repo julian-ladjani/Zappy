@@ -95,7 +95,7 @@ set(CLIENT
         src/ai_client/commands/send/right.c
         src/ai_client/commands/send/set.c
         src/ai_client/commands/send/take.c
-        include/client.h)
+        include/client.h src/ai_client/help.c src/ai_client/connect.c src/ai_client/launch_server.c)
 
 add_executable(server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP} ${CIRCULAR_BUFFER})

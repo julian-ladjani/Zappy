@@ -7,9 +7,18 @@
 
 #include "client.h"
 
-uint8_t clt_cmd_incantation(client_config_t *client, void *params)
+uint8_t clt_cmd_incantation(client_config_t *client, char *msg, ...)
 {
 	(void) client;
-	(void) params;
+	return (1);
+}
+
+uint8_t clt_get_args_cmd_incantation(client_config_t *client, ...)
+{
+	va_list args;
+	char buf[1000];
+	va_start(args, client);
+	vsnprintf(buf, sizeof(buf), client, args );
+	va_end(args);
 	return (1);
 }
