@@ -108,9 +108,9 @@ set(CLIENT
 add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP} ${CIRCULAR_BUFFER})
 
-add_executable(zappy_client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
+add_executable(zappy_ai src/ai_client/main.c ${CLIENT} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})
 
-target_link_libraries(zappy_client -lm -lpthread)
+target_link_libraries(zappy_ai -lm -lpthread)
 
 target_link_libraries(zappy_server -lm)

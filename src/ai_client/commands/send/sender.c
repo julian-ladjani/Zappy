@@ -20,4 +20,5 @@ uint8_t send_request(send_cmd_t request_id, clt_config_t *client, ...)
 			va_end(av);
 		}
 	}
+	return (1);
 }

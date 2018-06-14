@@ -3,18 +3,57 @@ CC = gcc -g
 RM = rm -f
 
 CFLAGS += -I./include -Wall -Wextra
-LDFLAGS =
+LDFLAGS = -lm -lpthread
 
-NAME = server
+NAME = zappy_ai
 
-SRCS 	=	src/common/linked_list/linked_list_add.c                \
-		src/common/linked_list/linked_list_get.c		\
-            	src/common/linked_list/linked_list_delete.c		\
-		src/common/linked_list/linked_list_create.c		\
-		src/common/linked_list/linked_list_conditional.c	\
-		src/common/linked_list/linked_list_basic.c		\
-		src/common/linked_list/linked_list_advanced.c		\
-		src/common/linked_list/list_clean.c			\
+SRCS =	src/ai_client/main.c						\
+	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
+	src/common/arg_parser/arg_parser_cleanup.c			\
+	src/common/arg_parser/arg_parser_initialisation.c		\
+	src/common/arg_parser/argument_regex.c				\
+	src/common/arg_parser/parse_arguments.c				\
+	src/common/circular_buffer/circbuff.c				\
+	src/common/circular_buffer/circbuff_buf.c			\
+	src/common/circular_buffer/circbuff_file.c			\
+	src/common/circular_buffer/circbuff_print.c			\
+	src/common/circular_buffer/circbuff_strings.c			\
+	src/common/circular_buffer/circbuff_utils.c			\
+	src/common/command_parser/command_parser.c			\
+	src/common/linked_list/linked_list_add.c                	\
+	src/common/linked_list/linked_list_get.c			\
+        src/common/linked_list/linked_list_delete.c			\
+	src/common/linked_list/linked_list_create.c			\
+	src/common/linked_list/linked_list_conditional.c		\
+	src/common/linked_list/linked_list_basic.c			\
+	src/common/linked_list/linked_list_advanced.c			\
+	src/common/linked_list/list_clean.c				\
+	src/common/map/map_create.c					\
+	src/common/map/map_free.c					\
+	src/common/map/map_print.c					\
+	src/common/map/map_str_to_tile.c				\
+	src/common/map/map_tile_to_str.c				\
+	src/common/map/map_vector.c					\
+	src/common/socket/socket_cleanup.c				\
+	src/common/socket/socket_initialisation.c			\
+	src/common/utils/str_append.c					\
+	src/ai_client/commands/send/broadcast.c                         \
+        src/ai_client/commands/send/connect_nbr.c                       \
+        src/ai_client/commands/send/eject.c                             \
+        src/ai_client/commands/send/fork.c                              \
+        src/ai_client/commands/send/forward.c                           \
+        src/ai_client/commands/send/incantation.c                       \
+        src/ai_client/commands/send/inventory.c                         \
+        src/ai_client/commands/send/left.c                              \
+        src/ai_client/commands/send/look.c                              \
+        src/ai_client/commands/send/right.c                             \
+        src/ai_client/commands/send/set.c                               \
+        src/ai_client/commands/send/take.c                              \
+        src/ai_client/help.c                                            \
+        src/ai_client/connect.c                                         \
+        src/ai_client/launch_server.c                                   \
+        src/ai_client/launch_ai.c                                       \
+        src/ai_client/commands/send/sender.c                            \
 
 OBJDIR = obj
 

@@ -14,8 +14,14 @@
 
 void free_client_config(clt_config_t *client)
 {
+	if (!client)
+		return;
 	map_free(client->map);
-	free(client->server->socket);
+	if (client->server)
+		free(client->server->socket);
+	free(client->server);
+	client->server = NULL;
+	free(client);
 }
 
 static void init_server_socket_informations(
@@ -62,8 +68,8 @@ static void launch_threads(clt_config_t *client)
 	pthread_t thread_server;
 	pthread_t thread_ai;
 
-	pthread_create(&thread_server, NULL, launch_server, (void *) NULL);
-	pthread_create(&thread_ai, NULL, launch_ai, (void *) NULL);
+	pthread_create(&thread_server, NULL, launch_server, (void *) client);
+	pthread_create(&thread_ai, NULL, launch_ai, (void *) client);
 	pthread_join(thread_server, NULL);
 	pthread_join(thread_ai, NULL);
 }
@@ -72,8 +78,11 @@ int main(int ac, char **av)
 {
 	clt_config_t *client = init_config("127.0.0.1", 4242, "golelan");
 
-	if (!client || !init_server(client))
+	if (!client || !init_server(client)) {
+		free_client_config(client);
 		return (84);
+	}
 	launch_threads(client);
+	free_client_config(client);
 	return (0);
 }
