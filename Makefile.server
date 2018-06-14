@@ -3,24 +3,79 @@ CC = gcc -g
 RM = rm -f
 
 CFLAGS += -I./include -Wall -Wextra
-LDFLAGS =
+LDFLAGS = -lm
 
-NAME = server
+NAME = zappy_server
 
-SRCS 	= 	src/common/linked_list/linked_list_add.c				\
-		src/common/linked_list/linked_list_get.c				\
-		src/common/linked_list/linked_list_delete.c				\
-		src/common/linked_list/linked_list_create.c				\
-		src/common/linked_list/linked_list_conditional.c			\
-		src/common/linked_list/linked_list_basic.c				\
-		src/common/linked_list/linked_list_advanced.c				\
-		src/common/linked_list/list_clean.c					\
-		src/common/arg_parser/arg_parser_cleanup.c				\
-		src/common/arg_parser/arg_parser_initialisation.c			\
-		src/common/arg_parser/argument_regex.c					\
-		src/common/arg_parser/parse_arguments.c					\
-		src/common/socket/socket_cleanup.c					\
-		src/common/socket/socket_initialisation.c				\
+SRCS =	src/common/arg_parser/arg_parser_cleanup.c		\
+	src/common/arg_parser/arg_parser_initialisation.c	\
+	src/common/arg_parser/argument_regex.c			\
+	src/common/arg_parser/parse_arguments.c			\
+	src/common/circular_buffer/circbuff.c			\
+	src/common/circular_buffer/circbuff_buf.c		\
+	src/common/circular_buffer/circbuff_file.c		\
+	src/common/circular_buffer/circbuff_print.c		\
+	src/common/circular_buffer/circbuff_strings.c		\
+	src/common/circular_buffer/circbuff_utils.c		\
+	src/common/command_parser/command_parser.c		\
+	src/common/linked_list/linked_list_add.c                \
+	src/common/linked_list/linked_list_get.c		\
+        src/common/linked_list/linked_list_delete.c		\
+	src/common/linked_list/linked_list_create.c		\
+	src/common/linked_list/linked_list_conditional.c	\
+	src/common/linked_list/linked_list_basic.c		\
+	src/common/linked_list/linked_list_advanced.c		\
+	src/common/linked_list/list_clean.c			\
+	src/common/map/map_create.c				\
+	src/common/map/map_free.c				\
+	src/common/map/map_print.c				\
+	src/common/map/map_str_to_tile.c			\
+	src/common/map/map_tile_to_str.c			\
+	src/common/map/map_vector.c				\
+	src/common/socket/socket_cleanup.c			\
+	src/common/socket/socket_initialisation.c		\
+	src/common/utils/str_append.c				\
+	src/server/commands/command_parse.c			\
+	src/server/commands/command_exec.c			\
+	src/server/commands/ai_commands/broadcast.c		\
+	src/server/commands/ai_commands/connect_nbr.c		\
+	src/server/commands/ai_commands/eject.c			\
+	src/server/commands/ai_commands/fork.c			\
+	src/server/commands/ai_commands/forward.c		\
+	src/server/commands/ai_commands/incantation.c		\
+	src/server/commands/ai_commands/inventory.c		\
+	src/server/commands/ai_commands/left.c			\
+	src/server/commands/ai_commands/look.c			\
+	src/server/commands/ai_commands/right.c			\
+	src/server/commands/ai_commands/set.c			\
+	src/server/commands/ai_commands/take.c			\
+	src/server/commands/graphic_commands/bct.c		\
+	src/server/commands/graphic_commands/mct.c		\
+	src/server/commands/graphic_commands/msz.c		\
+	src/server/commands/graphic_commands/pln.c		\
+	src/server/commands/graphic_commands/plv.c		\
+	src/server/commands/graphic_commands/ppo.c		\
+	src/server/commands/graphic_commands/sgt.c		\
+	src/server/commands/graphic_commands/sst.c		\
+	src/server/commands/graphic_commands/tna.c		\
+	src/server/connection/poll_accept.c			\
+	src/server/connection/poll_cleanup.c			\
+	src/server/connection/poll_initialisation.c		\
+	src/server/connection/poll_loop.c			\
+	src/server/team/team_action.c				\
+	src/server/team/team_cleanup.c				\
+	src/server/team/team_initialisation.c			\
+	src/server/team/team_search.c				\
+	src/server/user/user_action.c				\
+	src/server/user/user_cleanup.c				\
+	src/server/user/user_get.c				\
+	src/server/user/user_initialisation.c			\
+	src/server/user/user_quit.c				\
+	src/server/user/user_search.c				\
+	src/server/main.c					\
+	src/server/server_cleanup.c				\
+	src/server/server_initialisation.c			\
+	src/server/server_loop.c
 
 OBJDIR = obj
 

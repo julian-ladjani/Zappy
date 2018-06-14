@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "include/circbuff.h"
+#include "circbuff.h"
 
 void circbuf_free(circbuf_t *cb)
 {

@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <memory.h>
 #include <stdlib.h>
-#include "include/circbuff.h"
+#include "circbuff.h"
 
 void circbuf_print(int fd, circbuf_t *cb)
 {

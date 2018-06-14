@@ -19,7 +19,8 @@ static server_config_t *initialisation(char **av)
 	if (server_config == NULL)
 		return (NULL);
 	server_config->users = NULL;
-	server_config->master = initialise_socket(server_config->port);
+	server_config->master = initialise_socket(
+		server_config->arguments->port);
 	if (server_config->master == NULL ||
 		initialise_socket_poll(server_config) == ZAPPY_EXIT_FAILURE) {
 		cleanup_server(server_config);
@@ -34,10 +35,6 @@ int main(int ac, char **av)
 
 	if (ac < 2) {
 		printf("Error: Too few arguments\n");
-		exit(ZAPPY_EXIT_FAILURE);
-	}
-	if (ac > 2) {
-		printf("Error: Too many arguments\n");
 		exit(ZAPPY_EXIT_FAILURE);
 	}
 	server_config = initialisation(av);

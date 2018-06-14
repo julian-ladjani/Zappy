@@ -21,7 +21,7 @@ static server_config_t *initialise_server_configuration(unsigned short port)
 	}
 	server_config->users = NULL;
 	server_config->master = NULL;
-	server_config->port = port;
+	server_config->arguments->port = port;
 	server_config->teams = NULL;
 	server_config->state = ZAPPY_SERVER_STOP;
 	return (server_config);

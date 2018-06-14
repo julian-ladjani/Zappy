@@ -52,9 +52,11 @@ set(SOCKET
 
 
 set(MAP
-        src/common/map/create_map.c
-        src/common/map/free_map.c
-        src/common/map/print_map.c
+        src/common/map/map_create.c
+        src/common/map/map_free.c
+        src/common/map/map_print.c
+        src/common/map/map_vector.c
+        src/common/map/map_str_to_tile.c
         include/map.h)
 
 set(SERVER
@@ -72,7 +74,6 @@ set(SERVER
         src/server/team/team_search.c
         src/server/user/user_action.c
         src/server/user/user_cleanup.c
-        src/server/user/user_config_check_file.c
         src/server/user/user_get.c
         src/server/user/user_initialisation.c
         src/server/user/user_quit.c
@@ -83,10 +84,12 @@ set(SERVER
 
 set(CLIENT)
 
-add_executable(server src/ai_client/main.c ${CLIENT} ${LKN_LIST}
-        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER}
-        ${MAP} ${SERVER})
+add_executable(server src/ai_client/main.c ${SERVER} ${LKN_LIST}
+        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})
 
 add_executable(client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
-        ${CMD_PARSER} ${SOCKET}
-        ${MAP})
+        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})
+
+target_link_libraries(client -lm)
+
+target_link_libraries(server -lm)

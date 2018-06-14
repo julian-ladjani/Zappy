@@ -16,7 +16,6 @@ typedef struct command_parameters_s
 {
 	char **args;
 	char *name;
-	int from;
 	unsigned int nb_args;
 } cmdparams_t;
 
@@ -27,7 +26,7 @@ typedef enum access_mode_s
 	ZPY_NOT_CONNECTED
 } access_mode_t;
 
-cmdparams_t *parse_arguments(char *cmd, const char *sep, int from);
-void free_arguments(cmdparams_t *cmd);
+cmdparams_t *parse_arguments(char *cmd, const char *sep);
+void free_arguments(void *cmd);
 
 #endif /* PSU_ZAPPY_2017_CMD_PARSER_H */

@@ -12,7 +12,8 @@
 
 int main(int ac, char **av)
 {
-	map_t *map = create_map(100, 100);
-	print_map(map);
+	vec_t v = {(size_t) atoi(av[1]), (size_t) atoi(av[2])};
+	int o = map_get_orientation(v);
+	printf("%d : ", o);
 	return (0);
 }
