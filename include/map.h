@@ -23,7 +23,7 @@
 #define MAX_PHIRAS() 4
 #define MAX_THYSTAME() 2
 
-enum object {
+typedef enum object {
 	FOOD = 0,
 	LINEMATE,
 	DERAUMERE,
@@ -31,7 +31,7 @@ enum object {
 	MENDIANE,
 	PHIRAS,
 	THYSTAME
-};
+} object_t;
 
 typedef size_t tile_t[7];
 

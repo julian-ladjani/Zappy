@@ -7,8 +7,10 @@
 
 #include "server_struct.h"
 
-uint8_t srv_cmd_msz(server_config_t *server,
-			server_user_t *user, cmdparams_t *cmd)
+uint8_t srv_cmd_msz(server_config_t *server, server_user_t *user,
+			__attribute__((unused))cmdparams_t *cmd)
 {
-	return (1);
+	dprintf(user->fd, "msz %lu %lu\n", server->map->width,
+		server->map->height);
+	return (0);
 }

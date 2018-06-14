@@ -52,7 +52,7 @@ SRCS =	src/common/arg_parser/arg_parser_cleanup.c		\
 	src/server/commands/graphic_commands/bct.c		\
 	src/server/commands/graphic_commands/mct.c		\
 	src/server/commands/graphic_commands/msz.c		\
-	src/server/commands/graphic_commands/pln.c		\
+	src/server/commands/graphic_commands/pin.c		\
 	src/server/commands/graphic_commands/plv.c		\
 	src/server/commands/graphic_commands/ppo.c		\
 	src/server/commands/graphic_commands/sgt.c		\
@@ -72,6 +72,7 @@ SRCS =	src/common/arg_parser/arg_parser_cleanup.c		\
 	src/server/user/user_initialisation.c			\
 	src/server/user/user_quit.c				\
 	src/server/user/user_search.c				\
+	src/server/find_player.c				\
 	src/server/main.c					\
 	src/server/server_cleanup.c				\
 	src/server/server_initialisation.c			\

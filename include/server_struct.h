@@ -36,6 +36,7 @@ typedef struct server_user_s {
 	cardinal_dir orientation;
 	unsigned int x;
 	unsigned int y;
+	unsigned int level;
 } server_user_t;
 
 typedef struct server_team_s {
@@ -60,6 +61,7 @@ typedef struct server_config_s {
 	server_argument_t *arguments;
 	zappy_socket_t *master;
 	server_state_t state;
+	unsigned short port;
 	list_t *users;
 	list_t *teams;
 	nfds_t nfds;

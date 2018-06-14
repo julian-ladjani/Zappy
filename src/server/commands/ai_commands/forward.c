@@ -22,8 +22,9 @@ uint8_t srv_cmd_forward(server_config_t *server,
 		user->y = user->y == 0 ? server->map->width - 1 : user->y - 1;
 		break;
 	case (WEST):
-		break;
 		user->x = user->x == 0 ? server->map->height - 1 : user->x - 1;
+		break;
 	}
-	return (1);
+	dprintf(user->fd, "ok\n");
+	return (0);
 }

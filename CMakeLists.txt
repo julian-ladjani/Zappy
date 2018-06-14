@@ -83,14 +83,32 @@ set(SERVER
         src/server/server_parse_arg.c
         src/server/server_parse_arg_func.c)
 
-set(CLIENT)
+set(CLIENT
+        include/client.h
+        include/client_sender.h
+        src/ai_client/commands/send/broadcast.c
+        src/ai_client/commands/send/connect_nbr.c
+        src/ai_client/commands/send/eject.c
+        src/ai_client/commands/send/fork.c
+        src/ai_client/commands/send/forward.c
+        src/ai_client/commands/send/incantation.c
+        src/ai_client/commands/send/inventory.c
+        src/ai_client/commands/send/left.c
+        src/ai_client/commands/send/look.c
+        src/ai_client/commands/send/right.c
+        src/ai_client/commands/send/set.c
+        src/ai_client/commands/send/take.c
+        src/ai_client/help.c
+        src/ai_client/connect.c
+        src/ai_client/launch_server.c
+        src/ai_client/commands/send/sender.c)
 
 add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP} ${CIRCULAR_BUFFER})
 
-add_executable(client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
+add_executable(zappy_client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})
 
-target_link_libraries(client -lm)
+target_link_libraries(zappy_client -lm)
 
 target_link_libraries(zappy_server -lm)
