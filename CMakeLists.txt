@@ -5,7 +5,7 @@ set(CMAKE_C_STANDARD 99)
 include_directories(include)
 
 
-set(CIRCULAR BUFFER
+set(CIRCULAR_BUFFER
         src/common/circular_buffer/circbuff.c
         src/common/circular_buffer/circbuff_buf.c
         src/common/circular_buffer/circbuff_file.c
@@ -60,7 +60,6 @@ set(MAP
         include/map.h)
 
 set(SERVER
-        src/server/main.c
         src/server/server_cleanup.c
         src/server/server_initialisation.c
         src/server/server_loop.c
@@ -80,16 +79,18 @@ set(SERVER
         src/server/user/user_search.c
         include/server_struct.h
         include/server_const.h
-        include/server_function.h)
+        include/server_function.h
+        src/server/server_parse_arg.c
+        src/server/server_parse_arg_func.c)
 
 set(CLIENT)
 
-add_executable(server src/ai_client/main.c ${SERVER} ${LKN_LIST}
-        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})
+add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
+        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP} ${CIRCULAR_BUFFER})
 
 add_executable(client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})
 
 target_link_libraries(client -lm)
 
-target_link_libraries(server -lm)
+target_link_libraries(zappy_server -lm)

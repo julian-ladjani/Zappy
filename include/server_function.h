@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "server_struct.h"
+#include "arg_parser.h"
 
 server_config_t *initialise_server(char *s_port);
 server_user_t *initialise_server_user(int fd);
@@ -50,6 +51,15 @@ void cleanup_teams(list_t *server_teams);
 void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message);
 void user_connect(server_user_t *user);
+
+//arg_parser
+
+arg_parser_output_t *get_arg(arg_parser_input_t *input);
+server_argument_t *parse_server_argument(int ac, char **av);
+void parse_argument_port(server_argument_t *server_argument,
+	arg_parser_input_t *input);
+
+//commands
 
 uint8_t srv_cmd_msz(server_config_t *server, server_user_t *user,
 			cmdparams_t *cmd);

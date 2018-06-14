@@ -75,7 +75,9 @@ SRCS =	src/common/arg_parser/arg_parser_cleanup.c		\
 	src/server/main.c					\
 	src/server/server_cleanup.c				\
 	src/server/server_initialisation.c			\
-	src/server/server_loop.c
+	src/server/server_loop.c				\
+	src/server/server_parse_arg.c				\
+	src/server/server_parse_arg_func.c			\
 
 OBJDIR = obj
 

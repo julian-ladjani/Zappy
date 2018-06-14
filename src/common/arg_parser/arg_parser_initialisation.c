@@ -31,6 +31,8 @@ arg_parser_output_t *initialise_arg_parser_output(void)
 		return (NULL);
 	output->args = NULL;
 	output->nb_arg = 0;
+	output->output_type = ARG_PARSER_OUTPUT_NULL;
+	output->data_size = 0;
 	output->next_arg = NULL;
-	return (NULL);
+	return (output);
 }

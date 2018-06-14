@@ -32,14 +32,17 @@ static server_config_t *initialisation(char **av)
 int main(int ac, char **av)
 {
 	server_config_t *server_config;
+	server_argument_t *server_argument;
 
 	if (ac < 2) {
 		printf("Error: Too few arguments\n");
 		exit(ZAPPY_EXIT_FAILURE);
 	}
-	server_config = initialisation(av);
+	server_argument = parse_server_argument(ac, av);
+	printf("%d\n", server_argument->port);
+	/*server_config = initialisation(av);
 	if (server_config == NULL)
 		exit(ZAPPY_EXIT_FAILURE);
 	server_main_loop(server_config);
-	cleanup_server_exit(server_config, ZAPPY_EXIT_SUCCESS);
+	cleanup_server_exit(server_config, ZAPPY_EXIT_SUCCESS);*/
 }
