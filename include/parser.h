@@ -27,6 +27,6 @@ typedef enum access_mode_s
 } access_mode_t;
 
 cmdparams_t *parse_arguments(char *cmd, const char *sep);
-void free_arguments(cmdparams_t *cmd);
+void free_arguments(void *cmd);
 
 #endif /* PSU_ZAPPY_2017_CMD_PARSER_H */

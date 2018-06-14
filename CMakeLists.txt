@@ -102,12 +102,12 @@ set(CLIENT
         src/ai_client/launch_server.c
         src/ai_client/commands/send/sender.c)
 
-add_executable(server src/server/main.c ${SERVER} ${LKN_LIST}
+add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP} ${CIRCULAR_BUFFER})
 
-add_executable(client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
+add_executable(zappy_client src/ai_client/main.c ${CLIENT} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP})
 
-target_link_libraries(client -lm)
+target_link_libraries(zappy_client -lm)
 
-target_link_libraries(server -lm)
+target_link_libraries(zappy_server -lm)

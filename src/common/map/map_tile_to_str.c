@@ -24,7 +24,10 @@ char *tile_to_str(tile_t tile)
 
 char *tile_to_str_quantity(tile_t tile)
 {
-	return (asprintf("%u %u %u %u %u %u %u", tile[FOOD], tile[LINEMATE],
-			tile[DERAUMERE], tile[SIBUR], tile[MENDIANE],
-			tile[PHIRAS], tile[THYSTAME]));
+	char *str = NULL;
+
+	asprintf(&str, "%lu %lu %lu %lu %lu %lu %lu", tile[FOOD],
+		tile[LINEMATE], tile[DERAUMERE], tile[SIBUR],
+		tile[MENDIANE], tile[PHIRAS], tile[THYSTAME]);
+	return (str);
 }
