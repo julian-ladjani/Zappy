@@ -7,8 +7,13 @@
 
 #include "client.h"
 
-uint8_t clt_cmd_rigth(client_config_t *client, ...)
+uint8_t clt_cmd_right(clt_config_t *client)
 {
 	(void) client;
 	return (1);
+}
+
+uint8_t clt_cmd_get_args_right(clt_config_t *client, ...)
+{
+	return (clt_cmd_right(client));
 }

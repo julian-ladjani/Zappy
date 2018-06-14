@@ -11,49 +11,57 @@
 #include "../../include/parser.h"
 #include "../../include/map.h"
 
-void free_client_config(client_config_t *client)
+void free_client_config(clt_config_t *client)
 {
 	map_free(client->map);
-	free(client->server_socket);
+	free(client->server->socket);
 }
 
 static void init_server_socket_informations(
-	char *machine, in_port_t port, client_config_t *client)
+	char *machine, in_port_t port, clt_config_t *client)
 {
-	client->server_socket = malloc(sizeof(zappy_socket_t));
-	if (!client->server_socket) {
+	client->server = malloc(sizeof(clt_socket_t));
+	if (!client->server) {
 		printf("Invalid malloc\n");
 		free(client);
-		client->server_socket = NULL;
+		client->server->socket = NULL;
 		return;
 	}
-	client->server_socket->port = port;
-	client->server_socket->ip = machine;
+	client->server->socket = malloc(sizeof(zappy_socket_t));
+	if (!client->server->socket) {
+		printf("Invalid malloc\n");
+		free(client->server);
+		free(client);
+		client->server->socket = NULL;
+		return;
+	}
+	client->server->socket->port = port;
+	client->server->socket->ip = machine;
 }
 
-static client_config_t *init_config(
+static clt_config_t *init_config(
 	char *machine, in_port_t port, char *team)
 {
-	client_config_t *client = calloc(
-		sizeof(client_config_t), sizeof(client_config_t));
+	clt_config_t *client = calloc(
+		sizeof(clt_config_t), sizeof(clt_config_t));
 
 	if (!client)
 		return (NULL);
 	init_server_socket_informations(machine, port, client);
-	if (!client->server_socket)
+	if (!client->server)
 		return (NULL);
-	client->server->fd = -1;
-	client->server->events = POLLIN;
+	client->server->pollfd->fd = -1;
+	client->server->pollfd->events = POLLIN;
 	client->team = team;
 	return (client);
 }
 
 int main(int ac, char **av)
 {
-	client_config_t *client = init_config("127.0.0.1", 4242, "golelan");
+	clt_config_t *client = init_config("127.0.0.1", 4242, "golelan");
 
 	if (!client || !init_server(client))
 		return (84);
-	launch_client(client);
+//	launch_client(client);
 	return (0);
 }

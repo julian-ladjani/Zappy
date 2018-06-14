@@ -8,7 +8,7 @@
 */
 
 
-void show_help()
+void show_help_client()
 {
 	printf("USAGE: ./zappy_ai -p port -n name -h machine\n");
 	printf("\tport\tis the port number\n");
