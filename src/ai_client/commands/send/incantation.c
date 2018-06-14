@@ -12,7 +12,8 @@ uint8_t clt_cmd_incantation(clt_config_t *client)
 	return (1);
 }
 
-uint8_t clt_cmd_get_args_incantation(clt_config_t *client, ...)
+uint8_t clt_cmd_get_args_incantation(clt_config_t *client, va_list *av)
 {
 	return (clt_cmd_incantation(client));
+	(void) av;
 }

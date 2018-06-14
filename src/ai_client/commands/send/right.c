@@ -13,7 +13,8 @@ uint8_t clt_cmd_right(clt_config_t *client)
 	return (1);
 }
 
-uint8_t clt_cmd_get_args_right(clt_config_t *client, ...)
+uint8_t clt_cmd_get_args_right(clt_config_t *client, va_list *av)
 {
 	return (clt_cmd_right(client));
+	(void) av;
 }
