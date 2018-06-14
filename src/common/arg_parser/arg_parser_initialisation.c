@@ -16,6 +16,7 @@ arg_parser_input_t *initialise_arg_parser_input(void)
 		return (NULL);
 	input->argv = NULL;
 	input->offset = 0;
+	input->occurrence_action = ARG_PARSER_OVERWRITE;
 	input->start_regexp = NULL;
 	input->stop_regexp = NULL;
 	input->tokenize_func = NULL;
