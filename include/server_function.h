@@ -51,6 +51,8 @@ void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message);
 void user_connect(server_user_t *user);
 
+server_user_t *find_player_by_id(server_config_t *server, int id);
+
 uint8_t srv_cmd_msz(server_config_t *server, server_user_t *user,
 			cmdparams_t *cmd);
 uint8_t srv_cmd_bct(server_config_t *server, server_user_t *user,
@@ -63,7 +65,7 @@ uint8_t srv_cmd_ppo(server_config_t *server, server_user_t *user,
 			cmdparams_t *cmd);
 uint8_t srv_cmd_plv(server_config_t *server, server_user_t *user,
 			cmdparams_t *cmd);
-uint8_t srv_cmd_pln(server_config_t *server, server_user_t *user,
+uint8_t srv_cmd_pin(server_config_t *server, server_user_t *user,
 			cmdparams_t *cmd);
 uint8_t srv_cmd_sgt(server_config_t *server, server_user_t *user,
 			cmdparams_t *cmd);

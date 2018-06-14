@@ -36,6 +36,7 @@ typedef struct server_user_s {
 	cardinal_dir orientation;
 	unsigned int x;
 	unsigned int y;
+	unsigned int level;
 } server_user_t;
 
 typedef struct server_team_s {
