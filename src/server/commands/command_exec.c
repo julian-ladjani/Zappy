@@ -13,10 +13,14 @@ static void connect_user(server_config_t *server_config,
 	user->logged_state = ZAPPY_USER_CONNECTED;
 	if (team) {
 		user->type = ZAPPY_USER_AI;
+		user->id = 1;
 		list_add_elem_at_pos(team->users, user, LIST_END);
 	} else {
 		user->type = ZAPPY_USER_GRAPHIC;
+		user->id = -1;
 	}
+	dprintf(user->fd, "%d\n%lu %lu\n", user->id,
+		server_config->map->width, server_config->map->height);
 }
 
 static void try_to_connect_user(server_config_t *server_config,

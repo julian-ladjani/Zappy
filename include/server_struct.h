@@ -33,6 +33,9 @@ typedef struct server_user_s {
 	list_t *teams;
 	list_t *commands;
 	tile_t inventory;
+	cardinal_dir orientation;
+	unsigned int x;
+	unsigned int y;
 } server_user_t;
 
 typedef struct server_team_s {
