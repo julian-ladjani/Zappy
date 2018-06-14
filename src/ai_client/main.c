@@ -8,8 +8,9 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <client.h>
-#include "../../include/parser.h"
-#include "../../include/map.h"
+#include <pthread.h>
+#include "parser.h"
+#include "map.h"
 
 void free_client_config(clt_config_t *client)
 {
@@ -56,12 +57,23 @@ static clt_config_t *init_config(
 	return (client);
 }
 
+static void launch_threads(clt_config_t *client)
+{
+	pthread_t thread_server;
+	pthread_t thread_ai;
+
+	pthread_create(&thread_server, NULL, launch_server, (void *) NULL);
+	pthread_create(&thread_ai, NULL, launch_ai, (void *) NULL);
+	pthread_join(thread_server, NULL);
+	pthread_join(thread_ai, NULL);
+}
+
 int main(int ac, char **av)
 {
 	clt_config_t *client = init_config("127.0.0.1", 4242, "golelan");
 
 	if (!client || !init_server(client))
 		return (84);
-//	launch_client(client);
+	launch_threads(client);
 	return (0);
 }

@@ -7,18 +7,19 @@
 
 #include <client.h>
 
-int launch_server(clt_config_t *client)
+void *launch_server(void *clt)
 {
 	int poll_rv;
+	clt_config_t *client = (clt_config_t *)clt;
 
 	while (!client->dead) {
 		poll_rv = poll(client->server->pollfd, 1, 200);
 		if (poll_rv < 0) {
 			dprintf(2, "poll() failed\n");
-			return (1);
+			return (NULL);
 		}
 		if (poll_rv >= 0 && client->server->pollfd->revents == POLLIN)
 			printf("Receive Something\n");
 	}
-	return (0);
+	return (NULL);
 }
