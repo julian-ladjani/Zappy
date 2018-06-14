@@ -52,8 +52,13 @@ cmdparams_t *parse_arguments(char *cmd, const char *sep)
 	return (cmdparams);
 }
 
-void free_arguments(cmdparams_t *cmd)
+void free_arguments(void *cmd)
 {
-	free(cmd->args);
-	free(cmd);
+	cmdparams_t *cmdparams = (cmdparams_t *)cmd;
+
+	if(!cmdparams)
+		return;
+	if (cmdparams->args)
+		free(cmdparams->args);
+	free(cmdparams);
 }

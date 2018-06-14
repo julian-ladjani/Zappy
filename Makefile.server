@@ -35,32 +35,33 @@ SRCS =	src/common/arg_parser/arg_parser_cleanup.c		\
 	src/common/socket/socket_cleanup.c			\
 	src/common/socket/socket_initialisation.c		\
 	src/common/utils/str_append.c				\
-	src/server/ai_commands/broadcast.c			\
-	src/server/ai_commands/connect_nbr.c			\
-	src/server/ai_commands/eject.c				\
-	src/server/ai_commands/fork.c				\
-	src/server/ai_commands/forward.c			\
-	src/server/ai_commands/incantation.c			\
-	src/server/ai_commands/inventory.c			\
-	src/server/ai_commands/left.c				\
-	src/server/ai_commands/look.c				\
-	src/server/ai_commands/right.c				\
-	src/server/ai_commands/set.c				\
-	src/server/ai_commands/take.c				\
 	src/server/commands/command_parse.c			\
+	src/server/commands/command_exec.c			\
+	src/server/commands/ai_commands/broadcast.c		\
+	src/server/commands/ai_commands/connect_nbr.c		\
+	src/server/commands/ai_commands/eject.c			\
+	src/server/commands/ai_commands/fork.c			\
+	src/server/commands/ai_commands/forward.c		\
+	src/server/commands/ai_commands/incantation.c		\
+	src/server/commands/ai_commands/inventory.c		\
+	src/server/commands/ai_commands/left.c			\
+	src/server/commands/ai_commands/look.c			\
+	src/server/commands/ai_commands/right.c			\
+	src/server/commands/ai_commands/set.c			\
+	src/server/commands/ai_commands/take.c			\
+	src/server/commands/graphic_commands/bct.c		\
+	src/server/commands/graphic_commands/mct.c		\
+	src/server/commands/graphic_commands/msz.c		\
+	src/server/commands/graphic_commands/pln.c		\
+	src/server/commands/graphic_commands/plv.c		\
+	src/server/commands/graphic_commands/ppo.c		\
+	src/server/commands/graphic_commands/sgt.c		\
+	src/server/commands/graphic_commands/sst.c		\
+	src/server/commands/graphic_commands/tna.c		\
 	src/server/connection/poll_accept.c			\
 	src/server/connection/poll_cleanup.c			\
 	src/server/connection/poll_initialisation.c		\
 	src/server/connection/poll_loop.c			\
-	src/server/graphic_commands/bct.c			\
-	src/server/graphic_commands/mct.c			\
-	src/server/graphic_commands/msz.c			\
-	src/server/graphic_commands/pln.c			\
-	src/server/graphic_commands/plv.c			\
-	src/server/graphic_commands/ppo.c			\
-	src/server/graphic_commands/sgt.c			\
-	src/server/graphic_commands/sst.c			\
-	src/server/graphic_commands/tna.c			\
 	src/server/team/team_action.c				\
 	src/server/team/team_cleanup.c				\
 	src/server/team/team_initialisation.c			\

@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 
+#define ZAPPY_GRAPHIC_TEAM_NAME ("SPECTATOR")
 #define ZAPPY_USER_DATA_PATH ("./data/user/")
 #define ZAPPY_USER_DATA_EXTENSION (".ftpuser")
 #define ZAPPY_MAX_CLIENT (1024)
