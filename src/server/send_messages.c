@@ -19,10 +19,3 @@ void send_msg_to_all_graphic(server_config_t *server, char *msg)
 		user_list = user_list->next;
 	}
 }
-
-void send_msg_to_all_ai(server_config_t *server, vec_t from, char *msg)
-{
-	(void)server;
-	(void)from;
-	(void)msg;
-}
