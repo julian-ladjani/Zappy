@@ -37,6 +37,7 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
 	src/common/socket/socket_initialisation.c			\
 	src/common/utils/str_append.c					\
 	src/common/utils/tab_cpy.c					\
+	src/server/argument/cleanup_server_arguments.c			\
 	src/server/argument/server_parse_arg.c				\
         src/server/argument/server_parse_arg_func.c			\
 	src/server/commands/command_parse.c				\
