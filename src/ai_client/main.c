@@ -66,20 +66,6 @@ static clt_config_t *init_config(
 	return (client);
 }
 
-static void launch_threads(clt_config_t *client)
-{
-	pthread_t thread_server;
-	pthread_t thread_ai;
-
-	printf("Launch Threads\n");
-	pthread_create(&thread_server, NULL, launch_server, (void *) client);
-	pthread_create(&thread_ai, NULL, launch_ai, (void *) client);
-	pthread_join(thread_server, NULL);
-	printf("Server Thread closed\n");
-	pthread_join(thread_ai, NULL);
-	printf("Ai Thread closed\n");
-}
-
 int main(int ac, char **av)
 {
 	clt_config_t *client = init_config("127.0.0.1", 4242, "golelan");
@@ -88,7 +74,9 @@ int main(int ac, char **av)
 		free_client_config(client);
 		return (84);
 	}
-	launch_threads(client);
+	while (client->status == ZAPPY_CLT_WAITING)
+		if (handle_poll(client) == ZAPPY_EXIT_FAILURE)
+			return (84);
 	free_client_config(client);
 	return (0);
 }

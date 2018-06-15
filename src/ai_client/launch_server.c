@@ -2,29 +2,40 @@
 ** EPITECH PROJECT, 2018
 ** PSU_zappy_2017
 ** File description:
-** launch_server.c
+** handle_poll.c
 */
 
 #include <client_connection.h>
 
-static void parse_infos(clt_config_t *client)
+static int parse_infos(clt_config_t *client)
 {
+	static int i = 0;
+	int r_value;
+
+	if (pre_requests[i]) {
+		printf("deded\n");
+		r_value = pre_requests[i++](client);
+		if (pre_requests[i] == NULL &&
+			r_value == ZAPPY_EXIT_SUCCESS)
+				client->status = ZAPPY_CLT_READY;
+		return (r_value);
+	}
 	if (!strncmp(client->server->response_request, "dead", 4)) {
 		free(client->server->response_request);
 		client->server->response_request = NULL;
-		client->dead = 1;
+		client->status = ZAPPY_CLT_DEAD;
 	} else if (!strncmp(client->server->response_request, "message", 7)) {
-		list_add_elem_at_pos(
-			client->server->broadcasts_queue,
-			(void *) client->server->response_request,
-			LIST_END);
+		list_add_elem_at_pos(client->server->broadcasts_queue,
+			(void *) client->server->response_request, LIST_END);
 		client->server->response_request = NULL;
 	}
+	return (ZAPPY_EXIT_SUCCESS);
 }
 
-static void read_command(clt_config_t *client)
+static int read_command(clt_config_t *client)
 {
 	long pos = circbuf_strstr(client->server->buf, "\n");
+	int r_value;
 
 	while (pos > 0) {
 		client->server->buf->debug(1, client->server->buf);
@@ -36,36 +47,33 @@ static void read_command(clt_config_t *client)
 		client->server->response_request = circbuf_nbufferise
 			(client->server->buf, (unsigned int) pos);
 		printf("Receive : %s\n", client->server->response_request);
-		parse_infos(client);
+		r_value = parse_infos(client);
 		circbuf_free_nspace(client->server->buf,
 					(unsigned int) pos + 1);
+		if (r_value == ZAPPY_EXIT_FAILURE)
+			return (ZAPPY_EXIT_FAILURE);
 		pos = circbuf_strstr(client->server->buf, "\n");
 	}
+	return (ZAPPY_EXIT_SUCCESS);
 }
 
-void *launch_server(void *clt)
+int handle_poll(clt_config_t *client)
 {
 	int poll_rv;
-	clt_config_t *client = (clt_config_t *)clt;
-	unsigned int i = 0;
 
-	printf("Entering server thread\n");
 	client->server->pollfd->fd = client->server->socket->fd;
-	while (!client->dead) {
-		poll_rv = poll(client->server->pollfd, 1, 200);
-		if (poll_rv < 0) {
-			dprintf(2, "poll() failed\n");
-			return (NULL);
-		}
-		if (poll_rv >= 0 && client->server->pollfd->revents == POLLIN) {
-			client->server->buf->recv(
-				client->server->pollfd->fd,
-				client->server->buf, 1025);
-			if (!pre_requests[i])
-				read_command(client);
-			else if (!pre_requests[i++](client))
-				return (NULL);
-		}
+	if (client->status == ZAPPY_CLT_DEAD)
+		return (ZAPPY_EXIT_FAILURE);
+	poll_rv = poll(client->server->pollfd, 1, 200);
+	if (poll_rv < 0) {
+		dprintf(2, "poll() failed\n");
+		return (ZAPPY_EXIT_FAILURE);
 	}
-	return (NULL);
+	if (poll_rv >= 0 && client->server->pollfd->revents == POLLIN) {
+		client->server->buf->recv(
+			client->server->pollfd->fd,
+			client->server->buf, 1025);
+		return (read_command(client));
+	}
+	return (ZAPPY_EXIT_NOTHING);
 }
