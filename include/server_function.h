@@ -49,7 +49,6 @@ void compress_socket_poll(server_config_t *server_config);
 void close_socket_poll(server_config_t *server_config, int index);
 void cleanup_team_list_elem(void *elem);
 void cleanup_teams(list_t *server_teams);
-void cleanup_server_arguments(server_argument_t *arguments);
 
 void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message);
@@ -68,8 +67,10 @@ int get_team_free_slots(server_team_t *team);
 
 //arg_parser
 
+int check_server_arguments(server_argument_t *server_argument);
 arg_parser_output_t *get_arg(arg_parser_input_t *input);
 server_argument_t *parse_server_argument(int ac, char **av);
+void cleanup_server_arguments(server_argument_t *arguments);
 
 void parse_argument_ushort(unsigned short *data, char *start_regexp,
 	arg_parser_input_t *input);

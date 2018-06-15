@@ -39,9 +39,16 @@ static server_argument_t *init_server_argument(void)
 	return (server_argument);
 }
 
-static int check_server_arguments(server_argument_t *server_argument)
+static void parse_server_arguments_loop(server_argument_t *server_argument,
+	arg_parser_input_t *input)
 {
-
+	parse_argument_ushort(&server_argument->port, "-p", input);
+	parse_argument_uint(&server_argument->width, "-w", input);
+	parse_argument_uint(&server_argument->height, "-h", input);
+	parse_argument_uint(&server_argument->frequency, "-f", input);
+	parse_argument_size_t(&server_argument->client_nb, "-c", input);
+	input->occurrence_action = ARG_PARSER_CONCAT;
+	parse_argument_tab(&server_argument->team_names, "-n", input);
 }
 
 server_argument_t *parse_server_argument(int ac, char **av)
@@ -58,12 +65,8 @@ server_argument_t *parse_server_argument(int ac, char **av)
 	input->argc = ac;
 	input->tokenize_func = parse_string_arg;
 	input->interval = ARG_PARSER_CLOSE;
-	parse_argument_ushort(&server_argument->port, "-p", input);
-	parse_argument_uint(&server_argument->width, "-w", input);
-	parse_argument_uint(&server_argument->height, "-h", input);
-	parse_argument_uint(&server_argument->frequency, "-f", input);
-	parse_argument_size_t(&server_argument->client_nb, "-c", input);
-	//parse_argument_tab(&server_argument->team_names, "-c", input);
-
+	parse_server_arguments_loop(server_argument, input);
+	if (check_server_arguments(server_argument) == ARG_PARSER_FAILURE)
+		return (NULL);
 	return (server_argument);
 }

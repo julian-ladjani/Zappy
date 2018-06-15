@@ -60,7 +60,9 @@ void parse_argument_tab(char ***data, char *start_regexp,
 		return;
 	if (output->nb_arg > 0)
 		*data = malloc(sizeof(char *) * (output->nb_arg + 1));
-	if (data == NULL)
+	else
+		return (cleanup_argument_parsing_output(output));
+	if (*data == NULL)
 		return (cleanup_argument_parsing_output(output));
 	memset(*data, 0, sizeof(char *) * (output->nb_arg + 1));
 	if (output->nb_arg == 1 &&
