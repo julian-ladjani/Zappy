@@ -56,7 +56,14 @@ void user_connect(server_user_t *user);
 
 arg_parser_output_t *get_arg(arg_parser_input_t *input);
 server_argument_t *parse_server_argument(int ac, char **av);
-void parse_argument_port(server_argument_t *server_argument,
+
+void parse_argument_ushort(unsigned short *data, char *start_regexp,
+	arg_parser_input_t *input);
+void parse_argument_uint(unsigned int *data, char *start_regexp,
+	arg_parser_input_t *input);
+void parse_argument_size_t(size_t *data, char *start_regexp,
+	arg_parser_input_t *input);
+void parse_argument_tab(char ***data, char *start_regexp,
 	arg_parser_input_t *input);
 
 //commands

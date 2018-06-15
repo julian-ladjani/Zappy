@@ -10,7 +10,7 @@
 #include "arg_parser.h"
 #include "utils.h"
 
-void parse_argument_ushort(unsigned int *data, char *start_regexp,
+void parse_argument_ushort(unsigned short *data, char *start_regexp,
 	arg_parser_input_t *input)
 {
 	arg_parser_output_t *output;
@@ -33,6 +33,19 @@ void parse_argument_uint(unsigned int *data, char *start_regexp,
 	if (output != NULL && output->nb_arg == 1 &&
 		output->output_type == ARG_PARSER_OUTPUT_PTR)
 		*data = (unsigned int) atoi(output->args);
+	cleanup_argument_parsing_output(output);
+}
+
+void parse_argument_size_t(size_t *data, char *start_regexp,
+	arg_parser_input_t *input)
+{
+	arg_parser_output_t *output;
+
+	input->start_regexp = start_regexp;
+	output = get_arg(input);
+	if (output != NULL && output->nb_arg == 1 &&
+		output->output_type == ARG_PARSER_OUTPUT_PTR)
+		*data = (size_t) atoi(output->args);
 	cleanup_argument_parsing_output(output);
 }
 

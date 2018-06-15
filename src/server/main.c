@@ -39,7 +39,6 @@ int main(int ac, char **av)
 		exit(ZAPPY_EXIT_FAILURE);
 	}
 	server_argument = parse_server_argument(ac, av);
-	printf("%d\n", server_argument->port);
 	/*server_config = initialisation(av);
 	if (server_config == NULL)
 		exit(ZAPPY_EXIT_FAILURE);

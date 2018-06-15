@@ -36,6 +36,9 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
 	src/common/socket/socket_cleanup.c				\
 	src/common/socket/socket_initialisation.c			\
 	src/common/utils/str_append.c					\
+	src/common/utils/tab_cpy.c					\
+	src/server/argument/server_parse_arg.c				\
+        src/server/argument/server_parse_arg_func.c			\
 	src/server/commands/command_parse.c				\
 	src/server/commands/command_exec.c				\
 	src/server/commands/ai_commands/broadcast.c			\
@@ -78,8 +81,7 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
 	src/server/server_cleanup.c					\
 	src/server/server_initialisation.c				\
 	src/server/server_loop.c					\
-	src/server/server_parse_arg.c					\
-	src/server/server_parse_arg_func.c				\
+
 
 OBJDIR = obj
 

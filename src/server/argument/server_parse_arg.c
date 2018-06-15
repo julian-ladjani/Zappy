@@ -13,12 +13,13 @@ arg_parser_output_t *get_arg(arg_parser_input_t *input)
 {
 	arg_parser_output_t *output;
 
-	asprintf(&input->stop_regexp, "^-(?!%s$).*$",
-		input->start_regexp + 1);
-	if (input->stop_regexp == NULL)
+	input->stop_regexp = "^-.*";
+	asprintf(&input->start_regexp, "^%s$",
+		input->start_regexp);
+	if (input->start_regexp == NULL)
 		return (NULL);
 	output = arg_parser_parse_arguments(input);
-	free(input->stop_regexp);
+	free(input->start_regexp);
 	return (output);
 }
 
@@ -51,6 +52,10 @@ server_argument_t *parse_server_argument(int ac, char **av)
 	input->argc = ac;
 	input->tokenize_func = parse_string_arg;
 	input->interval = ARG_PARSER_CLOSE;
-	parse_argument_port(server_argument, input);
+	parse_argument_ushort(&server_argument->port, "-p", input);
+	parse_argument_uint(&server_argument->width, "-w", input);
+	parse_argument_uint(&server_argument->height, "-h", input);
+	parse_argument_uint(&server_argument->frequency, "-f", input);
+	parse_argument_size_t(&server_argument->client_nb, "-c", input);
 	return (server_argument);
 }

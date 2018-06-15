@@ -57,7 +57,9 @@ static arg_parser_output_t *parse_argument_loop(
 		if (start_arg == NULL)
 			start_arg = get_start_arg(input_data, output_data,
 				start_regex, input_data->argv[i]);
-		if (get_stop_arg(input_data, output_data,
+		if (argument_correspond_to_regex(start_regex,
+			input_data->argv[i]) == ARG_PARSER_FAILURE &&
+			get_stop_arg(input_data, output_data,
 			stop_regex, input_data->argv[i]) != NULL)
 			start_arg = NULL;
 		if (start_arg != NULL &&
