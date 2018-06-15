@@ -24,7 +24,16 @@
 #define ZAPPY_CLT_READY (2)
 #define ZAPPY_CLT_WAITING (0)
 
+#define ZAPPY_IS_KO(s) (strcmp("ko", s) == 0)
+#define ZAPPY_IS_OK(s) (strcmp("ok", s) == 0)
+
 typedef struct client_config_s clt_config_t;
+
+typedef struct client_parameters_s {
+	int port;
+	char *machine;
+	char *team;
+} clt_params_t;
 
 typedef enum sendable_command {
 	FORWARD,
@@ -99,5 +108,6 @@ void show_help();
 int init_server(clt_config_t *client);
 int handle_poll(clt_config_t *client);
 void *launch_ai(void *clt);
+clt_params_t *client_parse_arguments(int ac, char **av);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

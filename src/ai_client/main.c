@@ -49,26 +49,27 @@ static void init_server_socket_informations(
 	client->server->socket->ip = machine;
 }
 
-static clt_config_t *init_config(
-	char *machine, in_port_t port, char *team)
+static clt_config_t *init_config(clt_params_t *params)
 {
 	clt_config_t *client = calloc(
 		sizeof(clt_config_t), sizeof(clt_config_t));
 
-	if (!client)
+	if (!client || !params)
 		return (NULL);
-	init_server_socket_informations(machine, port, client);
+	init_server_socket_informations(params->machine,
+					(in_port_t) params->port, client);
 	if (!client->server)
 		return (NULL);
 	client->server->pollfd->fd = -1;
 	client->server->pollfd->events = POLLIN;
-	client->team = team;
+	client->team = params->team;
 	return (client);
 }
 
 int main(int ac, char **av)
 {
-	clt_config_t *client = init_config("127.0.0.1", 4242, "golelan");
+	clt_config_t *client = init_config(
+		client_parse_arguments(ac - 1, av + 1));
 
 	if (!client || !init_server(client)) {
 		free_client_config(client);

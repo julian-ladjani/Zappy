@@ -23,7 +23,7 @@ int prerequest_map_size(clt_config_t *client)
 	char *str = client->server->response_request;
 	char *tmp = strchr(str, ' ');
 
-	if (!str || !tmp || client->map || !strcmp(str, "ko"))
+	if (!str || !tmp || client->map || ZAPPY_IS_KO(str))
 		return (ZAPPY_EXIT_FAILURE);
 	*tmp = 0;
 	if (!is_number(str) || !is_number(tmp + 1))
@@ -37,7 +37,7 @@ int prerequest_player_id(clt_config_t *client)
 {
 	char *str = client->server->response_request;
 
-	if (!str || !strcmp(str, "ko"))
+	if (!str || ZAPPY_IS_KO(str))
 		return (ZAPPY_EXIT_FAILURE);
 	if (!is_number(str))
 		return (ZAPPY_EXIT_FAILURE);
