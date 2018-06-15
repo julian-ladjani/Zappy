@@ -18,19 +18,6 @@ int user_fd_search_criteria(void *user, void *fd)
 	return (0);
 }
 
-int user_nick_search_criteria(void *user, void *nick)
-{
-	char *nick_str = nick;
-
-	if (user == NULL || nick == NULL)
-		return (0);
-	if (((server_user_t *) user)->nick == NULL)
-		return (0);
-	if (strcmp(((server_user_t *) user)->nick, nick_str) == 0)
-		return (1);
-	return (0);
-}
-
 int user_name_search_criteria(void *user, void *name)
 {
 	char *name_str = name;
@@ -52,6 +39,20 @@ int user_no_team_search_criteria(void *user,
 	if (((server_user_t *) user)->teams == NULL)
 		return (1);
 	return (0);
+}
+
+server_user_t *find_user_by_id(server_config_t *server, int id)
+{
+	list_t *user_list = server->users;
+	server_user_t *user;
+
+	while (user_list) {
+		user = user_list->elem;
+		if (user && user->id == id)
+			return (user);
+		user_list = user_list->next;
+	}
+	return (NULL);
 }
 
 int find_nb_user_at_pos(server_config_t *server_config,

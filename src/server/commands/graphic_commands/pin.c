@@ -17,7 +17,7 @@ uint8_t srv_cmd_pin(server_config_t *server,
 		dprintf(user->fd, "sbp\n");
 		return (1);
 	}
-	player = find_player_by_id(server, atoi(cmd->args[0] + 1));
+	player = find_user_by_id(server, atoi(cmd->args[0] + 1));
 	if (!player) {
 		dprintf(user->fd, "sbp\n");
 		return (1);

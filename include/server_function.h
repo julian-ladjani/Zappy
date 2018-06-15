@@ -25,7 +25,6 @@ void parse_command(server_config_t *server_config, server_user_t *user);
 int poll_loop(server_config_t *server_config);
 void poll_accept_client(server_config_t *server_config);
 
-int user_nick_search_criteria(void *user, void *nick);
 int user_name_search_criteria(void *user, void *name);
 int user_fd_search_criteria(void *user, void *fd);
 server_user_t *get_user_by_fd(server_config_t *server_config, int fd);
@@ -58,11 +57,10 @@ void try_to_join_team(server_config_t *server_config,
 			server_user_t *user, cmdparams_t *cmdparams);
 
 void send_msg_to_all_graphic(server_config_t *server, char *msg);
-void send_msg_to_all_ai(server_config_t *server, vec_t from, char *msg);
 
 int find_nb_user_at_pos(server_config_t *server_config,
 			unsigned int x, unsigned int y);
-server_user_t *find_player_by_id(server_config_t *server, int id);
+server_user_t *find_user_by_id(server_config_t *server, int id);
 server_team_t *find_team_by_user(server_config_t *server_config,
 				server_user_t *user);
 int get_team_free_slots(server_team_t *team);
