@@ -12,7 +12,7 @@
 
 #define NB_REQUESTS() (13)
 
-request_t requests[13] = {
+const request_t requests[13] = {
 	{BROADCAST, "broadcast", clt_cmd_get_args_broadcast},
 	{CONNECT, "connect_nbr", clt_cmd_get_args_connect_nbr},
 	{EJECT, "eject", clt_cmd_get_args_eject},

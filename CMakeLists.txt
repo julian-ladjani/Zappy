@@ -103,7 +103,10 @@ set(CLIENT
         src/ai_client/connect.c
         src/ai_client/launch_server.c
         src/ai_client/launch_ai.c
-        src/ai_client/commands/send/sender.c)
+        src/ai_client/commands/send/sender.c
+        include/client_connection.h
+        src/ai_client/commands/pre_requests.c
+        src/common/utils/is_str.c)
 
 add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP} ${CIRCULAR_BUFFER})

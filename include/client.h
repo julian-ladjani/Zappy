@@ -49,12 +49,17 @@ typedef struct client_socket_s {
 } clt_socket_t;
 
 struct client_config_s {
-	map_t *map;
 	char *team;
+	int id;
+	map_t *map;
 	uint8_t dead;
 	clt_socket_t *server;
 	request_t send;
 };
+
+uint8_t prerequest_welcome(clt_config_t *client);
+uint8_t prerequest_map_size(clt_config_t *client);
+uint8_t prerequest_player_id(clt_config_t *client);
 
 uint8_t clt_cmd_forward(clt_config_t *client);
 uint8_t clt_cmd_right(clt_config_t *client);

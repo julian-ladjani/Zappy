@@ -5,17 +5,15 @@
 ** launch_server.c
 */
 
-#include <client.h>
+#include <client_connection.h>
 
-void parse_infos(clt_config_t *client)
+static void parse_infos(clt_config_t *client)
 {
 	if (!strncmp(client->server->response_request, "dead", 4)) {
-		printf("t more lol\n");
 		free(client->server->response_request);
 		client->server->response_request = NULL;
 		client->dead = 1;
 	} else if (!strncmp(client->server->response_request, "message", 7)) {
-		printf("un meçaj msdr\n");
 		list_add_elem_at_pos(
 			client->server->broadcasts_queue,
 			(void *) client->server->response_request,
@@ -24,7 +22,7 @@ void parse_infos(clt_config_t *client)
 	}
 }
 
-void read_command(clt_config_t *client)
+static void read_command(clt_config_t *client)
 {
 	long pos = circbuf_strstr(client->server->buf, "\n");
 
@@ -49,6 +47,7 @@ void *launch_server(void *clt)
 {
 	int poll_rv;
 	clt_config_t *client = (clt_config_t *)clt;
+	unsigned int i = 0;
 
 	printf("Entering server thread\n");
 	client->server->pollfd->fd = client->server->socket->fd;
@@ -62,7 +61,10 @@ void *launch_server(void *clt)
 			client->server->buf->recv(
 				client->server->pollfd->fd,
 				client->server->buf, 1025);
-			read_command(client);
+			if (!pre_requests[i])
+				read_command(client);
+			else if (!pre_requests[i++](client))
+				return (NULL);
 		}
 	}
 	return (NULL);
