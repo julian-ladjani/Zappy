@@ -16,6 +16,14 @@
 #include "linked_list.h"
 #include <stdarg.h>
 
+#define ZAPPY_EXIT_FAILURE (2)
+#define ZAPPY_EXIT_NOTHING (0)
+#define ZAPPY_EXIT_SUCCESS (1)
+
+#define ZAPPY_CLT_DEAD (1)
+#define ZAPPY_CLT_READY (2)
+#define ZAPPY_CLT_WAITING (0)
+
 typedef struct client_config_s clt_config_t;
 
 typedef enum sendable_command {
@@ -52,14 +60,14 @@ struct client_config_s {
 	char *team;
 	int id;
 	map_t *map;
-	uint8_t dead;
+	int status;
 	clt_socket_t *server;
 	request_t send;
 };
 
-uint8_t prerequest_welcome(clt_config_t *client);
-uint8_t prerequest_map_size(clt_config_t *client);
-uint8_t prerequest_player_id(clt_config_t *client);
+int prerequest_welcome(clt_config_t *client);
+int prerequest_map_size(clt_config_t *client);
+int prerequest_player_id(clt_config_t *client);
 
 uint8_t clt_cmd_forward(clt_config_t *client);
 uint8_t clt_cmd_right(clt_config_t *client);
@@ -89,7 +97,7 @@ uint8_t clt_cmd_get_args_incantation(clt_config_t *client, va_list *);
 
 void show_help();
 int init_server(clt_config_t *client);
-void *launch_server(void *clt);
+int handle_poll(clt_config_t *client);
 void *launch_ai(void *clt);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

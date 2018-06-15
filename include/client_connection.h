@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include "client.h"
 
-typedef uint8_t (* pre_requests_t)(clt_config_t *);
+typedef int (* pre_requests_t)(clt_config_t *);
 
 const pre_requests_t pre_requests[4] = {
 	prerequest_welcome,

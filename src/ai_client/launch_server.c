@@ -13,11 +13,11 @@ static int parse_infos(clt_config_t *client)
 	int r_value;
 
 	if (pre_requests[i]) {
-		printf("deded\n");
 		r_value = pre_requests[i++](client);
 		if (pre_requests[i] == NULL &&
 			r_value == ZAPPY_EXIT_SUCCESS)
 				client->status = ZAPPY_CLT_READY;
+		free(client->server->response_request);
 		return (r_value);
 	}
 	if (!strncmp(client->server->response_request, "dead", 4)) {
@@ -38,7 +38,6 @@ static int read_command(clt_config_t *client)
 	int r_value;
 
 	while (pos > 0) {
-		client->server->buf->debug(1, client->server->buf);
 		if (!pos)
 			break;
 		client->server->active_request = NULL;
@@ -46,7 +45,6 @@ static int read_command(clt_config_t *client)
 			free(client->server->active_request);
 		client->server->response_request = circbuf_nbufferise
 			(client->server->buf, (unsigned int) pos);
-		printf("Receive : %s\n", client->server->response_request);
 		r_value = parse_infos(client);
 		circbuf_free_nspace(client->server->buf,
 					(unsigned int) pos + 1);

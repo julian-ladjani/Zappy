@@ -16,13 +16,12 @@ static int connect_to_serv(clt_config_t *client)
 
 	if (!pe)
 		return (0);
-	printf("Connecting to %s/%d...\n", client->server->socket->ip,
+	printf("Connecting to %s:%d...\n", client->server->socket->ip,
 		client->server->socket->port);
 	client->server->socket->fd = socket(AF_INET, SOCK_STREAM, pe->p_proto);
 	s_in.sin_addr.s_addr = inet_addr(client->server->socket->ip);
 	s_in.sin_port = htons(client->server->socket->port);
 	s_in.sin_family = AF_INET;
-	printf("%d\n", client->server->socket->fd);
 	if (client->server->socket->fd >= 0
 		&& !connect(client->server->socket->fd,
 			(struct sockaddr *)&s_in, sizeof(s_in)))
