@@ -10,6 +10,7 @@
 uint8_t clt_cmd_take(clt_config_t *client, object_t obj)
 {
 	(void) client;
+	(void) obj;
 	return (1);
 }
 

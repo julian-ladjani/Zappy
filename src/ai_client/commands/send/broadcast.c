@@ -11,6 +11,7 @@ uint8_t clt_cmd_broadcast(clt_config_t *client, char *msg, va_list *av)
 {
 	(void) client;
 	(void) av;
+	(void) msg;
 	return (1);
 }
 

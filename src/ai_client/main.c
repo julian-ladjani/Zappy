@@ -8,31 +8,41 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <client.h>
-#include "../../include/parser.h"
-#include "../../include/map.h"
+#include <pthread.h>
+#include "parser.h"
+#include "map.h"
 
 void free_client_config(clt_config_t *client)
 {
+	if (!client)
+		return;
 	map_free(client->map);
-	free(client->server->socket);
+	free(client->server->broadcasts_queue);
+	if (client->server)
+		free(client->server->socket);
+	free(client->server);
+	client->server = NULL;
+	free(client);
 }
 
 static void init_server_socket_informations(
 	char *machine, in_port_t port, clt_config_t *client)
 {
-	client->server = malloc(sizeof(clt_socket_t));
+	client->server = calloc(sizeof(clt_socket_t), sizeof(clt_socket_t));
 	if (!client->server) {
-		printf("Invalid malloc\n");
-		free(client);
-		client->server->socket = NULL;
+		free_client_config(client);
 		return;
 	}
-	client->server->socket = malloc(sizeof(zappy_socket_t));
+	client->server->broadcasts_queue = list_create(NULL);
+	client->server->socket = calloc(sizeof(zappy_socket_t),
+					sizeof(zappy_socket_t));
 	if (!client->server->socket) {
-		printf("Invalid malloc\n");
-		free(client->server);
-		free(client);
-		client->server->socket = NULL;
+		free_client_config(client);
+		return;
+	}
+	client->server->buf = circbuf_create(1025);
+	if (client->server->buf == NULL) {
+		free_client_config(client);
 		return;
 	}
 	client->server->socket->port = port;
@@ -56,12 +66,29 @@ static clt_config_t *init_config(
 	return (client);
 }
 
+static void launch_threads(clt_config_t *client)
+{
+	pthread_t thread_server;
+	pthread_t thread_ai;
+
+	printf("Launch Threads\n");
+	pthread_create(&thread_server, NULL, launch_server, (void *) client);
+	pthread_create(&thread_ai, NULL, launch_ai, (void *) client);
+	pthread_join(thread_server, NULL);
+	printf("Server Thread closed\n");
+	pthread_join(thread_ai, NULL);
+	printf("Ai Thread closed\n");
+}
+
 int main(int ac, char **av)
 {
 	clt_config_t *client = init_config("127.0.0.1", 4242, "golelan");
 
-	if (!client || !init_server(client))
+	if (!client || !init_server(client)) {
+		free_client_config(client);
 		return (84);
-//	launch_client(client);
+	}
+	launch_threads(client);
+	free_client_config(client);
 	return (0);
 }

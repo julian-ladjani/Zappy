@@ -41,6 +41,7 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
         src/server/argument/server_parse_arg_func.c			\
 	src/server/commands/command_parse.c				\
 	src/server/commands/command_exec.c				\
+	src/server/commands/join_team.c					\
 	src/server/commands/ai_commands/broadcast.c			\
 	src/server/commands/ai_commands/connect_nbr.c			\
 	src/server/commands/ai_commands/eject.c				\
@@ -78,10 +79,10 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
 	src/server/user/user_search.c					\
 	src/server/find_player.c					\
 	src/server/main.c						\
+	src/server/send_messages.c					\
 	src/server/server_cleanup.c					\
 	src/server/server_initialisation.c				\
 	src/server/server_loop.c					\
-
 
 OBJDIR = obj
 

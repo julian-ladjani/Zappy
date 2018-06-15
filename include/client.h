@@ -12,6 +12,8 @@
 #include "map.h"
 #include "zappy_socket.h"
 #include "parser.h"
+#include "circbuff.h"
+#include "linked_list.h"
 #include <stdarg.h>
 
 typedef struct client_config_s clt_config_t;
@@ -40,7 +42,10 @@ typedef struct request_s {
 typedef struct client_socket_s {
 	struct pollfd pollfd[1];
 	zappy_socket_t *socket;
+	circbuf_t *buf;
 	char *active_request;
+	char *response_request;
+	list_t *broadcasts_queue;
 } clt_socket_t;
 
 struct client_config_s {
@@ -79,5 +84,7 @@ uint8_t clt_cmd_get_args_incantation(clt_config_t *client, va_list *);
 
 void show_help();
 int init_server(clt_config_t *client);
+void *launch_server(void *clt);
+void *launch_ai(void *clt);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

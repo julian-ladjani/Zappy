@@ -7,6 +7,17 @@
 
 #include "map.h"
 
+void empty_tile(tile_t *tile)
+{
+	*tile[FOOD] = 0;
+	*tile[LINEMATE] = 0;
+	*tile[DERAUMERE] = 0;
+	*tile[SIBUR] = 0;
+	*tile[MENDIANE] = 0;
+	*tile[PHIRAS] = 0;
+	*tile[THYSTAME] = 0;
+}
+
 static void fill_tile(tile_t *tile)
 {
 	*tile[FOOD] = (size_t) (random() % MAX_FOOD());
