@@ -7,21 +7,30 @@
 
 #include <client_parser.h>
 
-int parse_port(clt_params_t *params, char *arg)
+void parse_port(clt_params_t *params, char *arg)
 {
 	if (is_number(arg))
 		params->port = atoi(arg);
-	return (1);
 }
 
-int parse_machine(clt_params_t *params, char *arg)
+void parse_machine(clt_params_t *params, char *arg)
 {
 	params->machine = arg;
 }
 
-int parse_team(clt_params_t *params, char *arg)
+void parse_team(clt_params_t *params, char *arg)
 {
 	params->team = arg;
+}
+
+static void client_parse_find_option(clt_params_t *params, char **arg)
+{
+	for (parse_client_t *p = parsefunc; p->flag; ++p) {
+		if (strcmp(arg[0], p->flag) == 0) {
+			p->func(params, arg[1]);
+			break;
+		}
+	}
 }
 
 clt_params_t *client_parse_arguments(int ac, char **av)
@@ -31,14 +40,10 @@ clt_params_t *client_parse_arguments(int ac, char **av)
 
 	if (!params)
 		return (NULL);
-	for (int i = 0; i + 1 < ac; i += 2) {
-		for (parse_client_t *p = parsefunc; p->flag; ++p) {
-			if (strcmp(av[i], p->flag) == 0) {
-				p->func(params, av[i + 1]);
-				break;
-			}
-		}
-	}
+	if (ac == 1 && strcmp("-help", av[0]) == 0)
+		show_help_client();
+	for (int i = 0; i + 1 < ac; i += 2)
+		client_parse_find_option(params, av + i);
 	if (!params->team || !params->machine || !params->port)
 		return (NULL);
 	return (params);

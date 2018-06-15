@@ -104,7 +104,7 @@ uint8_t clt_cmd_get_args_take(clt_config_t *client, va_list *);
 uint8_t clt_cmd_get_args_set(clt_config_t *client, va_list *);
 uint8_t clt_cmd_get_args_incantation(clt_config_t *client, va_list *);
 
-void show_help();
+void show_help_client(void);
 int init_server(clt_config_t *client);
 int handle_poll(clt_config_t *client);
 void *launch_ai(void *clt);

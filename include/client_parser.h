@@ -10,7 +10,7 @@
 
 #include "client.h"
 
-typedef int (* clt_parse_func_t)(clt_params_t *params, char *arg);
+typedef void (* clt_parse_func_t)(clt_params_t *params, char *arg);
 
 typedef struct parse_client_s
 {
@@ -18,9 +18,9 @@ typedef struct parse_client_s
 	clt_parse_func_t func;
 } parse_client_t;
 
-int parse_port(clt_params_t *params, char *arg);
-int parse_machine(clt_params_t *params, char *arg);
-int parse_team(clt_params_t *params, char *arg);
+void parse_port(clt_params_t *params, char *arg);
+void parse_machine(clt_params_t *params, char *arg);
+void parse_team(clt_params_t *params, char *arg);
 
 parse_client_t parsefunc[4] = {
 	{"-p", parse_port},

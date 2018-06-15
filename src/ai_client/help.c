@@ -6,6 +6,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void show_help_client(void)
 {
@@ -13,4 +14,5 @@ void show_help_client(void)
 	printf("\tport\tis the port number\n");
 	printf("\tname\tis the name of the team\n");
 	printf("\tmachine\tis the name of the machine\n");
+	exit(0);
 }
