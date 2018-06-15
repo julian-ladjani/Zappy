@@ -42,6 +42,7 @@ typedef struct server_user_s {
 typedef struct server_team_s {
 	char *name;
 	list_t *users;
+	int slots;
 } server_team_t;
 
 typedef union server_port_u {
@@ -67,6 +68,7 @@ typedef struct server_config_s {
 	nfds_t nfds;
 	struct pollfd poll_fd[ZAPPY_MAX_CLIENT + 1];
 	map_t *map;
+	int new_user_id;
 } server_config_t;
 
 #endif //PSU_ZAPPY_2017_SERVER_STRUCT_H

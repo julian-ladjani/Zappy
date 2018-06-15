@@ -5,13 +5,12 @@
 ** connect_nbr.c
 */
 
-#include "server_struct.h"
+#include "server_function.h"
 
-uint8_t srv_cmd_connect_nbr(server_config_t *server,
-			server_user_t *user, cmdparams_t *cmd)
+uint8_t srv_cmd_connect_nbr(server_config_t *server, server_user_t *user,
+			    __attribute__((unused))cmdparams_t *cmd)
 {
-	(void)server;
-	(void)user;
-	(void)cmd;
-	return (1);
+	dprintf(user->fd, "%d\n",
+		get_team_free_slots(find_team_by_user(server, user)));
+	return (0);
 }

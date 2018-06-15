@@ -8,6 +8,8 @@
 #ifndef PSU_ZAPPY_2017_SERVER_FUNCTION_H
 #define PSU_ZAPPY_2017_SERVER_FUNCTION_H
 
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "server_struct.h"
@@ -52,6 +54,17 @@ void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message);
 void user_connect(server_user_t *user);
 
+void try_to_join_team(server_config_t *server_config,
+			server_user_t *user, cmdparams_t *cmdparams);
+
+void send_msg_to_all_graphics(server_config_t *server, char *msg);
+void send_msg_to_all_ai(server_config_t *server, vec_t from, char *msg);
+
+server_user_t *find_player_by_id(server_config_t *server, int id);
+server_team_t *find_team_by_user(server_config_t *server_config,
+				server_user_t *user);
+int get_team_free_slots(server_team_t *team);
+
 //arg_parser
 
 arg_parser_output_t *get_arg(arg_parser_input_t *input);
@@ -60,7 +73,6 @@ void parse_argument_port(server_argument_t *server_argument,
 	arg_parser_input_t *input);
 
 //commands
-server_user_t *find_player_by_id(server_config_t *server, int id);
 
 uint8_t srv_cmd_msz(server_config_t *server, server_user_t *user,
 			cmdparams_t *cmd);
