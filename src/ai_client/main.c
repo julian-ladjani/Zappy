@@ -17,6 +17,7 @@ void free_client_config(clt_config_t *client)
 	if (!client)
 		return;
 	map_free(client->map);
+	free(client->server->broadcasts_queue);
 	if (client->server)
 		free(client->server->socket);
 	free(client->server);
@@ -27,19 +28,21 @@ void free_client_config(clt_config_t *client)
 static void init_server_socket_informations(
 	char *machine, in_port_t port, clt_config_t *client)
 {
-	client->server = malloc(sizeof(clt_socket_t));
+	client->server = calloc(sizeof(clt_socket_t), sizeof(clt_socket_t));
 	if (!client->server) {
-		printf("Invalid malloc\n");
-		free(client);
-		client->server->socket = NULL;
+		free_client_config(client);
 		return;
 	}
-	client->server->socket = malloc(sizeof(zappy_socket_t));
+	client->server->broadcasts_queue = list_create(NULL);
+	client->server->socket = calloc(sizeof(zappy_socket_t),
+					sizeof(zappy_socket_t));
 	if (!client->server->socket) {
-		printf("Invalid malloc\n");
-		free(client->server);
-		free(client);
-		client->server->socket = NULL;
+		free_client_config(client);
+		return;
+	}
+	client->server->buf = circbuf_create(1025);
+	if (client->server->buf == NULL) {
+		free_client_config(client);
 		return;
 	}
 	client->server->socket->port = port;
@@ -68,10 +71,13 @@ static void launch_threads(clt_config_t *client)
 	pthread_t thread_server;
 	pthread_t thread_ai;
 
+	printf("Launch Threads\n");
 	pthread_create(&thread_server, NULL, launch_server, (void *) client);
 	pthread_create(&thread_ai, NULL, launch_ai, (void *) client);
 	pthread_join(thread_server, NULL);
+	printf("Server Thread closed\n");
 	pthread_join(thread_ai, NULL);
+	printf("Ai Thread closed\n");
 }
 
 int main(int ac, char **av)

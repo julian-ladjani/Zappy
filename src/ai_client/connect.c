@@ -22,6 +22,7 @@ static int connect_to_serv(clt_config_t *client)
 	s_in.sin_addr.s_addr = inet_addr(client->server->socket->ip);
 	s_in.sin_port = htons(client->server->socket->port);
 	s_in.sin_family = AF_INET;
+	printf("%d\n", client->server->socket->fd);
 	if (client->server->socket->fd >= 0
 		&& !connect(client->server->socket->fd,
 			(struct sockaddr *)&s_in, sizeof(s_in)))
