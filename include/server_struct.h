@@ -56,6 +56,7 @@ typedef struct server_argument_s {
 	unsigned int height;
 	size_t client_nb;
 	unsigned int frequency;
+	char **team_names;
 } server_argument_t;
 
 typedef struct server_config_s {

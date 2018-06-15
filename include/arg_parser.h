@@ -27,6 +27,11 @@ typedef enum arg_parser_occurrence_e {
 	ARG_PARSER_OVERWRITE,
 } arg_parser_occurrence_t;
 
+typedef enum arg_parser_stop_e {
+	ARG_PARSER_STOP,
+	ARG_PARSER_STOP_DIFF_START,
+} arg_parser_stop_t;
+
 typedef enum arg_parser_output_type_e {
 	ARG_PARSER_OUTPUT_NULL,
 	ARG_PARSER_OUTPUT_TAB,
@@ -48,6 +53,7 @@ typedef struct arg_parser_input_s {
 	size_t offset;
 	char **argv;
 	int argc;
+	arg_parser_stop_t stop_type;
 	arg_parser_occurrence_t occurrence_action;
 	arg_parser_interval_t interval;
 	void *(*tokenize_func)(arg_parser_output_t *output, char *data);
