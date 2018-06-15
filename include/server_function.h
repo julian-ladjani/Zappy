@@ -49,6 +49,7 @@ void compress_socket_poll(server_config_t *server_config);
 void close_socket_poll(server_config_t *server_config, int index);
 void cleanup_team_list_elem(void *elem);
 void cleanup_teams(list_t *server_teams);
+void cleanup_server_arguments(server_argument_t *arguments);
 
 void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message);

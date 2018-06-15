@@ -86,7 +86,7 @@ set(SERVER
         include/server_const.h
         include/server_function.h
         src/server/argument/server_parse_arg.c
-        src/server/argument/server_parse_arg_func.c)
+        src/server/argument/server_parse_arg_func.c src/server/argument/cleanup_server_arguments.c)
 
 set(CLIENT
         include/client.h

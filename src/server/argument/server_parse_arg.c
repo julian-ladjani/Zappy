@@ -64,5 +64,6 @@ server_argument_t *parse_server_argument(int ac, char **av)
 	parse_argument_uint(&server_argument->frequency, "-f", input);
 	parse_argument_size_t(&server_argument->client_nb, "-c", input);
 	//parse_argument_tab(&server_argument->team_names, "-c", input);
+
 	return (server_argument);
 }
