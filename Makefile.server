@@ -76,11 +76,12 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
 	src/server/user/user_search.c					\
 	src/server/find_player.c					\
 	src/server/main.c						\
+	src/server/send_messages.c					\
 	src/server/server_cleanup.c					\
 	src/server/server_initialisation.c				\
 	src/server/server_loop.c					\
 	src/server/server_parse_arg.c					\
-	src/server/server_parse_arg_func.c				\
+	src/server/server_parse_arg_func.c
 
 OBJDIR = obj
 

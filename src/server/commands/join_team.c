@@ -32,7 +32,7 @@ static void join_team(server_config_t *server_config,
 		initialise_user(server_config, user, team);
 		asprintf(&msg, "pnw #%d %u %u %d %u %s\n", user->id, user->x,
 			 user->y, user->orientation, user->level, team->name);
-		send_msg_to_all_graphics(server_config, msg);
+		send_msg_to_all_graphic(server_config, msg);
 		free(msg);
 	}
 	if (!team){

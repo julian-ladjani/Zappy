@@ -13,7 +13,7 @@ char *tile_to_str(tile_t tile)
 				"mendiane", "phiras", "thystame"};
 	char *str = NULL;
 
-	for (int i = FOOD; i < THYSTAME; ++i) {
+	for (int i = FOOD; i <= THYSTAME; ++i) {
 		if (str)
 			str = str_append(str, " ");
 		if (tile[i])

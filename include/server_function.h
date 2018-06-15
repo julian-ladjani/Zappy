@@ -57,7 +57,7 @@ void user_connect(server_user_t *user);
 void try_to_join_team(server_config_t *server_config,
 			server_user_t *user, cmdparams_t *cmdparams);
 
-void send_msg_to_all_graphics(server_config_t *server, char *msg);
+void send_msg_to_all_graphic(server_config_t *server, char *msg);
 void send_msg_to_all_ai(server_config_t *server, vec_t from, char *msg);
 
 server_user_t *find_player_by_id(server_config_t *server, int id);

@@ -7,7 +7,7 @@
 
 #include "server_struct.h"
 
-void send_msg_to_all_graphics(server_config_t *server, char *msg)
+void send_msg_to_all_graphic(server_config_t *server, char *msg)
 {
 	list_t *user_list = server->users;
 	server_user_t *user;
@@ -18,7 +18,6 @@ void send_msg_to_all_graphics(server_config_t *server, char *msg)
 			dprintf(user->fd, msg);
 		user_list = user_list->next;
 	}
-	return (NULL);
 }
 
 void send_msg_to_all_ai(server_config_t *server, vec_t from, char *msg)
