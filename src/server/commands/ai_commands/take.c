@@ -31,7 +31,7 @@ uint8_t srv_cmd_take(server_config_t *server,
 	}
 	for (int i = FOOD; i <= THYSTAME; ++i) {
 		if (!strcasecmp(ressources[i], cmd->args[0])
-		    && server->map->tiles[user->y][user->x][i] > 0) {
+			&& server->map->tiles[user->y][user->x][i] > 0) {
 			server->map->tiles[user->y][user->x][i] -= 1;
 			user->inventory[i] += (i == FOOD ? 126 : 1);
 			return (send_take_message(server, user, i));

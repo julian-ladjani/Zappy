@@ -56,9 +56,7 @@ void free_arguments(void *cmd)
 {
 	cmdparams_t *cmdparams = (cmdparams_t *)cmd;
 
-	if(!cmdparams)
-		return;
-	if (cmdparams->args)
+	if (cmdparams)
 		free(cmdparams->args);
 	free(cmdparams);
 }

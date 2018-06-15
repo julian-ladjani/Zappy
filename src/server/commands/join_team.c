@@ -31,7 +31,7 @@ static void join_team(server_config_t *server_config,
 	if (get_team_free_slots(team) > 0) {
 		initialise_user(server_config, user, team);
 		asprintf(&msg, "pnw #%d %u %u %d %u %s\n", user->id, user->x,
-			 user->y, user->orientation, user->level, team->name);
+			user->y, user->orientation, user->level, team->name);
 		send_msg_to_all_graphic(server_config, msg);
 		free(msg);
 	}

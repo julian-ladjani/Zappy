@@ -12,7 +12,7 @@ void cleanup_server_arguments(server_argument_t *arguments)
 	if (arguments == NULL)
 		return;
 	if (arguments->team_names != NULL)
-		for(size_t i = 0; arguments->team_names[i] != NULL; i++)
+		for (size_t i = 0; arguments->team_names[i] != NULL; i++)
 			free(arguments->team_names[i]);
 	free(arguments->team_names);
 	free(arguments);

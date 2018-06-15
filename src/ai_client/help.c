@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 /*
 ** EPITECH PROJECT, 2018
 ** PSU_zappy_2017
@@ -7,8 +5,9 @@
 ** help.c
 */
 
+#include <stdio.h>
 
-void show_help_client()
+void show_help_client(void)
 {
 	printf("USAGE: ./zappy_ai -p port -n name -h machine\n");
 	printf("\tport\tis the port number\n");

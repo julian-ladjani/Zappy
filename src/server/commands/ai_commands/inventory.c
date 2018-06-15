@@ -9,7 +9,7 @@
 
 uint8_t srv_cmd_inventory(__attribute__((unused))server_config_t *server,
 				server_user_t *user,
-			  __attribute__((unused))cmdparams_t *cmd)
+				__attribute__((unused))cmdparams_t *cmd)
 {
 	dprintf(user->fd,
 		"[%s %lu, %s %lu, %s %lu, %s %lu, %s %lu, %s %lu, %s %lu]\n",

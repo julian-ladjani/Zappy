@@ -17,5 +17,5 @@ uint8_t clt_cmd_broadcast(clt_config_t *client, char *msg, va_list *av)
 
 uint8_t clt_cmd_get_args_broadcast(clt_config_t *client, va_list *av)
 {
-	return (clt_cmd_broadcast(client, va_arg(*av, char*), av));
+	return (clt_cmd_broadcast(client, va_arg(*av, char *), av));
 }

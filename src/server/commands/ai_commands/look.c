@@ -8,7 +8,7 @@
 #include "server_function.h"
 
 static void send_tile_content(server_config_t *server, server_user_t *user,
-			      unsigned int x, unsigned int y)
+				unsigned int x, unsigned int y)
 {
 	int nb_player = find_nb_user_at_pos(server, x, y);
 	char *tile_ressources = tile_to_str(server->map->tiles[y][x]);

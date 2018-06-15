@@ -22,7 +22,7 @@ void exec_graphic_command(server_config_t *server_config,
 	(void)user;
 	(void)cmdparams;
 }
-	
+
 void exec_pending_command(server_config_t *server_config,
 				server_user_t *user)
 {
@@ -38,5 +38,5 @@ void exec_pending_command(server_config_t *server_config,
 			exec_graphic_command(server_config, user, cmdparams);
 	}
 	user->commands = list_delete_at_pos(user->commands,
-					    LIST_FIRST, &free_arguments);
+						LIST_FIRST, &free_arguments);
 }

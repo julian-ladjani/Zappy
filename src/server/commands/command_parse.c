@@ -1,5 +1,5 @@
 /*
-1;5002;0c** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2018
 ** PSU_zappy_2017
 ** File description:
 ** 	poll_loop source file
