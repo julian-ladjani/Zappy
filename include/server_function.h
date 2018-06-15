@@ -15,7 +15,7 @@
 #include "server_struct.h"
 #include "arg_parser.h"
 
-server_config_t *initialise_server(char *s_port);
+server_config_t *initialise_server(server_argument_t *server_argument);
 server_user_t *initialise_server_user(int fd);
 int initialise_socket_poll(server_config_t *server_config);
 server_team_t *initialise_server_team(char *name);

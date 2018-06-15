@@ -35,7 +35,13 @@ static server_argument_t *init_server_argument(void)
 	server_argument->frequency = 0;
 	server_argument->height = 0;
 	server_argument->width = 0;
+	server_argument->team_names = NULL;
 	return (server_argument);
+}
+
+static int check_server_arguments(server_argument_t *server_argument)
+{
+
 }
 
 server_argument_t *parse_server_argument(int ac, char **av)
@@ -57,5 +63,6 @@ server_argument_t *parse_server_argument(int ac, char **av)
 	parse_argument_uint(&server_argument->height, "-h", input);
 	parse_argument_uint(&server_argument->frequency, "-f", input);
 	parse_argument_size_t(&server_argument->client_nb, "-c", input);
+	//parse_argument_tab(&server_argument->team_names, "-c", input);
 	return (server_argument);
 }
