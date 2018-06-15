@@ -60,6 +60,8 @@ void try_to_join_team(server_config_t *server_config,
 void send_msg_to_all_graphic(server_config_t *server, char *msg);
 void send_msg_to_all_ai(server_config_t *server, vec_t from, char *msg);
 
+int find_nb_user_at_pos(server_config_t *server_config,
+			unsigned int x, unsigned int y);
 server_user_t *find_player_by_id(server_config_t *server, int id);
 server_team_t *find_team_by_user(server_config_t *server_config,
 				server_user_t *user);

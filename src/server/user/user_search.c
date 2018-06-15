@@ -53,3 +53,19 @@ int user_no_team_search_criteria(void *user,
 		return (1);
 	return (0);
 }
+
+int find_nb_user_at_pos(server_config_t *server_config,
+			unsigned int x, unsigned int y)
+{
+	list_t *user_list = server_config->users;
+	server_user_t *user;
+	int nb_user = 0;
+
+	while (user_list) {
+		user = user_list->elem;
+		if (user && user->x == x && user->y == y)
+			++nb_user;
+		user_list = user_list->next;
+	}
+	return (nb_user);
+}
