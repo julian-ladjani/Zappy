@@ -38,7 +38,7 @@ static void read_command(clt_config_t *client)
 		printf("Receive : %s\n", client->server->response_request);
 		parse_infos(client);
 		circbuf_free_nspace(client->server->buf,
-				    (unsigned int) pos + 1);
+					(unsigned int) pos + 1);
 		pos = circbuf_strstr(client->server->buf, "\n");
 	}
 }

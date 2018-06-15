@@ -60,6 +60,10 @@ set(MAP
         src/common/map/map_str_to_tile.c
         include/map.h)
 
+set(UTILS
+        src/common/utils/str_append.c
+        src/common/utils/tab_cpy.c include/utils.h)
+
 set(SERVER
         src/server/server_cleanup.c
         src/server/server_initialisation.c
@@ -81,8 +85,8 @@ set(SERVER
         include/server_struct.h
         include/server_const.h
         include/server_function.h
-        src/server/server_parse_arg.c
-        src/server/server_parse_arg_func.c)
+        src/server/argument/server_parse_arg.c
+        src/server/argument/server_parse_arg_func.c src/server/argument/cleanup_server_arguments.c src/server/argument/server_check_arg.c)
 
 set(CLIENT
         include/client.h
@@ -102,6 +106,7 @@ set(CLIENT
         src/ai_client/help.c
         src/ai_client/connect.c
         src/ai_client/launch_server.c
+        src/ai_client/commands/send/sender.c
         src/ai_client/launch_ai.c
         src/ai_client/commands/send/sender.c
         include/client_connection.h
@@ -109,7 +114,8 @@ set(CLIENT
         src/common/utils/is_str.c)
 
 add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
-        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP} ${CIRCULAR_BUFFER})
+        ${CMD_PARSER} ${SOCKET} ${UTILS} ${ARG_PARSER} ${MAP}
+        ${CIRCULAR_BUFFER})
 
 add_executable(zappy_ai src/ai_client/main.c ${CLIENT} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP} ${CIRCULAR_BUFFER})

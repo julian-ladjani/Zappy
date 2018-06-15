@@ -20,6 +20,8 @@ void cleanup_server(server_config_t *server_config)
 		cleanup_teams(server_config->teams);
 	if (server_config->master != NULL)
 		cleanup_socket(server_config->master);
+	if (server_config->arguments != NULL)
+		cleanup_server_arguments(server_config->arguments);
 	cleanup_socket_poll(server_config->poll_fd);
 	free(server_config);
 }

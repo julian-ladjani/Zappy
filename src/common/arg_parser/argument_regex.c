@@ -18,7 +18,7 @@ regex_t *init_regex(char *regex_string)
 	if (regex == NULL)
 		return NULL;
 	if (regcomp(regex, regex_string,
-		REG_NOSUB) != 0) {
+		REG_EXTENDED | REG_NOSUB) != 0) {
 		free(regex);
 		return (NULL);
 	}
@@ -46,7 +46,6 @@ int argument_check_regex(char *string, regex_t *regex)
 {
 	int match;
 
-	printf("%s\n", string);
 	if (string == NULL || regex == NULL)
 		return (ARG_PARSER_FAILURE);
 	match = regexec(regex, string, 0, NULL, 0);

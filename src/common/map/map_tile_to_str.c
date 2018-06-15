@@ -13,11 +13,11 @@ char *tile_to_str(tile_t tile)
 				"mendiane", "phiras", "thystame"};
 	char *str = NULL;
 
-	for (int i = FOOD; i < THYSTAME; ++i) {
-		if (str)
-			str = str_append(str, " ");
-		if (tile[i])
+	for (int i = FOOD; i <= THYSTAME; ++i) {
+		for (unsigned int j = 0; j < tile[i]; ++j) {
+			str = str_append(str, str ? " " : "");
 			str = str_append(str, ressources[i]);
+		}
 	}
 	return (str);
 }
