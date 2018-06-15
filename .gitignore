@@ -7,6 +7,7 @@ cmake*
 obj
 data
 *~
+.#*
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/

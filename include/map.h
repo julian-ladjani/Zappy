@@ -59,6 +59,7 @@ void map_free(map_t *map);
 void map_print(map_t *map);
 uint8_t map_get_orientation(vec_t dir);
 tile_t *map_get_tile(map_t *map, ssize_t x, ssize_t y);
+void empty_tile(tile_t *tile);
 char *tile_to_str(tile_t tile);
 char *tile_to_str_quantity(tile_t tile);
 char *str_append(char *str, char *append);
