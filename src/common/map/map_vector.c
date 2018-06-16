@@ -37,7 +37,7 @@ uint8_t map_get_orientation(vec_t dir)
 	return ((uint8_t) (piece == 0 ? 8 : piece));
 }
 
-static size_t map_get_abs(ssize_t n, size_t size)
+size_t map_get_abs(ssize_t n, size_t size)
 {
 	n = n % size;
 	return (n < 0 ? size + n : (size_t)n);
