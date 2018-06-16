@@ -23,14 +23,14 @@
 
 typedef struct server_user_s {
 	int id;
-	char *name;
-	char *password;
-	char *nick;
+	char *name;		//a retirer
+	char *password;		//a retirer
+	char *nick;		//a retirer
 	circbuf_t *circular_buffer;
 	user_type_t type;
 	user_logged_state_t logged_state;
 	int fd;
-	list_t *teams;
+	list_t *teams;		//a garder ou a retirer
 	list_t *commands;
 	tile_t inventory;
 	cardinal_dir orientation;

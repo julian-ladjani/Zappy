@@ -33,16 +33,16 @@ static void select_tile_to_look(server_config_t *server, server_user_t *user,
 {
 	switch (user->orientation) {
 	case (NORTH):
-	        send_tile_content(server, user, user->x + i, user->y + level);
+		send_tile_content(server, user, user->x + i, user->y + level);
 		break;
 	case (EAST):
-	        send_tile_content(server, user, user->x + level, user->y - i);
+		send_tile_content(server, user, user->x + level, user->y - i);
 		break;
 	case (SOUTH):
-	        send_tile_content(server, user, user->x - i, user->y - level);
+		send_tile_content(server, user, user->x - i, user->y - level);
 		break;
 	case (WEST):
-	        send_tile_content(server, user, user->x - level, user->y + i);
+		send_tile_content(server, user, user->x - level, user->y + i);
 		break;
 	}
 }

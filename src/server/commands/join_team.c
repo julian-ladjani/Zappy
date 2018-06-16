@@ -19,7 +19,7 @@ static void initialise_user(server_config_t *server_config,
 	user->inventory[FOOD] = 1260;
 	user->id = server_config->new_user_id;
 	server_config->new_user_id += 1;
-	list_add_elem_at_pos(team->users, user, LIST_END);
+	team->users = list_add_elem_at_pos(team->users, user, LIST_END);
 }
 
 static void join_team(server_config_t *server_config,

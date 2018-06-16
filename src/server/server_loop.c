@@ -50,6 +50,7 @@ void server_main_loop(server_config_t *server_config)
 			poll_loop(server_config);
 		else
 			usleep(200);
+		exec_pending_command(server_config);
 	}
 	cleanup_server_exit(server_config, ZAPPY_EXIT_SUCCESS);
 }

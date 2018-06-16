@@ -7,27 +7,25 @@
 
 #include "server_function.h"
 
-void exec_ai_command(server_config_t *server_config,
+static void exec_ai_command(server_config_t *server_config,
 			server_user_t *user, cmdparams_t *cmdparams)
 {
+	dprintf(user->fd, "ko\n");
 	(void)server_config;
-	(void)user;
 	(void)cmdparams;
 }
 
-void exec_graphic_command(server_config_t *server_config,
+static void exec_graphic_command(server_config_t *server_config,
 				server_user_t *user, cmdparams_t *cmdparams)
 {
+	dprintf(user->fd, "suc\n");
 	(void)server_config;
-	(void)user;
 	(void)cmdparams;
 }
 
-void exec_pending_command(server_config_t *server_config,
-				server_user_t *user)
+static void exec_client_command(server_config_t *server_config,
+				server_user_t *user, cmdparams_t *cmdparams)
 {
-	cmdparams_t *cmdparams = (cmdparams_t *)list_get_elem_at_pos(
-					user->commands, LIST_FIRST);
 
 	if (user->logged_state & ZAPPY_USER_NOT_CONNECTED)
 		try_to_join_team(server_config, user, cmdparams);
@@ -37,6 +35,31 @@ void exec_pending_command(server_config_t *server_config,
 		if (user->type == ZAPPY_USER_GRAPHIC)
 			exec_graphic_command(server_config, user, cmdparams);
 	}
-	user->commands = list_delete_at_pos(user->commands,
+}
+
+static void exec_user_pending_command(server_config_t *server_config,
+					server_user_t *user)
+{
+	cmdparams_t *cmdparams = (cmdparams_t *)list_get_elem_at_pos(
+						user->commands, LIST_FIRST);
+
+	while (cmdparams) {
+		exec_client_command(server_config, user, cmdparams);
+		user->commands = list_delete_at_pos(user->commands,
 						LIST_FIRST, &free_arguments);
+		cmdparams = (cmdparams_t *)list_get_elem_at_pos(
+			user->commands, LIST_FIRST);
+	}
+}
+
+void exec_pending_command(server_config_t *server_config)
+{
+	list_t *user_list = server_config->users;
+	server_user_t *user;
+
+	while (user_list) {
+		user = user_list->elem;
+		exec_user_pending_command(server_config, user);
+		user_list = user_list->next;
+	}
 }

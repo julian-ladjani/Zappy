@@ -22,6 +22,7 @@ server_team_t *initialise_server_team(char *name);
 
 void server_main_loop(server_config_t *server_config);
 void parse_command(server_config_t *server_config, server_user_t *user);
+void exec_pending_command(server_config_t *server_config);
 int poll_loop(server_config_t *server_config);
 void poll_accept_client(server_config_t *server_config);
 

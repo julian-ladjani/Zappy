@@ -65,6 +65,7 @@ set(UTILS
         src/common/utils/tab_cpy.c include/utils.h)
 
 set(SERVER
+        src/server/send_messages.c
         src/server/server_cleanup.c
         src/server/server_initialisation.c
         src/server/server_loop.c
@@ -85,8 +86,13 @@ set(SERVER
         include/server_struct.h
         include/server_const.h
         include/server_function.h
+        src/server/commands/command_exec.c
+        src/server/commands/command_parse.c
+        src/server/commands/join_team.c
         src/server/argument/server_parse_arg.c
-        src/server/argument/server_parse_arg_func.c src/server/argument/cleanup_server_arguments.c src/server/argument/server_check_arg.c)
+        src/server/argument/server_parse_arg_func.c
+        src/server/argument/cleanup_server_arguments.c
+        src/server/argument/server_check_arg.c)
 
 set(CLIENT
         include/client.h
