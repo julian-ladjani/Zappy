@@ -44,7 +44,9 @@ clt_params_t *client_parse_arguments(int ac, char **av)
 		show_help_client();
 	for (int i = 0; i + 1 < ac; i += 2)
 		client_parse_find_option(params, av + i);
-	if (!params->team || !params->machine || !params->port)
+	if (!params->team || !params->port)
 		return (NULL);
+	if (!params->machine)
+		params->machine = "127.0.0.1";
 	return (params);
 }
