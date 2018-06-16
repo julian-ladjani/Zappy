@@ -22,10 +22,11 @@ void parse_command(__attribute__((unused))server_config_t *server_config,
 		if (list_size(user->commands) < 10
 			|| (user->logged_state & ZAPPY_USER_CONNECTED
 			&& user->type == ZAPPY_USER_GRAPHIC))
-			list_add_elem_at_pos(user->commands,
-				cmdparams, LIST_END);
+			user->commands = list_add_elem_at_pos(user->commands,
+							cmdparams, LIST_END);
 		else
 			free_arguments(cmdparams);
+		free(buf);
 		circbuf_free_nspace(user->circular_buffer, sep + 2);
 		sep = circbuf_strstr(user->circular_buffer, "\r\n");
 	}

@@ -24,5 +24,7 @@ server_user_t *initialise_server_user(int fd)
 	server_user->teams = NULL;
 	server_user->name = NULL;
 	server_user->password = NULL;
+	server_user->commands = NULL;
+	dprintf(fd, "WELCOME\n");
 	return (server_user);
 }

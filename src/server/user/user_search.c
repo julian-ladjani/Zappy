@@ -62,6 +62,8 @@ int find_nb_user_at_pos(server_config_t *server_config,
 	server_user_t *user;
 	int nb_user = 0;
 
+	x = map_get_abs(x, server_config->map->width);
+	y = map_get_abs(y, server_config->map->height);
 	while (user_list) {
 		user = user_list->elem;
 		if (user && user->x == x && user->y == y)
