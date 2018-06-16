@@ -9,7 +9,7 @@
 
 uint8_t clt_cmd_look(clt_config_t *client)
 {
-	(void) client;
+	send_active_request(client, "");
 	return (1);
 }
 

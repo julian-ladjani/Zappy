@@ -53,7 +53,8 @@ typedef enum sendable_command {
 typedef struct request_s {
 	send_cmd_t cmd_id;
 	char *cmd_name;
-	uint8_t  (*sender)(clt_config_t *client, va_list *av);
+	uint8_t (*sender)(clt_config_t *client, va_list *av);
+	uint8_t (*receiver)(clt_config_t *client);
 } request_t;
 
 typedef struct client_socket_s {
@@ -109,5 +110,9 @@ int init_server(clt_config_t *client);
 int handle_poll(clt_config_t *client);
 void launch_ai(clt_config_t *clt);
 clt_params_t *client_parse_arguments(int ac, char **av);
+
+void send_active_request(clt_config_t *client, char *msg, ...);
+void vsend_active_request(clt_config_t *client, char *msg, va_list *av);
+int send_request(send_cmd_t request_id, clt_config_t *client, ...);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

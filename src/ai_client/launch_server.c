@@ -12,12 +12,12 @@ static int parse_infos(clt_config_t *client)
 	static int i = 0;
 	int r_value;
 
+	printf("%s\n", client->server->response_request);
 	if (pre_requests[i]) {
 		r_value = pre_requests[i++](client);
 		if (pre_requests[i] == NULL &&
 			r_value == ZAPPY_EXIT_SUCCESS)
 				client->status = ZAPPY_CLT_READY;
-		free(client->server->response_request);
 		return (r_value);
 	}
 	if (!strncmp(client->server->response_request, "dead", 4)) {
@@ -43,6 +43,7 @@ static int read_command(clt_config_t *client)
 		client->server->active_request = NULL;
 		if (client->server->active_request)
 			free(client->server->active_request);
+		free(client->server->response_request);
 		client->server->response_request = circbuf_nbufferise
 			(client->server->buf, (unsigned int) pos);
 		r_value = parse_infos(client);

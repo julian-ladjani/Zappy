@@ -9,5 +9,7 @@
 
 void launch_ai(clt_config_t *clt)
 {
-	while (1);
+	while (clt->status != ZAPPY_CLT_DEAD) {
+		send_request(LOOK, clt);
+	}
 }

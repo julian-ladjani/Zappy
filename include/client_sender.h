@@ -13,18 +13,21 @@
 #define NB_REQUESTS() (13)
 
 const request_t requests[13] = {
-	{BROADCAST, "broadcast", clt_cmd_get_args_broadcast},
-	{CONNECT, "connect_nbr", clt_cmd_get_args_connect_nbr},
-	{EJECT, "eject", clt_cmd_get_args_eject},
-	{FORK, "fork", clt_cmd_get_args_fork},
-	{FORWARD, "forward", clt_cmd_get_args_forward},
-	{INCANTATION, "incantation", clt_cmd_get_args_incantation},
-	{INVENTORY, "inventory", clt_cmd_get_args_inventory},
-	{LEFT, "left", clt_cmd_get_args_left},
-	{LOOK, "look", clt_cmd_get_args_look},
-	{RIGHT, "right", clt_cmd_get_args_right},
-	{SET, "set", clt_cmd_get_args_set},
-	{TAKE, "take", clt_cmd_get_args_take}
+	{BROADCAST, "Broadcast", clt_cmd_get_args_broadcast,
+		clt_cmd_broadcast_receiver},
+	{CONNECT, "Connect_nbr", clt_cmd_get_args_connect_nbr,
+		clt_cmd_broadcast_receiver},
+	{EJECT, "Eject", clt_cmd_get_args_eject,
+		clt_cmd_broadcast_receiver},
+	{FORK, "Fork", clt_cmd_get_args_fork},
+	{FORWARD, "Forward", clt_cmd_get_args_forward},
+	{INCANTATION, "Incantation", clt_cmd_get_args_incantation},
+	{INVENTORY, "Inventory", clt_cmd_get_args_inventory},
+	{LEFT, "Left", clt_cmd_get_args_left},
+	{LOOK, "Look", clt_cmd_get_args_look},
+	{RIGHT, "Right", clt_cmd_get_args_right},
+	{SET, "Set", clt_cmd_get_args_set},
+	{TAKE, "Take", clt_cmd_get_args_take}
 };
 
 #endif /* PSU_ZAPPY_2017_CLIENT_SENDER_H */
