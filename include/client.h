@@ -79,6 +79,19 @@ int prerequest_welcome(clt_config_t *client);
 int prerequest_map_size(clt_config_t *client);
 int prerequest_player_id(clt_config_t *client);
 
+uint8_t clt_cmd_forward_receiver(clt_config_t *client);
+uint8_t clt_cmd_right_receiver(clt_config_t *client);
+uint8_t clt_cmd_left_receiver(clt_config_t *client);
+uint8_t clt_cmd_look_receiver(clt_config_t *client);
+uint8_t clt_cmd_inventory_receiver(clt_config_t *client);
+uint8_t clt_cmd_broadcast_receiver(clt_config_t *client);
+uint8_t clt_cmd_connect_nbr_receiver(clt_config_t *client);
+uint8_t clt_cmd_fork_receiver(clt_config_t *client);
+uint8_t clt_cmd_eject_receiver(clt_config_t *client);
+uint8_t clt_cmd_take_receiver(clt_config_t *client);
+uint8_t clt_cmd_set_receiver(clt_config_t *client);
+uint8_t clt_cmd_incantation_receiver(clt_config_t *client);
+
 uint8_t clt_cmd_forward(clt_config_t *client);
 uint8_t clt_cmd_right(clt_config_t *client);
 uint8_t clt_cmd_left(clt_config_t *client);

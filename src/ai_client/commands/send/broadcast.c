@@ -7,6 +7,12 @@
 
 #include "client.h"
 
+uint8_t clt_cmd_broadcast_receiver(clt_config_t *client)
+{
+	(void) client;
+	return (1);
+}
+
 uint8_t clt_cmd_broadcast(clt_config_t *client, char *msg, va_list *av)
 {
 	(void) client;

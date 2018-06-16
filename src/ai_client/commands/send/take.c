@@ -7,6 +7,12 @@
 
 #include "client.h"
 
+uint8_t clt_cmd_take_receiver(clt_config_t *client)
+{
+	(void) client;
+	return (1);
+}
+
 uint8_t clt_cmd_take(clt_config_t *client, object_t obj)
 {
 	(void) client;
@@ -16,5 +22,5 @@ uint8_t clt_cmd_take(clt_config_t *client, object_t obj)
 
 uint8_t clt_cmd_get_args_take(clt_config_t *client, va_list *av)
 {
-	return (clt_cmd_set(client, va_arg(*av, object_t)));
+	return (clt_cmd_take(client, va_arg(*av, object_t)));
 }

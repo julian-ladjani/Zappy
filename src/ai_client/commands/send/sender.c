@@ -50,7 +50,7 @@ int send_request(send_cmd_t request_id, clt_config_t *client, ...)
 					return (84);
 				}
 			}
-			requests[i].response(client);
+			requests[i].receiver(client);
 		}
 	}
 	return (1);

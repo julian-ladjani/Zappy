@@ -7,6 +7,12 @@
 
 #include "client.h"
 
+uint8_t clt_cmd_connect_nbr_receiver(clt_config_t *client)
+{
+	(void) client;
+	return (1);
+}
+
 uint8_t clt_cmd_connect_nbr(clt_config_t *client)
 {
 	(void) client;
