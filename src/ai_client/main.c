@@ -78,6 +78,7 @@ int main(int ac, char **av)
 	while (client->status == ZAPPY_CLT_WAITING)
 		if (handle_poll(client) == ZAPPY_EXIT_FAILURE)
 			return (84);
+	launch_ai(client);
 	free_client_config(client);
 	return (0);
 }

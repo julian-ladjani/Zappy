@@ -107,7 +107,7 @@ uint8_t clt_cmd_get_args_incantation(clt_config_t *client, va_list *);
 void show_help_client(void);
 int init_server(clt_config_t *client);
 int handle_poll(clt_config_t *client);
-void *launch_ai(void *clt);
+void launch_ai(clt_config_t *clt);
 clt_params_t *client_parse_arguments(int ac, char **av);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

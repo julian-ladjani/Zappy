@@ -113,7 +113,7 @@ set(CLIENT
         include/client_connection.h
         src/ai_client/commands/pre_requests.c
         src/common/utils/is_str.c src/ai_client/parser.c
-        include/client_parser.h)
+        include/client_parser.h src/ai_client/launch_ai.c)
 
 add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${UTILS} ${ARG_PARSER} ${MAP}

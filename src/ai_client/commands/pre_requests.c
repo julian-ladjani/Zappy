@@ -30,6 +30,7 @@ int prerequest_map_size(clt_config_t *client)
 		return (ZAPPY_EXIT_FAILURE);
 	client->map = map_create((size_t) atoi(str), (size_t) atoi(tmp + 1));
 	client->id = atoi(client->server->response_request);
+	client->status = ZAPPY_CLT_READY;
 	return (ZAPPY_EXIT_SUCCESS);
 }
 
