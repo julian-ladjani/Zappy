@@ -7,20 +7,21 @@
 
 #include "client.h"
 
-uint8_t clt_cmd_forward_receiver(clt_config_t *client)
+static uint8_t clt_cmd_forward_receiver(clt_config_t *client)
 {
 	(void) client;
 	return (1);
 }
 
-uint8_t clt_cmd_forward(clt_config_t *client)
+static uint8_t clt_cmd_forward(clt_config_t *client)
 {
 	(void) client;
 	return (1);
 }
 
-uint8_t clt_cmd_get_args_forward(clt_config_t *client, va_list *av)
+uint8_t clt_cmd_get_args_forward(clt_config_t *client, va_list *av, char sender)
 {
-	return (clt_cmd_forward(client));
+	return (client ? clt_cmd_forward(client) :
+		clt_cmd_forward_receiver(client));
 	(void) av;
 }

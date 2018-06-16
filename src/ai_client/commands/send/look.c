@@ -7,20 +7,20 @@
 
 #include "client.h"
 
-uint8_t clt_cmd_look_receiver(clt_config_t *client)
+static uint8_t clt_cmd_look_receiver(clt_config_t *client)
 {
 	(void) client;
 	return (1);
 }
 
-uint8_t clt_cmd_look(clt_config_t *client)
+static uint8_t clt_cmd_look(clt_config_t *client)
 {
 	send_active_request(client, "");
 	return (1);
 }
 
-uint8_t clt_cmd_get_args_look(clt_config_t *client, va_list *av)
+uint8_t clt_cmd_get_args_look(clt_config_t *client, va_list *av, char sender)
 {
-	return (clt_cmd_look(client));
+	return (sender ? clt_cmd_look(client) : clt_cmd_look_receiver(client));
 	(void) av;
 }

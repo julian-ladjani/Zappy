@@ -7,20 +7,22 @@
 
 #include "client.h"
 
-uint8_t clt_cmd_connect_nbr_receiver(clt_config_t *client)
+static uint8_t clt_cmd_connect_nbr_receiver(clt_config_t *client)
 {
 	(void) client;
 	return (1);
 }
 
-uint8_t clt_cmd_connect_nbr(clt_config_t *client)
+static uint8_t clt_cmd_connect_nbr(clt_config_t *client)
 {
 	(void) client;
 	return (1);
 }
 
-uint8_t clt_cmd_get_args_connect_nbr(clt_config_t *client, va_list *av)
+uint8_t clt_cmd_get_args_connect_nbr(clt_config_t *client, va_list *av,
+					char sender)
 {
-	return (clt_cmd_connect_nbr(client));
+	return ((sender) ? clt_cmd_connect_nbr(client) :
+		clt_cmd_connect_nbr_receiver(client));
 	(void)(av);
 }

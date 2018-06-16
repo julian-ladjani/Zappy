@@ -53,8 +53,7 @@ typedef enum sendable_command {
 typedef struct request_s {
 	send_cmd_t cmd_id;
 	char *cmd_name;
-	uint8_t (*sender)(clt_config_t *client, va_list *av);
-	uint8_t (*receiver)(clt_config_t *client);
+	uint8_t (*sender)(clt_config_t *client, va_list *av, char s);
 } request_t;
 
 typedef struct client_socket_s {
@@ -79,44 +78,18 @@ int prerequest_welcome(clt_config_t *client);
 int prerequest_map_size(clt_config_t *client);
 int prerequest_player_id(clt_config_t *client);
 
-uint8_t clt_cmd_forward_receiver(clt_config_t *client);
-uint8_t clt_cmd_right_receiver(clt_config_t *client);
-uint8_t clt_cmd_left_receiver(clt_config_t *client);
-uint8_t clt_cmd_look_receiver(clt_config_t *client);
-uint8_t clt_cmd_inventory_receiver(clt_config_t *client);
-uint8_t clt_cmd_broadcast_receiver(clt_config_t *client);
-uint8_t clt_cmd_connect_nbr_receiver(clt_config_t *client);
-uint8_t clt_cmd_fork_receiver(clt_config_t *client);
-uint8_t clt_cmd_eject_receiver(clt_config_t *client);
-uint8_t clt_cmd_take_receiver(clt_config_t *client);
-uint8_t clt_cmd_set_receiver(clt_config_t *client);
-uint8_t clt_cmd_incantation_receiver(clt_config_t *client);
-
-uint8_t clt_cmd_forward(clt_config_t *client);
-uint8_t clt_cmd_right(clt_config_t *client);
-uint8_t clt_cmd_left(clt_config_t *client);
-uint8_t clt_cmd_look(clt_config_t *client);
-uint8_t clt_cmd_inventory(clt_config_t *client);
-uint8_t clt_cmd_broadcast(clt_config_t *client, char *str, va_list *);
-uint8_t clt_cmd_connect_nbr(clt_config_t *client);
-uint8_t clt_cmd_fork(clt_config_t *client);
-uint8_t clt_cmd_eject(clt_config_t *client);
-uint8_t clt_cmd_take(clt_config_t *client, object_t obj);
-uint8_t clt_cmd_set(clt_config_t *client, object_t obj);
-uint8_t clt_cmd_incantation(clt_config_t *client);
-
-uint8_t clt_cmd_get_args_forward(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_right(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_left(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_look(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_inventory(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_broadcast(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_connect_nbr(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_fork(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_eject(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_take(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_set(clt_config_t *client, va_list *);
-uint8_t clt_cmd_get_args_incantation(clt_config_t *client, va_list *);
+uint8_t clt_cmd_get_args_forward(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_right(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_left(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_look(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_inventory(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_broadcast(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_connect_nbr(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_fork(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_eject(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_take(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_set(clt_config_t *client, va_list *, char s);
+uint8_t clt_cmd_get_args_incantation(clt_config_t *client, va_list *, char s);
 
 void show_help_client(void);
 int init_server(clt_config_t *client);

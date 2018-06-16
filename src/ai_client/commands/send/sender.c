@@ -43,14 +43,17 @@ int send_request(send_cmd_t request_id, clt_config_t *client, ...)
 		if (requests[i].cmd_id == request_id) {
 			va_start(av, client);
 			client->server->active_request = requests[i].cmd_name;
-			requests[i].sender(client, &av);
+			requests[i].sender(client, &av, 1);
 			while (client->server->active_request) {
 				if (handle_poll(client) == ZAPPY_EXIT_FAILURE) {
 					va_end(av);
 					return (84);
 				}
 			}
-			requests[i].receiver(client);
+			va_end(av);
+			va_start(av, client);
+			requests[i].sender(client, &av, 0);
+			va_end(av);
 		}
 	}
 	return (1);
