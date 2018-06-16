@@ -21,7 +21,9 @@ void free_client_config(clt_config_t *client)
 	if (client->server)
 		free(client->server->socket);
 	free(client->server);
+	free(client->specs);
 	client->server = NULL;
+	client->specs = NULL;
 	free(client);
 }
 
@@ -49,6 +51,17 @@ static void init_server_socket_informations(
 	client->server->socket->ip = machine;
 }
 
+static clt_specs_t *init_client_specs(char *team)
+{
+	clt_specs_t *specs = calloc(sizeof(clt_specs_t), sizeof(clt_specs_t));
+
+	if (!specs)
+		return (NULL);
+	specs->orientation = NORTH;
+	specs->team = team;
+	return (specs);
+}
+
 static clt_config_t *init_config(clt_params_t *params)
 {
 	clt_config_t *client = calloc(
@@ -56,13 +69,13 @@ static clt_config_t *init_config(clt_params_t *params)
 
 	if (!client || !params)
 		return (NULL);
-	init_server_socket_informations(params->machine,
-					(in_port_t) params->port, client);
+	init_server_socket_informations(
+		params->machine, (in_port_t) params->port, client);
 	if (!client->server)
 		return (NULL);
+	client->specs = init_client_specs(params->team);
 	client->server->pollfd->fd = -1;
 	client->server->pollfd->events = POLLIN;
-	client->team = params->team;
 	return (client);
 }
 

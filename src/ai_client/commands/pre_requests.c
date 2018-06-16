@@ -13,7 +13,8 @@ int prerequest_welcome(clt_config_t *client)
 		return (ZAPPY_EXIT_FAILURE);
 	if (strcmp(client->server->response_request, "WELCOME") != 0)
 		return (ZAPPY_EXIT_FAILURE);
-	send(client->server->pollfd->fd, client->team, strlen(client->team), 0);
+	send(client->server->pollfd->fd, client->specs->team,
+		strlen(client->specs->team), 0);
 	send(client->server->pollfd->fd, "\n", 1, 0);
 	return (ZAPPY_EXIT_SUCCESS);
 }
@@ -29,7 +30,6 @@ int prerequest_map_size(clt_config_t *client)
 	if (!is_number(str) || !is_number(tmp + 1))
 		return (ZAPPY_EXIT_FAILURE);
 	client->map = map_create((size_t) atoi(str), (size_t) atoi(tmp + 1));
-	client->id = atoi(client->server->response_request);
 	client->status = ZAPPY_CLT_READY;
 	return (ZAPPY_EXIT_SUCCESS);
 }
@@ -42,6 +42,6 @@ int prerequest_player_id(clt_config_t *client)
 		return (ZAPPY_EXIT_FAILURE);
 	if (!is_number(str))
 		return (ZAPPY_EXIT_FAILURE);
-	client->id = atoi(str);
+	client->specs->id = atoi(str);
 	return (ZAPPY_EXIT_SUCCESS);
 }

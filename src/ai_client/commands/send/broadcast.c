@@ -24,7 +24,8 @@ static uint8_t clt_cmd_broadcast(clt_config_t *client, char *msg, va_list *av)
 	return (1);
 }
 
-uint8_t clt_cmd_get_args_broadcast(clt_config_t *client, va_list *av, char sender)
+uint8_t clt_cmd_get_args_broadcast(clt_config_t *client, va_list *av,
+					char sender)
 {
 	if (sender)
 		return (clt_cmd_broadcast(client, va_arg(*av, char *), av));

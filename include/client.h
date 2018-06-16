@@ -65,12 +65,21 @@ typedef struct client_socket_s {
 	list_t *broadcasts_queue;
 } clt_socket_t;
 
-struct client_config_s {
-	char *team;
+typedef struct client_specifications_s {
 	int id;
+	tile_t inventory;
+	cardinal_dir orientation;
+	size_t x;
+	size_t y;
+	unsigned int level;
+	char *team;
+} clt_specs_t;
+
+struct client_config_s {
 	map_t *map;
 	int status;
 	clt_socket_t *server;
+	clt_specs_t *specs;
 	request_t send;
 };
 

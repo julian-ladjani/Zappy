@@ -9,7 +9,8 @@
 
 static uint8_t clt_cmd_right_receiver(clt_config_t *client)
 {
-	(void) client;
+	if (ZAPPY_IS_OK(client->server->response_request)) {
+	}
 	return (1);
 }
 
