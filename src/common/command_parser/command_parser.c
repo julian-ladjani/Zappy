@@ -10,7 +10,8 @@
 static unsigned int count_sep(const char *str, const char *sep)
 {
 	char *tmp = strstr(str, sep);
-	return (tmp ? count_sep(tmp + strlen(sep), sep) + (tmp != str) : 0);
+
+	return (tmp ? count_sep(tmp + strlen(sep), sep) + 1 : 0);
 }
 
 static cmdparams_t *new_cmdparams(const char *str, const char *sep)
@@ -21,8 +22,8 @@ static cmdparams_t *new_cmdparams(const char *str, const char *sep)
 		dprintf(2, "Invalid malloc in new_cmdparams\n");
 		return (NULL);
 	}
-	cmd->nb_args = count_sep(str, sep);
-	cmd->args = malloc(sizeof(char *) * (count_sep(str, sep)));
+	cmd->nb_args = count_sep(str, sep) + 2;
+	cmd->args = malloc(sizeof(char *) * cmd->nb_args);
 	if (!cmd->args) {
 		dprintf(2, "Invalid malloc in new_cmdparams\n");
 		return (NULL);
@@ -32,9 +33,9 @@ static cmdparams_t *new_cmdparams(const char *str, const char *sep)
 
 static void parse_parameters(cmdparams_t *cmdparams, char *cmd, const char *sep)
 {
-	cmdparams->name = strtok(cmd, sep);
+	cmdparams->name = sstrtok(cmd, sep);
 	for (unsigned int i = 0; i < cmdparams->nb_args; ++i) {
-		cmdparams->args[i] = strtok(NULL, sep);
+		cmdparams->args[i] = sstrtok(NULL, sep);
 		if (!cmdparams->args[i]) {
 			cmdparams->nb_args = i;
 			break;

@@ -26,6 +26,7 @@ typedef enum access_mode_s
 	ZPY_NOT_CONNECTED
 } access_mode_t;
 
+char *sstrtok(char *str, char const *delims);
 cmdparams_t *parse_arguments(char *cmd, const char *sep);
 void free_arguments(void *cmd);
 

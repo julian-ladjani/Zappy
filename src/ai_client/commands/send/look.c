@@ -9,7 +9,11 @@
 
 static uint8_t clt_cmd_look_receiver(clt_config_t *client)
 {
-	(void) client;
+	cmdparams_t *cmdparams = parse_arguments(
+		client->server->response_request, ",");
+	for (unsigned int i = 0; i < cmdparams->nb_args; ++i)
+		printf("{%s}\n", cmdparams->args[i]);
+	printf("-----\n");
 	return (1);
 }
 
