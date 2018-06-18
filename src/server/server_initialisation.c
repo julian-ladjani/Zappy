@@ -25,7 +25,6 @@ static server_config_t *initialise_server_configuration(
 	server_config->arguments = server_argument;
 	server_config->teams = NULL;
 	server_config->map = NULL;
-	server_config->new_user_id = 0;
 	server_config->frequency = server_argument->frequency;
 	server_config->state = ZAPPY_SERVER_STOP;
 	return (server_config);

@@ -18,8 +18,7 @@ static void initialise_user(server_config_t *server_config,
 	user->level = 1;
 	empty_tile(&user->inventory);
 	user->inventory[FOOD] = 1260;
-	user->id = server_config->new_user_id;
-	server_config->new_user_id += 1;
+	user->id = user->fd;
 	team->users = list_add_elem_at_pos(team->users, user, LIST_END);
 }
 
