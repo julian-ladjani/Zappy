@@ -32,7 +32,7 @@ static server_argument_t *init_server_argument(void)
 		return (NULL);
 	server_argument->port = 0;
 	server_argument->client_nb = 0;
-	server_argument->frequency = 0;
+	server_argument->frequency = 100;
 	server_argument->height = 0;
 	server_argument->width = 0;
 	server_argument->team_names = NULL;

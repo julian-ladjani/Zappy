@@ -22,6 +22,7 @@ static uint8_t clt_cmd_right(clt_config_t *client)
 
 uint8_t clt_cmd_get_args_right(clt_config_t *client, va_list *av, char sender)
 {
-	return (sender ? clt_cmd_right(client) : clt_cmd_right_receiver(client));
+	return (sender ? clt_cmd_right(client)
+		: clt_cmd_right_receiver(client));
 	(void) av;
 }

@@ -34,7 +34,7 @@ static void eject_other_ai(server_config_t *server, server_user_t *emitter)
 	while (user_list) {
 		user = user_list->elem;
 		if (user && user != emitter
-		    && user->x == emitter->x && user->y == emitter->y) {
+			&& user->x == emitter->x && user->y == emitter->y) {
 			dprintf(user->fd, "eject: %u\n",
 				map_rotate_orientation(
 					user->orientation,
@@ -47,7 +47,7 @@ static void eject_other_ai(server_config_t *server, server_user_t *emitter)
 }
 
 uint8_t srv_cmd_eject(server_config_t *server, server_user_t *user,
-		      __attribute__((unused))cmdparams_t *cmd)
+			__attribute__((unused))cmdparams_t *cmd)
 {
 	char *msg;
 
