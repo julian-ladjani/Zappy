@@ -10,11 +10,12 @@
 
 uint8_t map_get_orientation(vec_t dir)
 {
-	double angle = atan2(dir.y, dir.x);
+	double angle;
 	uint8_t piece;
 
 	if (dir.x == 0 && dir.y == 0)
 		return (0);
+	angle = atan2(dir.y, dir.x);
 	if (angle < 0)
 		angle += 2 * M_PI;
 	piece = (uint8_t) (8 * angle / (2 * M_PI));
