@@ -28,6 +28,11 @@ void cleanup_argument_parsing_output(arg_parser_output_t *output)
 	free(output);
 }
 
+void cleanup_argument_parsing_input(arg_parser_input_t *input)
+{
+	free(input);
+}
+
 void *cleanup_argument_parsing(arg_parser_output_t *output,
 	regex_t *start_regex, regex_t *stop_regex, void *return_value)
 {

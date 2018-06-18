@@ -35,15 +35,11 @@ void user_quit_part_teams(server_config_t *server_config,
 void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message)
 {
-	char *str;
 
 	if (server_config == NULL || user == NULL || message == NULL)
 		return;
 	printf("Connection - %d Quit With Message: %s\n", user->fd,
 		message);
 	user->logged_state = ZAPPY_USER_QUIT;
-	asprintf(&str, ":%s QUIT :%s", user->nick, message);
-	user_send_message_users_same_team(server_config, user, str);
-	free(str);
 	user_quit_part_teams(server_config, user);
 }

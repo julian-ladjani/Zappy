@@ -36,7 +36,7 @@ int poll_exec(server_config_t *server_config, int poll_index)
 		close_socket_poll(server_config, poll_index);
 		return (ZAPPY_EXIT_FAILURE);
 	}
-	if (poll_exec_loop(server_config, user) < 0 ||
+	if (poll_exec_loop(server_config, user) == 0 ||
 		user->logged_state == ZAPPY_USER_QUIT) {
 		close_socket_poll(server_config, poll_index);
 		return (ZAPPY_EXIT_SUCCESS);

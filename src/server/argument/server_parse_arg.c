@@ -68,5 +68,6 @@ server_argument_t *parse_server_argument(int ac, char **av)
 	parse_server_arguments_loop(server_argument, input);
 	if (check_server_arguments(server_argument) == ARG_PARSER_FAILURE)
 		return (NULL);
+	cleanup_argument_parsing_input(input);
 	return (server_argument);
 }

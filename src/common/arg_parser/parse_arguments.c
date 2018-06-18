@@ -9,27 +9,27 @@
 #include <unistd.h>
 #include "arg_parser.h"
 
-static char *get_start_arg(arg_parser_input_t *input_data,
-	arg_parser_output_t *output_data, regex_t *start_regex, char *arg)
+static char *get_start_arg(arg_parser_input_t *input,
+	arg_parser_output_t *output, regex_t *start_regex, char *arg)
 {
 	if (argument_correspond_to_regex(start_regex,
 		arg) == ARG_PARSER_SUCCESS) {
-		if (input_data->interval == ARG_PARSER_OPEN ||
-			input_data->interval == ARG_PARSER_SEMI_OPEN_LEFT)
-			input_data->tokenize_func(output_data, arg);
+		if (input->interval == ARG_PARSER_OPEN ||
+			input->interval == ARG_PARSER_SEMI_OPEN_LEFT)
+			input->tokenize_func(output, arg);
 		return (arg);
 	}
 	return (NULL);
 }
 
-static char *get_stop_arg(arg_parser_input_t *input_data,
-	arg_parser_output_t *output_data, regex_t *stop_regex, char *arg)
+static char *get_stop_arg(arg_parser_input_t *input,
+	arg_parser_output_t *output, regex_t *stop_regex, char *arg)
 {
 	if (argument_correspond_to_regex(stop_regex,
 		arg) == ARG_PARSER_SUCCESS) {
-		if (input_data->interval == ARG_PARSER_OPEN ||
-			input_data->interval == ARG_PARSER_SEMI_OPEN_RIGHT)
-			input_data->tokenize_func(output_data, arg);
+		if (input->interval == ARG_PARSER_OPEN ||
+			input->interval == ARG_PARSER_SEMI_OPEN_RIGHT)
+			input->tokenize_func(output, arg);
 		return (arg);
 	}
 	return (NULL);
@@ -47,48 +47,47 @@ static int do_action_multiple_occurrence(arg_parser_input_t *input,
 }
 
 static arg_parser_output_t *parse_argument_loop(
-	arg_parser_input_t *input_data, arg_parser_output_t *output_data,
+	arg_parser_input_t *input, arg_parser_output_t *output,
 	regex_t *start_regex, regex_t *stop_regex)
 {
 	char *start_arg = NULL;
 
-	for (size_t i = input_data->offset;
-		input_data->argv[i] != NULL; i++) {
+	for (size_t i = input->offset; input->argv[i] != NULL; i++) {
 		if (start_arg == NULL)
-			start_arg = get_start_arg(input_data, output_data,
-				start_regex, input_data->argv[i]);
+			start_arg = get_start_arg(input, output,
+				start_regex, input->argv[i]);
 		if (argument_correspond_to_regex(start_regex,
-			input_data->argv[i]) == ARG_PARSER_FAILURE &&
-			get_stop_arg(input_data, output_data,
-			stop_regex, input_data->argv[i]) != NULL)
+			input->argv[i]) == ARG_PARSER_FAILURE &&
+			get_stop_arg(input, output, stop_regex,
+				input->argv[i]) != NULL)
 			start_arg = NULL;
 		if (start_arg != NULL &&
-			do_action_multiple_occurrence(input_data, output_data,
+			do_action_multiple_occurrence(input, output,
 				start_regex,
-				input_data->argv[i]) != ARG_PARSER_SUCCESS)
-			input_data->tokenize_func(output_data,
-				input_data->argv[i]);
+				input->argv[i]) != ARG_PARSER_SUCCESS)
+			input->tokenize_func(output, input->argv[i]);
 	}
-	return (output_data);
+	return (cleanup_argument_parsing(output, start_regex, stop_regex,
+		output));
 }
 
 arg_parser_output_t *arg_parser_parse_arguments
-	(arg_parser_input_t *input_data)
+	(arg_parser_input_t *input)
 {
 	regex_t *start_regex = NULL;
 	regex_t *stop_regex = NULL;
 	arg_parser_output_t *output;
 
-	if (input_data == NULL)
+	if (input == NULL)
 		return (NULL);
-	if (input_data->start_regexp != NULL)
-		start_regex = init_regex(input_data->start_regexp);
-	if (input_data->stop_regexp != NULL)
-		stop_regex = init_regex(input_data->stop_regexp);
+	if (input->start_regexp != NULL)
+		start_regex = init_regex(input->start_regexp);
+	if (input->stop_regexp != NULL)
+		stop_regex = init_regex(input->stop_regexp);
 	output = initialise_arg_parser_output();
 	if (start_regex == NULL || output == NULL || stop_regex == NULL)
 		return (cleanup_argument_parsing(output, start_regex,
 			stop_regex, NULL));
-	return (parse_argument_loop(input_data, output, start_regex,
+	return (parse_argument_loop(input, output, start_regex,
 		stop_regex));
 }

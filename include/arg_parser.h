@@ -8,6 +8,8 @@
 #ifndef PSU_ZAPPY_2017_ARG_PARSER_H
 #define PSU_ZAPPY_2017_ARG_PARSER_H
 
+#define _GNU_SOURCE
+
 #include <unistd.h>
 #include <regex.h>
 
@@ -46,7 +48,6 @@ typedef struct arg_parser_output_s {
 	char *next_arg;
 } arg_parser_output_t;
 
-
 typedef struct arg_parser_input_s {
 	char *start_regexp;
 	char *stop_regexp;
@@ -76,6 +77,7 @@ void cleanup_argument_parsing_output(arg_parser_output_t *output);
 arg_parser_input_t *initialise_arg_parser_input(void);
 arg_parser_output_t *arg_parser_parse_arguments
 	(arg_parser_input_t *input_data);
+void cleanup_argument_parsing_input(arg_parser_input_t *input);
 
 //parsing_functions
 void *parse_string_arg(arg_parser_output_t *output, char *data);

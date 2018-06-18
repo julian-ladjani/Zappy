@@ -35,7 +35,7 @@ server_config_t *initialise_server(server_argument_t *server_argument)
 {
 	server_config_t *server_config;
 
-	if (server_argument->port < 1 || server_argument->port > 65535) {
+	if (server_argument->port < 1) {
 		printf("Error: Wrong port\n");
 		return (NULL);
 	}
