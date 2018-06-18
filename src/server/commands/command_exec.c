@@ -40,15 +40,14 @@ static void exec_client_command(server_config_t *server_config,
 static void exec_user_pending_command(server_config_t *server_config,
 					server_user_t *user)
 {
-	cmdparams_t *cmdparams = (cmdparams_t *)list_get_elem_at_pos(
-						user->commands, LIST_FIRST);
+	cmdparams_t *cmdparams;
 
-	while (cmdparams) {
-		exec_client_command(server_config, user, cmdparams);
+	while (user->commands) {
+		cmdparams = user->commands->elem;
+		if (cmdparams)
+			exec_client_command(server_config, user, cmdparams);
 		user->commands = list_delete_at_pos(user->commands,
 						LIST_FIRST, &free_arguments);
-		cmdparams = (cmdparams_t *)list_get_elem_at_pos(
-			user->commands, LIST_FIRST);
 	}
 }
 

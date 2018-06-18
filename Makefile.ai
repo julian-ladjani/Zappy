@@ -20,6 +20,7 @@ SRCS =	src/ai_client/main.c						\
 	src/common/circular_buffer/circbuff_strings.c			\
 	src/common/circular_buffer/circbuff_utils.c			\
 	src/common/command_parser/command_parser.c			\
+	src/common/command_parser/my_strtok.c				\
 	src/common/linked_list/linked_list_add.c                	\
 	src/common/linked_list/linked_list_get.c			\
         src/common/linked_list/linked_list_delete.c			\
