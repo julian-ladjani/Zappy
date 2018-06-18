@@ -10,6 +10,7 @@
 #include <pthread.h>
 #include "parser.h"
 #include "map.h"
+#include "ressources_str.h"
 
 void free_client_config(clt_config_t *client)
 {
