@@ -35,6 +35,7 @@ SRCS =	src/ai_client/main.c						\
 	src/common/map/map_str_to_tile.c				\
 	src/common/map/map_tile_to_str.c				\
 	src/common/map/map_vector.c					\
+	src/common/map/map_orientation.c				\
 	src/common/socket/socket_cleanup.c				\
 	src/common/socket/socket_initialisation.c			\
 	src/common/utils/str_append.c					\

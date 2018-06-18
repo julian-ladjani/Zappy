@@ -33,6 +33,7 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
 	src/common/map/map_print.c					\
 	src/common/map/map_str_to_tile.c				\
 	src/common/map/map_tile_to_str.c				\
+	src/common/map/map_orientation.c				\
 	src/common/map/map_vector.c					\
 	src/common/socket/socket_cleanup.c				\
 	src/common/socket/socket_initialisation.c			\

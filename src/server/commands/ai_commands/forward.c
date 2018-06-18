@@ -13,10 +13,10 @@ uint8_t srv_cmd_forward(server_config_t *server,
 {
 	switch (user->orientation) {
 	case (NORTH):
-		user->y = user->y % server->map->width;
+		user->y = (user->y + 1) % server->map->width;
 		break;
 	case (EAST):
-		user->x = user->x % server->map->height;
+		user->x = (user->x + 1) % server->map->height;
 		break;
 	case (SOUTH):
 		user->y = user->y == 0 ? server->map->width - 1 : user->y - 1;

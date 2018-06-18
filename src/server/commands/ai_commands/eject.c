@@ -5,13 +5,60 @@
 ** eject.c
 */
 
-#include "server_struct.h"
+#include "server_function.h"
 
-uint8_t srv_cmd_eject(server_config_t *server,
-			server_user_t *user, cmdparams_t *cmd)
+static uint8_t eject_user(server_user_t *user, cardinal_dir dir, map_t *map)
 {
-	(void)server;
-	(void)user;
-	(void)cmd;
-	return (1);
+	switch (dir) {
+	case (NORTH):
+		user->y = map_get_abs(user->y + 1, map->height);
+		return (5);
+	case (EAST):
+		user->x = map_get_abs(user->x + 1, map->width);
+		return (3);
+	case (SOUTH):
+		user->y = map_get_abs(user->y - 1, map->height);
+		return (1);
+	case (WEST):
+		user->x = map_get_abs(user-> x - 1, map->width);
+		return (7);
+	}
+	return (0);
+}
+
+static void eject_other_ai(server_config_t *server, server_user_t *emitter)
+{
+	list_t *user_list = server->users;
+	server_user_t *user;
+
+	while (user_list) {
+		user = user_list->elem;
+		if (user && user != emitter
+		    && user->x == emitter->x && user->y == emitter->y) {
+			dprintf(user->fd, "eject: %u\n",
+				map_rotate_orientation(
+					user->orientation,
+					eject_user(user,
+						emitter->orientation,
+						server->map)));
+		}
+		user_list = user_list->next;
+	}
+}
+
+uint8_t srv_cmd_eject(server_config_t *server, server_user_t *user,
+		      __attribute__((unused))cmdparams_t *cmd)
+{
+	char *msg;
+
+	if (find_nb_user_at_pos(server, user->x, user->y) < 1) {
+		dprintf(user->fd, "ko\n");
+		return (1);
+	}
+	asprintf(&msg, "pex %d\n", user->id);
+	send_msg_to_all_graphic(server, msg);
+	eject_other_ai(server, user);
+	dprintf(user->fd, "ok\n");
+	free(msg);
+	return (0);
 }

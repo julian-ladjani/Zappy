@@ -58,6 +58,7 @@ map_t *map_create(size_t width, size_t height);
 void map_free(map_t *map);
 void map_print(map_t *map);
 uint8_t map_get_orientation(vec_t dir);
+uint8_t map_rotate_orientation(cardinal_dir dir, uint8_t orientation);
 tile_t *map_get_tile(map_t *map, ssize_t x, ssize_t y);
 size_t map_get_abs(ssize_t n, size_t size);
 vec_t map_get_dir(map_t *map, vec_t from, vec_t to);
