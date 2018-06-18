@@ -19,6 +19,7 @@ static void accept_client(server_config_t *server_config, int fd)
 		close(fd);
 		return;
 	}
+	dprintf(fd, "WELCOME\n");
 	printf("New incoming connection - %d\n", fd);
 	server_config->poll_fd[server_config->nfds].fd = fd;
 	server_config->poll_fd[server_config->nfds].events = POLLIN;

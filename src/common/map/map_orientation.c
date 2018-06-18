@@ -24,7 +24,7 @@ uint8_t map_get_orientation(vec_t dir)
 	return ((uint8_t) (piece == 0 ? 8 : piece));
 }
 
-uint8_t map_rotate_orientation(cardinal_dir dir, uint8_t orientation)
+uint8_t map_rotate_orientation(cardinal_dir_t dir, uint8_t orientation)
 {
 	if (orientation == 0)
 		return (orientation);

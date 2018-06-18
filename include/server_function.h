@@ -18,7 +18,9 @@
 server_config_t *initialise_server(server_argument_t *server_argument);
 server_user_t *initialise_server_user(int fd);
 int initialise_socket_poll(server_config_t *server_config);
-server_team_t *initialise_server_team(char *name);
+server_team_t *initialise_server_team(server_config_t *server_config,
+	char *name);
+list_t *initialise_server_teams(server_config_t *server_config);
 
 void server_main_loop(server_config_t *server_config);
 void parse_command(server_config_t *server_config, server_user_t *user);
@@ -55,15 +57,15 @@ void user_quit(server_config_t *server_config, server_user_t *user,
 void user_connect(server_user_t *user);
 
 void try_to_join_team(server_config_t *server_config,
-			server_user_t *user, cmdparams_t *cmdparams);
+	server_user_t *user, cmdparams_t *cmdparams);
 
 void send_msg_to_all_graphic(server_config_t *server, char *msg);
 
 int find_nb_user_at_pos(server_config_t *server_config,
-			unsigned int x, unsigned int y);
+	ssize_t x, ssize_t y);
 server_user_t *find_user_by_id(server_config_t *server, int id);
 server_team_t *find_team_by_user(server_config_t *server_config,
-				server_user_t *user);
+	server_user_t *user);
 int get_team_free_slots(server_team_t *team);
 
 //arg_parser
@@ -85,46 +87,46 @@ void parse_argument_tab(char ***data, char *start_regexp,
 //commands
 
 uint8_t srv_cmd_msz(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_bct(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_mct(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_tna(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_ppo(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_plv(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_pin(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_sgt(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_sst(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_forward(server_config_t *server,
-				server_user_t *user, cmdparams_t *cmd);
+	server_user_t *user, cmdparams_t *cmd);
 uint8_t srv_cmd_right(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_left(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_look(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_inventory(server_config_t *server,
-				server_user_t *user, cmdparams_t *cmd);
+	server_user_t *user, cmdparams_t *cmd);
 uint8_t srv_cmd_broadcast(server_config_t *server,
-				server_user_t *user, cmdparams_t *cmd);
+	server_user_t *user, cmdparams_t *cmd);
 uint8_t srv_cmd_connect_nbr(server_config_t *server,
-				server_user_t *user, cmdparams_t *cmd);
+	server_user_t *user, cmdparams_t *cmd);
 uint8_t srv_cmd_fork(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_eject(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_take(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_set(server_config_t *server, server_user_t *user,
-			cmdparams_t *cmd);
+	cmdparams_t *cmd);
 uint8_t srv_cmd_incantation(server_config_t *server,
-				server_user_t *user, cmdparams_t *cmd);
+	server_user_t *user, cmdparams_t *cmd);
 
 #endif //PSU_ZAPPY_2017_SERVER_FUNCTION_H

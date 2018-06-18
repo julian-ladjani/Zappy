@@ -8,7 +8,7 @@
 #include "server_function.h"
 
 uint8_t srv_cmd_pin(server_config_t *server,
-			server_user_t *user, cmdparams_t *cmd)
+	server_user_t *user, cmdparams_t *cmd)
 {
 	server_user_t *player;
 	char *inventory;

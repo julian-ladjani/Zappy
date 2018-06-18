@@ -27,6 +27,7 @@ typedef enum server_state_e {
 } server_state_t;
 
 typedef enum user_type_e {
+	ZAPPY_USER_NO_TYPE,
 	ZAPPY_USER_AI,
 	ZAPPY_USER_GRAPHIC,
 } user_type_t;
@@ -37,10 +38,5 @@ typedef enum user_logged_state_e {
 	ZAPPY_USER_ALL_STATUS,
 	ZAPPY_USER_QUIT,
 } user_logged_state_t;
-
-typedef enum user_team_right_e {
-	ZAPPY_USER_TEAM_USER,
-	ZAPPY_USER_TEAM_OPERATOR,
-} user_team_right_t;
 
 #endif //PSU_ZAPPY_2017_SERVER_CONST_H

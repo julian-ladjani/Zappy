@@ -56,6 +56,7 @@ set(SOCKET
 set(MAP
         src/common/map/map_create.c
         src/common/map/map_free.c
+        src/common/map/map_orientation.c
         src/common/map/map_print.c
         src/common/map/map_vector.c
         src/common/map/map_str_to_tile.c
@@ -66,6 +67,27 @@ set(UTILS
         src/common/utils/tab_cpy.c include/utils.h)
 
 set(SERVER
+        src/server/commands/ai_commands/broadcast.c
+        src/server/commands/ai_commands/connect_nbr.c
+        src/server/commands/ai_commands/eject.c
+        src/server/commands/ai_commands/fork.c
+        src/server/commands/ai_commands/forward.c
+        src/server/commands/ai_commands/incantation.c
+        src/server/commands/ai_commands/inventory.c
+        src/server/commands/ai_commands/left.c
+        src/server/commands/ai_commands/look.c
+        src/server/commands/ai_commands/right.c
+        src/server/commands/ai_commands/set.c
+        src/server/commands/ai_commands/take.c
+        src/server/commands/graphic_commands/bct.c
+        src/server/commands/graphic_commands/mct.c
+        src/server/commands/graphic_commands/msz.c
+        src/server/commands/graphic_commands/pin.c
+        src/server/commands/graphic_commands/plv.c
+        src/server/commands/graphic_commands/ppo.c
+        src/server/commands/graphic_commands/sgt.c
+        src/server/commands/graphic_commands/sst.c
+        src/server/commands/graphic_commands/tna.c
         src/server/send_messages.c
         src/server/server_cleanup.c
         src/server/server_initialisation.c
@@ -74,7 +96,6 @@ set(SERVER
         src/server/connection/poll_cleanup.c
         src/server/connection/poll_initialisation.c
         src/server/connection/poll_loop.c
-        src/server/team/team_action.c
         src/server/team/team_cleanup.c
         src/server/team/team_initialisation.c
         src/server/team/team_search.c

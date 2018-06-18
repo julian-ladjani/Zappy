@@ -8,7 +8,7 @@
 #include "server_function.h"
 
 static int send_take_message(server_config_t *server,
-				server_user_t *user, int ressource)
+	server_user_t *user, int ressource)
 {
 	char *msg;
 
@@ -20,10 +20,10 @@ static int send_take_message(server_config_t *server,
 }
 
 uint8_t srv_cmd_take(server_config_t *server,
-			server_user_t *user, cmdparams_t *cmd)
+	server_user_t *user, cmdparams_t *cmd)
 {
 	char *ressources[7] = {"food", "linemate", "deraumere", "sibur",
-				"mendiane", "phiras", "thystame"};
+		"mendiane", "phiras", "thystame"};
 
 	if (cmd->nb_args < 1) {
 		dprintf(user->fd, "ko\n");
@@ -31,13 +31,14 @@ uint8_t srv_cmd_take(server_config_t *server,
 	}
 	for (int i = FOOD; i <= THYSTAME; ++i) {
 		if (!strcasecmp(ressources[i], cmd->args[0])
-			&& server->map->tiles[user->y][user->x][i] > 0) {
-			server->map->tiles[user->y][user->x][i] -= 1;
+			&&
+			server->map->tiles[user->pos.y][user->pos.x][i] > 0) {
+			server->map->tiles[user->pos.y][user->pos.x][i] -= 1;
 			user->inventory[i] += (i == FOOD ? 126 : 1);
-			return (send_take_message(server, user, i));
+			user->wait += 7;
+			return ((uint8_t) send_take_message(server, user, i));
 		}
 	}
 	dprintf(user->fd, "ko\n");
-	user->wait += 7;
 	return (1);
 }

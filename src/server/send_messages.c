@@ -15,7 +15,7 @@ void send_msg_to_all_graphic(server_config_t *server, char *msg)
 	while (user_list) {
 		user = user_list->elem;
 		if (user && user->type == ZAPPY_USER_GRAPHIC)
-			dprintf(user->fd, msg);
+			dprintf(user->fd, "%s", msg);
 		user_list = user_list->next;
 	}
 }

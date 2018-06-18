@@ -9,7 +9,8 @@
 
 server_user_t *initialise_server_user(int fd)
 {
-	server_user_t *server_user = malloc(sizeof(server_user_t));
+	server_user_t *server_user = calloc(sizeof(server_user_t),
+		sizeof(server_user_t));
 
 	if (server_user == NULL)
 		return (NULL);
@@ -20,11 +21,8 @@ server_user_t *initialise_server_user(int fd)
 		return (NULL);
 	}
 	server_user->logged_state = ZAPPY_USER_NOT_CONNECTED;
-	server_user->nick = NULL;
-	server_user->teams = NULL;
-	server_user->name = NULL;
-	server_user->password = NULL;
-	server_user->commands = NULL;
-	dprintf(fd, "WELCOME\n");
+	server_user->orientation = (cardinal_dir_t) rand() % 4 + 1;
+	server_user->level = 1;
+	server_user->type = ZAPPY_USER_NO_TYPE;
 	return (server_user);
 }

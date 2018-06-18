@@ -18,25 +18,12 @@ int user_fd_search_criteria(void *user, void *fd)
 	return (0);
 }
 
-int user_name_search_criteria(void *user, void *name)
-{
-	char *name_str = name;
-
-	if (user == NULL || name == NULL)
-		return (0);
-	if (((server_user_t *) user)->name == NULL)
-		return (0);
-	if (strcmp(((server_user_t *) user)->nick, name_str) == 0)
-		return (1);
-	return (0);
-}
-
 int user_no_team_search_criteria(void *user,
 	__attribute__((unused)) void *name)
 {
 	if (user == NULL)
 		return (0);
-	if (((server_user_t *) user)->teams == NULL)
+	if (((server_user_t *) user)->team == NULL)
 		return (1);
 	return (0);
 }
@@ -56,7 +43,7 @@ server_user_t *find_user_by_id(server_config_t *server, int id)
 }
 
 int find_nb_user_at_pos(server_config_t *server_config,
-			unsigned int x, unsigned int y)
+	ssize_t x, ssize_t y)
 {
 	list_t *user_list = server_config->users;
 	server_user_t *user;
@@ -66,7 +53,7 @@ int find_nb_user_at_pos(server_config_t *server_config,
 	y = map_get_abs(y, server_config->map->height);
 	while (user_list) {
 		user = user_list->elem;
-		if (user && user->x == x && user->y == y)
+		if (user && user->pos.x == x && user->pos.y == y)
 			++nb_user;
 		user_list = user_list->next;
 	}

@@ -7,24 +7,33 @@
 
 #include "server_struct.h"
 
-uint8_t srv_cmd_forward(server_config_t *server,
-			server_user_t *user,
-			__attribute__((unused))cmdparams_t *cmd)
+static void forward_user(server_config_t *server, server_user_t *user)
 {
 	switch (user->orientation) {
-	case (NORTH):
-		user->y = (user->y + 1) % server->map->width;
-		break;
-	case (EAST):
-		user->x = (user->x + 1) % server->map->height;
-		break;
-	case (SOUTH):
-		user->y = user->y == 0 ? server->map->width - 1 : user->y - 1;
-		break;
-	case (WEST):
-		user->x = user->x == 0 ? server->map->height - 1 : user->x - 1;
-		break;
+		case (NORTH):
+			user->pos.y = map_get_abs(user->pos.y + 1,
+				server->map->height);
+			break;
+		case (EAST):
+			user->pos.x = map_get_abs(user->pos.x + 1,
+				server->map->width);
+			break;
+		case (SOUTH):
+			user->pos.y = map_get_abs(user->pos.y - 1,
+				server->map->height);
+			break;
+		case (WEST):
+			user->pos.x = map_get_abs(user->pos.x - 1,
+				server->map->width);
+			break;
 	}
+}
+
+uint8_t srv_cmd_forward(server_config_t *server,
+	server_user_t *user,
+	__attribute__((unused))cmdparams_t *cmd)
+{
+	forward_user(server, user);
 	dprintf(user->fd, "ok\n");
 	user->wait += 7;
 	return (0);

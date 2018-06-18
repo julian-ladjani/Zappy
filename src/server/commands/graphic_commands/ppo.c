@@ -8,7 +8,7 @@
 #include "server_function.h"
 
 uint8_t srv_cmd_ppo(server_config_t *server,
-			server_user_t *user, cmdparams_t *cmd)
+	server_user_t *user, cmdparams_t *cmd)
 {
 	server_user_t *player;
 
@@ -21,7 +21,7 @@ uint8_t srv_cmd_ppo(server_config_t *server,
 		dprintf(user->fd, "sbp\n");
 		return (1);
 	}
-	dprintf(user->fd, "ppo %d %u %u %d\n", player->id, player->x,
-		player->y, player->orientation);
+	dprintf(user->fd, "ppo %d %lu %lu %d\n", player->id, player->pos.x,
+		player->pos.y, player->orientation);
 	return (0);
 }

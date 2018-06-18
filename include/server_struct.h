@@ -21,30 +21,28 @@
 #include "parser.h"
 #include "map.h"
 
+typedef struct server_team_s server_team_t;
+
 typedef struct server_user_s {
 	int id;
-	char *name;		//a retirer
-	char *password;		//a retirer
-	char *nick;		//a retirer
 	circbuf_t *circular_buffer;
 	user_type_t type;
 	user_logged_state_t logged_state;
 	int fd;
-	list_t *teams;		//a garder ou a retirer
+	server_team_t *team;
 	list_t *commands;
 	tile_t inventory;
-	cardinal_dir orientation;
-	unsigned int x;
-	unsigned int y;
+	cardinal_dir_t orientation;
+	vec_t pos;
+	u_int64_t wait;
 	unsigned int level;
-	unsigned int wait;
 } server_user_t;
 
-typedef struct server_team_s {
+struct server_team_s {
 	char *name;
 	list_t *users;
 	int slots;
-} server_team_t;
+};
 
 typedef union server_port_u {
 	uint8_t port_part[2];
@@ -60,6 +58,13 @@ typedef struct server_argument_s {
 	char **team_names;
 } server_argument_t;
 
+typedef struct server_egg_s {
+	vec_t pos;
+	server_team_t *team;
+	unsigned int id;
+	u_int64_t wait;
+} server_egg_t;
+
 typedef struct server_config_s {
 	server_argument_t *arguments;
 	zappy_socket_t *master;
@@ -67,6 +72,7 @@ typedef struct server_config_s {
 	unsigned short port;
 	list_t *users;
 	list_t *teams;
+	list_t *eggs;
 	nfds_t nfds;
 	struct pollfd poll_fd[ZAPPY_MAX_CLIENT + 1];
 	map_t *map;
