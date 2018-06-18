@@ -6,7 +6,6 @@
 */
 
 #include <stdio.h>
-#include <malloc.h>
 #include <client.h>
 #include <pthread.h>
 #include "parser.h"
