@@ -15,5 +15,6 @@ uint8_t srv_cmd_rigth(__attribute__((unused))server_config_t *server,
 	if (user->orientation > WEST)
 		user->orientation = NORTH;
 	dprintf(user->fd, "ok\n");
+	user->wait += 7;
 	return (0);
 }

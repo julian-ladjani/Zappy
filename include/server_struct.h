@@ -37,6 +37,7 @@ typedef struct server_user_s {
 	unsigned int x;
 	unsigned int y;
 	unsigned int level;
+	unsigned int wait;
 } server_user_t;
 
 typedef struct server_team_s {
@@ -70,6 +71,7 @@ typedef struct server_config_s {
 	struct pollfd poll_fd[ZAPPY_MAX_CLIENT + 1];
 	map_t *map;
 	int new_user_id;
+	unsigned int frequency;
 } server_config_t;
 
 #endif //PSU_ZAPPY_2017_SERVER_STRUCT_H

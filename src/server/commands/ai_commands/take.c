@@ -38,5 +38,6 @@ uint8_t srv_cmd_take(server_config_t *server,
 		}
 	}
 	dprintf(user->fd, "ko\n");
+	user->wait += 7;
 	return (1);
 }

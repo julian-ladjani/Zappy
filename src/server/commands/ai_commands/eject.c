@@ -59,6 +59,7 @@ uint8_t srv_cmd_eject(server_config_t *server, server_user_t *user,
 	send_msg_to_all_graphic(server, msg);
 	eject_other_ai(server, user);
 	dprintf(user->fd, "ok\n");
+	user->wait += 7;
 	free(msg);
 	return (0);
 }

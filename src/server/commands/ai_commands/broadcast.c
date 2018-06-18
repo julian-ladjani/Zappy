@@ -60,6 +60,7 @@ uint8_t srv_cmd_broadcast(server_config_t *server,
 	send_msg_to_all_graphic(server, graphic_msg);
 	send_broadcast_to_other_ai(server, user, msg);
 	dprintf(user->fd, "ok\n");
+	user->wait += 7;
 	free(graphic_msg);
 	free(msg);
 	return (0);

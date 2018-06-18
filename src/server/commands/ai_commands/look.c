@@ -59,5 +59,6 @@ uint8_t srv_cmd_look(server_config_t *server, server_user_t *user,
 		}
 	}
 	dprintf(user->fd, "]\n");
+	user->wait += 7;
 	return (0);
 }

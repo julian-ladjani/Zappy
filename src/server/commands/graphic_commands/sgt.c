@@ -7,11 +7,9 @@
 
 #include "server_struct.h"
 
-uint8_t srv_cmd_sgt(server_config_t *server,
-			server_user_t *user, cmdparams_t *cmd)
+uint8_t srv_cmd_sgt(server_config_t *server, server_user_t *user,
+		    __attribute__((unused))cmdparams_t *cmd)
 {
-	(void)server;
-	(void)user;
-	(void)cmd;
-	return (1);
+	dprintf(user->fd, "sgt %u\n", server->frequency);
+	return (0);
 }

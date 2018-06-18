@@ -20,5 +20,6 @@ uint8_t srv_cmd_inventory(__attribute__((unused))server_config_t *server,
 		"mendiane", user->inventory[MENDIANE],
 		"phiras", user->inventory[PHIRAS],
 		"thystame", user->inventory[THYSTAME]);
+	user->wait += 1;
 	return (0);
 }

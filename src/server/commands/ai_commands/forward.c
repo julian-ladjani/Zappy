@@ -26,5 +26,6 @@ uint8_t srv_cmd_forward(server_config_t *server,
 		break;
 	}
 	dprintf(user->fd, "ok\n");
+	user->wait += 7;
 	return (0);
 }

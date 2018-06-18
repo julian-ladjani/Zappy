@@ -14,6 +14,7 @@ static void initialise_user(server_config_t *server_config,
 	user->orientation = rand() % 4 + 1;
 	user->x = rand() % server_config->map->width;
 	user->y = rand() % server_config->map->height;
+	user->wait = 0;
 	user->level = 1;
 	empty_tile(&user->inventory);
 	user->inventory[FOOD] = 1260;
