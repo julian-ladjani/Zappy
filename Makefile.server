@@ -46,6 +46,8 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
 	src/server/commands/command_parse.c				\
 	src/server/commands/command_exec.c				\
 	src/server/commands/join_team.c					\
+	src/server/commands/graphic_command_exec.c			\
+	src/server/commands/ai_command_exec.c				\
 	src/server/commands/ai_commands/broadcast.c			\
 	src/server/commands/ai_commands/connect_nbr.c			\
 	src/server/commands/ai_commands/eject.c				\

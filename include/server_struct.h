@@ -79,4 +79,9 @@ typedef struct server_config_s {
 	unsigned int frequency;
 } server_config_t;
 
+typedef struct server_command_s {
+	char *name;
+	uint8_t (*cmd)(server_config_t *, server_user_t *, cmdparams_t *);
+} server_command_t;
+
 #endif //PSU_ZAPPY_2017_SERVER_STRUCT_H

@@ -25,6 +25,10 @@ list_t *initialise_server_teams(server_config_t *server_config);
 void server_main_loop(server_config_t *server_config);
 void parse_command(server_config_t *server_config, server_user_t *user);
 void exec_pending_command(server_config_t *server_config);
+void exec_graphic_command(server_config_t *server_config,
+	server_user_t *user, cmdparams_t *cmdparams);
+void exec_ai_command(server_config_t *server_config,
+	server_user_t *user, cmdparams_t *cmdparams);
 int poll_loop(server_config_t *server_config);
 void poll_accept_client(server_config_t *server_config);
 
