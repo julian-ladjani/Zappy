@@ -76,7 +76,6 @@ typedef struct server_config_s {
 	nfds_t nfds;
 	struct pollfd poll_fd[ZAPPY_MAX_CLIENT + 1];
 	map_t *map;
-	int new_user_id;
 	unsigned int frequency;
 } server_config_t;
 
