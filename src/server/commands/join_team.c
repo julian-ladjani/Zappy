@@ -28,16 +28,16 @@ static void join_team(server_config_t *server_config,
 	char *msg = NULL;
 
 	user->logged_state = ZAPPY_USER_CONNECTED;
+	dprintf(user->fd, "%d\n%lu %lu\n", team ? get_team_free_slots(team) : 1,
+		server_config->map->width, server_config->map->height);
 	if (get_team_free_slots(team) > 0) {
 		initialise_user(server_config, user, team);
-		dprintf(user->fd, "%d\n%lu %lu\n", user->id,
-			server_config->map->width, server_config->map->height);
 		asprintf(&msg, "pnw #%d %u %u %d %u %s\n", user->id, user->x,
 			user->y, user->orientation, user->level, team->name);
 		send_msg_to_all_graphic(server_config, msg);
 		free(msg);
 	}
-	if (!team){
+	if (!team) {
 		user->type = ZAPPY_USER_GRAPHIC;
 		user->id = -1;
 	}

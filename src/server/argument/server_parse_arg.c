@@ -43,8 +43,8 @@ static void parse_server_arguments_loop(server_argument_t *server_argument,
 	arg_parser_input_t *input)
 {
 	parse_argument_ushort(&server_argument->port, "-p", input);
-	parse_argument_uint(&server_argument->width, "-w", input);
-	parse_argument_uint(&server_argument->height, "-h", input);
+	parse_argument_uint(&server_argument->width, "-x", input);
+	parse_argument_uint(&server_argument->height, "-y", input);
 	parse_argument_uint(&server_argument->frequency, "-f", input);
 	parse_argument_size_t(&server_argument->client_nb, "-c", input);
 	input->occurrence_action = ARG_PARSER_CONCAT;

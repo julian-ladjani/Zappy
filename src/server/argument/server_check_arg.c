@@ -38,7 +38,7 @@ int check_server_arguments(server_argument_t *server_argument)
 		"Error: No valid port given\n");
 	check_server_argument_number(server_argument->width, &error,
 		"Error: No valid width given\n");
-	check_server_argument_number(server_argument->width, &error,
+	check_server_argument_number(server_argument->height, &error,
 		"Error: No valid height given\n");
 	check_server_argument_number(server_argument->client_nb,
 		&error, "Error: No valid client number given\n");

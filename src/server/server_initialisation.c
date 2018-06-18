@@ -17,13 +17,15 @@ static server_config_t *initialise_server_configuration(
 
 	printf("Info: Initialise Server Configuration\n");
 	if (server_config == NULL) {
-		printf("Error: Server Configuration Initialisation Problem");
+		printf("Error: Server Configuration Initialisation Problem\n");
 		return (NULL);
 	}
 	server_config->users = NULL;
 	server_config->master = NULL;
 	server_config->arguments = server_argument;
 	server_config->teams = NULL;
+	server_config->map = NULL;
+	server_config->new_user_id = 0;
 	server_config->state = ZAPPY_SERVER_STOP;
 	return (server_config);
 }
