@@ -15,9 +15,33 @@ static char *get_broadcast_msg(cmdparams_t *cmd)
 		return (NULL);
 	}
 	msg = strdup(cmd->args[0]);
-	for (unsigned int i = 1; i < cmd->nb_args; ++i)
+	for (unsigned int i = 1; i < cmd->nb_args; ++i) {
+		str_append(msg, " ");
 		str_append(msg, cmd->args[i]);
+	}
 	return (msg);
+}
+
+void send_broadcast_to_other_ai(server_config_t *server,
+				server_user_t *emitter, char *msg)
+{
+	list_t *user_list = server->users;
+	server_user_t *user;
+	vec_t pos = {emitter->x, emitter->y};
+	vec_t user_pos;
+
+	while (user_list) {
+		user = user_list->elem;
+		if (user && user != emitter) {
+			user_pos.x = user->x;
+			user_pos.y = user->y;
+			dprintf(user->fd, "message %u, %s\n",
+				map_get_orientation(
+					map_get_dir(server->map, user_pos,
+							pos)), msg);
+		}
+		user_list = user_list->next;
+	}
 }
 
 uint8_t srv_cmd_broadcast(server_config_t *server,
@@ -32,6 +56,7 @@ uint8_t srv_cmd_broadcast(server_config_t *server,
 	}
 	asprintf(&graphic_msg, "pbc %d %s\n", user->id, msg);
 	send_msg_to_all_graphic(server, graphic_msg);
+	send_broadcast_to_other_ai(server, user, msg);
 	free(graphic_msg);
 	free(msg);
 	return (0);
