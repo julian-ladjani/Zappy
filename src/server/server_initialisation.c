@@ -7,8 +7,10 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include "server_function.h"
 #include "server_struct.h"
 #include "server_const.h"
+#include "map.h"
 
 static server_config_t *initialise_server_configuration(
 	server_argument_t *server_argument)
@@ -26,6 +28,7 @@ static server_config_t *initialise_server_configuration(
 	server_config->teams = NULL;
 	server_config->map = NULL;
 	server_config->frequency = server_argument->frequency;
+	server_config->eggs = NULL;
 	server_config->state = ZAPPY_SERVER_STOP;
 	return (server_config);
 }
@@ -41,6 +44,9 @@ server_config_t *initialise_server(server_argument_t *server_argument)
 	server_config = initialise_server_configuration(server_argument);
 	if (server_config == NULL)
 		return (NULL);
-	memset(server_config->poll_fd, 0 , sizeof(server_config->poll_fd));
+	server_config->map = map_create
+		(server_argument->width, server_argument->height);
+	server_config->teams = initialise_server_teams(server_config);
+	memset(server_config->poll_fd, 0, sizeof(server_config->poll_fd));
 	return (server_config);
 }

@@ -23,7 +23,7 @@ void parse_command(__attribute__((unused))server_config_t *server_config,
 			|| (user->logged_state & ZAPPY_USER_CONNECTED
 			&& user->type == ZAPPY_USER_GRAPHIC))
 			user->commands = list_add_elem_at_pos(user->commands,
-							cmdparams, LIST_END);
+				cmdparams, LIST_END);
 		else
 			free_arguments(cmdparams);
 		free(buf);

@@ -8,23 +8,23 @@
 #include "server_function.h"
 
 static void exec_ai_command(server_config_t *server_config,
-			server_user_t *user, cmdparams_t *cmdparams)
+	server_user_t *user, cmdparams_t *cmdparams)
 {
 	dprintf(user->fd, "ko\n");
-	(void)server_config;
-	(void)cmdparams;
+	(void) server_config;
+	(void) cmdparams;
 }
 
 static void exec_graphic_command(server_config_t *server_config,
-				server_user_t *user, cmdparams_t *cmdparams)
+	server_user_t *user, cmdparams_t *cmdparams)
 {
 	dprintf(user->fd, "suc\n");
-	(void)server_config;
-	(void)cmdparams;
+	(void) server_config;
+	(void) cmdparams;
 }
 
 static void exec_client_command(server_config_t *server_config,
-				server_user_t *user, cmdparams_t *cmdparams)
+	server_user_t *user, cmdparams_t *cmdparams)
 {
 
 	if (user->logged_state & ZAPPY_USER_NOT_CONNECTED)
@@ -38,7 +38,7 @@ static void exec_client_command(server_config_t *server_config,
 }
 
 static void exec_user_pending_command(server_config_t *server_config,
-					server_user_t *user)
+	server_user_t *user)
 {
 	cmdparams_t *cmdparams;
 
@@ -47,7 +47,7 @@ static void exec_user_pending_command(server_config_t *server_config,
 		if (cmdparams)
 			exec_client_command(server_config, user, cmdparams);
 		user->commands = list_delete_at_pos(user->commands,
-						LIST_FIRST, &free_arguments);
+			LIST_FIRST, &free_arguments);
 	}
 }
 

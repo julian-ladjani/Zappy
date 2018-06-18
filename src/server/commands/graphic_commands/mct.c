@@ -8,7 +8,7 @@
 #include "server_struct.h"
 
 uint8_t srv_cmd_mct(server_config_t *server, server_user_t *user,
-			__attribute__((unused))cmdparams_t *cmd)
+	__attribute__((unused))cmdparams_t *cmd)
 {
 	char *ressources;
 

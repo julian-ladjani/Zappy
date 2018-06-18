@@ -8,7 +8,7 @@
 #include "server_function.h"
 
 uint8_t srv_cmd_sst(server_config_t *server,
-			server_user_t *user, cmdparams_t *cmd)
+	server_user_t *user, cmdparams_t *cmd)
 {
 	char *msg;
 	unsigned int frequency;
@@ -17,7 +17,7 @@ uint8_t srv_cmd_sst(server_config_t *server,
 		dprintf(user->fd, "sbp\n");
 		return (1);
 	}
-	frequency = atoi(cmd->args[0]);
+	frequency = (uint8_t) atoi(cmd->args[0]);
 	if (frequency <= 0) {
 		dprintf(user->fd, "sbp\n");
 		return (1);

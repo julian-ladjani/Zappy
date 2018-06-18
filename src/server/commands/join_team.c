@@ -8,12 +8,12 @@
 #include "server_function.h"
 
 static void initialise_user(server_config_t *server_config,
-			server_user_t *user, server_team_t *team)
+	server_user_t *user, server_team_t *team)
 {
 	user->type = ZAPPY_USER_AI;
-	user->orientation = rand() % 4 + 1;
-	user->x = rand() % server_config->map->width;
-	user->y = rand() % server_config->map->height;
+	user->orientation = (cardinal_dir_t) rand() % 4 + 1;
+	user->pos.x = (ssize_t) rand() % server_config->map->width;
+	user->pos.y = (ssize_t) rand() % server_config->map->height;
 	user->wait = 0;
 	user->level = 1;
 	empty_tile(&user->inventory);
@@ -23,17 +23,20 @@ static void initialise_user(server_config_t *server_config,
 }
 
 static void join_team(server_config_t *server_config,
-			server_user_t *user, server_team_t *team)
+	server_user_t *user, server_team_t *team)
 {
 	char *msg = NULL;
 
 	user->logged_state = ZAPPY_USER_CONNECTED;
-	dprintf(user->fd, "%d\n%lu %lu\n", team ? get_team_free_slots(team) : 1,
+	dprintf(user->fd, "%d\n%lu %lu\n",
+		team ? get_team_free_slots(team) : 1,
 		server_config->map->width, server_config->map->height);
 	if (get_team_free_slots(team) > 0) {
 		initialise_user(server_config, user, team);
-		asprintf(&msg, "pnw #%d %u %u %d %u %s\n", user->id, user->x,
-			user->y, user->orientation, user->level, team->name);
+		asprintf(&msg, "pnw #%d %lu %lu %d %u %s\n", user->id,
+			user->pos.x,
+			user->pos.y, user->orientation, user->level,
+			team->name);
 		send_msg_to_all_graphic(server_config, msg);
 		free(msg);
 	}
@@ -45,14 +48,14 @@ static void join_team(server_config_t *server_config,
 }
 
 void try_to_join_team(server_config_t *server_config,
-				server_user_t *user, cmdparams_t *cmdparams)
+	server_user_t *user, cmdparams_t *cmdparams)
 {
 	list_t *team_list = server_config->teams;
 	server_team_t *team;
 
 	while (team_list) {
-		team = (server_team_t *)list_get_elem_at_pos(team_list,
-								LIST_FIRST);
+		team = (server_team_t *) list_get_elem_at_pos(team_list,
+			LIST_FIRST);
 		if (team && !strcmp(team->name, cmdparams->name))
 			join_team(server_config, user, team);
 		team_list = team_list->next;

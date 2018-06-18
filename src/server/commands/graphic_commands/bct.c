@@ -8,7 +8,7 @@
 #include "server_struct.h"
 
 uint8_t srv_cmd_bct(server_config_t *server,
-			server_user_t *user, cmdparams_t *cmd)
+	server_user_t *user, cmdparams_t *cmd)
 {
 	int x;
 	int y;

@@ -15,11 +15,8 @@ void cleanup_user_list_elem(void *elem)
 
 	if (elem == NULL)
 		return;
-	free(server_users->nick);
-	free(server_users->name);
-	free(server_users->password);
 	server_users->circular_buffer->free(server_users->circular_buffer);
-	list_delete_all(server_users->teams, NULL);
+	server_users->team = NULL;
 	free(elem);
 }
 

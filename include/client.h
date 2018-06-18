@@ -68,7 +68,7 @@ typedef struct client_socket_s {
 typedef struct client_specifications_s {
 	int id;
 	tile_t inventory;
-	cardinal_dir orientation;
+	cardinal_dir_t orientation;
 	size_t x;
 	size_t y;
 	unsigned int level;
