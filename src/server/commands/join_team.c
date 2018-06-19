@@ -92,8 +92,7 @@ void try_to_join_team(server_config_t *server_config,
 	server_team_t *team;
 
 	while (team_list) {
-		team = (server_team_t *) list_get_elem_at_pos(team_list,
-			LIST_FIRST);
+		team = team_list->elem;
 		if (team && !strcmp(team->name, cmdparams->name))
 			join_team(server_config, user, team);
 		team_list = team_list->next;

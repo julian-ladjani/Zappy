@@ -8,7 +8,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "server_struct.h
+#include "server_struct.h"
 #include "server_const.h"
 
 void timer_add_mili(struct timespec *timer, unsigned long mili)
