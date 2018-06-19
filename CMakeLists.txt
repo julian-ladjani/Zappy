@@ -60,6 +60,7 @@ set(MAP
         src/common/map/map_print.c
         src/common/map/map_vector.c
         src/common/map/map_str_to_tile.c
+        src/common/map/map_tile_to_str.c
         src/common/map/map_debug.c
         include/map.h)
 
@@ -114,6 +115,8 @@ set(SERVER
         include/server_function.h
         src/server/commands/command_exec.c
         src/server/commands/command_parse.c
+        src/server/commands/ai_command_exec.c
+        src/server/commands/graphic_command_exec.c
         src/server/commands/join_team.c
         src/server/argument/server_parse_arg.c
         src/server/argument/server_parse_arg_func.c
