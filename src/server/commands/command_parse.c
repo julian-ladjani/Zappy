@@ -27,7 +27,7 @@ void parse_command(__attribute__((unused))server_config_t *server_config,
 		else
 			free_arguments(cmdparams);
 		free(buf);
-		circbuf_free_nspace(user->circular_buffer, sep + 2);
+		circbuf_free_nspace(user->circular_buffer, sep + 1);
 		sep = circbuf_strstr(user->circular_buffer, "\n");
 	}
 }

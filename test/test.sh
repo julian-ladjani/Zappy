@@ -22,8 +22,8 @@ zappy_launch () {
 
 zappy_diff () {
     echo -n "Launch : echo -e \"$2\""
-    echo -e " | ncat -C 127.0.0.1 $1 -> \e[1m$4\e[0m"
-    echo -e "$2" | nc -C 127.0.0.1 $1 > .tmp
+    echo -e " | ncat 127.0.0.1 $1 -> \e[1m$4\e[0m"
+    echo -e "$2" | ncat 127.0.0.1 $1 > .tmp
     if grep -q "$3" .tmp
     then
 	echo -e "\e[32m\e[1mPASSED\e[0m"
@@ -74,31 +74,31 @@ zappy_launch  "-p $1 -x 100 -y 100 -n 'test' -c 5 -f 0"		"./zappy_server" 84 "In
 
 title "AI COMMAND ERROR"
 
-zappy_diff $1 "$2\nCommand\n"		"ko" "Invalid command"
-zappy_diff $1 "$2\nTake something\n"	"ko" "Invalid Set"
-zappy_diff $1 "$2\nSet something\n"	"ko" "Invalid Take"
+zappy_diff $1 "$2\nCommand"		"ko" "Invalid command"
+zappy_diff $1 "$2\nTake something"	"ko" "Invalid Set"
+zappy_diff $1 "$2\nSet something"	"ko" "Invalid Take"
 
 title "GRAPHIC COMMAND ERROR"
 
-zappy_diff $1 "$3\ncommand\n"	"suc" "Invalid command"
-zappy_diff $1 "$3\nbct -1 -1\n"	"sbp" "Invalid tile"
-zappy_diff $1 "$3\nsst -1\n"	"sbp" "Invalid timer unit"
+zappy_diff $1 "$3\ncommand"	"suc" "Invalid command"
+zappy_diff $1 "$3\nbct -1 -1"	"sbp" "Invalid tile"
+zappy_diff $1 "$3\nsst -1"	"sbp" "Invalid timer unit"
 
 title "AI COMMAND"
 
-zappy_diff $1 "$2\n"			"WELCOME" "Welcome"
-zappy_diff $1 "$2\nForward\n"		"ok" "Forward"
-zappy_diff $1 "$2\nRight\n"		"ok" "Right"
-zappy_diff $1 "$2\nLeft\n"		"ok" "Left"
-zappy_diff $1 "$2\n\Look\n"		"\[player" "Look"
-zappy_diff $1 "$2\nInventory\n"		"\[food" "Inventory"
-zappy_diff $1 "$2\nBroadcast Test\n"	"ok" "Broadcast"
+zappy_diff $1 "$2"			"WELCOME" "Welcome"
+zappy_diff $1 "$2\nForward"		"ok" "Forward"
+zappy_diff $1 "$2\nRight"		"ok" "Right"
+zappy_diff $1 "$2\nLeft"		"ok" "Left"
+zappy_diff $1 "$2\n\Look"		"\[player" "Look"
+zappy_diff $1 "$2\nInventory"		"\[food" "Inventory"
+zappy_diff $1 "$2\nBroadcast Test"	"ok" "Broadcast"
 
 title "GRAPHIC COMMAND"
 
-zappy_diff $1 "$3\nmsz\n"	"msz" "Map size"
-zappy_diff $1 "$3\nbct 0 0\n"	"bct" "Tile content"
-zappy_diff $1 "$3\nmct\n"	"bct" "Map content"
-zappy_diff $1 "$3\ntna\n"	"tna" "Team names"
-zappy_diff $1 "$3\nsgt\n"	"sgt" "Time unit"
-zappy_diff $1 "$3\nsst 100\n"	"sst" "Time unit modification"
+zappy_diff $1 "$3\nmsz"		"msz" "Map size"
+zappy_diff $1 "$3\nbct 0 0"	"bct" "Tile content"
+zappy_diff $1 "$3\nmct"		"bct" "Map content"
+zappy_diff $1 "$3\ntna"		"tna" "Team names"
+zappy_diff $1 "$3\nsgt"		"sgt" "Time unit"
+zappy_diff $1 "$3\nsst 100"	"sst" "Time unit modification"
