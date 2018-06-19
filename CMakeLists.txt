@@ -118,6 +118,8 @@ set(SERVER
         include/server_function.h
         src/server/commands/command_exec.c
         src/server/commands/command_parse.c
+        src/server/commands/ai_command_exec.c
+        src/server/commands/graphic_command_exec.c
         src/server/commands/join_team.c
         src/server/argument/server_parse_arg.c
         src/server/argument/server_parse_arg_func.c
