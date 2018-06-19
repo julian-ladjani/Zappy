@@ -9,15 +9,20 @@
 
 static uint8_t clt_cmd_set_receiver(clt_config_t *client, object_t obj)
 {
-	(void) client;
-	(void) obj;
+	tile_t *tile;
+
+	if (ZAPPY_IS_OK(client->server->response_request)) {
+		tile = map_get_tile(client->map, client->specs->x,
+				    client->specs->y);
+		(*tile)[obj] += 1;
+		client->specs->inventory[obj] -= 1;
+	}
 	return (1);
 }
 
 static uint8_t clt_cmd_set(clt_config_t *client, object_t obj)
 {
-	(void) client;
-	(void) obj;
+	send_active_request(client, "%s", OBJ_NAMES[obj]);
 	return (1);
 }
 

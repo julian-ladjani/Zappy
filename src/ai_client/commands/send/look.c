@@ -15,16 +15,18 @@ static tile_t *get_tile_from_look_index(clt_config_t *client, int i)
 {
 	ssize_t fpos = GET_FRONTPOS(i);
 	ssize_t lpos = GET_LATPOS(i, fpos);
+	ssize_t x = client->specs->x;
+	ssize_t y = client->specs->y;
 
 	switch (client->specs->orientation) {
 		case EAST:
-			return map_get_tile(client->map, fpos, -lpos);
+			return map_get_tile(client->map, fpos + x, -lpos + y);
 		case SOUTH:
-			return map_get_tile(client->map, -lpos, -fpos);
+			return map_get_tile(client->map, -lpos + x, -fpos + y);
 		case WEST:
-			return map_get_tile(client->map, -fpos, lpos);
+			return map_get_tile(client->map, -fpos + x, lpos + y);
 		default:
-			return map_get_tile(client->map, lpos, fpos);
+			return map_get_tile(client->map, lpos + x, fpos + y);
 	}
 }
 
@@ -39,9 +41,7 @@ static uint8_t clt_cmd_look_receiver(clt_config_t *client)
 	for (unsigned int i = 0; i < cmdparams->nb_args; ++i) {
 		tile = get_tile_from_look_index(client, i + 1);
 		str_to_tile(cmdparams->args[i], tile);
-		printf("{%s}\n", cmdparams->args[i]);
 	}
-	//print_map(client->map);
 	free_arguments(cmdparams);
 	return (1);
 }
