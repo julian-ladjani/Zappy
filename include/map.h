@@ -24,7 +24,7 @@
 #define MAX_THYSTAME() 2
 
 typedef enum object {
-	FOOD = 0,
+	FOOD,
 	LINEMATE,
 	DERAUMERE,
 	SIBUR,
