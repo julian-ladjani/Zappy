@@ -13,13 +13,13 @@ uint8_t srv_cmd_inventory(__attribute__((unused))server_config_t *server,
 {
 	dprintf(user->fd,
 		"[%s %lu, %s %lu, %s %lu, %s %lu, %s %lu, %s %lu, %s %lu]\n",
-		obj_names[FOOD], user->inventory[FOOD],
-		obj_names[LINEMATE], user->inventory[LINEMATE],
-		obj_names[DERAUMERE], user->inventory[DERAUMERE],
-		obj_names[SIBUR], user->inventory[SIBUR],
-		obj_names[MENDIANE], user->inventory[MENDIANE],
-		obj_names[PHIRAS], user->inventory[PHIRAS],
-		obj_names[THYSTAME], user->inventory[THYSTAME]);
+		OBJ_NAMES[FOOD], user->inventory[FOOD],
+		OBJ_NAMES[LINEMATE], user->inventory[LINEMATE],
+		OBJ_NAMES[DERAUMERE], user->inventory[DERAUMERE],
+		OBJ_NAMES[SIBUR], user->inventory[SIBUR],
+		OBJ_NAMES[MENDIANE], user->inventory[MENDIANE],
+		OBJ_NAMES[PHIRAS], user->inventory[PHIRAS],
+		OBJ_NAMES[THYSTAME], user->inventory[THYSTAME]);
 	user->wait += 1;
 	return (0);
 }

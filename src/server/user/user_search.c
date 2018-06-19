@@ -59,3 +59,24 @@ int find_nb_user_at_pos(server_config_t *server_config,
 	}
 	return (nb_user);
 }
+
+int find_nb_user_at_pos_and_level(server_config_t *server_config,
+	ssize_t x, ssize_t y, unsigned int level)
+{
+	list_t *user_list = server_config->users;
+	server_user_t *user;
+	int nb_user = 0;
+
+	x = map_get_abs(x, server_config->map->width);
+	y = map_get_abs(y, server_config->map->height);
+	while (user_list) {
+		user = user_list->elem;
+		if (user && user->pos.x == x && user->pos.y == y) {
+			if (user->level != level)
+				return (0);
+			++nb_user;
+		}
+		user_list = user_list->next;
+	}
+	return (nb_user);
+}

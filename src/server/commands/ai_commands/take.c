@@ -27,7 +27,7 @@ uint8_t srv_cmd_take(server_config_t *server,
 		return (1);
 	}
 	for (int i = FOOD; i <= THYSTAME; ++i) {
-		if (!strcasecmp(obj_names[i], cmd->args[0])
+		if (!strcasecmp(OBJ_NAMES[i], cmd->args[0])
 			&&
 			server->map->tiles[user->pos.y][user->pos.x][i] > 0) {
 			server->map->tiles[user->pos.y][user->pos.x][i] -= 1;

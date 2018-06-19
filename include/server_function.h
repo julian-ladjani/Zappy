@@ -67,6 +67,8 @@ void send_msg_to_all_graphic(server_config_t *server, char *msg);
 
 int find_nb_user_at_pos(server_config_t *server_config,
 	ssize_t x, ssize_t y);
+int find_nb_user_at_pos_and_level(server_config_t *server_config,
+	ssize_t x, ssize_t y, unsigned int level);
 server_user_t *find_user_by_id(server_config_t *server, int id);
 server_team_t *find_team_by_user(server_config_t *server_config,
 	server_user_t *user);
