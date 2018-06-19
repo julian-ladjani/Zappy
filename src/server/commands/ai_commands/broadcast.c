@@ -16,8 +16,8 @@ static char *get_broadcast_msg(cmdparams_t *cmd)
 	}
 	msg = strdup(cmd->args[0]);
 	for (unsigned int i = 1; i < cmd->nb_args; ++i) {
-		str_append(msg, " ");
-		str_append(msg, cmd->args[i]);
+		msg = str_append(msg, " ");
+		msg = str_append(msg, cmd->args[i]);
 	}
 	return (msg);
 }

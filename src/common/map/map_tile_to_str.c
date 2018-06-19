@@ -13,7 +13,7 @@ char *tile_to_str(tile_t *tile)
 
 	for (int i = FOOD; i <= THYSTAME; ++i) {
 		for (unsigned int j = 0; j < (*tile)[i]; ++j) {
-			str = str_append(str, str ? " " : "");
+			str = str_append(str, str ? " " : NULL);
 			str = str_append(str, OBJ_NAMES[i]);
 		}
 	}

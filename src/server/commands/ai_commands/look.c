@@ -16,12 +16,12 @@ static void send_tile_content(server_config_t *server, server_user_t *user,
 
 	for (int i = 0; i < nb_player; ++i) {
 		tile_content = str_append(tile_content,
-			tile_content ? " " : "");
+			tile_content ? " " : NULL);
 		tile_content = str_append(tile_content, "player");
 	}
 	if (tile_content && tile_ressources)
-		str_append(tile_content, " ");
-	str_append(tile_content, tile_ressources);
+		tile_content = str_append(tile_content, " ");
+	tile_content = str_append(tile_content, tile_ressources);
 	if (tile_content)
 		dprintf(user->fd, "%s", tile_content);
 	free(tile_ressources);
