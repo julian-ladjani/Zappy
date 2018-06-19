@@ -58,8 +58,8 @@ uint8_t srv_cmd_look(server_config_t *server, server_user_t *user,
 	send_tile_content(server, user, user->pos.x, user->pos.y);
 	for (int l = 1; l <= (int) user->level; ++l) {
 		for (int i = -l; i <= l; ++i) {
-			select_tile_to_look(server, user, l, i);
 			dprintf(user->fd, ", ");
+			select_tile_to_look(server, user, l, i);
 		}
 	}
 	dprintf(user->fd, "]\n");

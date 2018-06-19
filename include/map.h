@@ -68,7 +68,7 @@ void empty_tile(tile_t *tile);
 char *tile_to_str(tile_t tile);
 char *tile_to_str_quantity(tile_t tile);
 void str_to_tile(char *str, tile_t *tile);
-char *str_append(char *str, char *append);
+char *str_append(char *str, const char *append);
 uint8_t is_number(const char *str);
 
 #endif /* PSU_ZAPPY_2017_MAP_H */

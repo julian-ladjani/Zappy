@@ -10,6 +10,7 @@
 #include "server_struct.h"
 #include "server_function.h"
 #include "server_const.h"
+#include "ressources_str.h"
 
 static server_config_t *initialisation(server_argument_t *server_argument)
 {

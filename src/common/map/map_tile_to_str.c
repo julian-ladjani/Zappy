@@ -9,14 +9,12 @@
 
 char *tile_to_str(tile_t tile)
 {
-	char *ressources[7] = {"food", "linemate", "deraumere", "sibur",
-				"mendiane", "phiras", "thystame"};
 	char *str = NULL;
 
 	for (int i = FOOD; i <= THYSTAME; ++i) {
 		for (unsigned int j = 0; j < tile[i]; ++j) {
 			str = str_append(str, str ? " " : "");
-			str = str_append(str, ressources[i]);
+			str = str_append(str, obj_names[i]);
 		}
 	}
 	return (str);

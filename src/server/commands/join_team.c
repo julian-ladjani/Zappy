@@ -7,13 +7,17 @@
 
 #include "server_function.h"
 
-static void initialise_user(server_config_t *server_config,
-	server_user_t *user, server_team_t *team)
+static void initialise_user(server_config_t *server, server_user_t *user,
+			server_team_t *team, server_egg_t *egg)
 {
 	user->type = ZAPPY_USER_AI;
 	user->orientation = (cardinal_dir_t) rand() % 4 + 1;
-	user->pos.x = (ssize_t) rand() % server_config->map->width;
-	user->pos.y = (ssize_t) rand() % server_config->map->height;
+	if (!egg) {
+		user->pos.x = (ssize_t) rand() % server->map->width;
+		user->pos.y = (ssize_t) rand() % server->map->height;
+	} else {
+		user->pos = egg->pos;
+	}
 	user->wait = 0;
 	user->level = 1;
 	empty_tile(&user->inventory);
@@ -22,29 +26,63 @@ static void initialise_user(server_config_t *server_config,
 	team->users = list_add_elem_at_pos(team->users, user, LIST_END);
 }
 
-static void join_team(server_config_t *server_config,
-	server_user_t *user, server_team_t *team)
+static server_egg_t *search_egg_ready_for_team(list_t *eggs,
+	server_team_t *team)
+{
+	server_egg_t *egg;
+
+	while (eggs) {
+		egg = eggs->elem;
+		if (egg && egg->team == team && egg->wait <= 0)
+			return (egg);
+		eggs = eggs->next;
+	}
+	return (NULL);
+}
+
+static void join_message(server_config_t *server, server_user_t *user,
+			 server_team_t *team, server_egg_t *egg)
 {
 	char *msg = NULL;
+
+	if (egg) {
+		asprintf(&msg, "ebo %u\n", egg->id);
+		send_msg_to_all_graphic(server, msg);
+		free(msg);
+	}
+	asprintf(&msg, "pnw #%d %lu %lu %d %u %s\n", user->id, user->pos.x,
+		user->pos.y, user->orientation, user->level, team->name);
+	send_msg_to_all_graphic(server, msg);
+	free(msg);
+	if (egg) {
+		asprintf(&msg, "edi %u\n", egg->id);
+		send_msg_to_all_graphic(server, msg);
+		free(msg);
+	}
+}
+
+static void join_team(server_config_t *server,
+	server_user_t *user, server_team_t *team)
+{
+	server_egg_t *egg = search_egg_ready_for_team(server->eggs, team);
 
 	user->logged_state = ZAPPY_USER_CONNECTED;
 	dprintf(user->fd, "%d\n%lu %lu\n",
 		team ? get_team_free_slots(team) : 1,
-		server_config->map->width, server_config->map->height);
+		server->map->width, server->map->height);
 	if (get_team_free_slots(team) > 0) {
-		initialise_user(server_config, user, team);
-		asprintf(&msg, "pnw #%d %lu %lu %d %u %s\n", user->id,
-			user->pos.x,
-			user->pos.y, user->orientation, user->level,
-			team->name);
-		send_msg_to_all_graphic(server_config, msg);
-		free(msg);
+		initialise_user(server, user, team, egg);
+		join_message(server, user, team, egg);
 	}
 	if (!team) {
 		user->type = ZAPPY_USER_GRAPHIC;
 		user->id = -1;
 	}
-
+	if (egg) {
+		server->eggs = list_delete_elem(
+			list_get_elem_with_content(server->eggs, egg), NULL);
+		free(egg);
+	}
 }
 
 void try_to_join_team(server_config_t *server_config,

@@ -7,22 +7,6 @@
 
 #include "server_function.h"
 
-static void exec_ai_command(server_config_t *server_config,
-	server_user_t *user, cmdparams_t *cmdparams)
-{
-	dprintf(user->fd, "ko\n");
-	(void) server_config;
-	(void) cmdparams;
-}
-
-static void exec_graphic_command(server_config_t *server_config,
-	server_user_t *user, cmdparams_t *cmdparams)
-{
-	dprintf(user->fd, "suc\n");
-	(void) server_config;
-	(void) cmdparams;
-}
-
 static void exec_client_command(server_config_t *server_config,
 	server_user_t *user, cmdparams_t *cmdparams)
 {

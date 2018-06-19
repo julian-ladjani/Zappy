@@ -7,7 +7,7 @@
 
 #include "server_struct.h"
 
-uint8_t srv_cmd_rigth(__attribute__((unused))server_config_t *server,
+uint8_t srv_cmd_right(__attribute__((unused))server_config_t *server,
 	server_user_t *user,
 	__attribute__((unused))cmdparams_t *cmd)
 {
