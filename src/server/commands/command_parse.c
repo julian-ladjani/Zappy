@@ -11,7 +11,7 @@ void parse_command(__attribute__((unused))server_config_t *server_config,
 	server_user_t *user)
 {
 	char *buf = NULL;
-	long int sep = circbuf_strstr(user->circular_buffer, "\r\n");
+	long int sep = circbuf_strstr(user->circular_buffer, "\n");
 	cmdparams_t *cmdparams;
 
 	while (sep >= 0) {
@@ -28,6 +28,6 @@ void parse_command(__attribute__((unused))server_config_t *server_config,
 			free_arguments(cmdparams);
 		free(buf);
 		circbuf_free_nspace(user->circular_buffer, sep + 2);
-		sep = circbuf_strstr(user->circular_buffer, "\r\n");
+		sep = circbuf_strstr(user->circular_buffer, "\n");
 	}
 }
