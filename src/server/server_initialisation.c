@@ -45,7 +45,7 @@ server_config_t *initialise_server(server_argument_t *server_argument)
 	if (server_config == NULL)
 		return (NULL);
 	server_config->map = map_create
-		(server_argument->width, server_argument->height);
+		(server_argument->width, server_argument->height, 1);
 	server_config->teams = initialise_server_teams(server_config);
 	memset(server_config->poll_fd, 0, sizeof(server_config->poll_fd));
 	return (server_config);

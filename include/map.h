@@ -24,7 +24,7 @@
 #define MAX_THYSTAME() 2
 
 typedef enum object {
-	FOOD = 0,
+	FOOD,
 	LINEMATE,
 	DERAUMERE,
 	SIBUR,
@@ -57,7 +57,8 @@ typedef struct vec_s {
 extern const char *OBJ_NAMES[8];
 extern const tile_t INCANTATION_OBJ[7];
 
-map_t *map_create(size_t width, size_t height);
+void print_map(map_t *map);
+map_t *map_create(size_t width, size_t height, char fill);
 void map_free(map_t *map);
 void map_print(map_t *map);
 uint8_t map_get_orientation(vec_t dir);
