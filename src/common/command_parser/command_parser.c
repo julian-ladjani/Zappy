@@ -7,11 +7,11 @@
 
 #include "parser.h"
 
-static unsigned int count_sep(const char *str, const char *sep)
+unsigned int count_str(const char *str, const char *sep)
 {
 	char *tmp = strstr(str, sep);
 
-	return (tmp ? count_sep(tmp + strlen(sep), sep) + 1 : 0);
+	return (tmp ? count_str(tmp + strlen(sep), sep) + 1 : 0);
 }
 
 static cmdparams_t *new_cmdparams(const char *str, const char *sep)
@@ -22,7 +22,7 @@ static cmdparams_t *new_cmdparams(const char *str, const char *sep)
 		dprintf(2, "Invalid malloc in new_cmdparams\n");
 		return (NULL);
 	}
-	cmd->nb_args = count_sep(str, sep) + 2;
+	cmd->nb_args = count_str(str, sep) + 2;
 	cmd->args = malloc(sizeof(char *) * cmd->nb_args);
 	if (!cmd->args) {
 		dprintf(2, "Invalid malloc in new_cmdparams\n");

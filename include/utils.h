@@ -22,4 +22,9 @@ size_t tab_len(char **tab);
 char **tab_mcpy(char **dst, char **src);
 char **tab_cpy(char **dst, char **src);
 
+//epurstr
+
+typedef int (*checker_t)(char c);
+void epurstr(char *str, checker_t);
+
 #endif //PSU_ZAPPY_2017_UTILS_H

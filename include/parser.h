@@ -29,5 +29,6 @@ typedef enum access_mode_s
 char *sstrtok(char *str, char const *delims);
 cmdparams_t *parse_arguments(char *cmd, const char *sep);
 void free_arguments(void *cmd);
+unsigned int count_str(const char *str, const char *sep);
 
 #endif /* PSU_ZAPPY_2017_CMD_PARSER_H */

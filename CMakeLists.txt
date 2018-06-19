@@ -64,7 +64,7 @@ set(MAP
 
 set(UTILS
         src/common/utils/str_append.c
-        src/common/utils/tab_cpy.c include/utils.h)
+        src/common/utils/tab_cpy.c include/utils.h include/ressources_str.h src/common/utils/epurstr.c)
 
 set(SERVER
         src/server/commands/ai_commands/broadcast.c
