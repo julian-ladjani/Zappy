@@ -7,9 +7,9 @@
 
 #include "map.h"
 
-void empty_tile(tile_t *tile)
+void empty_tile(tile_t *tile, size_t food)
 {
-	(*tile)[FOOD] = 0;
+	(*tile)[FOOD] = food;
 	(*tile)[LINEMATE] = 0;
 	(*tile)[DERAUMERE] = 0;
 	(*tile)[SIBUR] = 0;
@@ -35,7 +35,7 @@ static void fill_tiles(map_t *map, char fill)
 		map->tiles[y] = map->tiles[0] + map->width * y;
 		for (size_t x = 0; x < map->width; ++x)
 			(fill) ? fill_tile(map->tiles[y] + x) :
-				empty_tile(map->tiles[y] + x);
+				empty_tile(map->tiles[y] + x, 0);
 	}
 }
 

@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "utils.h"
 
 #define MAX_FOOD() 10
 #define MAX_LINEMATE() 8
@@ -66,11 +67,10 @@ uint8_t map_rotate_orientation(cardinal_dir_t dir, uint8_t orientation);
 tile_t *map_get_tile(map_t *map, ssize_t x, ssize_t y);
 size_t map_get_abs(ssize_t n, size_t size);
 vec_t map_get_dir(map_t *map, vec_t from, vec_t to);
-void empty_tile(tile_t *tile);
+void empty_tile(tile_t *tile, size_t food);
 char *tile_to_str(tile_t *tile);
 char *tile_to_str_quantity(tile_t *tile);
 void str_to_tile(char *str, tile_t *tile);
-char *str_append(char *str, const char *append);
 uint8_t is_number(const char *str);
 
 #endif /* PSU_ZAPPY_2017_MAP_H */

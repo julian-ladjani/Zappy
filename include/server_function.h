@@ -74,6 +74,10 @@ server_team_t *find_team_by_user(server_config_t *server_config,
 	server_user_t *user);
 int get_team_free_slots(server_team_t *team);
 
+uint8_t incantation_end(server_config_t *server, server_user_t *user);
+char check_incantation_ressources(server_config_t *server,
+	server_user_t *user);
+
 //arg_parser
 
 int check_server_arguments(server_argument_t *server_argument);

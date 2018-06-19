@@ -10,9 +10,9 @@
 
 #include "client.h"
 
-#define NB_REQUESTS() (13)
+#define NB_REQUESTS() (12)
 
-const request_t requests[13] = {
+const request_t requests[12] = {
 	{BROADCAST, "Broadcast", clt_cmd_get_args_broadcast},
 	{CONNECT, "Connect_nbr", clt_cmd_get_args_connect_nbr},
 	{EJECT, "Eject", clt_cmd_get_args_eject},

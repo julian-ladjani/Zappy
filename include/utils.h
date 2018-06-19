@@ -8,11 +8,16 @@
 #ifndef PSU_ZAPPY_2017_UTILS_H
 #define PSU_ZAPPY_2017_UTILS_H
 
+#define _GNU_SOURCE
+
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //str_append
 
 char *str_append(char *str, const char *append);
+char *str_append_number(char *str, const unsigned int num);
 
 //tab_cpy
 
