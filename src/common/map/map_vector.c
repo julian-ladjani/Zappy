@@ -24,7 +24,7 @@ vec_t map_get_dir(map_t *map, vec_t from, vec_t to)
 
 size_t map_get_abs(ssize_t n, size_t size)
 {
-	n = n % size;
+	n = n % (ssize_t)size;
 	return (n < 0 ? size + n : (size_t)n);
 }
 

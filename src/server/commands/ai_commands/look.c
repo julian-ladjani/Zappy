@@ -49,6 +49,7 @@ static void select_tile_to_look(server_config_t *server, server_user_t *user,
 				user->pos.y + i);
 			break;
 	}
+
 }
 
 uint8_t srv_cmd_look(server_config_t *server, server_user_t *user,
