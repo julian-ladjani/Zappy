@@ -29,12 +29,13 @@ static void fill_tile(tile_t *tile)
 	(*tile)[THYSTAME] = (size_t) (random() % MAX_THYSTAME());
 }
 
-static void fill_tiles(map_t *map)
+static void fill_tiles(map_t *map, char fill)
 {
 	for (size_t y = 0; y < map->height; ++y) {
 		map->tiles[y] = map->tiles[0] + map->width * y;
 		for (size_t x = 0; x < map->width; ++x)
-			fill_tile(map->tiles[y] + x);
+			(fill) ? fill_tile(map->tiles[y] + x) :
+				empty_tile(map->tiles[y] + x);
 	}
 }
 
@@ -55,7 +56,7 @@ static uint8_t malloc_map(map_t *map)
 	return (1);
 }
 
-map_t *map_create(size_t width, size_t height)
+map_t *map_create(size_t width, size_t height, char fill)
 {
 	map_t *map = malloc(sizeof(map_t));
 
@@ -69,6 +70,6 @@ map_t *map_create(size_t width, size_t height)
 	srandom((unsigned int) map->seed);
 	if (!malloc_map(map))
 		return (NULL);
-	fill_tiles(map);
+	fill_tiles(map, fill);
 	return (map);
 }

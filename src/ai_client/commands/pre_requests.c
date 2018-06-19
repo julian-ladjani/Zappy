@@ -29,7 +29,7 @@ int prerequest_map_size(clt_config_t *client)
 	*tmp = 0;
 	if (!is_number(str) || !is_number(tmp + 1))
 		return (ZAPPY_EXIT_FAILURE);
-	client->map = map_create((size_t) atoi(str), (size_t) atoi(tmp + 1));
+	client->map = map_create((size_t) atoi(str), (size_t) atoi(tmp + 1), 0);
 	client->status = ZAPPY_CLT_READY;
 	return (ZAPPY_EXIT_SUCCESS);
 }

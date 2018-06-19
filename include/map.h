@@ -56,7 +56,7 @@ typedef struct vec_s {
 
 extern const char *obj_names[8];
 
-map_t *map_create(size_t width, size_t height);
+map_t *map_create(size_t width, size_t height, char fill);
 void map_free(map_t *map);
 void map_print(map_t *map);
 uint8_t map_get_orientation(vec_t dir);
