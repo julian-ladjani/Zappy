@@ -30,6 +30,7 @@ SRCS =	src/ai_client/main.c						\
 	src/common/linked_list/linked_list_advanced.c			\
 	src/common/linked_list/list_clean.c				\
 	src/common/map/map_create.c					\
+	src/common/map/map_debug.c					\
 	src/common/map/map_free.c					\
 	src/common/map/map_print.c					\
 	src/common/map/map_str_to_tile.c				\

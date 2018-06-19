@@ -70,7 +70,7 @@ zappy_launch  "-p $1 -x 0 -y 100 -n 'test' -c 5 -f 1"		"./zappy_server" 84 "Inva
 zappy_launch  "-p $1 -x 100 -y 0 -n 'test' -c 5 -f 1"		"./zappy_server" 84 "Invalid height"
 zappy_launch  "-p $1 -x 100 -y 100 -c 5 -f 1 -n"		"./zappy_server" 84 "Invalid teams"
 zappy_launch  "-p $1 -x 100 -y 100 -n 'test' -c 0 -f 1"		"./zappy_server" 84 "Invalid clientNb"
-zappy_launch  "-p $1 -x 100 -y 100 -n 'test' -c 5 -f 0"		"./zappy_server" 84 "Invalid time"
+zappy_launch  "-p $1 -x 100 -y 100 -n 'test' -c 5 -f 0"		"./zappy_server" 84 "Invalid timer"
 
 title "AI COMMAND ERROR"
 
@@ -82,7 +82,7 @@ title "GRAPHIC COMMAND ERROR"
 
 zappy_diff $1 "$3\ncommand\n"	"suc" "Invalid command"
 zappy_diff $1 "$3\nbct -1 -1\n"	"sbp" "Invalid tile"
-zappy_diff $1 "$3\nsst -1\n"	"sbp" "Invalid time unit"
+zappy_diff $1 "$3\nsst -1\n"	"sbp" "Invalid timer unit"
 
 title "AI COMMAND"
 

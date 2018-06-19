@@ -15,7 +15,7 @@ uint8_t srv_cmd_mct(server_config_t *server, server_user_t *user,
 	for (unsigned int y = 0; y < server->map->height; ++y) {
 		for (unsigned int x = 0; x < server->map->width; ++x) {
 			ressources = tile_to_str_quantity(
-				server->map->tiles[y][x]);
+				map_get_tile(server->map, y, x));
 			dprintf(user->fd, "bct %u %u %s\n", x, y, ressources);
 			if (ressources)
 				free(ressources);

@@ -61,6 +61,7 @@ set(MAP
         src/common/map/map_print.c
         src/common/map/map_vector.c
         src/common/map/map_str_to_tile.c
+        src/common/map/map_tile_to_str.c
         src/common/map/map_debug.c
         include/map.h)
 
@@ -84,6 +85,7 @@ set(SERVER
         src/server/commands/ai_commands/right.c
         src/server/commands/ai_commands/set.c
         src/server/commands/ai_commands/take.c
+        src/server/commands/ai_command_exec.c
         src/server/commands/graphic_commands/bct.c
         src/server/commands/graphic_commands/mct.c
         src/server/commands/graphic_commands/msz.c
@@ -93,6 +95,7 @@ set(SERVER
         src/server/commands/graphic_commands/sgt.c
         src/server/commands/graphic_commands/sst.c
         src/server/commands/graphic_commands/tna.c
+        src/server/commands/graphic_command_exec.c
         src/server/send_messages.c
         src/server/server_cleanup.c
         src/server/server_initialisation.c
@@ -115,11 +118,16 @@ set(SERVER
         include/server_function.h
         src/server/commands/command_exec.c
         src/server/commands/command_parse.c
+        src/server/commands/ai_command_exec.c
+        src/server/commands/graphic_command_exec.c
         src/server/commands/join_team.c
         src/server/argument/server_parse_arg.c
         src/server/argument/server_parse_arg_func.c
         src/server/argument/cleanup_server_arguments.c
-        src/server/argument/server_check_arg.c)
+        src/server/argument/server_check_arg.c
+        src/server/timer/timer_initialisation.c
+        src/server/timer/timer_cleanup.c
+        src/server/timer/timer_action.c)
 
 set(CLIENT
         include/client.h
@@ -151,7 +159,8 @@ add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CIRCULAR_BUFFER})
 
 add_executable(zappy_ai src/ai_client/main.c ${CLIENT} ${LKN_LIST}
-        ${CMD_PARSER} ${SOCKET} ${ARG_PARSER} ${MAP} ${CIRCULAR_BUFFER})
+        ${CMD_PARSER} ${SOCKET} ${UTILS} ${ARG_PARSER} ${MAP}
+        ${CIRCULAR_BUFFER})
 
 target_link_libraries(zappy_ai -lm -lpthread)
 

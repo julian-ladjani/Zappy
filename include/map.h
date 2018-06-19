@@ -54,7 +54,8 @@ typedef struct vec_s {
 	ssize_t y;
 } vec_t;
 
-extern const char *obj_names[8];
+extern const char *OBJ_NAMES[8];
+extern const tile_t INCANTATION_OBJ[7];
 
 void print_map(map_t *map);
 map_t *map_create(size_t width, size_t height, char fill);
@@ -66,8 +67,8 @@ tile_t *map_get_tile(map_t *map, ssize_t x, ssize_t y);
 size_t map_get_abs(ssize_t n, size_t size);
 vec_t map_get_dir(map_t *map, vec_t from, vec_t to);
 void empty_tile(tile_t *tile);
-char *tile_to_str(tile_t tile);
-char *tile_to_str_quantity(tile_t tile);
+char *tile_to_str(tile_t *tile);
+char *tile_to_str_quantity(tile_t *tile);
 void str_to_tile(char *str, tile_t *tile);
 char *str_append(char *str, const char *append);
 uint8_t is_number(const char *str);
