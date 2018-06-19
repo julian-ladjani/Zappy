@@ -54,7 +54,8 @@ typedef struct vec_s {
 	ssize_t y;
 } vec_t;
 
-extern const char *obj_names[8];
+extern const char *OBJ_NAMES[8];
+extern const tile_t INCANTATION_OBJ[7];
 
 map_t *map_create(size_t width, size_t height);
 void map_free(map_t *map);
