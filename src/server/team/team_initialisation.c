@@ -35,7 +35,8 @@ list_t *initialise_server_teams(server_config_t *server_config)
 	server_team_t *team;
 
 	printf("Info: Initialise Server teams\n");
-	for (size_t i = 0; server_config->arguments->team_names; i++) {
+	for (size_t i = 0; server_config->arguments->team_names[i] != NULL;
+		i++) {
 		team = initialise_server_team(server_config,
 			server_config->arguments->team_names[i]);
 		if (team == NULL) {

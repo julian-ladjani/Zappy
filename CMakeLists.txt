@@ -121,7 +121,7 @@ set(SERVER
         src/server/argument/server_parse_arg.c
         src/server/argument/server_parse_arg_func.c
         src/server/argument/cleanup_server_arguments.c
-        src/server/argument/server_check_arg.c)
+        src/server/argument/server_check_arg.c src/server/timer/timer_initialisation.c src/server/timer/timer_cleanup.c src/server/timer/timer_action.c)
 
 set(CLIENT
         include/client.h
