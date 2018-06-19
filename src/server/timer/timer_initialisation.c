@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct timespec *initialise_timer()
+struct timespec *initialise_timer(void)
 {
 	struct timespec *timer = malloc(sizeof(*timer));
 

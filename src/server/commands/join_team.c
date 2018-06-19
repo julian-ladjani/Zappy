@@ -40,7 +40,7 @@ static server_egg_t *search_egg_ready_for_team(list_t *eggs,
 }
 
 static void join_message(server_config_t *server, server_user_t *user,
-			 server_team_t *team, server_egg_t *egg)
+	server_team_t *team, server_egg_t *egg)
 {
 	char *msg = NULL;
 

@@ -31,7 +31,7 @@ static void incantation_level_up(server_config_t *server, server_user_t *user)
 		player = player_list->elem;
 		if (player && player->pos.x == user->pos.x
 			&& player->pos.y == user->pos.y)
-		        player->level += 1;
+			player->level += 1;
 		player_list = player_list->next;
 	}
 }

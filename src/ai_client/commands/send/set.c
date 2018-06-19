@@ -13,7 +13,7 @@ static uint8_t clt_cmd_set_receiver(clt_config_t *client, object_t obj)
 
 	if (ZAPPY_IS_OK(client->server->response_request)) {
 		tile = map_get_tile(client->map, client->specs->x,
-				    client->specs->y);
+					client->specs->y);
 		(*tile)[obj] += 1;
 		client->specs->inventory[obj] -= 1;
 	}

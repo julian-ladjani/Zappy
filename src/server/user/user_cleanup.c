@@ -11,12 +11,17 @@
 
 void cleanup_user_list_elem(void *elem)
 {
-	server_user_t *server_users = elem;
+	server_user_t *server_user = elem;
 
 	if (elem == NULL)
 		return;
-	server_users->circular_buffer->free(server_users->circular_buffer);
-	server_users->team = NULL;
+	server_user->circular_buffer->free(server_user->circular_buffer);
+	if (server_user->team)
+		list_delete_elem(list_get_elem_with_content(
+			server_user->team->users, server_user), NULL);
+	server_user->commands = list_delete_all(server_user->commands,
+						&free_arguments);
+	server_user->team = NULL;
 	free(elem);
 }
 
