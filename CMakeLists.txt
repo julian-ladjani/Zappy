@@ -95,7 +95,6 @@ set(SERVER
         src/server/commands/graphic_commands/sst.c
         src/server/commands/graphic_commands/tna.c
         src/server/commands/graphic_command_exec.c
-        src/server/commands/graphic_command_parse.c
         src/server/send_messages.c
         src/server/server_cleanup.c
         src/server/server_initialisation.c
