@@ -12,7 +12,7 @@
 
 //str_append
 
-char *str_append(char *str, char *append);
+char *str_append(char *str, const char *append);
 
 //tab_cpy
 

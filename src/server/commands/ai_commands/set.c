@@ -22,15 +22,12 @@ static int send_set_message(server_config_t *server,
 uint8_t srv_cmd_set(server_config_t *server,
 	server_user_t *user, cmdparams_t *cmd)
 {
-	char *ressources[7] = {"food", "linemate", "deraumere", "sibur",
-		"mendiane", "phiras", "thystame"};
-
 	if (cmd->nb_args < 1) {
 		dprintf(user->fd, "ko\n");
 		return (1);
 	}
 	for (int i = FOOD; i <= THYSTAME; ++i) {
-		if (!strcasecmp(ressources[i], cmd->args[0])
+		if (!strcasecmp(obj_names[i], cmd->args[0])
 			&& ((i != FOOD && user->inventory[i] > 0)
 			|| (i == FOOD && user->inventory[i] > 125))) {
 			server->map->tiles[user->pos.y][user->pos.x][i] += 1;

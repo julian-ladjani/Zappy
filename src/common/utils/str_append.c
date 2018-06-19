@@ -8,7 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-char *str_append(char *str, char *append)
+char *str_append(char *str, const char *append)
 {
 	if (!append)
 		return (str);
