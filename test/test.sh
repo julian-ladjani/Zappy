@@ -22,7 +22,7 @@ zappy_launch () {
 
 zappy_diff () {
     echo -n "Launch : echo -e \"$2\""
-    echo -e " | nc -C 127.0.0.1 $1 -> \e[1m$4\e[0m"
+    echo -e " | ncat -C 127.0.0.1 $1 -> \e[1m$4\e[0m"
     echo -e "$2" | nc -C 127.0.0.1 $1 > .tmp
     if grep -q "$3" .tmp
     then
