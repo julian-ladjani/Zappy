@@ -11,7 +11,7 @@ static void send_tile_content(server_config_t *server, server_user_t *user,
 	ssize_t x, ssize_t y)
 {
 	int nb_player = find_nb_user_at_pos(server, x, y);
-	char *tile_ressources = tile_to_str(*map_get_tile(server->map, x, y));
+	char *tile_ressources = tile_to_str(map_get_tile(server->map, x, y));
 	char *tile_content = NULL;
 
 	for (int i = 0; i < nb_player; ++i) {

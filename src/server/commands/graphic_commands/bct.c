@@ -20,7 +20,7 @@ uint8_t srv_cmd_bct(server_config_t *server,
 	}
 	x = atoi(cmd->args[0]);
 	y = atoi(cmd->args[0]);
-	ressources = tile_to_str_quantity(server->map->tiles[y][x]);
+	ressources = tile_to_str_quantity(map_get_tile(server->map, y, x));
 	dprintf(user->fd, "bct %d %d %s\n", x, y, ressources);
 	if (ressources)
 		free(ressources);
