@@ -60,11 +60,15 @@ set(MAP
         src/common/map/map_print.c
         src/common/map/map_vector.c
         src/common/map/map_str_to_tile.c
+        src/common/map/map_debug.c
         include/map.h)
 
 set(UTILS
         src/common/utils/str_append.c
-        src/common/utils/tab_cpy.c include/utils.h include/ressources_str.h src/common/utils/epurstr.c)
+        src/common/utils/tab_cpy.c
+        include/utils.h
+        include/ressources_str.h
+        src/common/utils/epurstr.c)
 
 set(SERVER
         src/server/commands/ai_commands/broadcast.c
