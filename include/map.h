@@ -54,7 +54,7 @@ typedef struct vec_s {
 	ssize_t y;
 } vec_t;
 
-extern const char *obj_names[7];
+extern const char *obj_names[8];
 
 map_t *map_create(size_t width, size_t height);
 void map_free(map_t *map);
@@ -67,6 +67,7 @@ vec_t map_get_dir(map_t *map, vec_t from, vec_t to);
 void empty_tile(tile_t *tile);
 char *tile_to_str(tile_t tile);
 char *tile_to_str_quantity(tile_t tile);
+void str_to_tile(char *str, tile_t *tile);
 char *str_append(char *str, char *append);
 uint8_t is_number(const char *str);
 
