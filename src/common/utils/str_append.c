@@ -2,11 +2,10 @@
 ** EPITECH PROJECT, 2018
 ** PSU_zappy_2017
 ** File description:
-** map_create.c
+** str_append.c
 */
 
-#include <string.h>
-#include <stdlib.h>
+#include "utils.h"
 
 char *str_append(char *str, const char *append)
 {
@@ -19,5 +18,15 @@ char *str_append(char *str, const char *append)
 	if (str_len == 0)
 		memset(str, 0, len);
 	str = strcat(str, append);
+	return (str);
+}
+
+char *str_append_number(char *str, const unsigned int num)
+{
+	char *number;
+
+	asprintf(&number, "%u", num);
+	str = str_append(str, number);
+	free(number);
 	return (str);
 }

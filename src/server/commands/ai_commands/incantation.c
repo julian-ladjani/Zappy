@@ -7,8 +7,7 @@
 
 #include "server_function.h"
 
-static char check_incantation_ressources(server_config_t *server,
-	server_user_t *user)
+char check_incantation_ressources(server_config_t *server, server_user_t *user)
 {
 	tile_t *tile = map_get_tile(server->map, user->pos.y, user->pos.x);
 
@@ -24,6 +23,30 @@ static char check_incantation_ressources(server_config_t *server,
 	return (1);
 }
 
+static void send_incantation_message(server_config_t *server,
+	server_user_t *user)
+{
+	list_t *player_list = server->users;
+	server_user_t *player;
+	char *msg;
+	char *players = NULL;
+
+	while (player_list) {
+		player = player_list->elem;
+		if (player && player->pos.x == user->pos.x
+			&& player->pos.y == user->pos.y) {
+			str_append(players, " ");
+			str_append_number(players, player->id);
+		}
+		player_list = player_list->next;
+	}
+	asprintf(&msg, "pic %lu %lu %d%s\n", user->pos.x, user->pos.y,
+		user->level, players);
+	send_msg_to_all_graphic(server, msg);
+	free(msg);
+	free(players);
+}
+
 uint8_t srv_cmd_incantation(server_config_t *server, server_user_t *user,
 	__attribute__((unused))cmdparams_t *cmd)
 {
@@ -33,6 +56,7 @@ uint8_t srv_cmd_incantation(server_config_t *server, server_user_t *user,
 	}
 	dprintf(user->fd, "Elevation underway\nCurrent level: %u\n",
 		user->level);
+	send_incantation_message(server, user);
 	user->wait += 300;
 	return (0);
 }

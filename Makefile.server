@@ -55,6 +55,7 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
 	src/server/commands/ai_commands/fork.c				\
 	src/server/commands/ai_commands/forward.c			\
 	src/server/commands/ai_commands/incantation.c			\
+	src/server/commands/ai_commands/incantation_end.c		\
 	src/server/commands/ai_commands/inventory.c			\
 	src/server/commands/ai_commands/left.c				\
 	src/server/commands/ai_commands/look.c				\
