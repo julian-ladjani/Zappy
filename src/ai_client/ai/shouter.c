@@ -9,6 +9,7 @@
 
 int ai_shouter(clt_config_t *clt)
 {
-	send_request(BROADCAST, clt, "incantation;need_players");
+	send_request(BROADCAST, clt, "incantation;need_players;%d",
+		clt->specs->level);
 	return (ZAPPY_EXIT_SUCCESS);
 }

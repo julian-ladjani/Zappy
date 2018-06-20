@@ -64,7 +64,8 @@ SRCS =	src/ai_client/main.c						\
 	src/ai_client/ai/launch_ai.c					\
 	src/ai_client/ai/searcher.c					\
 	src/ai_client/ai/shouter.c					\
-	src/ai_client/commands/srv_requests.c
+	src/ai_client/commands/srv_requests.c				\
+	src/ai_client/commands/send/incantation_wait.c			
 
 OBJDIR = obj
 

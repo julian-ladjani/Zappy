@@ -34,7 +34,7 @@ int prerequest_map_size(clt_config_t *client)
 	return (ZAPPY_EXIT_SUCCESS);
 }
 
-int prerequest_player_id(clt_config_t *client)
+int prerequest_team_slots(clt_config_t *client)
 {
 	char *str = client->server->response_request;
 
@@ -42,6 +42,6 @@ int prerequest_player_id(clt_config_t *client)
 		return (ZAPPY_EXIT_FAILURE);
 	if (!is_number(str))
 		return (ZAPPY_EXIT_FAILURE);
-	client->specs->id = atoi(str);
+	client->slots = atoi(str);
 	return (ZAPPY_EXIT_SUCCESS);
 }

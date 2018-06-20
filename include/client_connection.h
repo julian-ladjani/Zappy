@@ -13,7 +13,7 @@
 
 const clt_func_t pre_requests[4] = {
 	prerequest_welcome,
-	prerequest_player_id,
+	prerequest_team_slots,
 	prerequest_map_size,
 	NULL
 };

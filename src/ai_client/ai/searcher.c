@@ -21,7 +21,14 @@ static void prepare_incantation(clt_config_t *clt)
 			print_map(clt->map);
 		}
 	}
-	send_request(INCANTATION, clt);
+	if (condition_pre_incantation(clt)) {
+		if ((*tile)[PLAYER] == (*ref)[PLAYER]) {
+			send_request(BROADCAST, clt, "incantation:start:%d",
+					clt->specs->level);
+			send_request(INCANTATION, clt);
+		} else
+			clt->specs->ai_mode = SHOUTER;
+	}
 }
 
 int ai_searcher(clt_config_t *clt)

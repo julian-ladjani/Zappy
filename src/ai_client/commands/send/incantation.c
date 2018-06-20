@@ -9,7 +9,7 @@
 
 static uint8_t clt_cmd_incantation_receiver(clt_config_t *client)
 {
-	(void) client;
+	send_request(INCANTATION_WAIT, client);
 	return (1);
 }
 
