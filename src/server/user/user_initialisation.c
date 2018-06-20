@@ -26,5 +26,6 @@ server_user_t *initialise_server_user(int fd)
 	server_user->orientation = (cardinal_dir_t) rand() % 4 + 1;
 	server_user->level = 1;
 	server_user->type = ZAPPY_USER_NO_TYPE;
+	server_user->incanting = 0;
 	return (server_user);
 }
