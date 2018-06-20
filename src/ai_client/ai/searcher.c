@@ -45,6 +45,12 @@ int ai_searcher(clt_config_t *clt)
 		prepare_incantation(clt);
 	}
 	print_map(clt->map);
+	if (clt->specs->forwarding >= clt->map->width) {
+		send_request(RIGHT, clt);
+		send_request(FORWARD, clt);
+		send_request(FORWARD, clt);
+		send_request(LEFT, clt);
+	}
 	send_request(FORWARD, clt);
 	return (ZAPPY_EXIT_SUCCESS);
 }

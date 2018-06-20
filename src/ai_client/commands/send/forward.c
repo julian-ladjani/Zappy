@@ -33,6 +33,7 @@ static uint8_t clt_cmd_forward_receiver(clt_config_t *client)
 				client->specs->y);
 		--(*tile)[PLAYER];
 		forward_user(client->specs, client->map);
+		++client->specs->forwarding;
 	}
 	printf("forward\n");
 	return (1);
