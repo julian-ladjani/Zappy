@@ -25,6 +25,11 @@ unsigned long timer_calc_time_with_frequency(unsigned int frequency,
 	return ((time_s * 1000) * (1 / frequency));
 }
 
+int timer_is_ended(struct timespec *timer)
+{
+
+}
+
 void timer_set_wait(struct timespec *timer, unsigned int frequency,
 	unsigned int time_s)
 {
