@@ -91,7 +91,6 @@ zappy_diff $1 "$2\nForward"		"ok" "Forward"
 zappy_diff $1 "$2\nRight"		"ok" "Right"
 zappy_diff $1 "$2\nLeft"		"ok" "Left"
 zappy_diff $1 "$2\nLook"		"\[player" "Look"
-cat .tmp
 zappy_diff $1 "$2\nInventory"		"\[food" "Inventory"
 zappy_diff $1 "$2\nBroadcast Test"	"ok" "Broadcast"
 

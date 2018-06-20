@@ -7,7 +7,7 @@
 
 #include "server_function.h"
 
-static void send_to_player_in_incantation(server_config_t *server,
+void send_to_player_in_incantation(server_config_t *server,
 	server_user_t *user, char *msg)
 {
 	list_t *player_list = server->users;
@@ -45,14 +45,17 @@ uint8_t incantation_end(server_config_t *server, server_user_t *user)
 
 	if (!check_incantation_ressources(server, user)) {
 		send_to_player_in_incantation(server, user, "ko\n");
-		asprintf(&msg, "pie %lu %lu R\n", user->pos.x, user->pos.y);
+		asprintf(&msg, "pie %lu %lu ko\n", user->pos.x, user->pos.y);
 		send_msg_to_all_graphic(server, msg);
 		free(msg);
 		return (1);
 	}
 	incantation_level_up(server, user);
 	empty_tile(tile, (*tile)[FOOD]);
-	asprintf(&msg, "pie %lu %lu R\n", user->pos.x, user->pos.y);
+	asprintf(&msg, "Current level: %u\n", user->level);
+	send_to_player_in_incantation(server, user, msg);
+	free(msg);
+	asprintf(&msg, "pie %lu %lu ok\n", user->pos.x, user->pos.y);
 	send_msg_to_all_graphic(server, msg);
 	free(msg);
 	return (0);

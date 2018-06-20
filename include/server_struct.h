@@ -34,7 +34,7 @@ typedef struct server_user_s {
 	tile_t inventory;
 	cardinal_dir_t orientation;
 	vec_t pos;
-	unsigned int *wait;
+	unsigned int wait;
 	unsigned int level;
 } server_user_t;
 

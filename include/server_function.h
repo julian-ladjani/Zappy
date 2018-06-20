@@ -77,6 +77,8 @@ int get_team_free_slots(server_team_t *team);
 uint8_t incantation_end(server_config_t *server, server_user_t *user);
 char check_incantation_ressources(server_config_t *server,
 	server_user_t *user);
+void send_to_player_in_incantation(server_config_t *server,
+	server_user_t *user, char *msg);
 
 //arg_parser
 
