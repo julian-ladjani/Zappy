@@ -44,6 +44,7 @@ void server_main_loop(server_config_t *server_config)
 	while (server_config->state != ZAPPY_SERVER_STOP) {
 		ret = poll(server_config->poll_fd, server_config->nfds,
 			ZAPPY_POLL_TIMEOUT);
+		timer_set_current_time(server_config->cur_time);
 		if (ret < 0)
 			break;
 		else if (ret > 0)

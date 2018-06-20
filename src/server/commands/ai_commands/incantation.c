@@ -58,6 +58,6 @@ uint8_t srv_cmd_incantation(server_config_t *server, server_user_t *user,
 	dprintf(user->fd, "Elevation underway\nCurrent level: %u\n",
 		user->level);
 	send_incantation_message(server, user);
-	user->wait += 300;
+	user_timer_add_wait(user->wait, server, 300);
 	return (0);
 }

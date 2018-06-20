@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include "server_struct.h"
+#include "server_function.h"
 
 void cleanup_user_list_elem(void *elem)
 {
@@ -22,6 +23,7 @@ void cleanup_user_list_elem(void *elem)
 	server_user->commands = list_delete_all(server_user->commands,
 						&free_arguments);
 	server_user->team = NULL;
+	cleanup_user_timer(server_user->wait);
 	free(elem);
 }
 

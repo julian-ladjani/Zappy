@@ -18,7 +18,6 @@ static void initialise_user(server_config_t *server, server_user_t *user,
 	} else {
 		user->pos = egg->pos;
 	}
-	user->wait = 0;
 	user->level = 1;
 	empty_tile(&user->inventory, 1260);
 	user->id = user->fd;
