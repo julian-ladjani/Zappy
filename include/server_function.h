@@ -77,6 +77,8 @@ int get_team_free_slots(server_team_t *team);
 uint8_t incantation_end(server_config_t *server, server_user_t *user);
 char check_incantation_ressources(server_config_t *server,
 	server_user_t *user);
+void send_to_player_in_incantation(server_config_t *server,
+	server_user_t *user, char *msg);
 
 //arg_parser
 
@@ -104,14 +106,6 @@ int timer_is_ended(struct timespec *timer, struct timespec *cur_time);
 void cleanup_timer(struct timespec *timer);
 struct timespec *initialise_timer(void);
 void timer_sup_mili(struct timespec *timer, unsigned long mili);
-void cleanup_user_timer(user_timer_t *user_timer);
-user_timer_t *initialise_user_timer(void);
-void user_timer_sup_wait(user_timer_t *timer,
-	server_config_t *server, unsigned int time_s);
-void user_timer_add_wait(user_timer_t *timer,
-	server_config_t *server, unsigned int time_s);
-void user_timer_set_wait(user_timer_t *timer,
-	server_config_t *server, unsigned int time_s);
 
 //commands
 

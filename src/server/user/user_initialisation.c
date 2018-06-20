@@ -21,7 +21,7 @@ server_user_t *initialise_server_user(int fd)
 		free(server_user);
 		return (NULL);
 	}
-	server_user->wait = initialise_user_timer();
+	server_user->wait = 0;
 	server_user->logged_state = ZAPPY_USER_NOT_CONNECTED;
 	server_user->orientation = (cardinal_dir_t) rand() % 4 + 1;
 	server_user->level = 1;

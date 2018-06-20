@@ -14,10 +14,3 @@ void cleanup_timer(struct timespec *timer)
 {
 	free(timer);
 }
-
-void cleanup_user_timer(user_timer_t *user_timer)
-{
-	cleanup_timer(user_timer->first_wait_timer);
-	cleanup_timer(user_timer->timer);
-	free(user_timer);
-}

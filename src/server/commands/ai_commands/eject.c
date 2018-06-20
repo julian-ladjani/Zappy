@@ -56,7 +56,7 @@ uint8_t srv_cmd_eject(server_config_t *server, server_user_t *user,
 {
 	char *msg;
 
-	if (find_nb_user_at_pos(server, user->pos.x, user->pos.y) < 1) {
+	if (find_nb_user_at_pos(server, user->pos.x, user->pos.y) < 2) {
 		dprintf(user->fd, "ko\n");
 		return (1);
 	}

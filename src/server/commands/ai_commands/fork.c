@@ -9,7 +9,7 @@
 
 static server_egg_t *create_egg(server_user_t *user)
 {
-	server_egg_t *egg = malloc(sizeof(egg));
+	server_egg_t *egg = malloc(sizeof(server_egg_t));
 
 	if (!egg)
 		return (NULL);

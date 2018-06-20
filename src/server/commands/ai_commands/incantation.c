@@ -9,7 +9,7 @@
 
 char check_incantation_ressources(server_config_t *server, server_user_t *user)
 {
-	tile_t *tile = map_get_tile(server->map, user->pos.y, user->pos.x);
+	tile_t *tile = map_get_tile(server->map, user->pos.x, user->pos.y);
 
 	if (user->level < 1 || user->level > 7)
 		return (0);
@@ -36,8 +36,8 @@ static void send_incantation_message(server_config_t *server,
 		if (player && player->type == ZAPPY_USER_AI
 			&& player->pos.x == user->pos.x
 			&& player->pos.y == user->pos.y) {
-			str_append(players, " ");
-			str_append_number(players, player->id);
+			players = str_append(players, " ");
+			players = str_append_number(players, player->id);
 		}
 		player_list = player_list->next;
 	}
@@ -51,13 +51,16 @@ static void send_incantation_message(server_config_t *server,
 uint8_t srv_cmd_incantation(server_config_t *server, server_user_t *user,
 	__attribute__((unused))cmdparams_t *cmd)
 {
+	char *msg;
+
 	if (!check_incantation_ressources(server, user)) {
 		dprintf(user->fd, "ko\n");
 		return (1);
 	}
-	dprintf(user->fd, "Elevation underway\nCurrent level: %u\n",
-		user->level);
+	asprintf(&msg, "Elevation underway\n");
+	send_to_player_in_incantation(server, user, msg);
+	free(msg);
 	send_incantation_message(server, user);
-	user_timer_add_wait(user->wait, server, 300);
+	user->wait += 300;
 	return (0);
 }
