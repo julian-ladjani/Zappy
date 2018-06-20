@@ -5,6 +5,8 @@
 ** broadcast.c
 */
 
+#define _GNU_SOURCE
+#include <stdio.h>
 #include "client.h"
 
 static uint8_t clt_cmd_broadcast_receiver(clt_config_t *client, char *msg,
@@ -18,9 +20,13 @@ static uint8_t clt_cmd_broadcast_receiver(clt_config_t *client, char *msg,
 
 static uint8_t clt_cmd_broadcast(clt_config_t *client, char *msg, va_list *av)
 {
-	(void) client;
-	(void) av;
-	(void) msg;
+	char *tmp = NULL;
+
+	vasprintf(&tmp, msg, *av);
+	if (!tmp)
+		return (0);
+	send_active_request(client, "%s:%d:%s", client->specs->team,
+				client->specs->id, tmp);
 	return (1);
 }
 

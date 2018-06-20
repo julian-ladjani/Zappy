@@ -22,6 +22,7 @@ static void initialise_user(server_config_t *server, server_user_t *user,
 	user->level = 1;
 	empty_tile(&user->inventory, 1260);
 	user->id = user->fd;
+	user->team = team;
 	team->users = list_add_elem_at_pos(team->users, user, LIST_END);
 }
 
@@ -40,7 +41,7 @@ static server_egg_t *search_egg_ready_for_team(list_t *eggs,
 }
 
 static void join_message(server_config_t *server, server_user_t *user,
-			 server_team_t *team, server_egg_t *egg)
+	server_team_t *team, server_egg_t *egg)
 {
 	char *msg = NULL;
 
@@ -71,6 +72,7 @@ static void join_team(server_config_t *server,
 		server->map->width, server->map->height);
 	if (get_team_free_slots(team) > 0) {
 		initialise_user(server, user, team, egg);
+		map_add_bonus_food(server->map);
 		join_message(server, user, team, egg);
 	}
 	if (!team) {

@@ -6,11 +6,7 @@
 */
 
 #include "map.h"
-
-char *colors[7] = {"\e[41m", "\e[42m", "\e[43m", "\e[44m", "\e[45m",
-			"\e[46m", "\e[47m"};
-char *compl_colors[7] = {"\e[36m", "\e[35m", "\e[34m", "\e[33m", "\e[32m",
-			"\e[31m", "\e[30m"};
+#include "map_debug.h"
 
 static void print_tile_row(tile_t *tile, uint8_t start, uint8_t end)
 {
@@ -18,7 +14,7 @@ static void print_tile_row(tile_t *tile, uint8_t start, uint8_t end)
 
 	printf("|");
 	for (uint8_t i = start; i < end; ++i) {
-		if (i < 7 && (*tile)[i] > 0) {
+		if (i < 8 && (*tile)[i] > 0) {
 			if ((*tile)[i] <= 9)
 				printf("%s%s%c%ld%s", colors[i],
 					compl_colors[i], OBJ_NAMES[i][0] - 32,

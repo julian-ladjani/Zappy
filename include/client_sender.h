@@ -10,15 +10,16 @@
 
 #include "client.h"
 
-#define NB_REQUESTS() (12)
+#define NB_REQUESTS() (13)
 
-const request_t requests[12] = {
+const request_t requests[13] = {
 	{BROADCAST, "Broadcast", clt_cmd_get_args_broadcast},
 	{CONNECT, "Connect_nbr", clt_cmd_get_args_connect_nbr},
 	{EJECT, "Eject", clt_cmd_get_args_eject},
 	{FORK, "Fork", clt_cmd_get_args_fork},
 	{FORWARD, "Forward", clt_cmd_get_args_forward},
 	{INCANTATION, "Incantation", clt_cmd_get_args_incantation},
+	{INCANTATION_WAIT, "Inc Wait", clt_cmd_get_args_incantation_wait},
 	{INVENTORY, "Inventory", clt_cmd_get_args_inventory},
 	{LEFT, "Left", clt_cmd_get_args_left},
 	{LOOK, "Look", clt_cmd_get_args_look},

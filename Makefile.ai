@@ -36,6 +36,7 @@ SRCS =	src/ai_client/main.c						\
 	src/common/map/map_str_to_tile.c				\
 	src/common/map/map_tile_to_str.c				\
 	src/common/map/map_vector.c					\
+	src/common/map/map_food.c					\
 	src/common/map/map_orientation.c				\
 	src/common/socket/socket_cleanup.c				\
 	src/common/socket/socket_initialisation.c			\
@@ -55,11 +56,17 @@ SRCS =	src/ai_client/main.c						\
         src/ai_client/help.c                                            \
         src/ai_client/connect.c                                         \
         src/ai_client/launch_server.c                                   \
-	src/ai_client/launch_ai.c					\
-        src/ai_client/commands/send/sender.c                            \
+        src/ai_client/commands/sender.c					\
 	src/ai_client/commands/pre_requests.c				\
         src/common/utils/is_str.c					\
-        src/ai_client/parser.c
+        src/ai_client/parser.c						\
+	src/ai_client/ai/conditions.c					\
+	src/ai_client/ai/follower.c					\
+	src/ai_client/ai/launch_ai.c					\
+	src/ai_client/ai/searcher.c					\
+	src/ai_client/ai/shouter.c					\
+	src/ai_client/commands/srv_requests.c				\
+	src/ai_client/commands/send/incantation_wait.c			
 
 OBJDIR = obj
 

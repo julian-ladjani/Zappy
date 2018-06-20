@@ -65,7 +65,7 @@ zappy_launch  "-p $1 -x 100 -n 'test' -c 5 -f 1"		"./zappy_server" 84 "No height
 zappy_launch  "-p $1 -x 100 -y 100 -c 5 -f 1"			"./zappy_server" 84 "No teams"
 zappy_launch  "-p $1 -x 100 -y 100 -n 'test' -f 1"		"./zappy_server" 84 "No clientNb"
 
-zappy_launch  "-p 0 -x 100 -y 100 -n 'test' -c 5 -f 1"	"./zappy_server" 84 "Invalid port"
+zappy_launch  "-p 0 -x 100 -y 100 -n 'test' -c 5 -f 1"		"./zappy_server" 84 "Invalid port"
 zappy_launch  "-p $1 -x 0 -y 100 -n 'test' -c 5 -f 1"		"./zappy_server" 84 "Invalid width"
 zappy_launch  "-p $1 -x 100 -y 0 -n 'test' -c 5 -f 1"		"./zappy_server" 84 "Invalid height"
 zappy_launch  "-p $1 -x 100 -y 100 -c 5 -f 1 -n"		"./zappy_server" 84 "Invalid teams"
@@ -90,7 +90,8 @@ zappy_diff $1 "$2"			"WELCOME" "Welcome"
 zappy_diff $1 "$2\nForward"		"ok" "Forward"
 zappy_diff $1 "$2\nRight"		"ok" "Right"
 zappy_diff $1 "$2\nLeft"		"ok" "Left"
-zappy_diff $1 "$2\n\Look"		"\[player" "Look"
+zappy_diff $1 "$2\nLook"		"\[player" "Look"
+cat .tmp
 zappy_diff $1 "$2\nInventory"		"\[food" "Inventory"
 zappy_diff $1 "$2\nBroadcast Test"	"ok" "Broadcast"
 
