@@ -19,6 +19,7 @@
 #define GET_FRONTPOS(n) ((ssize_t) trunc(sqrt(n)))
 #define GET_LATPOS(n, frontpos) (n - (frontpos * frontpos + frontpos))
 
+#define BONUS_FOOD() 3
 #define MAX_FOOD() 10
 #define MAX_LINEMATE() 8
 #define MAX_DERAUMERE() 6
@@ -72,6 +73,7 @@ tile_t *map_get_tile(map_t *map, ssize_t x, ssize_t y);
 size_t map_get_abs(ssize_t n, size_t size);
 vec_t map_get_dir(map_t *map, vec_t from, vec_t to);
 void empty_tile(tile_t *tile, size_t food);
+void map_add_bonus_food(map_t *map);
 char *tile_to_str(tile_t *tile);
 char *tile_to_str_quantity(tile_t *tile);
 void str_to_tile(char *str, tile_t *tile);

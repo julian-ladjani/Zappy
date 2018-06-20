@@ -20,6 +20,12 @@ uint8_t srv_cmd_bct(server_config_t *server,
 	}
 	x = atoi(cmd->args[0]);
 	y = atoi(cmd->args[0]);
+	if (x < 0 || y < 0 || x >= (int)server->map->width
+		|| y >= (int)server->map->height) {
+		dprintf(user->fd, "sbp\n");
+		return (1);
+	}
+
 	ressources = tile_to_str_quantity(map_get_tile(server->map, y, x));
 	dprintf(user->fd, "bct %d %d %s\n", x, y, ressources);
 	if (ressources)
