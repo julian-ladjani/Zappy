@@ -19,6 +19,7 @@
 #define GET_FRONTPOS(n) ((ssize_t) trunc(sqrt(n)))
 #define GET_LATPOS(n, frontpos) (n - (frontpos * frontpos + frontpos))
 
+#define BONUS_FOOD() 3
 #define MAX_FOOD() 10
 #define MAX_LINEMATE() 8
 #define MAX_DERAUMERE() 6

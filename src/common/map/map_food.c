@@ -17,6 +17,6 @@ void map_add_bonus_food(map_t *map)
 	for (size_t y = 0; y < map->height; ++y) {
 		map->tiles[y] = map->tiles[0] + map->width * y;
 		for (size_t x = 0; x < map->width; ++x)
-			tile_add_nonus_food(map->tiles[y] + x);
+			tile_add_bonus_food(map->tiles[y] + x);
 	}
 }
