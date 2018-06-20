@@ -24,6 +24,7 @@ void cleanup_server(server_config_t *server_config)
 		cleanup_server_arguments(server_config->arguments);
 	if (server_config->map != NULL)
 		map_free(server_config->map);
+	list_delete_all(server_config->eggs, &free);
 	cleanup_socket_poll(server_config->poll_fd);
 	free(server_config);
 }
