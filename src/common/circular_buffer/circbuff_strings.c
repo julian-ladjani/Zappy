@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include "circbuff.h"
 #include <string.h>
+#include <stdio.h>
 
 static int circbuf_strncmp(circbuf_t *cb, char *pos, char *str, size_t size)
 {

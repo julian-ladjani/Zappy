@@ -82,6 +82,7 @@ typedef struct client_socket_s {
 	char *active_request;
 	char *response_request;
 	list_t *broadcasts_queue;
+	int long_command;
 } clt_socket_t;
 
 typedef struct client_specifications_s {

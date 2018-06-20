@@ -8,7 +8,7 @@
 #ifndef PSU_ZAPPY_2017_CIRCBUFF_H
 #define PSU_ZAPPY_2017_CIRCBUFF_H
 
-#define CIRCBUF_SIZE() 1024
+#define CIRCBUF_SIZE() 1
 
 typedef struct circbuf_s circbuf_t;
 typedef long int (* filefunc_t)(int , circbuf_t *, unsigned int);

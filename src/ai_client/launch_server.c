@@ -6,6 +6,7 @@
 */
 
 #include <client_connection.h>
+#include <stdbool.h>
 
 static int parse_infos(clt_config_t *client)
 {
@@ -33,23 +34,37 @@ static int parse_infos(clt_config_t *client)
 	return (ZAPPY_EXIT_SUCCESS);
 }
 
+static int fill_command(clt_config_t *client, unsigned int pos, char end)
+{
+	if (client->server->long_command == 0) {
+		free(client->server->response_request);
+		client->server->response_request = circbuf_nbufferise
+			(client->server->buf, pos);
+		circbuf_free_nspace(client->server->buf, pos + end);
+	} else {
+		client->server->response_request = str_append
+			(client->server->response_request,
+				circbuf_nbufferise(client->server->buf, pos));
+		client->server->buf->free_nspace(client->server->buf,
+							pos + end);
+	}
+}
+
 static int read_command(clt_config_t *client)
 {
 	long pos = circbuf_strstr(client->server->buf, "\n");
 	int r_value;
 
-	while (pos > 0) {
-		if (!pos)
-			break;
+	if (pos < 0 &&
+		client->server->buf->get_space(client->server->buf) <= 1) {
+		fill_command(client, client->server->buf->size, 0);
+		client->server->long_command = 1;
+	}
+	while (pos >= 0) {
+		fill_command(client, (unsigned int) pos, 1);
 		client->server->active_request = NULL;
-		if (client->server->active_request)
-			free(client->server->active_request);
-		free(client->server->response_request);
-		client->server->response_request = circbuf_nbufferise
-			(client->server->buf, (unsigned int) pos);
+		client->server->long_command = 0;
 		r_value = parse_infos(client);
-		circbuf_free_nspace(client->server->buf,
-					(unsigned int) pos + 1);
 		if (r_value == ZAPPY_EXIT_FAILURE)
 			return (ZAPPY_EXIT_FAILURE);
 		pos = circbuf_strstr(client->server->buf, "\n");
@@ -72,7 +87,7 @@ int handle_poll(clt_config_t *client)
 	if (poll_rv >= 0 && client->server->pollfd->revents == POLLIN) {
 		client->server->buf->recv(
 			client->server->pollfd->fd,
-			client->server->buf, 1025);
+			client->server->buf, CIRCBUF_SIZE());
 		return (read_command(client));
 	}
 	return (ZAPPY_EXIT_NOTHING);

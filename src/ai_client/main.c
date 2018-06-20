@@ -42,7 +42,7 @@ static void init_server_socket_informations(
 		free_client_config(client);
 		return;
 	}
-	client->server->buf = circbuf_create(1025);
+	client->server->buf = circbuf_create(CIRCBUF_SIZE());
 	if (client->server->buf == NULL) {
 		free_client_config(client);
 		return;

@@ -27,6 +27,11 @@ static tile_t *get_tile_from_look_index(clt_config_t *client, int i)
 			return map_get_tile(client->map, lpos + x, fpos + y);
 	}
 }
+static void remove_players_from_map(map_t *map)
+{
+	for (unsigned int i = 0; i < map->width * map->height; ++i)
+		map->tiles[0][i][PLAYER] = 0;
+}
 
 static uint8_t clt_cmd_look_receiver(clt_config_t *client)
 {
@@ -47,6 +52,7 @@ static uint8_t clt_cmd_look_receiver(clt_config_t *client)
 
 static uint8_t clt_cmd_look(clt_config_t *client)
 {
+	remove_players_from_map(client->map);
 	send_active_request(client, "");
 	return (1);
 }

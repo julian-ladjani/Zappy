@@ -108,8 +108,6 @@ int ai_searcher(clt_config_t *clt)
 	tile_t *tile;
 
 	send_request(LOOK, clt);
-	if (ZAPPY_DEBUG)
-		print_map(clt->map);
 	tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
 	for (int i = 0; i < 5 && (*tile)[FOOD] != 0; ++i)
 		send_request(TAKE, clt, FOOD);
