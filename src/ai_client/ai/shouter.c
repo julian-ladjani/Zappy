@@ -7,7 +7,7 @@
 
 #include "client.h"
 
-int ai_follower(clt_config_t *clt)
+int ai_shouter(clt_config_t *clt)
 {
 	send_request(BROADCAST, clt, "incantation;need_players");
 	return (ZAPPY_EXIT_SUCCESS);

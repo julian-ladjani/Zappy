@@ -21,7 +21,7 @@ int tilecmp(tile_t *t1, tile_t *t2)
 
 int condition_end_incantation(clt_config_t *clt)
 {
-	static int last_level = 0;
+	static size_t last_level = 0;
 
 	if (last_level != clt->specs->level) {
 		last_level = clt->specs->level;

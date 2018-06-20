@@ -156,7 +156,12 @@ set(CLIENT
         include/client_parser.h
         src/ai_client/ai/launch_ai.c
         include/map_debug.h
-        src/ai_client/commands/srv_requests.c include/ai_modes.h src/ai_client/ai/searcher.c src/ai_client/ai/shouter.c src/ai_client/ai/follower.c src/ai_client/ai/conditions.c)
+        src/ai_client/commands/srv_requests.c
+        include/ai_modes.h
+        src/ai_client/ai/searcher.c
+        src/ai_client/ai/shouter.c
+        src/ai_client/ai/follower.c
+        src/ai_client/ai/conditions.c)
 
 add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${UTILS} ${ARG_PARSER} ${MAP}

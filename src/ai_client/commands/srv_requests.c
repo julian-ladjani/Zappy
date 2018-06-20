@@ -7,8 +7,6 @@
 
 #include "client.h"
 
-int fill_msg(clt_config_t *pS, clt_msg_t *pMessage_s);
-
 int srvrequest_dead(clt_config_t *client)
 {
 	client->status = ZAPPY_CLT_DEAD;
@@ -31,6 +29,7 @@ int fill_msg(clt_config_t *client, clt_msg_t *msg)
 	if (!tmp)
 		return (ZAPPY_EXIT_FAILURE);
 	msg->content = strdup(tmp);
+	return (ZAPPY_EXIT_SUCCESS);
 }
 
 int srvrequest_message(clt_config_t *client)
