@@ -59,6 +59,7 @@ static clt_specs_t *init_client_specs(char *team)
 		return (NULL);
 	specs->orientation = NORTH;
 	specs->team = team;
+	specs->ai_mode = SEARCHER;
 	return (specs);
 }
 

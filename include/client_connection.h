@@ -11,13 +11,23 @@
 #include <stdint.h>
 #include "client.h"
 
-typedef int (* pre_requests_t)(clt_config_t *);
-
-const pre_requests_t pre_requests[4] = {
+const clt_func_t pre_requests[4] = {
 	prerequest_welcome,
 	prerequest_player_id,
 	prerequest_map_size,
 	NULL
+};
+
+typedef struct launcher_s
+{
+	char *flag;
+	clt_func_t request;
+} launcher_t;
+
+const launcher_t srv_requests[3] = {
+	{"dead", srvrequest_dead},
+	{"message ", srvrequest_message},
+	{NULL, NULL}
 };
 
 #endif /* PSU_ZAPPY_2017_CLIENT_CONNECTION_H */

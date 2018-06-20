@@ -20,14 +20,14 @@ static int parse_infos(clt_config_t *client)
 				client->status = ZAPPY_CLT_READY;
 		return (r_value);
 	}
-	if (!strncmp(client->server->response_request, "dead", 4)) {
-		free(client->server->response_request);
-		client->server->response_request = NULL;
-		client->status = ZAPPY_CLT_DEAD;
-	} else if (!strncmp(client->server->response_request, "message", 7)) {
-		list_add_elem_at_pos(client->server->broadcasts_queue,
-			(void *) client->server->response_request, LIST_END);
-		client->server->response_request = NULL;
+	for (size_t j = 0; srv_requests[j].flag; ++j) {
+		if (!strncmp(client->server->response_request,
+				srv_requests[j].flag,
+				strlen(srv_requests[j].flag))) {
+			srv_requests[j].request(client);
+			client->server->response_request = NULL;
+			break;
+		}
 	}
 	return (ZAPPY_EXIT_SUCCESS);
 }
