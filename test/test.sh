@@ -10,25 +10,25 @@ cp ../zappy_server ./
 cp ../zappy_ai ./
 
 zappy_launch () {
-    echo -e "Launch : $2 $1 -> \e[1m$4\e[0m"
+    printf "%b\n" "Launch : $2 $1 -> \e[1m$4\e[0m"
     $2 $1
     if [ $? -eq $3 ]
     then
-	echo -e "\e[32m\e[1mPASSED\e[0m"
+	printf "%b\n" "\e[32m\e[1mPASSED\e[0m"
     else
-	echo -e "\e[31m\e[1mFAILED\e[0m"
+	printf "%b\n" "\e[31m\e[1mFAILED\e[0m"
     fi
 }
 
 zappy_diff () {
-    echo -n "Launch : echo -e \"$2\""
-    echo -e " | ncat 127.0.0.1 $1 -> \e[1m$4\e[0m"
+    printf "%s" "Launch : echo -e \"$2\""
+    printf "%b\n" " | ncat 127.0.0.1 $1 -> \e[1m$4\e[0m"
     echo -e "$2" | ncat 127.0.0.1 $1 > .tmp
     if grep -q "$3" .tmp
     then
-	echo -e "\e[32m\e[1mPASSED\e[0m"
+	printf "%b\n" "\e[32m\e[1mPASSED\e[0m"
     else
-	echo -e "\e[31m\e[1mFAILED\e[0m"
+	printf "%b\n" "\e[31m\e[1mFAILED\e[0m"
     fi
     rm .tmp
 }

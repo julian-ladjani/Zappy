@@ -22,8 +22,8 @@ long int circbuf_recv(int fd, circbuf_t *cb, unsigned int size)
 
 	if (end < cb->head)
 		return (-1);
-	n = read(fd, cb->head, MIN(space, size));
-	if (cb->head + n > end + 1)
+	n = recv(fd, cb->head, MIN(space, size), 0);
+	if (n < 0 || cb->head + n > end + 1)
 		return (-1);
 	cb->head += n;
 	if (cb->head > end)
