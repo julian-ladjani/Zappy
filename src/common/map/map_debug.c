@@ -14,7 +14,7 @@ static void print_tile_row(tile_t *tile, uint8_t start, uint8_t end)
 
 	printf("|");
 	for (uint8_t i = start; i < end; ++i) {
-		if (i < 7 && (*tile)[i] > 0) {
+		if (i < 8 && (*tile)[i] > 0) {
 			if ((*tile)[i] <= 9)
 				printf("%s%s%c%ld%s", colors[i],
 					compl_colors[i], OBJ_NAMES[i][0] - 32,

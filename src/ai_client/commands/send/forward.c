@@ -27,8 +27,13 @@ static void forward_user(clt_specs_t *client, map_t *map)
 
 static uint8_t clt_cmd_forward_receiver(clt_config_t *client)
 {
-	if (ZAPPY_IS_OK(client->server->response_request))
+	tile_t *tile;
+	if (ZAPPY_IS_OK(client->server->response_request)) {
+		tile = map_get_tile(client->map, client->specs->x,
+				client->specs->y);
+		--(*tile)[PLAYER];
 		forward_user(client->specs, client->map);
+	}
 	printf("forward\n");
 	return (1);
 }
