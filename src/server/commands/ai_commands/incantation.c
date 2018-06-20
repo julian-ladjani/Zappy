@@ -15,7 +15,7 @@ char check_incantation_ressources(server_config_t *server, server_user_t *user)
 		return (0);
 	if (find_nb_user_at_pos_and_level(server, user->pos.x,
 			user->pos.y, user->level)
-		!= (int)INCANTATION_OBJ[user->level - 1][0])
+		!= (int)INCANTATION_OBJ[user->level - 1][PLAYER])
 		return (0);
 	for (int i = LINEMATE; i <= THYSTAME; ++i)
 		if (INCANTATION_OBJ[user->level - 1][i] != (*tile)[i])
