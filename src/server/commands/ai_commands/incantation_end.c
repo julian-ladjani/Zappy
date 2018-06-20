@@ -51,6 +51,7 @@ uint8_t incantation_end(server_config_t *server, server_user_t *user)
 		return (1);
 	}
 	incantation_level_up(server, user);
+	user->incanting = 0;
 	empty_tile(tile, (*tile)[FOOD]);
 	asprintf(&msg, "Current level: %u\n", user->level);
 	send_to_player_in_incantation(server, user, msg);

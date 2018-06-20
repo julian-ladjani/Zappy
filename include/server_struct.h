@@ -36,6 +36,7 @@ typedef struct server_user_s {
 	vec_t pos;
 	unsigned int wait;
 	unsigned int level;
+	char incanting;
 } server_user_t;
 
 struct server_team_s {

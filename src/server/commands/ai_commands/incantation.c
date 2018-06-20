@@ -61,6 +61,7 @@ uint8_t srv_cmd_incantation(server_config_t *server, server_user_t *user,
 	send_to_player_in_incantation(server, user, msg);
 	free(msg);
 	send_incantation_message(server, user);
+	user->incanting = 1;
 	user->wait += 300;
 	return (0);
 }
