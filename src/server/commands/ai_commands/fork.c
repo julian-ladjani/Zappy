@@ -15,7 +15,8 @@ static server_egg_t *create_egg(server_user_t *user)
 		return (NULL);
 	egg->pos = user->pos;
 	egg->team = user->team;
-	egg->wait = 642;
+	egg->wait = initialise_timer();
+	//egg->wait = 642;
 	egg->id = 0;
 	return (egg);
 }

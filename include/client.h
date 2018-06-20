@@ -19,6 +19,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+#define ZAPPY_DEBUG (1)
+
 #define ZAPPY_EXIT_FAILURE (2)
 #define ZAPPY_EXIT_NOTHING (0)
 #define ZAPPY_EXIT_SUCCESS (1)
@@ -91,6 +93,7 @@ typedef struct client_specifications_s {
 	unsigned int level;
 	char *team;
 	ai_mode_t ai_mode;
+	int forwarding;
 } clt_specs_t;
 
 struct client_config_s {

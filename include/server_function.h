@@ -94,6 +94,25 @@ void parse_argument_size_t(size_t *data, char *start_regexp,
 void parse_argument_tab(char ***data, char *start_regexp,
 	arg_parser_input_t *input);
 
+//timer
+
+void timer_add_mili(struct timespec *timer, unsigned long mili);
+unsigned long timer_calc_time_with_frequency(unsigned int frequency,
+	unsigned int time_s);
+void timer_set_current_time(struct timespec *timer);
+int timer_is_ended(struct timespec *timer, struct timespec *cur_time);
+void cleanup_timer(struct timespec *timer);
+struct timespec *initialise_timer(void);
+void timer_sup_mili(struct timespec *timer, unsigned long mili);
+void cleanup_user_timer(user_timer_t *user_timer);
+user_timer_t *initialise_user_timer(void);
+void user_timer_sup_wait(user_timer_t *timer,
+	server_config_t *server, unsigned int time_s);
+void user_timer_add_wait(user_timer_t *timer,
+	server_config_t *server, unsigned int time_s);
+void user_timer_set_wait(user_timer_t *timer,
+	server_config_t *server, unsigned int time_s);
+
 //commands
 
 uint8_t srv_cmd_msz(server_config_t *server, server_user_t *user,

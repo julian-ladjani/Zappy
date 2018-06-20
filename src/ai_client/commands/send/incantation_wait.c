@@ -9,8 +9,8 @@
 
 static uint8_t clt_cmd_incantation_wait_receiver(clt_config_t *client)
 {
-	if (ZAPPY_IS_OK(client->server->response_request))
-		--client->specs->level;
+	if (!ZAPPY_IS_KO(client->server->response_request))
+		++client->specs->level;
 	return (1);
 	(void) client;
 }

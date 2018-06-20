@@ -9,13 +9,17 @@
 
 static uint8_t clt_cmd_left_receiver(clt_config_t *client)
 {
-	(void) client;
+	client->specs->forwarding = 0;
+	client->specs->orientation -= 1;
+	if (client->specs->orientation < NORTH)
+		client->specs->orientation = WEST;
 	return (1);
 }
 
 static uint8_t clt_cmd_left(clt_config_t *client)
 {
-	(void) client;
+	dprintf(client->server->pollfd->fd, "%s\n",
+		client->server->active_request);
 	return (1);
 }
 

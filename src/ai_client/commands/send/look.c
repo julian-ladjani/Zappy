@@ -34,7 +34,8 @@ static uint8_t clt_cmd_look_receiver(clt_config_t *client)
 		client->server->response_request, ",");
 	tile_t *tile = get_tile_from_look_index(client, 0);
 
-	print_map(client->map);
+	if (ZAPPY_DEBUG)
+		print_map(client->map);
 	str_to_tile(cmdparams->name, tile);
 	for (unsigned int i = 0; i < cmdparams->nb_args; ++i) {
 		tile = get_tile_from_look_index(client, i + 1);

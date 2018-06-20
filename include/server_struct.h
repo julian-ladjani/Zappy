@@ -23,6 +23,12 @@
 
 typedef struct server_team_s server_team_t;
 
+typedef struct user_timer_s {
+	struct timespec *timer;
+	struct timespec *first_wait_timer;
+	unsigned int wait;
+} user_timer_t;
+
 typedef struct server_user_s {
 	int id;
 	circbuf_t *circular_buffer;
@@ -34,7 +40,7 @@ typedef struct server_user_s {
 	tile_t inventory;
 	cardinal_dir_t orientation;
 	vec_t pos;
-	u_int64_t wait;
+	user_timer_t *wait;
 	unsigned int level;
 } server_user_t;
 
@@ -62,7 +68,7 @@ typedef struct server_egg_s {
 	vec_t pos;
 	server_team_t *team;
 	unsigned int id;
-	u_int64_t wait;
+	struct timespec *wait;
 } server_egg_t;
 
 typedef struct server_config_s {

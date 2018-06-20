@@ -9,14 +9,17 @@
 
 static uint8_t clt_cmd_right_receiver(clt_config_t *client)
 {
-	if (ZAPPY_IS_OK(client->server->response_request)) {
-	}
+	client->specs->forwarding = 0;
+	client->specs->orientation += 1;
+	if (client->specs->orientation > WEST)
+		client->specs->orientation = NORTH;
 	return (1);
 }
 
 static uint8_t clt_cmd_right(clt_config_t *client)
 {
-	(void) client;
+	dprintf(client->server->pollfd->fd, "%s\n",
+		client->server->active_request);
 	return (1);
 }
 
