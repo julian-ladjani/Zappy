@@ -62,7 +62,7 @@ list_t *list_add_elem_at_pos_releasably(list_t *list, void *elem, int pos,
 
 list_t *list_delete_after(list_t *elem, void (*clean_func)(void *elem));
 list_t *list_delete_before(list_t *elem, void (*clean_func)(void *elem));
-list_t *list_delete_elem(list_t *oelem, void (*clean_func)(void *elem));
+list_t *list_delete_elem(list_t *elem, void (*clean_func)(void *elem));
 list_t *list_delete_all(list_t *list, void (*clean_func)(void *elem));
 list_t *list_delete_at_pos(list_t *list, int pos,
 	void (*clean_func)(void *elem));
