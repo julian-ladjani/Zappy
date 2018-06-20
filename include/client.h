@@ -91,6 +91,7 @@ typedef struct client_specifications_s {
 	unsigned int level;
 	char *team;
 	ai_mode_t ai_mode;
+	int forwarding;
 } clt_specs_t;
 
 struct client_config_s {
