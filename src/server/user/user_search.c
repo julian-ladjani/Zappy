@@ -53,7 +53,8 @@ int find_nb_user_at_pos(server_config_t *server_config,
 	y = map_get_abs(y, server_config->map->height);
 	while (user_list) {
 		user = user_list->elem;
-		if (user && user->pos.x == x && user->pos.y == y)
+		if (user && user->type == ZAPPY_USER_AI
+			&& user->pos.x == x && user->pos.y == y)
 			++nb_user;
 		user_list = user_list->next;
 	}
@@ -71,7 +72,8 @@ int find_nb_user_at_pos_and_level(server_config_t *server_config,
 	y = map_get_abs(y, server_config->map->height);
 	while (user_list) {
 		user = user_list->elem;
-		if (user && user->pos.x == x && user->pos.y == y) {
+		if (user && user->type == ZAPPY_USER_AI
+			&& user->pos.x == x && user->pos.y == y) {
 			if (user->level != level)
 				return (0);
 			++nb_user;

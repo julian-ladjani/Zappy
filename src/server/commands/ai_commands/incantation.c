@@ -33,7 +33,8 @@ static void send_incantation_message(server_config_t *server,
 
 	while (player_list) {
 		player = player_list->elem;
-		if (player && player->pos.x == user->pos.x
+		if (player && player->type == ZAPPY_USER_AI
+			&& player->pos.x == user->pos.x
 			&& player->pos.y == user->pos.y) {
 			str_append(players, " ");
 			str_append_number(players, player->id);

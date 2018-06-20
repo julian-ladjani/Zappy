@@ -71,6 +71,7 @@ static void join_team(server_config_t *server,
 		server->map->width, server->map->height);
 	if (get_team_free_slots(team) > 0) {
 		initialise_user(server, user, team, egg);
+		map_add_bonus_food(server->map);
 		join_message(server, user, team, egg);
 	}
 	if (!team) {
