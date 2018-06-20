@@ -28,12 +28,19 @@
 #define ZAPPY_IS_OK(s) (strcmp("ok", s) == 0)
 
 typedef struct client_config_s clt_config_t;
+typedef int (* clt_func_t)(clt_config_t *);
 
 typedef struct client_parameters_s {
 	int port;
 	char *machine;
 	char *team;
 } clt_params_t;
+
+typedef enum ai_modes {
+	SEARCHER,
+	FOLLOWER,
+	SHOUTER
+} ai_mode_t;
 
 typedef enum sendable_command {
 	FORWARD,
@@ -56,6 +63,12 @@ typedef struct request_s {
 	uint8_t (*sender)(clt_config_t *client, va_list *av, char s);
 } request_t;
 
+typedef struct client_message_s {
+	char *content;
+	int from;
+	int dir;
+} clt_msg_t;
+
 typedef struct client_socket_s {
 	struct pollfd pollfd[1];
 	zappy_socket_t *socket;
@@ -73,6 +86,7 @@ typedef struct client_specifications_s {
 	size_t y;
 	unsigned int level;
 	char *team;
+	ai_mode_t ai_mode;
 } clt_specs_t;
 
 struct client_config_s {
@@ -86,6 +100,9 @@ struct client_config_s {
 int prerequest_welcome(clt_config_t *client);
 int prerequest_map_size(clt_config_t *client);
 int prerequest_player_id(clt_config_t *client);
+
+int srvrequest_dead(clt_config_t *client);
+int srvrequest_message(clt_config_t *client);
 
 uint8_t clt_cmd_get_args_forward(clt_config_t *client, va_list *, char s);
 uint8_t clt_cmd_get_args_right(clt_config_t *client, va_list *, char s);
@@ -109,5 +126,12 @@ clt_params_t *client_parse_arguments(int ac, char **av);
 void send_active_request(clt_config_t *client, char *msg, ...);
 void vsend_active_request(clt_config_t *client, char *msg, va_list *av);
 int send_request(send_cmd_t request_id, clt_config_t *client, ...);
+
+int tilecmp(tile_t *t1, tile_t *t2);
+int ai_searcher(clt_config_t *client);
+int ai_shouter(clt_config_t *client);
+int ai_follower(clt_config_t *client);
+int condition_pre_incantation(clt_config_t *client);
+int condition_end_incantation(clt_config_t *client);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

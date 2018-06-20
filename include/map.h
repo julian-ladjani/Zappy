@@ -16,6 +16,9 @@
 #include <time.h>
 #include "utils.h"
 
+#define GET_FRONTPOS(n) ((ssize_t) trunc(sqrt(n)))
+#define GET_LATPOS(n, frontpos) (n - (frontpos * frontpos + frontpos))
+
 #define MAX_FOOD() 10
 #define MAX_LINEMATE() 8
 #define MAX_DERAUMERE() 6
@@ -31,10 +34,11 @@ typedef enum object {
 	SIBUR,
 	MENDIANE,
 	PHIRAS,
-	THYSTAME
+	THYSTAME,
+	PLAYER
 } object_t;
 
-typedef size_t tile_t[7];
+typedef size_t tile_t[8];
 
 typedef enum cardinal_dir {
 	NORTH = 1,
@@ -55,7 +59,7 @@ typedef struct vec_s {
 	ssize_t y;
 } vec_t;
 
-extern const char *OBJ_NAMES[8];
+extern const char *OBJ_NAMES[9];
 extern const tile_t INCANTATION_OBJ[7];
 
 void print_map(map_t *map);

@@ -7,9 +7,7 @@
 
 #include <math.h>
 #include "client.h"
-
-#define GET_FRONTPOS(n) ((ssize_t) trunc(sqrt(n)))
-#define GET_LATPOS(n, frontpos) (n - (frontpos * frontpos + frontpos))
+#include "map.h"
 
 static tile_t *get_tile_from_look_index(clt_config_t *client, int i)
 {

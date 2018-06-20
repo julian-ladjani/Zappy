@@ -16,6 +16,7 @@ void empty_tile(tile_t *tile, size_t food)
 	(*tile)[MENDIANE] = 0;
 	(*tile)[PHIRAS] = 0;
 	(*tile)[THYSTAME] = 0;
+	(*tile)[PLAYER] = 0;
 }
 
 static void fill_tile(tile_t *tile)
@@ -27,6 +28,7 @@ static void fill_tile(tile_t *tile)
 	(*tile)[MENDIANE] = (size_t) (random() % MAX_MENDIANE());
 	(*tile)[PHIRAS] = (size_t) (random() % MAX_PHIRAS());
 	(*tile)[THYSTAME] = (size_t) (random() % MAX_THYSTAME());
+	(*tile)[PLAYER] = 0;
 }
 
 static void fill_tiles(map_t *map, char fill)
