@@ -51,12 +51,15 @@ static void send_incantation_message(server_config_t *server,
 uint8_t srv_cmd_incantation(server_config_t *server, server_user_t *user,
 	__attribute__((unused))cmdparams_t *cmd)
 {
+	char *msg;
+
 	if (!check_incantation_ressources(server, user)) {
 		dprintf(user->fd, "ko\n");
 		return (1);
 	}
-	dprintf(user->fd, "Elevation underway\nCurrent level: %u\n",
-		user->level);
+	asprintf(&msg, "Elevation underway\n");
+	send_to_player_in_incantation(server, user, msg);
+	free(msg);
 	send_incantation_message(server, user);
 	user->wait += 300;
 	return (0);
