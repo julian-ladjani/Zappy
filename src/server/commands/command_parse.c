@@ -19,6 +19,8 @@ void parse_command(__attribute__((unused))server_config_t *server_config,
 		cmdparams = parse_arguments(buf, " ");
 		if (!cmdparams)
 			return;
+		printf("Connection - %d Send Command %s\n", user->fd,
+			cmdparams->name);
 		if (list_size(user->commands) < 10
 			|| (user->logged_state & ZAPPY_USER_CONNECTED
 			&& user->type == ZAPPY_USER_GRAPHIC))
