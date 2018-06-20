@@ -37,7 +37,7 @@ static void eject_other_ai(server_config_t *server, server_user_t *emitter)
 
 	while (user_list) {
 		user = user_list->elem;
-		if (user && user != emitter
+		if (user && user != emitter && user->type == ZAPPY_USER_AI
 			&& user->pos.x == emitter->pos.x &&
 			user->pos.y == emitter->pos.y) {
 			dprintf(user->fd, "eject: %u\n",

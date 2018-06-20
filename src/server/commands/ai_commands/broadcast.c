@@ -32,7 +32,7 @@ static void send_broadcast_to_other_ai(server_config_t *server,
 
 	while (user_list) {
 		user = user_list->elem;
-		if (user && user != emitter) {
+		if (user && user != emitter && user->type == ZAPPY_USER_AI) {
 			user_pos.x = user->pos.x;
 			user_pos.y = user->pos.y;
 			dprintf(user->fd, "message %u, %s\n",

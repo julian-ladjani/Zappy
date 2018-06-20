@@ -25,10 +25,8 @@ uint8_t srv_cmd_bct(server_config_t *server,
 		dprintf(user->fd, "sbp\n");
 		return (1);
 	}
-
 	ressources = tile_to_str_quantity(map_get_tile(server->map, y, x));
 	dprintf(user->fd, "bct %d %d %s\n", x, y, ressources);
-	if (ressources)
-		free(ressources);
+	free(ressources);
 	return (0);
 }
