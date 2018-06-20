@@ -94,6 +94,7 @@ typedef struct client_specifications_s {
 	char *team;
 	ai_mode_t ai_mode;
 	int forwarding;
+	vec_t target;
 } clt_specs_t;
 
 struct client_config_s {
@@ -131,12 +132,13 @@ int init_server(clt_config_t *client);
 int handle_poll(clt_config_t *client);
 void launch_ai(clt_config_t *clt);
 clt_params_t *client_parse_arguments(int ac, char **av);
+double get_tile_ratio(clt_config_t *client, ssize_t y, ssize_t x);
+int tilecmp(tile_t *t1, tile_t *t2);
 
 void send_active_request(clt_config_t *client, char *msg, ...);
 void vsend_active_request(clt_config_t *client, char *msg, va_list *av);
 int send_request(send_cmd_t request_id, clt_config_t *client, ...);
 
-int tilecmp(tile_t *t1, tile_t *t2);
 int ai_searcher(clt_config_t *client);
 int ai_shouter(clt_config_t *client);
 int ai_follower(clt_config_t *client);
