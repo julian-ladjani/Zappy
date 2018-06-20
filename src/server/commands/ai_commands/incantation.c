@@ -9,7 +9,7 @@
 
 char check_incantation_ressources(server_config_t *server, server_user_t *user)
 {
-	tile_t *tile = map_get_tile(server->map, user->pos.y, user->pos.x);
+	tile_t *tile = map_get_tile(server->map, user->pos.x, user->pos.y);
 
 	if (user->level < 1 || user->level > 7)
 		return (0);
@@ -36,8 +36,8 @@ static void send_incantation_message(server_config_t *server,
 		if (player && player->type == ZAPPY_USER_AI
 			&& player->pos.x == user->pos.x
 			&& player->pos.y == user->pos.y) {
-			str_append(players, " ");
-			str_append_number(players, player->id);
+			players = str_append(players, " ");
+			players = str_append_number(players, player->id);
 		}
 		player_list = player_list->next;
 	}

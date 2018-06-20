@@ -12,7 +12,7 @@ static int send_take_message(server_config_t *server,
 {
 	char *msg;
 
-	asprintf(&msg, "pgt %d %d", user->id, ressource);
+	asprintf(&msg, "pgt %d %d\n", user->id, ressource);
 	send_msg_to_all_graphic(server, msg);
 	dprintf(user->fd, "ok\n");
 	free(msg);

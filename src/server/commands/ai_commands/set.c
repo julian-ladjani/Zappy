@@ -12,7 +12,7 @@ static int send_set_message(server_config_t *server,
 {
 	char *msg;
 
-	asprintf(&msg, "pdr %d %d", user->id, ressource);
+	asprintf(&msg, "pdr %d %d\n", user->id, ressource);
 	send_msg_to_all_graphic(server, msg);
 	dprintf(user->fd, "ok\n");
 	free(msg);

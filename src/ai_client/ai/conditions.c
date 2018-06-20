@@ -35,7 +35,7 @@ int condition_pre_incantation(clt_config_t *clt)
 	tile_t *tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
 	tile_t *ref = (tile_t *) (INCANTATION_OBJ + clt->specs->level);
 
-	if (tilecmp(tile, ref) == 0 && ref[PLAYER] > tile[PLAYER]) {
+	if (tilecmp(tile, ref) == 0 && (*ref)[PLAYER] == (*tile)[PLAYER]) {
 		return (1);
 	}
 	return (0);

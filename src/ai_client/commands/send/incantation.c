@@ -9,13 +9,16 @@
 
 static uint8_t clt_cmd_incantation_receiver(clt_config_t *client)
 {
+	printf("INCANTATION RECEIVED : %s\n", client->server->response_request);
 	send_request(INCANTATION_WAIT, client);
 	return (1);
 }
 
 static uint8_t clt_cmd_incantation(clt_config_t *client)
 {
-	(void) client;
+	printf("INCANTATION SENT\n");
+	dprintf(client->server->pollfd->fd, "%s\n",
+		client->server->active_request);
 	return (1);
 }
 
