@@ -38,6 +38,19 @@ static void incantation_level_up(server_config_t *server, server_user_t *user)
 	}
 }
 
+static void send_incantation_end_messages(server_config_t *server,
+	server_user_t *user)
+{
+	char *msg;
+
+	asprintf(&msg, "Current level: %u\n", user->level);
+	send_to_player_in_incantation(server, user, msg);
+	free(msg);
+	asprintf(&msg, "pie %lu %lu ok\n", user->pos.x, user->pos.y);
+	send_msg_to_all_graphic(server, msg);
+	free(msg);
+}
+
 uint8_t incantation_end(server_config_t *server, server_user_t *user)
 {
 	char *msg;
@@ -53,11 +66,7 @@ uint8_t incantation_end(server_config_t *server, server_user_t *user)
 	incantation_level_up(server, user);
 	user->incanting = 0;
 	empty_tile(tile, (*tile)[FOOD]);
-	asprintf(&msg, "Current level: %u\n", user->level);
-	send_to_player_in_incantation(server, user, msg);
-	free(msg);
-	asprintf(&msg, "pie %lu %lu ok\n", user->pos.x, user->pos.y);
-	send_msg_to_all_graphic(server, msg);
-	free(msg);
+	send_incantation_end_messages(server, user);
+	check_game_end(server);
 	return (0);
 }

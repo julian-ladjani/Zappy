@@ -32,6 +32,8 @@ int check_server_arguments(server_argument_t *server_argument)
 {
 	int error = ARG_PARSER_SUCCESS;
 
+	if (server_argument->frequency > 1000)
+		server_argument->frequency = 1000;
 	check_server_argument_tab(server_argument->team_names,
 		&error, "Error: No team name given\n");
 	check_server_argument_number(server_argument->port, &error,

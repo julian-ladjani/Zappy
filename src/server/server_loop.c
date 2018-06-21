@@ -9,6 +9,7 @@
 #include <sys/poll.h>
 #include <netdb.h>
 #include <signal.h>
+#include <time.h>
 #include "server_struct.h"
 #include "server_function.h"
 
@@ -41,16 +42,15 @@ void server_main_loop(server_config_t *server_config)
 	signal(SIGINT, server_exit_catch);
 	printf("Info: Start Listening Client\n");
 	listen_for_client(server_config);
+	server_timer_start(server_config);
 	while (server_config->state != ZAPPY_SERVER_STOP) {
-		ret = poll(server_config->poll_fd, server_config->nfds,
-			ZAPPY_POLL_TIMEOUT);
-		timer_set_current_time(server_config->cur_time);
+		ret = poll(server_config->poll_fd, server_config->nfds, 0);
 		if (ret < 0)
 			break;
 		else if (ret > 0)
 			poll_loop(server_config);
 		exec_pending_command(server_config);
-		usleep(200);
+		server_timer_end(server_config);
 	}
 	cleanup_server_exit(server_config, ZAPPY_EXIT_SUCCESS);
 }
