@@ -164,7 +164,10 @@ set(CLIENT
         src/ai_client/ai/shouter.c
         src/ai_client/ai/follower.c
         src/ai_client/ai/conditions.c
-        src/ai_client/commands/send/incantation_wait.c src/ai_client/tile_ratio.c)
+        src/ai_client/commands/send/incantation_wait.c
+        src/ai_client/tile_ratio.c
+        src/ai_client/move_to_target.c
+        src/ai_client/searcher_set_target.c)
 
 add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${UTILS} ${ARG_PARSER} ${MAP}
