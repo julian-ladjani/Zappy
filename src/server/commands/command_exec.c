@@ -26,7 +26,7 @@ static void exec_user_pending_command(server_config_t *server_config,
 {
 	cmdparams_t *cmdparams;
 
-	while (user->commands) {
+	while (user->commands && user->wait == 0) {
 		cmdparams = user->commands->elem;
 		if (cmdparams)
 			exec_client_command(server_config, user, cmdparams);
