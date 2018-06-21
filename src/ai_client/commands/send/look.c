@@ -52,7 +52,6 @@ static uint8_t clt_cmd_look_receiver(clt_config_t *client)
 
 static uint8_t clt_cmd_look(clt_config_t *client)
 {
-	printf("LOOK\n");
 	send_active_request(client, "");
 	return (1);
 }
