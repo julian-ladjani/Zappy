@@ -52,7 +52,8 @@ int send_request(send_cmd_t request_id, clt_config_t *client, ...)
 			}
 			va_end(av);
 			va_start(av, client);
-			requests[i].sender(client, &av, 0);
+			if (client->server->response_request)
+				requests[i].sender(client, &av, 0);
 			va_end(av);
 		}
 	}

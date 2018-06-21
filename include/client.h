@@ -19,7 +19,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#define ZAPPY_DEBUG (0)
+#define ZAPPY_DEBUG (1)
 
 #define ZAPPY_EXIT_FAILURE (2)
 #define ZAPPY_EXIT_NOTHING (0)
