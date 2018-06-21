@@ -22,6 +22,7 @@ static void initialise_user(server_config_t *server, server_user_t *user,
 	empty_tile(&user->inventory, 1260);
 	user->id = user->fd;
 	user->incanting = 0;
+	user->wait = 0;
 	user->team = team;
 	team->users = list_add_elem_at_pos(team->users, user, LIST_END);
 }

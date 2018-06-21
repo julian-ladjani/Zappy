@@ -26,8 +26,9 @@ void user_disconect_when_quit_state(server_config_t *server)
 static void user_action_user_wait_action(server_config_t *server,
 	server_user_t *user, unsigned int nb_tick)
 {
-	user->inventory[0] = MAX(0, ((int) user->inventory[0]) - nb_tick);
-	if (user->inventory[0]) {
+	user->inventory[FOOD] =
+		MAX(0, ((int) user->inventory[FOOD]) - nb_tick);
+	if (!user->inventory[FOOD]) {
 		dprintf(user->fd, "dead\n");
 		user_quit(server, user, "IA No Food die");
 	}
@@ -44,7 +45,7 @@ void user_action_sup_wait(server_config_t *server, unsigned int nb_tick)
 	while (users != NULL) {
 		user = users->elem;
 		if (user != NULL && user->type == ZAPPY_USER_AI) {
-			user->wait = MAX(0, user->wait - nb_tick);
+			user->wait = MAX(0, (int) (user->wait - nb_tick));
 			user_action_user_wait_action(server, user, nb_tick);
 		}
 		users = users->next;
@@ -71,7 +72,7 @@ void user_action_egg_sup_wait(server_config_t *server, unsigned int nb_tick)
 	while (eggs != NULL) {
 		egg = eggs->elem;
 		if (egg != NULL && egg->wait != 0) {
-			egg->wait = MAX(0, egg->wait - nb_tick);
+			egg->wait = MAX(0, ((int) egg->wait) - nb_tick);
 			user_action_egg_wait_raise_null(server, egg);
 		}
 		eggs = eggs->next;
