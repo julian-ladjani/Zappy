@@ -20,10 +20,20 @@ static void user_quit_part_teams(server_user_t *user)
 void user_quit(server_config_t *server_config, server_user_t *user,
 	char *message)
 {
+	char *str;
+
 	if (server_config == NULL || user == NULL || message == NULL)
 		return;
 	printf("Connection - %d Quit With Message: %s\n", user->fd,
 		message);
+	if (user->logged_state == ZAPPY_USER_AI && user->team != NULL) {
+		if ((size_t) user->team->slots >
+			server_config->arguments->client_nb)
+			user->team->slots -= 1;
+		asprintf(&str, "pdi %d\n", user->id);
+		send_msg_to_all_graphic(server_config, str);
+		free(str);
+	}
 	user->logged_state = ZAPPY_USER_QUIT;
 	user_quit_part_teams(user);
 }

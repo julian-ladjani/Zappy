@@ -5,37 +5,62 @@
 ** 	user_action source file
 */
 
+#include <sys/param.h>
+#include "linked_list.h"
 #include "server_struct.h"
+#include "server_function.h"
 
-void user_send_message(server_user_t *user, char *message)
+static void user_action_user_wait_action(server_config_t *server,
+	server_user_t *user, unsigned int nb_tick)
 {
-	if (user == NULL || message == NULL)
+	user->inventory[0] = MAX(0, ((int) user->inventory[0]) - nb_tick);
+	if (user->inventory[0]) {
+		dprintf(user->fd, "dead\n");
+		user_quit(server, user, "IA No Food die");
+	}
+	if (user->wait != 0 || user->incanting == 0)
 		return;
-	dprintf(user->fd, "%s\r\n", message);
+	incantation_end(server, user);
 }
 
-void user_send_message_users_same_team(server_config_t *server_config,
-	server_user_t *user, char *message)
+void user_action_sup_wait(server_config_t *server, unsigned int nb_tick)
 {
-	list_t *users;
-	server_user_t *o_user;
+	list_t *users = list_get_first(server->users);
+	server_user_t *user;
 
-	if (server_config == NULL || user == NULL || message == NULL)
-		return;
-	users = server_config->users;
 	while (users != NULL) {
-		o_user = users->elem;
-		if (o_user != NULL &&
-			o_user->logged_state != ZAPPY_USER_QUIT &&
-			user->team == o_user->team)
-			dprintf(o_user->fd, "%s\r\n", message);
+		user = users->elem;
+		if (user != NULL) {
+			user->wait = MAX(0, user->wait - nb_tick);
+			user_action_user_wait_action(server, user, nb_tick);
+		}
 		users = users->next;
 	}
 }
 
-void user_connect(server_user_t *user)
+static void user_action_egg_wait_raise_null(server_config_t *server,
+	server_egg_t *egg)
 {
-	if (user->logged_state == ZAPPY_USER_QUIT)
+	char *str;
+	if (egg->wait != 0)
 		return;
-	user->logged_state = ZAPPY_USER_CONNECTED;
+	egg->team->slots++;
+	asprintf(&str, "eht %d\n", egg->id);
+	send_msg_to_all_graphic(server, str);
+	free(str);
+}
+
+void user_action_egg_sup_wait(server_config_t *server, unsigned int nb_tick)
+{
+	list_t *eggs = list_get_first(server->eggs);
+	server_egg_t *egg;
+
+	while (eggs != NULL) {
+		egg = eggs->elem;
+		if (egg != NULL && egg->wait != 0) {
+			egg->wait = MAX(0, egg->wait - nb_tick);
+			user_action_egg_wait_raise_null(server, egg);
+		}
+		eggs = eggs->next;
+	}
 }
