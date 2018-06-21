@@ -146,5 +146,7 @@ int ai_follower(clt_config_t *client);
 int condition_pre_incantation(clt_config_t *client);
 int condition_end_incantation(clt_config_t *client);
 double get_distance_from_tile(clt_config_t *client, ssize_t x, ssize_t y);
+void update_target_tile(clt_config_t *clt);
+void move_player_to_target(clt_config_t *clt);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

@@ -6,7 +6,6 @@
 */
 
 #include <client_connection.h>
-#include <stdbool.h>
 
 static int parse_infos(clt_config_t *client)
 {
