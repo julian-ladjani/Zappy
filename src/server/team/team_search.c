@@ -20,19 +20,19 @@ int team_name_search_criteria(void *team, void *name)
 	return (0);
 }
 
-server_team_t *find_team_by_user(server_config_t *server_config,
-					server_user_t *user)
+int team_find_nb_user_at_level(server_team_t *team, unsigned int level)
 {
-	list_t *team_list = server_config->teams;
-	server_team_t *team;
+	list_t *user_list = team->users;
+	server_user_t *user;
+	int nb_user = 0;
 
-	while (team_list) {
-		team = team_list->elem;
-		if (team && list_get_elem_with_content(team->users, user))
-			return (team);
-		team_list = team_list->next;
+	while (user_list) {
+		user = user_list->elem;
+		if (user && user->level == level)
+			++nb_user;
+		user_list = user_list->next;
 	}
-	return (NULL);
+	return (nb_user);
 }
 
 int get_team_free_slots(server_team_t *team)
