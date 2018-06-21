@@ -5,10 +5,9 @@
 ** 	user_action source file
 */
 
-#include <sys/param.h>
+#include "server_function.h"
 #include "server_struct.h"
 #include "linked_list.h"
-#include "server_function.h"
 
 
 void user_disconect_when_quit_state(server_config_t *server)

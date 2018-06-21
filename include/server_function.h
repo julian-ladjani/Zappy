@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/param.h>
 #include "server_struct.h"
 #include "arg_parser.h"
 

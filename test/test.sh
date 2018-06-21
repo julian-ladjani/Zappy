@@ -70,7 +70,7 @@ zappy_launch  "-p $1 -x 0 -y 100 -n 'test' -c 5 -f 1"		"./zappy_server" 84 "Inva
 zappy_launch  "-p $1 -x 100 -y 0 -n 'test' -c 5 -f 1"		"./zappy_server" 84 "Invalid height"
 zappy_launch  "-p $1 -x 100 -y 100 -c 5 -f 1 -n"		"./zappy_server" 84 "Invalid teams"
 zappy_launch  "-p $1 -x 100 -y 100 -n 'test' -c 0 -f 1"		"./zappy_server" 84 "Invalid clientNb"
-zappy_launch  "-p $1 -x 100 -y 100 -n 'test' -c 5 -f 0"		"./zappy_server" 84 "Invalid timer"
+zappy_launch  "-p $1 -x 100 -y 100 -n 'test' -c 5 -f 0"		"./zappy_server" 84 "Invalid frequency"
 
 title "AI COMMAND ERROR"
 
@@ -82,7 +82,7 @@ title "GRAPHIC COMMAND ERROR"
 
 zappy_diff $1 "$3\ncommand"	"suc" "Invalid command"
 zappy_diff $1 "$3\nbct -1 -1"	"sbp" "Invalid tile"
-zappy_diff $1 "$3\nsst -1"	"sbp" "Invalid timer unit"
+zappy_diff $1 "$3\nsst -1"	"sbp" "Invalid Frequency"
 
 title "AI COMMAND"
 
@@ -93,6 +93,7 @@ zappy_diff $1 "$2\nLeft"		"ok" "Left"
 zappy_diff $1 "$2\nLook"		"\[player" "Look"
 zappy_diff $1 "$2\nInventory"		"\[food" "Inventory"
 zappy_diff $1 "$2\nBroadcast Test"	"ok" "Broadcast"
+zappy_diff $1 "$2\nFork"		"ok" "Fork"
 
 title "GRAPHIC COMMAND"
 
@@ -100,5 +101,5 @@ zappy_diff $1 "$3\nmsz"		"msz" "Map size"
 zappy_diff $1 "$3\nbct 0 0"	"bct" "Tile content"
 zappy_diff $1 "$3\nmct"		"bct" "Map content"
 zappy_diff $1 "$3\ntna"		"tna" "Team names"
-zappy_diff $1 "$3\nsgt"		"sgt" "Time unit"
-zappy_diff $1 "$3\nsst 100"	"sst" "Time unit modification"
+zappy_diff $1 "$3\nsgt"		"sgt" "Frequency"
+zappy_diff $1 "$3\nsst 100"	"sst" "Frequency modification"
