@@ -33,7 +33,7 @@ static int parse_infos(clt_config_t *client)
 	return (ZAPPY_EXIT_SUCCESS);
 }
 
-static int fill_command(clt_config_t *client, unsigned int pos, char end)
+static void fill_command(clt_config_t *client, unsigned int pos, char end)
 {
 	if (client->server->long_command == 0) {
 		free(client->server->response_request);

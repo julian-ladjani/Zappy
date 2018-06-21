@@ -24,7 +24,7 @@ int get_obj_ratio(clt_config_t *client, tile_t *tile)
 		if (INCANTATION_OBJ[client->specs->level][i] && (*tile)[i]) {
 			tmp = INCANTATION_OBJ[client->specs->level][i]
 				- client->specs->inventory[i];
-			if ((*tile)[i] > tmp || tmp > 0)
+			if ((ssize_t)(*tile)[i] > tmp || tmp > 0)
 				ratio += tmp;
 			else if (tmp > 0)
 				ratio += (*tile)[i];
