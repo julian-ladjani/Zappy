@@ -55,7 +55,8 @@ uint8_t srv_cmd_fork(server_config_t *server, server_user_t *user,
 		dprintf(user->fd, "ko\n");
 		return (1);
 	}
-	server->eggs = list_add_elem_at_pos(server->eggs, egg, LIST_END);
+	server->eggs = list_add_elem_at_pos_releasably(server->eggs, egg,
+		LIST_END, LIST_RELEASABLE);
 	asprintf(&msg, "pfk %d\nenw %d %d %lu %lu\n", user->id, egg->id,
 		user->id, egg->pos.x, egg->pos.y);
 	send_msg_to_all_graphic(server, msg);
