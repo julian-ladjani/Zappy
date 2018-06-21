@@ -79,6 +79,7 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
 	src/server/team/team_cleanup.c					\
 	src/server/team/team_initialisation.c				\
 	src/server/team/team_search.c					\
+	src/server/timer/server_timer.c					\
 	src/server/timer/timer_action.c					\
 	src/server/timer/timer_check.c					\
 	src/server/timer/timer_cleanup.c				\

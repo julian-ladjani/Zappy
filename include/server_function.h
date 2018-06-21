@@ -106,6 +106,14 @@ int timer_is_ended(struct timespec *timer, struct timespec *cur_time);
 void cleanup_timer(struct timespec *timer);
 struct timespec *initialise_timer(void);
 void timer_sup_mili(struct timespec *timer, unsigned long mili);
+unsigned long timer_diff_mili(struct timespec *start,
+	struct timespec *end);
+unsigned int timer_get_nb_tick(unsigned long mili, unsigned int frequency);
+unsigned long timer_get_remain_time_mili(unsigned long mili,
+	unsigned int frequency);
+unsigned long timer_get_tick_time_mili(unsigned int frequency);
+void server_timer_start(server_config_t *server);
+void server_timer_end(server_config_t *server);
 
 //commands
 

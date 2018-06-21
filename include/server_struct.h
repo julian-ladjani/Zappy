@@ -77,7 +77,8 @@ typedef struct server_config_s {
 	nfds_t nfds;
 	struct pollfd poll_fd[ZAPPY_MAX_CLIENT + 1];
 	map_t *map;
-	struct timespec *cur_time;
+	struct timespec *start_loop_time;
+	struct timespec *end_loop_time;
 	unsigned int frequency;
 } server_config_t;
 
