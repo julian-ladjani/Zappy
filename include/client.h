@@ -19,7 +19,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#define ZAPPY_DEBUG (0)
+#define ZAPPY_DEBUG (1)
 
 #define ZAPPY_EXIT_FAILURE (2)
 #define ZAPPY_EXIT_NOTHING (0)
@@ -148,5 +148,8 @@ int condition_end_incantation(clt_config_t *client);
 double get_distance_from_tile(clt_config_t *client, ssize_t x, ssize_t y);
 void update_target_tile(clt_config_t *clt);
 void move_player_to_target(clt_config_t *clt);
+void clear_tile_from_ref(clt_config_t *clt, tile_t *tile, tile_t *ref);
+void take_obj_from_ref(clt_config_t *clt, tile_t *ref);
+void fill_tile_from_inv(clt_config_t *clt, tile_t *tile, tile_t *ref);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */
