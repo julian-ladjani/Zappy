@@ -54,9 +54,8 @@ void close_socket_poll_with_user(server_config_t *server,
 {
 	int index = -1;
 
-	for (int i = 0; i < server->nfds; i++) {
-		if (server->poll_fd != NULL &&
-			server->poll_fd[i].fd == user->fd)
+	for (nfds_t i = 0; i < server->nfds; i++) {
+		if (server->poll_fd[i].fd == user->fd)
 			index = i;
 	}
 	if (index != -1)

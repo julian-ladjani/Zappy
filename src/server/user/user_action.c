@@ -6,8 +6,8 @@
 */
 
 #include <sys/param.h>
-#include "linked_list.h"
 #include "server_struct.h"
+#include "linked_list.h"
 #include "server_function.h"
 
 
