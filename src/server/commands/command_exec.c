@@ -26,6 +26,7 @@ static void exec_user_pending_command(server_config_t *server_config,
 {
 	cmdparams_t *cmdparams;
 
+	printf("user wait : %u\n", user->wait);
 	while (user->commands && user->wait == 0) {
 		cmdparams = user->commands->elem;
 		if (cmdparams)

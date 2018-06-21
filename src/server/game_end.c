@@ -31,5 +31,6 @@ char check_game_end(server_config_t *server)
 	asprintf(&msg, "seg %s\n", team->name);
 	send_msg_to_all_graphic(server, msg);
 	free(msg);
+	server->state = ZAPPY_SERVER_STOP;
 	return (1);
 }
