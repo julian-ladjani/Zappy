@@ -167,7 +167,13 @@ set(CLIENT
         src/ai_client/commands/send/incantation_wait.c
         src/ai_client/tile_ratio.c
         src/ai_client/move_to_target.c
-        src/ai_client/searcher_set_target.c src/ai_client/tile_actions.c)
+        src/ai_client/searcher_set_target.c
+        src/ai_client/tile_actions.c
+        src/ai_client/brodcasts/broadcast_parser.c
+        include/broadcast.h
+        include/broadcast_parser.h
+        src/ai_client/brodcasts/broadcast_parser_setters.c
+        src/ai_client/brodcasts/broadcast_searcher.c)
 
 add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${UTILS} ${ARG_PARSER} ${MAP}

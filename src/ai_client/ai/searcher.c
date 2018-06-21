@@ -12,14 +12,9 @@ static int check_obj_for_incantation(clt_config_t *clt)
 	tile_t *tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
 	tile_t *ref = (tile_t *) (INCANTATION_OBJ + clt->specs->level);
 
-	for (int i = 1; i < 7; ++i) {
-		if ((*tile)[i] + clt->specs->inventory[i] < (*ref)[i]) {
-			printf("%s : Inv %ld / Tile : %ld / Needed : %ld",
-			       OBJ_NAMES[i],
-			       clt->specs->inventory[i], (*tile)[i], (*ref)[i]);
+	for (int i = 1; i < 7; ++i)
+		if ((*tile)[i] + clt->specs->inventory[i] < (*ref)[i])
 			return (0);
-		}
-	}
 	return (1);
 }
 

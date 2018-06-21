@@ -69,12 +69,6 @@ typedef struct request_s {
 	uint8_t (*sender)(clt_config_t *client, va_list *av, char s);
 } request_t;
 
-typedef struct client_message_s {
-	char *content;
-	int from;
-	int dir;
-} clt_msg_t;
-
 typedef struct client_socket_s {
 	struct pollfd pollfd[1];
 	zappy_socket_t *socket;

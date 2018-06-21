@@ -13,7 +13,7 @@ static int parse_infos(clt_config_t *client)
 	int r_value;
 
 	if (ZAPPY_DEBUG)
-		printf("%s\n", client->server->response_request);
+			printf("%s\n", client->server->response_request);
 	if (pre_requests[i]) {
 		r_value = pre_requests[i++](client);
 		if (pre_requests[i] == NULL &&

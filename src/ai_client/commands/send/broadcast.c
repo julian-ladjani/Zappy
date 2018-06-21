@@ -22,13 +22,14 @@ static uint8_t clt_cmd_broadcast_receiver(clt_config_t *client, char *msg,
 
 static uint8_t clt_cmd_broadcast(clt_config_t *client, char *msg, va_list *av)
 {
+	static int id = 0;
 	char *tmp = NULL;
 
 	vasprintf(&tmp, msg, *av);
 	if (!tmp)
 		return (0);
-	send_active_request(client, "%s:%d:%s", client->specs->team,
-				client->specs->id, tmp);
+	send_active_request(client, "%s:%d:%d:%s", client->specs->team,
+				client->specs->id, id++, tmp);
 	return (1);
 }
 
