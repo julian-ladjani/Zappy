@@ -18,10 +18,11 @@ void cleanup_user_list_elem(void *elem)
 		return;
 	server_user->circular_buffer->free(server_user->circular_buffer);
 	if (server_user->team)
-		list_delete_elem(list_get_elem_with_content(
-			server_user->team->users, server_user), NULL);
+		server_user->team->users = list_delete_elem
+			(list_get_elem_with_content(server_user->team->users,
+				server_user), NULL);
 	server_user->commands = list_delete_all(server_user->commands,
-						&free_arguments);
+		&free_arguments);
 	server_user->team = NULL;
 	free(elem);
 }
