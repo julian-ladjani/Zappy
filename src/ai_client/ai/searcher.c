@@ -49,48 +49,88 @@ static void prepare_incantation(clt_config_t *clt)
 	clear_tile_from_ref(clt, tile, ref);
 }
 
+static void set_player_target_forward(clt_config_t *client)
+{
+	clt_specs_t *specs = client->specs;
+
+	specs->target.y = (ssize_t) specs->y;
+	specs->target.x = (ssize_t) specs->x;
+	switch (specs->orientation) {
+		case (NORTH):
+			specs->target.y = map_get_abs
+				(specs->target.y + 1, client->map->height);
+			break;
+		case (EAST):
+			specs->target.x = map_get_abs
+				(specs->target.x + 1, client->map->width);
+			break;
+		case (SOUTH):
+			specs->target.y = map_get_abs
+				(specs->target.y - 1, client->map->height);
+			break;
+		case (WEST):
+			specs->target.x = map_get_abs
+				(specs->target.x - 1, client->map->width);
+			break;
+	}
+}
+
 void update_target_tile(clt_config_t *clt)
 {
-	double ratio = -1;
-	int max_ratio = 0;
+	double ratio;
+	double max_ratio = -1;
 
-	for (ssize_t y = 0; y < clt->map->height; ++y) {
-		for (ssize_t x = 0; x < clt->map->width; ++x) {
+	for (ssize_t y = 0; y < (ssize_t) clt->map->height; ++y) {
+		for (ssize_t x = 0; x < (ssize_t) clt->map->width; ++x) {
 			ratio = get_tile_ratio(clt, y, x);
-			if (ratio >= max_ratio) {
-				ratio = max_ratio;
+			if (ratio >= max_ratio && ratio > 0) {
+				max_ratio = ratio;
 				clt->specs->target.y = y;
 				clt->specs->target.x = x;
 			}
 		}
 	}
-	if (ratio == -1) {
-		clt->specs->target.y = clt->specs->y;
-		clt->specs->target.x = clt->specs->x;
+	if (max_ratio == -1)
+		set_player_target_forward(clt);
+	printf("ratio : %lf\npos %ld %ld\n",
+	       max_ratio, clt->specs->target.y, clt->specs->target.x);
+	tile_t *tile = map_get_tile(clt->map, clt->specs->target.x,
+				    clt->specs->target.y);
+	for (int i = 0; i < 9; ++i) {
+		printf("%s : %ld\n", OBJ_NAMES[i],
+		       (*tile)[i]);
+	}
+	printf("%lf\n", get_distance_from_tile(clt, clt->specs->target.x,
+					       clt->specs->target.y));
+}
+
+static void turn_player_to_dir(clt_config_t *clt, cardinal_dir_t dir)
+{
+	while (clt->specs->orientation != dir) {
+		printf("JE TOURNE PUTAIN § § § \n");
+		send_request(RIGHT, clt);
 	}
 }
 
-void turn_player_to_target(clt_config_t *clt)
+static void turn_player_to_target(clt_config_t *clt)
 {
-	if (clt->specs->y != clt->specs->target.y)
-		while ((clt->specs->y - clt->specs->target.y > 0 &&
-			clt->specs->orientation == SOUTH) ||
-		       (clt->specs->y - clt->specs->target.y < 0 &&
-			clt->specs->orientation == NORTH))
-			send_request(RIGHT, clt);
-	else
-		while ((clt->specs->x - clt->specs->target.x > 0 &&
-			clt->specs->orientation == WEST) ||
-		       (clt->specs->x - clt->specs->target.x < 0 &&
-			clt->specs->orientation == EAST))
-			send_request(RIGHT, clt);
+	ssize_t dif;
+
+	if ((ssize_t) clt->specs->y != clt->specs->target.y) {
+		dif = (ssize_t) clt->specs->y - clt->specs->target.y;
+		turn_player_to_dir(clt, dif > 0 ? SOUTH : NORTH);
+	} else {
+		dif = (ssize_t)clt->specs->x - clt->specs->target.x;
+		turn_player_to_dir(clt, dif > 0 ? WEST : EAST);
+	}
+
 }
 
 void move_player_to_target(clt_config_t *clt)
 {
-	if (clt->specs->y == clt->specs->target.y &&
-		clt->specs->target.x == clt->specs->x) {
-		if (clt->specs->forwarding >= clt->map->width) {
+	if ((ssize_t)clt->specs->y == clt->specs->target.y &&
+		clt->specs->target.x == (ssize_t)clt->specs->x) {
+		if (clt->specs->forwarding >= (int)clt->map->width) {
 			send_request(RIGHT, clt);
 			send_request(FORWARD, clt);
 			send_request(FORWARD, clt);
@@ -100,7 +140,9 @@ void move_player_to_target(clt_config_t *clt)
 		return;
 	}
 	turn_player_to_target(clt);
-	send_request(FORWARD, clt);
+	if ((ssize_t)clt->specs->y != clt->specs->target.y ||
+		clt->specs->target.x != (ssize_t)clt->specs->x)
+		send_request(FORWARD, clt);
 }
 
 int ai_searcher(clt_config_t *clt)

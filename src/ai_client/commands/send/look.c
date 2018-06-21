@@ -52,7 +52,7 @@ static uint8_t clt_cmd_look_receiver(clt_config_t *client)
 
 static uint8_t clt_cmd_look(clt_config_t *client)
 {
-	remove_players_from_map(client->map);
+	printf("LOOK\n");
 	send_active_request(client, "");
 	return (1);
 }

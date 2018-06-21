@@ -145,5 +145,6 @@ int ai_shouter(clt_config_t *client);
 int ai_follower(clt_config_t *client);
 int condition_pre_incantation(clt_config_t *client);
 int condition_end_incantation(clt_config_t *client);
+double get_distance_from_tile(clt_config_t *client, ssize_t x, ssize_t y);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

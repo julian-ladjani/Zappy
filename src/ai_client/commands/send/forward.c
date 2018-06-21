@@ -34,6 +34,9 @@ static uint8_t clt_cmd_forward_receiver(clt_config_t *client)
 				client->specs->y);
 		--(*tile)[PLAYER];
 		forward_user(client->specs, client->map);
+		tile = map_get_tile(client->map, client->specs->x,
+				    client->specs->y);
+		++(*tile)[PLAYER];
 		++client->specs->forwarding;
 	}
 	return (1);
