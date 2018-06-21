@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/param.h>
 #include "server_struct.h"
 #include "arg_parser.h"
 
@@ -79,6 +80,11 @@ char check_incantation_ressources(server_config_t *server,
 void send_to_player_in_incantation(server_config_t *server,
 	server_user_t *user, char *msg);
 char check_game_end(server_config_t *server);
+void user_action_egg_sup_wait(server_config_t *server, unsigned int nb_tick);
+void user_action_sup_wait(server_config_t *server, unsigned int nb_tick);
+void close_socket_poll_with_user(server_config_t *server,
+	server_user_t *user);
+void user_disconect_when_quit_state(server_config_t *server);
 
 //arg_parser
 

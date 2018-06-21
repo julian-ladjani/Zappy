@@ -13,11 +13,11 @@ void server_timer_start(server_config_t *server)
 	timer_set_current_time(server->start_loop_time);
 }
 
-static void server_timer_end_loop(
-	__attribute__((unused)) server_config_t *server,
-	__attribute__((unused)) unsigned int nb_tick)
+static void server_timer_end_loop(server_config_t *server,
+	unsigned int nb_tick)
 {
-
+	user_action_sup_wait(server, nb_tick);
+	user_action_egg_sup_wait(server, nb_tick);
 }
 
 void server_timer_end(server_config_t *server)

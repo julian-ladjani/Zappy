@@ -51,6 +51,7 @@ void server_main_loop(server_config_t *server_config)
 			poll_loop(server_config);
 		exec_pending_command(server_config);
 		server_timer_end(server_config);
+		user_disconect_when_quit_state(server_config);
 	}
 	cleanup_server_exit(server_config, ZAPPY_EXIT_SUCCESS);
 }
