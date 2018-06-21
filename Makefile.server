@@ -94,7 +94,7 @@ SRCS =	src/common/arg_parser/parsing_functions/arg_parser_string.c	\
 	src/server/server_cleanup.c					\
 	src/server/server_initialisation.c				\
 	src/server/server_loop.c					\
-	src/server/game_end.c					\
+	src/server/game_end.c
 
 OBJDIR = obj
 
