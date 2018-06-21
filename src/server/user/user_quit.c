@@ -26,7 +26,7 @@ void user_quit(server_config_t *server_config, server_user_t *user,
 		return;
 	printf("Connection - %d Quit With Message: %s\n", user->fd,
 		message);
-	if (user->logged_state == ZAPPY_USER_AI && user->team != NULL) {
+	if (user->type == ZAPPY_USER_AI && user->team != NULL) {
 		if ((size_t) user->team->slots >
 			server_config->arguments->client_nb)
 			user->team->slots -= 1;

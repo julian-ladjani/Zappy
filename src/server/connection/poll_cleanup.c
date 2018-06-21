@@ -48,3 +48,17 @@ void close_socket_poll(server_config_t *server_config, int index)
 		close(server_config->poll_fd[index].fd);
 	server_config->poll_fd[index].fd = -1;
 }
+
+void close_socket_poll_with_user(server_config_t *server,
+	server_user_t *user)
+{
+	int index = -1;
+
+	for (int i = 0; i < server->nfds; i++) {
+		if (server->poll_fd != NULL &&
+			server->poll_fd[i].fd == user->fd)
+			index = i;
+	}
+	if (index != -1)
+		close_socket_poll(server, index);
+}

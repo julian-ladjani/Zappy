@@ -10,6 +10,20 @@
 #include "server_struct.h"
 #include "server_function.h"
 
+
+void user_disconect_when_quit_state(server_config_t *server)
+{
+	list_t *users = list_get_first(server->users);
+	server_user_t *user;
+
+	while (users != NULL) {
+		user = users->elem;
+		if (user != NULL && user->logged_state == ZAPPY_USER_QUIT)
+			close_socket_poll_with_user(server, user);
+		users = users->next;
+	}
+}
+
 static void user_action_user_wait_action(server_config_t *server,
 	server_user_t *user, unsigned int nb_tick)
 {
@@ -30,7 +44,7 @@ void user_action_sup_wait(server_config_t *server, unsigned int nb_tick)
 
 	while (users != NULL) {
 		user = users->elem;
-		if (user != NULL) {
+		if (user != NULL && user->type == ZAPPY_USER_AI) {
 			user->wait = MAX(0, user->wait - nb_tick);
 			user_action_user_wait_action(server, user, nb_tick);
 		}
