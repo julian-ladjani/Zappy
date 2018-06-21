@@ -9,7 +9,6 @@
 #include "server_struct.h"
 #include "linked_list.h"
 
-
 void user_disconect_when_quit_state(server_config_t *server)
 {
 	list_t *users = list_get_first(server->users);
@@ -72,7 +71,7 @@ void user_action_egg_sup_wait(server_config_t *server, unsigned int nb_tick)
 	while (eggs != NULL) {
 		egg = eggs->elem;
 		if (egg != NULL && egg->wait != 0) {
-			egg->wait = MAX(0, ((int) egg->wait) - nb_tick);
+			egg->wait = MAX(0, (int) (egg->wait - nb_tick));
 			user_action_egg_wait_raise_null(server, egg);
 		}
 		eggs = eggs->next;
