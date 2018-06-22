@@ -47,7 +47,6 @@ static uint8_t clt_cmd_look_receiver(clt_config_t *client)
 		str_to_tile(cmdparams->args[i], tile);
 	}
 	free_arguments(cmdparams);
-	printf("LOOK\n");
 	if (ZAPPY_DEBUG)
 		print_map(client->map);
 	return (1);

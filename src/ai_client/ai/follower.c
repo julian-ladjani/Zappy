@@ -29,22 +29,18 @@ static void find_incantation(clt_config_t *clt)
 		(clt, condition_targeted_incantation);
 	msg_infos_incantation_t *infos;
 
-	printf("1\n");
 	if (!msg)
 		return;
 	infos = (msg_infos_incantation_t *) msg->content;
-	printf("2\n");
 	if (infos->state == CANCELED) {
 		clt->specs->ai_mode = SEARCHER;
 		return;
 	}
-	printf("3\n");
 	if (infos->state == START) {
 		send_request(INCANTATION_WAIT, clt);
 		clt->specs->ai_mode = SEARCHER;
 		return;
 	}
-	printf("4\n");
 	msg->dir;
 	clt->specs->target = get_tile_from_dir(clt->specs->x, clt->specs->y,
 				msg->dir, clt->specs->orientation);
@@ -53,8 +49,7 @@ static void find_incantation(clt_config_t *clt)
 
 int ai_follower(clt_config_t *clt)
 {
-	printf("FOLLOWER\n");
-
+	send_request(LOOK, clt);
 	find_incantation(clt);
 	move_player_to_target(clt);
 	print_map(clt->map);
