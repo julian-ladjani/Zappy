@@ -122,8 +122,8 @@ public class GameEvent : MonoBehaviour {
 		ItemObject.Add(GameObject.Find("Rock"));
 		ItemObject.Add(GameObject.Find("Straw"));
 		ItemObject.Add(GameObject.Find("Log"));
-		ItemObject.Add(GameObject.Find("Barrel"));
 		ItemObject.Add(GameObject.Find("Rice"));
+		ItemObject.Add(GameObject.Find("Barrel"));
 		ItemObject.Add(GameObject.Find("Diamant"));
 		Character = GameObject.Find("Character");
 		EggModel = GameObject.Find("Egg");
@@ -192,9 +192,11 @@ public class GameEvent : MonoBehaviour {
 			else if(virtualMap.chunks.Count > Y && virtualMap.chunks[Y].Count > X) {
 				for (int i = 3; i < 10; i++){
 					if (int.Parse(args[i]) != 0) {
-						virtualMap.chunks[Y][X].SetQuantity(i-3, int.Parse(args[i]));
-						int quantity = int.Parse(args[i])/3;
-						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(5+quantity, 5+quantity, 5+quantity);
+						int quantity = int.Parse(args[i]);
+						virtualMap.chunks[Y][X].SetQuantity(i-3, quantity);
+						if (quantity > 10)
+							quantity = 10;
+						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(2+quantity, 2+quantity, 2+quantity);
 					}
 					else
 						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(0, 0, 0);
@@ -221,6 +223,7 @@ public class GameEvent : MonoBehaviour {
 			GameObject clone = Instantiate(Character) as GameObject;
 			clone.transform.position = new Vector3(X, 0, Y);
 			Players.Add(new Player(Id, clone, Orient, Team));
+			SendMessageServer("mct\n");
 		}
 	}
 
@@ -476,7 +479,7 @@ public class GameEvent : MonoBehaviour {
 			if (timerppo <= 0.0f) {
 				for (int i = 0; i < Players.Count; i++)
 					SendMessageServer("ppo #"+ Players[i].Id +"\n");
-				timerppo = Frequence;
+				timerppo = 1/Frequence;
 			}
 		}
 
