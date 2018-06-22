@@ -12,8 +12,11 @@
 static uint8_t clt_cmd_broadcast_receiver(clt_config_t *client, char *msg,
 					va_list *av)
 {
-	if (ZAPPY_DEBUG)
-		printf("BROADCAST SENT !\n");
+	if (ZAPPY_DEBUG) {
+		printf("\e[33mBroadcast content : ");
+		vprintf(msg, *av);
+		printf("\e[0m\n");
+	}
 	return (1);
 	(void) client;
 	(void) msg;

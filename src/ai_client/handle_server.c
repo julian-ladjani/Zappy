@@ -26,7 +26,11 @@ static int parse_infos(clt_config_t *client)
 		if (!strncmp(client->server->response_request,
 				srv_requests[j].flag,
 				strlen(srv_requests[j].flag))) {
-			srv_requests[j].request(client);
+			r_value = srv_requests[j].request(client);
+			if (r_value == ZAPPY_EXIT_FAILURE) {
+				client->server->active_request = NULL;
+				return ZAPPY_EXIT_SUCCESS;
+			}
 			free(client->server->response_request);
 			client->server->response_request = NULL;
 			return (ZAPPY_EXIT_SUCCESS);
