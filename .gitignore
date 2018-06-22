@@ -44,3 +44,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# for Yannick
+toto*
+tata*
+couille*
