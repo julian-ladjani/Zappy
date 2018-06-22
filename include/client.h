@@ -44,7 +44,8 @@ typedef struct client_parameters_s {
 typedef enum ai_modes {
 	SEARCHER,
 	FOLLOWER,
-	SHOUTER
+	SHOUTER,
+	DEBILOUS
 } ai_mode_t;
 
 typedef enum sendable_command {
@@ -96,6 +97,7 @@ typedef struct client_specifications_s {
 struct client_config_s {
 	map_t *map;
 	int status;
+	int incantation;
 	clt_socket_t *server;
 	clt_specs_t *specs;
 	int slots;
@@ -146,5 +148,6 @@ void move_player_to_target(clt_config_t *clt);
 void clear_tile_from_ref(clt_config_t *clt, tile_t *tile, tile_t *ref);
 void take_obj_from_ref(clt_config_t *clt, tile_t *ref);
 void fill_tile_from_inv(clt_config_t *clt, tile_t *tile, tile_t *ref);
+int srvrequest_elevation_underway(clt_config_t *client);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

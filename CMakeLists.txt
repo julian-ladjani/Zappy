@@ -148,7 +148,7 @@ set(CLIENT
         src/ai_client/commands/send/take.c
         src/ai_client/help.c
         src/ai_client/connect.c
-        src/ai_client/launch_server.c
+        src/ai_client/handle_server.c
         src/ai_client/commands/sender.c
         src/ai_client/commands/sender.c
         include/client_connection.h
@@ -164,7 +164,6 @@ set(CLIENT
         src/ai_client/ai/shouter.c
         src/ai_client/ai/follower.c
         src/ai_client/ai/conditions.c
-        src/ai_client/commands/send/incantation_wait.c
         src/ai_client/tile_ratio.c
         src/ai_client/move_to_target.c
         src/ai_client/searcher_set_target.c

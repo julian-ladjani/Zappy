@@ -30,18 +30,14 @@ static void turn_player_to_target(clt_config_t *clt)
 void move_player_to_target(clt_config_t *clt)
 {
 	if ((ssize_t)clt->specs->y == clt->specs->target.y &&
-	    clt->specs->target.x == (ssize_t)clt->specs->x) {
-		if (clt->specs->forwarding >= (int)clt->map->width) {
-			send_request(RIGHT, clt);
-			send_request(FORWARD, clt);
-			send_request(FORWARD, clt);
-			send_request(LEFT, clt);
-		}
-		send_request(FORWARD, clt);
+		clt->specs->target.x == (ssize_t)clt->specs->x)
 		return;
+	if (clt->specs->forwarding >= (int)clt->map->width) {
+		send_request(RIGHT, clt);
+		send_request(FORWARD, clt);
+		send_request(FORWARD, clt);
+		send_request(LEFT, clt);
 	}
 	turn_player_to_target(clt);
-	if ((ssize_t)clt->specs->y != clt->specs->target.y ||
-	    clt->specs->target.x != (ssize_t)clt->specs->x)
-		send_request(FORWARD, clt);
+	send_request(FORWARD, clt);
 }

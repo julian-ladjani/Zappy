@@ -23,7 +23,7 @@ int srvrequest_message(clt_config_t *client)
 		return (ZAPPY_EXIT_FAILURE);
 	tmp = sstrtok(client->server->response_request, ",");
 	msg->dir = atoi(strchr(tmp, ' ') + 1);
-	if (msg->dir < 1 || msg->dir > 8 ||
+	if (msg->dir < 0 || msg->dir > 8 ||
 		broadcast_parser(client, msg) == ZAPPY_EXIT_FAILURE) {
 		free(msg);
 		free(tmp);
@@ -31,6 +31,12 @@ int srvrequest_message(clt_config_t *client)
 	}
 	free(tmp);
 	list_add_elem_at_pos(client->server->broadcasts_queue,
-				(void *)msg, LIST_END);
+				(void *)msg, LIST_FIRST);
+	return (ZAPPY_EXIT_SUCCESS);
+}
+
+int srvrequest_elevation_underway(clt_config_t *client)
+{
+	client->incantation = 1;
 	return (ZAPPY_EXIT_SUCCESS);
 }

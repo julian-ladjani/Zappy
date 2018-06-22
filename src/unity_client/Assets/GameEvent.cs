@@ -45,8 +45,7 @@ public class Player {
 		Ressource = new List<int>();
 		for (int i = 0; i < 6; i++)
 			Ressource.Add(0);
-		//PosTile = new Vector3(Math.Floor(sprite.transform.position.x),
-		//	0, Math.Floor(sprite.transform.position.z));
+		Sprite.transform.localScale = new Vector3(7, 7, 7);
 		setOrientation(orient);
 	}
 
@@ -93,6 +92,7 @@ public class Egg {
 	public Egg(int id, GameObject sprite) {
 		Id = id;
 		Sprite = sprite;
+		Sprite.transform.localScale = new Vector3(7, 7, 7);
 	}
 
 }
@@ -105,7 +105,7 @@ public class GameEvent : MonoBehaviour {
 	private TcpClient socketConnection;
 	private string host = "127.0.0.1";
 	private int port = 0;
-	private Terrain map = null;
+	private Terrain map;
 	private Map virtualMap = null;
 	private GameObject EggModel;
 	private GameObject Character;
@@ -117,6 +117,7 @@ public class GameEvent : MonoBehaviour {
 	private int isResource = 0;
 	// Use this for initialization
 	void Start () {
+		map = null;
 		ItemObject.Add(GameObject.Find("Mush"));
 		ItemObject.Add(GameObject.Find("Rock"));
 		ItemObject.Add(GameObject.Find("Straw"));
@@ -218,7 +219,7 @@ public class GameEvent : MonoBehaviour {
 			int Orient = int.Parse(args[4]);
 			string Team = args[6];
 			GameObject clone = Instantiate(Character) as GameObject;
-			clone.transform.SetPositionAndRotation(new Vector3(X, 0, Y), transform.rotation);
+			clone.transform.position = new Vector3(X, 0, Y);
 			Players.Add(new Player(Id, clone, Orient, Team));
 		}
 	}
@@ -303,24 +304,23 @@ public class GameEvent : MonoBehaviour {
 			int ressource = int.Parse(args[2]);
 			for(int i = 0; i < Players.Count; i++)
 				if(Players[i].Id == int.Parse(args[1])) {
-					Players[i].Ressource[ressource] -= 1;
+					Players[i].Ressource[int.Parse(args[2])] -= 1;
 					SendMessageServer("bct "+Players[i].GetPos().x+ " "+Players[i].GetPos().y+"\n");
 				}
 		}
 	}
 
-	void CollectRessource(string[] args){
+	void CollectRessource(string[] args) {
 		if (args.Length == 3) {
-			int ressource = int.Parse(args[2]);
 			for(int i = 0; i < Players.Count; i++)
 				if(Players[i].Id == int.Parse(args[1])) {
-					Players[i].Ressource[ressource] += 1;
+					Players[i].Ressource[int.Parse(args[2])] += 1;
 					SendMessageServer("bct "+Players[i].GetPos().x+ " "+Players[i].GetPos().y+"\n");
 				}
 		}
 	}
 
-	void PlayerDeath(string[] args){
+	void PlayerDeath(string[] args) {
 		if (args.Length == 2) {
 			for(int i = 0; i < Players.Count; i++)
 				if(Players[i].Id == int.Parse(args[1])) {
@@ -332,35 +332,35 @@ public class GameEvent : MonoBehaviour {
 
 	void LaidEgg(string[] args) {
 		if (args.Length == 5) {
+			Debug.Log("Egg!!");
 			int Id = int.Parse(args[1]);
 			int X = int.Parse(args[3]);
 			int Y = int.Parse(args[4]);
 			GameObject clone = Instantiate(EggModel) as GameObject;
-			clone.transform.position = new Vector3(X*10, 0, Y*10);
+			clone.transform.position = new Vector3(X*10+5, 1, Y*10+5);
 			Eggs.Add(new Egg(Id, clone));
 		}
 	}
 
-	void HatchEgg(string[] args){
+	void HatchEgg(string[] args) {
 		if (args.Length == 5) {
 			for(int i = 0; i < Eggs.Count; i++)
 				if(Eggs[i].Id == int.Parse(args[1])) {
+					Debug.Log("Egg "+ Eggs[i].Id + "Hatch");
 				}
 		}
 	}
 
-	void PlayerInEgg(string[] args){
-		if (args.Length == 2) {
-			for(int i = 0; i < Eggs.Count; i++)
-				if(Eggs[i].Id == int.Parse(args[1])) {
-				}
-		}
+	void PlayerInEgg(string[] args) {
+		EggDeath(args);
 	}
 
-	void EggDeath(string[] args){
+	void EggDeath(string[] args) {
 		if (args.Length == 2) {
 			for(int i = 0; i < Eggs.Count; i++)
 				if(Eggs[i].Id == int.Parse(args[1])) {
+					GameObject.Destroy(Eggs[i].Sprite);
+					Eggs.RemoveAt(i);
 				}
 		}
 	}

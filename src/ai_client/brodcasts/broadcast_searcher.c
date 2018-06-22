@@ -16,7 +16,7 @@ int condition_search_incantation(clt_config_t *clt, void *elem)
 		return (0);
 	infos = (msg_infos_incantation_t *) msg->content;
 	return (infos && msg->type == MSG_INCANTATION &&
-		infos->level == clt->specs->level &&
+		infos->level == (int) clt->specs->level &&
 		infos->state == NEED_HELP);
 }
 
@@ -30,7 +30,7 @@ int condition_targeted_incantation(clt_config_t *clt, void *elem)
 	infos = (msg_infos_incantation_t *) msg->content;
 	return (infos && msg->type == MSG_INCANTATION &&
 		msg->from == clt->specs->targeted_incantation_id &&
-		infos->level == clt->specs->level);
+		infos->level == (int) clt->specs->level);
 }
 
 clt_msg_t *broadcast_search_for(clt_config_t *clt,
