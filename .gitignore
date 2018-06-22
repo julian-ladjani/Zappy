@@ -8,6 +8,7 @@ obj
 data
 *~
 .#*
+a.out
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -49,3 +50,5 @@ sysinfo.txt
 toto*
 tata*
 couille*
+
+vector_test.c

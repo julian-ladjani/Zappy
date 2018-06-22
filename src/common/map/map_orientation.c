@@ -19,10 +19,12 @@ uint8_t map_get_orientation(vec_t dir)
 	if (angle < 0)
 		angle += 2 * M_PI;
 	piece = (uint8_t) (8 * angle / (2 * M_PI));
-	if (piece >= 8)
-		piece = 0;
-	piece = (uint8_t) (8 - (piece + 1));
-	return ((uint8_t) (piece == 0 ? 8 : piece));
+	piece = (uint8_t) (piece >= 8 ? 8 : (8 - (piece + 1)));
+	if (piece <= 2 || piece == 4 || piece == 5)
+		return ((uint8_t) (6 - piece));
+	if (piece == 6 || piece == 8)
+		return (piece == 6 ? 8 : 6);
+	return (piece);
 }
 
 uint8_t map_rotate_orientation(cardinal_dir_t dir, uint8_t orientation)
