@@ -55,8 +55,8 @@ int ai_searcher(clt_config_t *clt)
 {
 	tile_t *tile;
 
-//	if (find_incantation(clt))
-//		return (ZAPPY_EXIT_SUCCESS);
+	if (find_incantation(clt))
+		return (ZAPPY_EXIT_SUCCESS);
 	send_request(LOOK, clt);
 	if (ZAPPY_DEBUG)
 		print_map(clt->map);
@@ -66,6 +66,8 @@ int ai_searcher(clt_config_t *clt)
 	take_obj_from_ref(clt, (tile_t *)(INCANTATION_OBJ + clt->specs->level));
 	update_target_tile(clt);
 	move_player_to_target(clt);
+	if (find_incantation(clt))
+		return (ZAPPY_EXIT_SUCCESS);
 	prepare_incantation(clt);
 	return (ZAPPY_EXIT_SUCCESS);
 }
