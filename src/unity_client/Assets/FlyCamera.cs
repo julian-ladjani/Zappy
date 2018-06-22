@@ -67,7 +67,7 @@ public class FlyCamera : MonoBehaviour {
         else{
             transform.Translate(p);
         }
-        LimiteMap();
+        //LimiteMap();
         if (Input.GetMouseButtonDown(0)) {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
