@@ -164,7 +164,7 @@ public class GameEvent : MonoBehaviour {
 		GameObject clone = Instantiate(Character) as GameObject;
 		clone.transform.position = new Vector3(0, 0, 0);
 		Players.Add(new Player(id, clone, 1, "Unknow"));
-		return Player[Player.Count];
+		return Players[Players.Count];
 	}
 
 	void Welcome(string[] args) {
@@ -237,7 +237,7 @@ public class GameEvent : MonoBehaviour {
 	}
 	void PlayerPosition(string[] args) {
 		if (args.Length == 5) {
-			Player TmpPlayer = FindPlayer(args[1]);
+			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
 			int X = int.Parse(args[2])*10+5;
 			int Y = int.Parse(args[3])*10+5;
 			int Orient = int.Parse(args[4]);
@@ -247,7 +247,7 @@ public class GameEvent : MonoBehaviour {
 
 	void PlayerLevel(string[] args) {
 		if (args.Length == 3) {
-			Player TmpPlayer = FindPlayer(args[1]);
+			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
 			TmpPlayer.Level = int.Parse(args[2]);
 		}
 	}
