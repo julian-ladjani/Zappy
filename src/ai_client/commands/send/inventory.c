@@ -13,7 +13,7 @@ static uint8_t clt_cmd_inventory_receiver(clt_config_t *client)
 	char *tmp;
 	int quantity;
 
-	if (ZAPPY_DEBUG == 0)
+	if (ZAPPY_DEBUG)
 		printf("\nINVENTORY\n");
 	for (size_t i = 0; OBJ_NAMES[i]; ++i) {
 		tmp = strstr(str, OBJ_NAMES[i]);
@@ -23,7 +23,7 @@ static uint8_t clt_cmd_inventory_receiver(clt_config_t *client)
 			quantity = atoi(tmp + strlen(OBJ_NAMES[i]) + 1);
 			client->specs->inventory[i] = (size_t) quantity;
 		}
-		if (ZAPPY_DEBUG == 0)
+		if (ZAPPY_DEBUG)
 			printf("%-10s: %ld\n", OBJ_NAMES[i],
 				client->specs->inventory[i]);
 	}

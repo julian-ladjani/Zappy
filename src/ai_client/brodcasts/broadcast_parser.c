@@ -31,6 +31,8 @@ int broadcast_parser(clt_config_t *client, clt_msg_t *msg)
 	char *tmp;
 
 	tmp = sstrtok(NULL, ":");
+	while (*tmp == ' ')
+		++tmp;
 	if (!tmp || strncmp(tmp, client->specs->team,
 			    strlen(client->specs->team)))
 		return (ZAPPY_EXIT_FAILURE);

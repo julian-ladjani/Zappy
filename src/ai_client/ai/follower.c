@@ -9,6 +9,7 @@
 
 int ai_follower(clt_config_t *clt)
 {
+	printf("FOLLOWER\n");
 	send_request(FORWARD, clt);
 	return (ZAPPY_EXIT_SUCCESS);
 }

@@ -7,22 +7,42 @@
 
 #include "broadcast.h"
 
-clt_msg_t *broadcast_search_for(list_t *msgs, msg_types_t type)
+int condition_search_incantation(clt_config_t *clt, void *elem)
 {
-	list_t *elem;
-	clt_msg_t *msg;
+	clt_msg_t *msg = (clt_msg_t *)elem;
+	msg_infos_incantation_t *infos;
 
-	elem = list_get_elem_at_pos(msgs, LIST_FIRST);
+	if (!msg)
+		return (0);
+	infos = (msg_infos_incantation_t *) msg->content;
+	return (infos && msg->type == MSG_INCANTATION &&
+		infos->level == clt->specs->level &&
+		infos->state == NEED_HELP);
+}
+
+int condition_targeted_incantation(clt_config_t *clt, void *elem)
+{
+	clt_msg_t *msg = (clt_msg_t *)elem;
+	msg_infos_incantation_t *infos;
+
+	if (!msg)
+		return (0);
+	infos = (msg_infos_incantation_t *) msg->content;
+	return (infos && msg->type == MSG_INCANTATION &&
+		msg->from == clt->specs->targeted_incantation_id &&
+		infos->level == clt->specs->level);
+}
+
+clt_msg_t *broadcast_search_for(clt_config_t *clt,
+				int (* checker)(clt_config_t *, void *))
+{
+	list_t *elem = list_get_elem_at_pos(
+		clt->server->broadcasts_queue, LIST_FIRST);;
+
 	while (elem != NULL) {
-		msg = (clt_msg_t *)elem->elem;
-		if (msg->type == type)
-			return (msg);
+		if (checker(clt, elem->elem))
+			return ((clt_msg_t *)elem->elem);
 		elem = elem->next;
 	}
 	return (NULL);
-}
-
-clt_msg_t *broadcast_search_for_incantation(list_t *msgs)
-{
-	return (broadcast_search_for(msgs, MSG_INCANTATION));
 }

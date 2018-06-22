@@ -19,7 +19,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#define ZAPPY_DEBUG (1)
+#define ZAPPY_DEBUG (0)
 
 #define ZAPPY_EXIT_FAILURE (2)
 #define ZAPPY_EXIT_NOTHING (0)
@@ -90,6 +90,7 @@ typedef struct client_specifications_s {
 	ai_mode_t ai_mode;
 	int forwarding;
 	vec_t target;
+	int targeted_incantation_id;
 } clt_specs_t;
 
 struct client_config_s {

@@ -28,7 +28,6 @@ void launch_ai(clt_config_t *clt)
 	while (clt->status != ZAPPY_CLT_DEAD) {
 		if (ais[index].logic(clt) == ZAPPY_EXIT_FAILURE)
 			return;
-		if (ais[index].stop_condition(clt))
-			index = get_ai_logic(clt->specs->ai_mode, ais);
+		index = get_ai_logic(clt->specs->ai_mode, ais);
 	}
 }

@@ -58,13 +58,11 @@ static int read_command(clt_config_t *client)
 		client->server->buf->get_space(client->server->buf) <= 1) {
 		fill_command(client, client->server->buf->size, 0);
 		client->server->long_command = 1;
-		printf("-->%s<--\n", client->server->response_request);
 	}
 	while (pos >= 0) {
 		fill_command(client, (unsigned int) pos, 1);
 		client->server->active_request = NULL;
 		client->server->long_command = 0;
-		printf("-->%s<--\n", client->server->response_request);
 		r_value = parse_infos(client);
 		if (r_value == ZAPPY_EXIT_FAILURE)
 			return (ZAPPY_EXIT_FAILURE);
