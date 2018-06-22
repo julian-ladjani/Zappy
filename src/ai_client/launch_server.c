@@ -13,7 +13,8 @@ static int parse_infos(clt_config_t *client)
 	int r_value;
 
 	if (ZAPPY_DEBUG)
-			printf("%s\n", client->server->response_request);
+		printf("\e[31m%s\e[0m\n",
+			client->server->response_request);
 	if (pre_requests[i]) {
 		r_value = pre_requests[i++](client);
 		if (pre_requests[i] == NULL &&
@@ -26,10 +27,12 @@ static int parse_infos(clt_config_t *client)
 				srv_requests[j].flag,
 				strlen(srv_requests[j].flag))) {
 			srv_requests[j].request(client);
+			free(client->server->response_request);
 			client->server->response_request = NULL;
-			break;
+			return (ZAPPY_EXIT_SUCCESS);
 		}
 	}
+	client->server->active_request = NULL;
 	return (ZAPPY_EXIT_SUCCESS);
 }
 
@@ -61,7 +64,6 @@ static int read_command(clt_config_t *client)
 	}
 	while (pos >= 0) {
 		fill_command(client, (unsigned int) pos, 1);
-		client->server->active_request = NULL;
 		client->server->long_command = 0;
 		r_value = parse_infos(client);
 		if (r_value == ZAPPY_EXIT_FAILURE)

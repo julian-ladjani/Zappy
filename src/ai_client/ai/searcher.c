@@ -26,10 +26,8 @@ static void prepare_incantation(clt_config_t *clt)
 
 	send_request(INVENTORY, clt);
 	if (check_obj_for_incantation(clt)) {
-		//print_map(clt->map);
 		clear_tile_from_ref(clt, tile, ref);
 		fill_tile_from_inv(clt, tile, ref);
-		//print_map(clt->map);
 	}
 	if (condition_pre_incantation(clt)) {
 		if ((*tile)[PLAYER] == (*ref)[PLAYER]) {
@@ -41,7 +39,7 @@ static void prepare_incantation(clt_config_t *clt)
 	}
 }
 
-int find_incantation(clt_config_t *clt)
+static int find_incantation(clt_config_t *clt)
 {
 	clt_msg_t *msg = broadcast_search_for
 		(clt, condition_search_incantation);
@@ -57,9 +55,11 @@ int ai_searcher(clt_config_t *clt)
 {
 	tile_t *tile;
 
-	if (find_incantation(clt))
-		return (ZAPPY_EXIT_SUCCESS);
+//	if (find_incantation(clt))
+//		return (ZAPPY_EXIT_SUCCESS);
 	send_request(LOOK, clt);
+	if (ZAPPY_DEBUG)
+		print_map(clt->map);
 	tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
 	for (int i = 0; i < 5 && (*tile)[FOOD] != 0; ++i)
 		send_request(TAKE, clt, FOOD);
@@ -67,7 +67,5 @@ int ai_searcher(clt_config_t *clt)
 	update_target_tile(clt);
 	move_player_to_target(clt);
 	prepare_incantation(clt);
-	if (ZAPPY_DEBUG == 0)
-		print_map(clt->map);
 	return (ZAPPY_EXIT_SUCCESS);
 }

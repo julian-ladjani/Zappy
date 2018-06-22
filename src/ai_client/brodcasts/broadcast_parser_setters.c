@@ -40,6 +40,4 @@ void broadcast_setter_incantation(clt_msg_t *msg, char *str)
 	infos->level = atoi(str);
 	msg->type = MSG_INCANTATION;
 	msg->content = (void *)infos;
-	printf("INCATATION RECUE ! ! !\n");
-
 }

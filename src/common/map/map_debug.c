@@ -43,12 +43,24 @@ static void print_tile(map_t *map, size_t y, uint8_t i)
 	printf("|\n");
 }
 
+void print_cell(tile_t *tile)
+{
+	printf("+------+\n");
+	print_tile_row(tile, 0, 3);
+	printf("|\n");
+	print_tile_row(tile, 3, 6);
+	printf("|\n");
+	print_tile_row(tile, 6, 9);
+	printf("|\n+------+\n");
+}
+
 void print_map(map_t *map)
 {
-	system("clear");
+//	system("clear");
 	for (size_t i = 0; OBJ_NAMES[i] ;++i)
-		printf("%s%s%s\e[0m\n", colors[i],
+		printf("%s%10s%s\e[0m", colors[i],
 			compl_colors[i], OBJ_NAMES[i]);
+	printf("\n");
 	print_line(map);
 	for (size_t y = 0; y < map->height; ++y) {
 		for (uint8_t i = 0; i < 3; ++i)

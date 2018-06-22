@@ -10,12 +10,10 @@
 void clear_tile_from_ref(clt_config_t *clt, tile_t *tile, tile_t *ref)
 {
 	for (int i = 1; i < 7; ++i) {
-		send_request(LOOK, clt);
-		while ((*tile)[i] > (*ref)[i]) {
+		if ((*tile)[i] > (*ref)[i])
+			send_request(LOOK, clt);
+		while ((*tile)[i] > (*ref)[i])
 			send_request(TAKE, clt, i);
-			if (ZAPPY_DEBUG)
-				print_map(clt->map);
-		}
 	}
 }
 
@@ -24,11 +22,8 @@ void fill_tile_from_inv(clt_config_t *clt, tile_t *tile, tile_t *ref)
 	send_request(INVENTORY, clt);
 	for (int i = 1; i < 7; ++i) {
 		send_request(LOOK, clt);
-		while ((*tile)[i] < (*ref)[i] && clt->specs->inventory[i] > 0) {
+		while ((*tile)[i] < (*ref)[i] && clt->specs->inventory[i] > 0)
 			send_request(SET, clt, i);
-			if (ZAPPY_DEBUG)
-				print_map(clt->map);
-		}
 	}
 }
 
@@ -38,12 +33,11 @@ void take_obj_from_ref(clt_config_t *clt, tile_t *ref)
 
 	send_request(INVENTORY, clt);
 	for (int i = 1; i < 7; ++i) {
-		send_request(LOOK, clt);
+		if ((*tile)[i] != 0 && clt->specs->inventory[i] < (*ref)[i])
+			send_request(LOOK, clt);
 		while ((*tile)[i] != 0 &&
 		       clt->specs->inventory[i] < (*ref)[i]) {
 			send_request(TAKE, clt, i);
-			if (ZAPPY_DEBUG)
-				print_map(clt->map);
 		}
 	}
 }

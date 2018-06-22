@@ -21,6 +21,8 @@ static uint8_t clt_cmd_take_receiver(clt_config_t *client, object_t obj)
 		(*tile)[obj] = 0;
 		send_request(INVENTORY, client);
 	}
+	if (ZAPPY_DEBUG)
+		print_cell(tile);
 	return (1);
 }
 

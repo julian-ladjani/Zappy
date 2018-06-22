@@ -40,22 +40,24 @@ int send_request(send_cmd_t request_id, clt_config_t *client, ...)
 	va_list av;
 
 	for (size_t i = 0; i < NB_REQUESTS(); ++i) {
-		if (requests[i].cmd_id == request_id) {
-			va_start(av, client);
-			client->server->active_request = requests[i].cmd_name;
-			requests[i].sender(client, &av, 1);
-			while (client->server->active_request) {
-				if (handle_poll(client) == ZAPPY_EXIT_FAILURE) {
-					va_end(av);
-					return (84);
-				}
-			}
+		if (requests[i].cmd_id != request_id)
+			continue;
+		va_start(av, client);
+		client->server->active_request = requests[i].cmd_name;
+		if (ZAPPY_DEBUG)
+			printf("\e[32mSend : %s\e[0m\n", requests[i].cmd_name);
+		requests[i].sender(client, &av, 1);
+		while (client->server->active_request) {
+			if (handle_poll(client) != ZAPPY_EXIT_FAILURE)
+				continue;
 			va_end(av);
-			va_start(av, client);
-			if (client->server->response_request)
-				requests[i].sender(client, &av, 0);
-			va_end(av);
+			return (84);
 		}
+		va_end(av);
+		va_start(av, client);
+		if (client->server->response_request)
+			requests[i].sender(client, &av, 0);
+		va_end(av);
 	}
 	return (1);
 }
