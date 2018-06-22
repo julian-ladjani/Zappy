@@ -56,6 +56,7 @@ uint8_t incantation_end(server_config_t *server, server_user_t *user)
 	char *msg;
 	tile_t *tile = map_get_tile(server->map, user->pos.x, user->pos.y);
 
+	user->incanting = 0;
 	if (!check_incantation_ressources(server, user)) {
 		send_to_player_in_incantation(server, user, "ko\n");
 		asprintf(&msg, "pie %lu %lu ko\n", user->pos.x, user->pos.y);
@@ -64,7 +65,6 @@ uint8_t incantation_end(server_config_t *server, server_user_t *user)
 		return (1);
 	}
 	incantation_level_up(server, user);
-	user->incanting = 0;
 	empty_tile(tile, (*tile)[FOOD]);
 	send_incantation_end_messages(server, user);
 	check_game_end(server);

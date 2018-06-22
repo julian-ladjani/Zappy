@@ -38,9 +38,8 @@ static void send_broadcast_to_other_ai(server_config_t *server,
 			dprintf(user->fd, "message %u, %s\n",
 				map_rotate_orientation(user->orientation,
 					map_get_orientation(
-						map_get_dir(server->map,
-							user_pos,
-							pos))), msg);
+						map_get_dir(server->map, pos,
+							user_pos))), msg);
 		}
 		user_list = user_list->next;
 	}
@@ -52,6 +51,7 @@ uint8_t srv_cmd_broadcast(server_config_t *server,
 	char *msg = get_broadcast_msg(cmd);
 	char *graphic_msg;
 
+	user->wait += 7;
 	if (!msg) {
 		dprintf(user->fd, "ko\n");
 		return (1);
@@ -60,7 +60,6 @@ uint8_t srv_cmd_broadcast(server_config_t *server,
 	send_msg_to_all_graphic(server, graphic_msg);
 	send_broadcast_to_other_ai(server, user, msg);
 	dprintf(user->fd, "ok\n");
-	user->wait += 7;
 	free(graphic_msg);
 	free(msg);
 	return (0);

@@ -101,4 +101,6 @@ void try_to_join_team(server_config_t *server_config,
 	}
 	if (!strcmp(ZAPPY_GRAPHIC_TEAM_NAME, cmdparams->name))
 		join_team(server_config, user, NULL);
+	if (user->logged_state != ZAPPY_USER_CONNECTED)
+		dprintf(user->fd, "ko\n");
 }
