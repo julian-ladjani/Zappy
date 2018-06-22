@@ -7,18 +7,42 @@ public class FlyCamera : MonoBehaviour {
 	float mainSpeed = 100.0f; //regular speed
 	float shiftAdd = 250.0f; //multiplied by how long shift is held.  Basically running
 	float maxShift = 1000.0f; //Maximum speed when holdin gshift
-	float camSens = 0.5f; //How sensitive it with mouse
-	private Vector3 lastMouse = new Vector3(255, 255, 255); //kind of in the middle of the screen, rather than at the top (play)
-    	private float totalRun= 1.0f;
+    private float totalRun= 1.0f;
+	public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
+    public RotationAxes axes = RotationAxes.MouseXAndY;
+    public float sensitivityX = 15F;
+    public float sensitivityY = 15F;
+    public float minimumX = -360F;
+    public float maximumX = 360F;
+    public float minimumY = -60F;
+    public float maximumY = 60F;
+    public float h = 0;
+    float rotationY = 0F;
 
+
+	void Start ()
+	{
+		transform.Rotate(h,0,0);
+
+	}
 	void Update () {
-        lastMouse = Input.mousePosition - lastMouse ;
-        lastMouse = new Vector3(-lastMouse.y * camSens, lastMouse.x * camSens, 0 );
-        lastMouse = new Vector3(transform.eulerAngles.x + lastMouse.x , transform.eulerAngles.y + lastMouse.y, 0);
-        transform.eulerAngles = lastMouse;
-        lastMouse =  Input.mousePosition;
-        //Mouse  camera angle done.
-        //Keyboard commands
+        if(Input.GetMouseButton(0))
+	    {
+	        if (axes == RotationAxes.MouseXAndY)
+	        {
+	            float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
+	            rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+	            rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
+	            transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+	        }
+	        else
+	        {
+	            rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+	            rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
+	            transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
+	        }
+	    }
+
         Vector3 p = GetBaseInput();
         if (Input.GetKey (KeyCode.LeftShift)){
             totalRun += Time.deltaTime;
@@ -43,22 +67,44 @@ public class FlyCamera : MonoBehaviour {
         else{
             transform.Translate(p);
         }
+        LimiteMap();
+        if (Input.GetMouseButtonDown(0)) {
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
+            Debug.Log("hit"+ hit.transform.position.x);
+            }
+        }
+    }
 
+    private void LimiteMap()
+    {
+        if ( transform.position.y < 1)
+            transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+        if ( transform.position.y > 25)
+            transform.position = new Vector3(transform.position.x, 25, transform.position.z);
+        if ( transform.position.z > 50)
+            transform.position = new Vector3(transform.position.x, transform.position.y, 50);
+        if ( transform.position.z < -50)
+            transform.position = new Vector3(transform.position.x, transform.position.z, -50);
+        if ( transform.position.x > 50)
+            transform.position = new Vector3(50,transform.position.y, transform.position.z);
+        if ( transform.position.x < -50)
+            transform.position = new Vector3(-50, transform.position.y, transform.position.z);
     }
 
     private Vector3 GetBaseInput() { //returns the basic values, if it's 0 than it's not active.
         Vector3 p_Velocity = new Vector3();
         if (Input.GetKey (KeyCode.UpArrow)){
-            p_Velocity += new Vector3(0, 0 , 0.1f);
+            p_Velocity = new Vector3(0, 0 , 0.1f);
         }
         if (Input.GetKey (KeyCode.DownArrow)){
-            p_Velocity += new Vector3(0, 0, -0.1f);
+            p_Velocity = new Vector3(0, 0, -0.1f);
         }
         if (Input.GetKey (KeyCode.LeftArrow)){
-            p_Velocity += new Vector3(-0.1f, 0, 0);
+            p_Velocity = new Vector3(-0.1f, 0, 0);
         }
         if (Input.GetKey (KeyCode.RightArrow)){
-            p_Velocity += new Vector3(0.1f, 0, 0);
+            p_Velocity = new Vector3(0.1f, 0, 0);
         }
         return p_Velocity;
 }
