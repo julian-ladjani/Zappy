@@ -99,8 +99,10 @@ void try_to_join_team(server_config_t *server_config,
 			join_team(server_config, user, team);
 		team_list = team_list->next;
 	}
-	if (!strcmp(ZAPPY_GRAPHIC_TEAM_NAME, cmdparams->name))
+	if (!strcmp(ZAPPY_GRAPHIC_TEAM_NAME, cmdparams->name)) {
 		join_team(server_config, user, NULL);
+		send_player_list_to_user(server_config, user);
+	}
 	if (user->logged_state != ZAPPY_USER_CONNECTED)
 		dprintf(user->fd, "ko\n");
 }

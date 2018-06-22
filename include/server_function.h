@@ -66,6 +66,8 @@ void try_to_join_team(server_config_t *server_config,
 	server_user_t *user, cmdparams_t *cmdparams);
 
 void send_msg_to_all_graphic(server_config_t *server, char *msg);
+void send_player_list_to_user(server_config_t *server,
+	server_user_t *graphic);
 
 int find_nb_user_at_pos(server_config_t *server_config,
 	ssize_t x, ssize_t y);

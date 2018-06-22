@@ -46,9 +46,7 @@ int check_server_arguments(server_argument_t *server_argument)
 		&error, "Error: No valid client number given\n");
 	check_server_argument_number(server_argument->frequency,
 		&error, "Error: No valid frequency given\n");
-	if (error == ARG_PARSER_FAILURE) {
+	if (error == ARG_PARSER_FAILURE)
 		cleanup_server_arguments(server_argument);
-		return (ARG_PARSER_FAILURE);
-	}
-	return (ARG_PARSER_SUCCESS);
+	return (error);
 }

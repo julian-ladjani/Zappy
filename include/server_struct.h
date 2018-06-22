@@ -63,7 +63,7 @@ typedef struct server_egg_s {
 	vec_t pos;
 	server_team_t *team;
 	unsigned int id;
-        unsigned int wait;
+	unsigned int wait;
 } server_egg_t;
 
 typedef struct server_config_s {

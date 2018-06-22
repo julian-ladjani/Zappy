@@ -32,14 +32,14 @@ uint8_t map_rotate_orientation(cardinal_dir_t dir, uint8_t orientation)
 	if (orientation == 0)
 		return (orientation);
 	switch (dir) {
-	case (NORTH):
-		return (orientation);
-	case (EAST):
-		return ((uint8_t) ((orientation + 1) % 8 + 1));
-	case (SOUTH):
-		return ((uint8_t) ((orientation + 3) % 8 + 1));
-	case (WEST):
-		return ((uint8_t) ((orientation + 5) % 8 + 1));
+		case (NORTH):
+			return (orientation);
+		case (EAST):
+			return ((uint8_t) ((orientation + 1) % 8 + 1));
+		case (SOUTH):
+			return ((uint8_t) ((orientation + 3) % 8 + 1));
+		case (WEST):
+			return ((uint8_t) ((orientation + 5) % 8 + 1));
 	}
 	return (orientation);
 }
