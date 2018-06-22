@@ -151,6 +151,18 @@ public class GameEvent : MonoBehaviour {
 		MessageCommand["sbp"] = new FunctionServer(UnknownParameter);
 	}
 
+	Player FindPlayer(int id)
+	{
+		for(int i = 0; i < Players.Count; i++)
+			if(Players[i].Id == id) {
+				return Players[i];
+			}
+		GameObject clone = Instantiate(Character) as GameObject;
+		clone.transform.position = new Vector3(0, 0, 0);
+		Players.Add(new Player(id, clone, 1, "Unknow"));
+		return Player[Player.Count];
+	}
+
 	void Welcome(string[] args) {
 		SendMessageServer("SPECTATOR\n");
 	}
@@ -219,27 +231,20 @@ public class GameEvent : MonoBehaviour {
 			Players.Add(new Player(Id, clone, Orient, Team));
 		}
 	}
-
 	void PlayerPosition(string[] args) {
 		if (args.Length == 5) {
-			for(int i = 0; i < Players.Count; i++)
-				if(Players[i].Id == int.Parse(args[1])) {
-					int X = int.Parse(args[2])*10+5;
-					int Y = int.Parse(args[3])*10+5;
-					int Orient = int.Parse(args[4]);
-					Players[i].setPosRot(X, Y, Orient);
-					break;
-				}
+			Player TmpPlayer = FindPlayer(args[1]);
+			int X = int.Parse(args[2])*10+5;
+			int Y = int.Parse(args[3])*10+5;
+			int Orient = int.Parse(args[4]);
+			TmpPlayer.setPosRot(X, Y, Orient);
 		}
 	}
 
 	void PlayerLevel(string[] args) {
 		if (args.Length == 3) {
-			for(int i = 0; i < Players.Count; i++)
-				if(Players[i].Id == int.Parse(args[1])) {
-					Players[i].Level = int.Parse(args[2]);
-					break;
-				}
+			Player TmpPlayer = FindPlayer(args[1]);
+			TmpPlayer.Level = int.Parse(args[2]);
 		}
 	}
 	void PlayerInventory(string[] args) {
