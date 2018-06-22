@@ -52,22 +52,26 @@ public class Player {
 
 	public void setPosRot(int X, int Y, int orient) {
 		Sprite.transform.position = new Vector3(X, 0, Y);
-			setOrientation(orient);
+		setOrientation(orient);
 	}
 
 	public void setOrientation(int orient) {
 		switch (orient) {
 			case 1:
-				Sprite.transform.rotation = new Quaternion(0, 90, 0, 1);
+				Sprite.transform.eulerAngles = new Vector3(
+				Sprite.transform.eulerAngles.x, 0, Sprite.transform.eulerAngles.z);
 				break;
 			case 2:
-				Sprite.transform.rotation = new Quaternion(0, 180, 0, 1);
+				Sprite.transform.eulerAngles = new Vector3(
+				Sprite.transform.eulerAngles.x, 90, Sprite.transform.eulerAngles.z);
 				break;
 			case 3:
-				Sprite.transform.rotation = new Quaternion(0, -90, 0, 1);
+				Sprite.transform.eulerAngles = new Vector3(
+				Sprite.transform.eulerAngles.x, 180, Sprite.transform.eulerAngles.z);
 				break;
 			case 4:
-				Sprite.transform.rotation = new Quaternion(0, 0, 0, 1);
+				Sprite.transform.eulerAngles = new Vector3(
+				Sprite.transform.eulerAngles.x, 270, Sprite.transform.eulerAngles.z);
 				break;
 		}
 	}
