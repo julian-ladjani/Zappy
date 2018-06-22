@@ -56,15 +56,15 @@ uint8_t srv_cmd_eject(server_config_t *server, server_user_t *user,
 {
 	char *msg;
 
+	user->wait += 7;
+	asprintf(&msg, "pex %d\n", user->id);
+	send_msg_to_all_graphic(server, msg);
+	free(msg);
 	if (find_nb_user_at_pos(server, user->pos.x, user->pos.y) < 2) {
 		dprintf(user->fd, "ko\n");
 		return (1);
 	}
-	asprintf(&msg, "pex %d\n", user->id);
-	send_msg_to_all_graphic(server, msg);
 	eject_other_ai(server, user);
 	dprintf(user->fd, "ok\n");
-	user->wait += 7;
-	free(msg);
 	return (0);
 }

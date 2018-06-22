@@ -13,7 +13,7 @@ uint8_t srv_cmd_inventory(__attribute__((unused))server_config_t *server,
 {
 	dprintf(user->fd,
 		"[%s %lu, %s %lu, %s %lu, %s %lu, %s %lu, %s %lu, %s %lu]\n",
-		OBJ_NAMES[FOOD], user->inventory[FOOD],
+		OBJ_NAMES[FOOD], (size_t)((float)user->inventory[FOOD] / 126),
 		OBJ_NAMES[LINEMATE], user->inventory[LINEMATE],
 		OBJ_NAMES[DERAUMERE], user->inventory[DERAUMERE],
 		OBJ_NAMES[SIBUR], user->inventory[SIBUR],

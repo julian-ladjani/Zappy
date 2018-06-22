@@ -22,6 +22,7 @@ static int send_take_message(server_config_t *server,
 uint8_t srv_cmd_take(server_config_t *server,
 	server_user_t *user, cmdparams_t *cmd)
 {
+	user->wait += 7;
 	if (cmd->nb_args < 1) {
 		dprintf(user->fd, "ko\n");
 		return (1);
@@ -32,7 +33,6 @@ uint8_t srv_cmd_take(server_config_t *server,
 			server->map->tiles[user->pos.y][user->pos.x][i] > 0) {
 			server->map->tiles[user->pos.y][user->pos.x][i] -= 1;
 			user->inventory[i] += (i == FOOD ? 126 : 1);
-			user->wait += 7;
 			return ((uint8_t) send_take_message(server, user, i));
 		}
 	}

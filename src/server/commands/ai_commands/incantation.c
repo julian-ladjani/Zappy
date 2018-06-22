@@ -53,6 +53,9 @@ uint8_t srv_cmd_incantation(server_config_t *server, server_user_t *user,
 {
 	char *msg;
 
+	send_incantation_message(server, user);
+	user->incanting = 1;
+	user->wait += 300;
 	if (!check_incantation_ressources(server, user)) {
 		dprintf(user->fd, "ko\n");
 		return (1);
@@ -60,8 +63,5 @@ uint8_t srv_cmd_incantation(server_config_t *server, server_user_t *user,
 	asprintf(&msg, "Elevation underway\n");
 	send_to_player_in_incantation(server, user, msg);
 	free(msg);
-	send_incantation_message(server, user);
-	user->incanting = 1;
-	user->wait += 300;
 	return (0);
 }
