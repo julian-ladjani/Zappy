@@ -36,22 +36,22 @@ static void find_incantation(clt_config_t *clt)
 		clt->specs->ai_mode = SEARCHER;
 		return;
 	}
-	if (infos->state == START) {
-		send_request(INCANTATION_WAIT, clt);
-		clt->specs->ai_mode = SEARCHER;
+	if (msg->dir == 0)
 		return;
-	}
-	msg->dir;
 	clt->specs->target = get_tile_from_dir(clt->specs->x, clt->specs->y,
 				msg->dir, clt->specs->orientation);
+	move_player_to_target(clt);
 	return;
 }
 
 int ai_follower(clt_config_t *clt)
 {
+	tile_t *tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
+
+	for (int i = 0; i < 5 && (*tile)[FOOD] != 0; ++i)
+		send_request(TAKE, clt, FOOD);
 	send_request(LOOK, clt);
 	find_incantation(clt);
-	move_player_to_target(clt);
 	print_map(clt->map);
 	return (ZAPPY_EXIT_SUCCESS);
 }

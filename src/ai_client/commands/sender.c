@@ -59,5 +59,7 @@ int send_request(send_cmd_t request_id, clt_config_t *client, ...)
 			requests[i].sender(client, &av, 0);
 		va_end(av);
 	}
+	if (client->incantation == 1)
+		send_request(INCANTATION_WAIT, client);
 	return (1);
 }
