@@ -80,6 +80,10 @@ public class Player {
 		Ressource[ressource] = quantity;
 	}
 
+	public Vector2 GetPos()	{
+		return new Vector2((int)(Sprite.transform.position.x / 10), (int)(Sprite.transform.position.y / 10));
+	}
+
 }
 
 public class Egg {
@@ -290,24 +294,28 @@ public class GameEvent : MonoBehaviour {
 		if (args.Length == 2) {
 			for(int i = 0; i < Players.Count; i++)
 				if(Players[i].Id == int.Parse(args[1])) {
-					Players[i].Ressource[int.Parse(args[2])] -= 1;
 				}
 		}
 	}
 
 	void DropRessource(string[] args){
 		if (args.Length == 3) {
+			int ressource = int.Parse(args[2]);
 			for(int i = 0; i < Players.Count; i++)
 				if(Players[i].Id == int.Parse(args[1])) {
-					Players[i].Ressource[int.Parse(args[2])] += 1;
+					Players[i].Ressource[ressource] -= 1;
+					SendMessageServer("bct "+Players[i].GetPos().x+ " "+Players[i].GetPos().y+"\n");
 				}
 		}
 	}
 
 	void CollectRessource(string[] args){
 		if (args.Length == 3) {
+			int ressource = int.Parse(args[2]);
 			for(int i = 0; i < Players.Count; i++)
 				if(Players[i].Id == int.Parse(args[1])) {
+					Players[i].Ressource[ressource] += 1;
+					SendMessageServer("bct "+Players[i].GetPos().x+ " "+Players[i].GetPos().y+"\n");
 				}
 		}
 	}
@@ -360,7 +368,7 @@ public class GameEvent : MonoBehaviour {
 	void SetFrequence(string[] args) {
 		if (args.Length == 2) {
 			Frequence = int.Parse(args[1]);
-			timerppo = 7/Frequence;
+			timerppo = 0;
 		}
 	}
 
@@ -428,6 +436,7 @@ public class GameEvent : MonoBehaviour {
 			return;
 		}
 		try {
+			Debug.Log("Sending message: " + clientMessage);
 			// Get a stream object for writing.
 			NetworkStream stream = socketConnection.GetStream();
 			if (stream.CanWrite) {
@@ -467,7 +476,7 @@ public class GameEvent : MonoBehaviour {
 			if (timerppo <= 0.0f) {
 				for (int i = 0; i < Players.Count; i++)
 					SendMessageServer("ppo #"+ Players[i].Id +"\n");
-				timerppo = 7/Frequence;
+				timerppo = Frequence;
 			}
 		}
 
