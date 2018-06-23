@@ -57,7 +57,7 @@ public class Player {
 	}
 
 	public Vector2 getPos()	{
-		return new Vector2((int)(Sprite.transform.position.x / 10), (int)(Sprite.transform.position.y / 10));
+		return new Vector2((int)(Sprite.transform.position.x / 10), (int)(Sprite.transform.position.z / 10));
 	}
 
 	public void setTrigger(string trigger)
