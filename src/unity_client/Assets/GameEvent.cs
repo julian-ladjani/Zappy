@@ -24,9 +24,8 @@ public class GameEvent : MonoBehaviour {
 	private List<string> Teams = new List<string>();
 	private List<Player> Players = new List<Player>();
 	private List<Egg> Eggs = new List<Egg>();
-	private int Frequence = -1;
-	private float timerppo = -1;
-	private int isResource = 0;
+	private int Frequence = 100;
+	private float timerppo = 0;
 	// Use this for initialization
 	void Start () {
 		ItemObject.Add(GameObject.Find("Mush"));
@@ -88,12 +87,19 @@ public class GameEvent : MonoBehaviour {
 		SendMessageServer("msz\n");
 		SendMessageServer("tna\n");
 		SendMessageServer("sgt\n");
+		SendMessageServer("mct\nmct\nmct\n");
 	}
 
 	void MapSize(string[] args) {
 		if (args.Length == 3) {
 			int X = int.Parse(args[1]);
 			int Y = int.Parse(args[2]);
+			virtualMap = new Map();
+			for (int i = 0; i < Y; i++) {
+				virtualMap.chunks.Add(new List<Chunk>());
+				for(int j = 0; j < X; j++)
+					virtualMap.chunks[i].Add(new Chunk());
+			}
 			for (int i = 0; i < Y; i++)
 			{
 				for (int idx = 0; idx < X; idx++)
@@ -102,12 +108,6 @@ public class GameEvent : MonoBehaviour {
 					test.transform.localScale = new Vector3(10f, 1f, 10f);
 					test.transform.position = new Vector3(5f + i * 10, -0.5f, 5f + idx * 10);
 				}
-			}
-			virtualMap = new Map();
-			for (int i = 0; i < Y; i++) {
-				virtualMap.chunks.Add(new List<Chunk>());
-				for(int j = 0; j < X; j++)
-					virtualMap.chunks[i].Add(new Chunk());
 			}
 		}
 	}
@@ -139,7 +139,6 @@ public class GameEvent : MonoBehaviour {
 						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(0, 0, 0);
 				}
 			}
-			isResource++;
 		}
 
 	}
@@ -388,28 +387,22 @@ public class GameEvent : MonoBehaviour {
 		float time = Time.deltaTime;
 		if (socketConnection == null)
 			return;
-		if (virtualMap != null && isResource < 3){
-			Debug.Log("da!");
-			SendMessageServer("mct\n");
-		}
-		if (timerppo != -1) {
-			timerppo -= time;
-			foreach (Player player in Players) {
-				player.moveTowardGoal(time);
-				if (timerppo <= 0.0f)
-					SendMessageServer ("ppo #" + player.Id + "\n");
-			}
+		timerppo -= time;
+		foreach (Player player in Players) {
+			player.moveTowardGoal(time);
 			if (timerppo <= 0.0f)
-				timerppo = 1/Frequence;
+				SendMessageServer ("ppo #" + player.Id + "\n");
 		}
+		if (timerppo <= 0.0f)
+			timerppo = 3.5f/Frequence;
 		if (Input.GetMouseButtonDown(0)) {
         	RaycastHit hit;
-            	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
-            		Debug.Log("hit :"+ hit.collider.name);
-			virtualMap.DisplayRessource(hit.transform.position.x/10, hit.transform.position.z/10);
-		}
-		else
-			virtualMap.DisplayRessource(-1, 0);
+        	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
+        		Debug.Log("hit :"+ hit.collider.name);
+				virtualMap.DisplayRessource(hit.transform.position.x/10, hit.transform.position.z/10);
+			}
+			else
+				virtualMap.DisplayRessource(-1, 0);
         }
 
 	}
