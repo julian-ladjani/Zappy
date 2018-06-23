@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,9 @@ public class Player {
 	public List<int> Ressource{get; set;}
 	public GameObject Sprite{get; set;}
 	private Vector3 GoalPos;
+	private float GoalRot;
 	private float GoalSpeed;
+	private float GoalRotSpeed;
 	public int Orientation{get; set;}
 	private Animator animator;
 
@@ -21,18 +24,36 @@ public class Player {
 		Level = 1;
 		GoalPos = sprite.transform.position;
 		GoalSpeed = 0;
+		GoalRotSpeed = 0;
 		Ressource = new List<int>();
 		for (int i = 0; i < 6; i++)
 			Ressource.Add(0);
 		Sprite.transform.localScale = new Vector3(7, 7, 7);
 		setOrientation(orient);
+		GoalRot = getOrientationfromOrient(orient);
 	}
 
 	public void setPosRot(int X, int Y, int orient, float time) {
 		GoalPos = new Vector3(X * 10 + 5, 0, Y * 10 + 5);
 		GoalSpeed = Vector3.Distance(GoalPos, Sprite.transform.position) / time;
 		setTrigger("Speed", GoalSpeed);
-		setOrientation(orient);
+		Orientation = orient;
+		GoalRot = getOrientationfromOrient(orient);
+		GoalRotSpeed = Math.Abs(Sprite.transform.rotation.eulerAngles.y - GoalRot) / time;
+	}
+
+	public int getOrientationfromOrient(int orient) {
+		switch (orient) {
+			case 1:
+				return (0);
+			case 2:
+				return (90);
+			case 3:
+				return (180);
+			case 4:
+				return (270);
+		}
+		return (0);
 	}
 
 	public void setOrientation(int orient) {
@@ -58,13 +79,15 @@ public class Player {
 	}
 
 	public void moveTowardGoal(float time) {
-		if (Sprite.transform.position == GoalPos)
-			return;
-		Sprite.transform.position = Vector3.MoveTowards(Sprite.transform.position, GoalPos, GoalSpeed);
-		if (Sprite.transform.position == GoalPos) {
-			GoalSpeed = 0;
-			setTrigger("Speed", 0);
+		if (Sprite.transform.position != GoalPos) {
+			Sprite.transform.position = Vector3.MoveTowards(Sprite.transform.position, GoalPos, GoalSpeed * time);
+			if (Sprite.transform.position == GoalPos)
+				setTrigger ("Speed", 0);
 		}
+		if (Sprite.transform.rotation.eulerAngles.y != GoalRot)
+			Sprite.transform.eulerAngles = new Vector3(Sprite.transform.eulerAngles.x,
+				Mathf.MoveTowards(Sprite.transform.eulerAngles.y, GoalRot, GoalRotSpeed * time),
+				Sprite.transform.eulerAngles.z);
 	}
 
 	public void SetQuantity(int ressource, int quantity) {
@@ -87,6 +110,6 @@ public class Player {
 
 	public void setTrigger(string trigger, float value)
 	{
-		animator.SetFloat(trigger, value < 0.1f ? 0.1f : value);
+		animator.SetFloat(trigger, value != 0 && value < 0.1f ? 0.1f : value);
 	}
 }
