@@ -172,7 +172,10 @@ set(CLIENT
         include/broadcast.h
         include/broadcast_parser.h
         src/ai_client/brodcasts/broadcast_parser_setters.c
-        src/ai_client/brodcasts/broadcast_searcher.c src/ai_client/tile_ratio_list.c)
+        src/ai_client/brodcasts/broadcast_searcher.c
+        src/ai_client/tile_ratio_list.c
+        src/ai_client/ai/test.c
+        src/ai_client/brodcasts/broadcast_adder.c src/ai_client/brodcasts/broadcast_timer.c)
 
 add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${UTILS} ${ARG_PARSER} ${MAP}

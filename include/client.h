@@ -134,6 +134,7 @@ void show_help_client(void);
 int init_server(clt_config_t *client);
 int handle_poll(clt_config_t *client);
 void launch_ai(clt_config_t *clt);
+char *get_ai_name(ai_mode_t type);
 clt_params_t *client_parse_arguments(int ac, char **av);
 double get_tile_ratio(
 	clt_config_t *client,
@@ -151,6 +152,7 @@ int send_request(send_cmd_t request_id, clt_config_t *client, ...);
 int ai_searcher(clt_config_t *client);
 int ai_shouter(clt_config_t *client);
 int ai_follower(clt_config_t *client);
+int ai_test(clt_config_t *client);
 int condition_pre_incantation(clt_config_t *client);
 int condition_end_incantation(clt_config_t *client);
 double get_distance_from_tile(clt_config_t *client, ssize_t x, ssize_t y);
@@ -159,5 +161,6 @@ void move_player_to_target(clt_config_t *clt);
 void clear_tile_from_ref(clt_config_t *clt, tile_t *tile, tile_t *ref);
 void take_obj_from_ref(clt_config_t *clt, tile_t *ref);
 void fill_tile_from_inv(clt_config_t *clt, tile_t *tile, tile_t *ref);
+void clean_broadcast(void *elem);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

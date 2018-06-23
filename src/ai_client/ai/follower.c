@@ -10,8 +10,8 @@
 
 static vec_t get_tile_from_dir(ssize_t x, ssize_t y, int dir, cardinal_dir_t c)
 {
-	vec_t vecs[8] = {{0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1},
-				{1, 0}, {1, 1}};
+	static const vec_t vecs[8] = {{0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
+					{0, -1}, {1, -1}, {1, 0}, {1, 1}};
 	int index = (8 - 2 * (c - 1) + dir) % 8;
 	vec_t vec;
 
@@ -29,8 +29,10 @@ static void find_incantation(clt_config_t *clt)
 		(clt, condition_targeted_incantation);
 	msg_infos_incantation_t *infos;
 
-	if (!msg)
+	if (!msg) {
+		clt->specs->ai_mode = SEARCHER;
 		return;
+	}
 	infos = (msg_infos_incantation_t *) msg->content;
 	if (infos->state == CANCELED) {
 		clt->specs->ai_mode = SEARCHER;
@@ -38,6 +40,7 @@ static void find_incantation(clt_config_t *clt)
 	}
 	if (msg->dir == 0)
 		return;
+	printf("msg[%d] --> FOLLOW %d %d\n", msg->id, msg->from, infos->level);
 	clt->specs->target = get_tile_from_dir(clt->specs->x, clt->specs->y,
 				msg->dir, clt->specs->orientation);
 	move_player_to_target(clt);
@@ -50,6 +53,7 @@ int ai_follower(clt_config_t *clt)
 
 	for (int i = 0; i < 5 && (*tile)[FOOD] != 0; ++i)
 		send_request(TAKE, clt, FOOD);
+	manage_broadcast_timer(clt);
 	send_request(LOOK, clt);
 	find_incantation(clt);
 	if (ZAPPY_DEBUG)

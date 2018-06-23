@@ -16,6 +16,14 @@ size_t get_ai_logic(ai_mode_t mode)
 	return (0);
 }
 
+char *get_ai_name(ai_mode_t type)
+{
+	for (size_t i = 0; ais_names[i].name; ++i)
+		if (ais_names[i].type == type)
+			return (ais_names[i].name);
+	return (NULL);
+}
+
 void launch_ai(clt_config_t *clt)
 {
 	size_t index = get_ai_logic(clt->specs->ai_mode);

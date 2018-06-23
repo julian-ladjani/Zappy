@@ -20,15 +20,15 @@ int check_others_broadcasts(clt_config_t *clt)
 		if (msg && msg->type == MSG_INCANTATION) {
 			infos = (msg_infos_incantation_t *) msg->content;
 			if (infos->level == clt->specs->level &&
-				infos->state == NEED_HELP && (!ref ||
-				msg->from > ref->from))
+				infos->state == NEED_HELP &&
+				(!ref || msg->from > ref->from))
 				ref = msg;
 		}
 		elem = elem->next;
 	}
-	if (!msg || msg->from < clt->specs->id)
+	if (!ref || ref->from < clt->specs->id)
 		return (0);
-	clt->specs->targeted_incantation_id = msg->from;
+	clt->specs->targeted_incantation_id = ref->from;
 	clt->specs->ai_mode = FOLLOWER;
 	return (1);
 }

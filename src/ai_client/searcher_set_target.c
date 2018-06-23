@@ -40,10 +40,8 @@ void update_target_tile(clt_config_t *clt)
 
 	for (ssize_t y = 0; y < (ssize_t) clt->map->height; ++y) {
 		for (ssize_t x = 0; x < (ssize_t) clt->map->width; ++x) {
-			printf("-- : %lf\n", max_ratio);
 			ratio = get_tile_ratio(clt, ratio_searcher, x, y);
 			if (ratio >= max_ratio && ratio > 0) {
-				printf("FOUND : %lf\n", max_ratio);
 				max_ratio = ratio;
 				clt->specs->target.y = y;
 				clt->specs->target.x = x;
@@ -52,14 +50,4 @@ void update_target_tile(clt_config_t *clt)
 	}
 	if (max_ratio == -1)
 		set_player_target_forward(clt);
-	/*printf("ratio : %lf\npos %ld %ld\n",
-	       max_ratio, clt->specs->target.y, clt->specs->target.x);
-	tile_t *tile = map_get_tile(clt->map, clt->specs->target.x,
-				    clt->specs->target.y);
-	for (int i = 0; i < 9; ++i) {
-		printf("%s : %ld\n", OBJ_NAMES[i],
-		       (*tile)[i]);
-	}
-	printf("%lf\n", get_distance_from_tile(clt, clt->specs->target.x,
-					       clt->specs->target.y));*/
 }

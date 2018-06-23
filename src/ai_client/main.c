@@ -35,7 +35,7 @@ static void init_server_socket_informations(
 		free_client_config(client);
 		return;
 	}
-	client->server->broadcasts_queue = list_create(NULL);
+	client->server->broadcasts_queue = NULL;
 	client->server->socket = calloc(sizeof(zappy_socket_t),
 					sizeof(zappy_socket_t));
 	if (!client->server->socket) {

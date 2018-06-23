@@ -37,6 +37,7 @@ typedef struct client_message_s {
 	int from;
 	int dir;
 	int id;
+	int timer;
 } clt_msg_t;
 
 int broadcast_parser(clt_config_t *client, clt_msg_t *msg);
@@ -44,5 +45,7 @@ int condition_search_incantation(clt_config_t *clt, void *elem);
 int condition_targeted_incantation(clt_config_t *clt, void *elem);
 clt_msg_t *broadcast_search_for(
 	clt_config_t *clt, int (* checker)(clt_config_t *, void *));
+int broadcast_add_elem(clt_config_t *client, clt_msg_t *msg);
+void manage_broadcast_timer(clt_config_t *clt);
 
 #endif /* PSU_ZAPPY_2017_BROADCAST_H */
