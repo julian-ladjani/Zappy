@@ -61,6 +61,7 @@ SRCS =	src/ai_client/main.c						\
         src/common/utils/is_str.c					\
         src/ai_client/parser.c						\
 	src/ai_client/tile_ratio.c					\
+	src/ai_client/tile_ratio_list.c					\
 	src/ai_client/ai/conditions.c					\
 	src/ai_client/ai/follower.c					\
 	src/ai_client/ai/launch_ai.c					\
