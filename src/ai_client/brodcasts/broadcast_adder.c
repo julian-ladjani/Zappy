@@ -34,4 +34,5 @@ int broadcast_add_elem(clt_config_t *client, clt_msg_t *msg)
 			list_delete_elem(elem, clean_broadcast);
 	client->server->broadcasts_queue = list_add_elem_at_pos
 		(client->server->broadcasts_queue, (void *)msg, LIST_FIRST);
+	return (0);
 }

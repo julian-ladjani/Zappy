@@ -68,7 +68,7 @@ int ai_searcher(clt_config_t *clt)
 		print_cell(map_get_tile(clt->map, clt->specs->target.x,
 					clt->specs->target.y));
 	}
-	update_target_tile(clt);
+	update_target_tile(clt, ratio_searcher);
 	move_player_to_target(clt);
 	if (find_incantation(clt))
 		return (ZAPPY_EXIT_SUCCESS);

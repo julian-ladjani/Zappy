@@ -8,11 +8,9 @@
 #include "math.h"
 #include "client.h"
 
-int get_food_ratio(clt_config_t *clt, tile_t *tile)
+int get_food_ratio(tile_t *tile)
 {
-	return (0);
-	(void) clt;
-	(void) tile;
+	return ((int) (*tile)[FOOD]);
 }
 
 int get_obj_ratio(clt_config_t *client, tile_t *tile)

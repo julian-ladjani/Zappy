@@ -73,7 +73,11 @@ SRCS =	src/ai_client/main.c						\
 	src/ai_client/tile_actions.c					\
 	src/ai_client/brodcasts/broadcast_parser.c			\
         src/ai_client/brodcasts/broadcast_parser_setters.c		\
-        src/ai_client/brodcasts/broadcast_searcher.c
+        src/ai_client/brodcasts/broadcast_searcher.c			\
+	src/ai_client/ai/test.c						\
+        src/ai_client/brodcasts/broadcast_adder.c			\
+        src/ai_client/brodcasts/broadcast_timer.c			\
+        src/ai_client/ai/eater.c
 
 OBJDIR = obj
 

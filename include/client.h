@@ -141,9 +141,10 @@ double get_tile_ratio(
 	double (* searcher)(clt_config_t *, ssize_t, ssize_t),
 	ssize_t x, ssize_t y);
 int get_obj_ratio(clt_config_t *client, tile_t *tile);
-int get_food_ratio(clt_config_t *client, tile_t * tile);
+int get_food_ratio(tile_t * tile);
 int tilecmp(tile_t *t1, tile_t *t2);
 double ratio_searcher(clt_config_t *client, ssize_t y, ssize_t x);
+double ratio_eater(clt_config_t *client, ssize_t x, ssize_t y);
 
 void send_active_request(clt_config_t *client, char *msg, ...);
 void vsend_active_request(clt_config_t *client, char *msg, va_list *av);
@@ -153,10 +154,12 @@ int ai_searcher(clt_config_t *client);
 int ai_shouter(clt_config_t *client);
 int ai_follower(clt_config_t *client);
 int ai_test(clt_config_t *client);
+int ai_eater(clt_config_t *clt);
 int condition_pre_incantation(clt_config_t *client);
 int condition_end_incantation(clt_config_t *client);
 double get_distance_from_tile(clt_config_t *client, ssize_t x, ssize_t y);
-void update_target_tile(clt_config_t *clt);
+void update_target_tile(clt_config_t *clt,
+			double (* searcher)(clt_config_t *, ssize_t, ssize_t));
 void move_player_to_target(clt_config_t *clt);
 void clear_tile_from_ref(clt_config_t *clt, tile_t *tile, tile_t *ref);
 void take_obj_from_ref(clt_config_t *clt, tile_t *ref);

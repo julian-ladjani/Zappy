@@ -31,7 +31,7 @@ static uint8_t clt_cmd_broadcast(clt_config_t *client, char *msg, va_list *av)
 	vasprintf(&tmp, msg, *av);
 	if (!tmp)
 		return (0);
-	send_active_request(client, "%s:%d:%d:%s", client->specs->team,
+	send_active_request(client, "%s:%d:%ld:%s", client->specs->team,
 				client->specs->id, id++, tmp);
 	return (1);
 }

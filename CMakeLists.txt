@@ -175,7 +175,9 @@ set(CLIENT
         src/ai_client/brodcasts/broadcast_searcher.c
         src/ai_client/tile_ratio_list.c
         src/ai_client/ai/test.c
-        src/ai_client/brodcasts/broadcast_adder.c src/ai_client/brodcasts/broadcast_timer.c)
+        src/ai_client/brodcasts/broadcast_adder.c
+        src/ai_client/brodcasts/broadcast_timer.c
+        src/ai_client/ai/eater.c)
 
 add_executable(zappy_server src/server/main.c ${SERVER} ${LKN_LIST}
         ${CMD_PARSER} ${SOCKET} ${UTILS} ${ARG_PARSER} ${MAP}

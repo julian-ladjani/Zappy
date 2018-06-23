@@ -55,6 +55,7 @@ int ai_follower(clt_config_t *clt)
 		send_request(TAKE, clt, FOOD);
 	manage_broadcast_timer(clt);
 	send_request(LOOK, clt);
+	send_request(INVENTORY, clt);
 	find_incantation(clt);
 	if (ZAPPY_DEBUG)
 		print_map(clt->map);

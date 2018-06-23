@@ -14,7 +14,7 @@ void increment_broadcast_timer(void *elem)
 	++msg->timer;
 }
 
-int test_broadcast_timer(void *elem, void *criteria)
+int test_broadcast_timer(void *elem, __attribute__((unused))void *criteria)
 {
 	clt_msg_t *msg = (clt_msg_t *)elem;
 

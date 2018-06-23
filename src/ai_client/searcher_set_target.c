@@ -33,14 +33,16 @@ static void set_player_target_forward(clt_config_t *client)
 	}
 }
 
-void update_target_tile(clt_config_t *clt)
+void update_target_tile(clt_config_t *clt,
+			double (* ratio_finder)
+				(clt_config_t *, ssize_t, ssize_t))
 {
 	double ratio;
 	double max_ratio = -1;
 
 	for (ssize_t y = 0; y < (ssize_t) clt->map->height; ++y) {
 		for (ssize_t x = 0; x < (ssize_t) clt->map->width; ++x) {
-			ratio = get_tile_ratio(clt, ratio_searcher, x, y);
+			ratio = get_tile_ratio(clt, ratio_finder, x, y);
 			if (ratio >= max_ratio && ratio > 0) {
 				max_ratio = ratio;
 				clt->specs->target.y = y;
