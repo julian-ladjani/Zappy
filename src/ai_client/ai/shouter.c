@@ -10,16 +10,27 @@
 
 int check_others_broadcasts(clt_config_t *clt)
 {
+	list_t *elem = clt->server->broadcasts_queue;
+	clt_msg_t *msg = NULL;
+	clt_msg_t *ref = NULL;
+	msg_infos_incantation_t *infos;
 
-	clt_msg_t *msg = broadcast_search_for
-		(clt, condition_search_incantation);
-
-	if (!msg || msg->from > clt->specs->id)
+	while (elem) {
+		msg = (clt_msg_t *) elem->elem;
+		if (msg && msg->type == MSG_INCANTATION) {
+			infos = (msg_infos_incantation_t *) msg->content;
+			if (infos->level == clt->specs->level &&
+				infos->state == NEED_HELP && (!ref ||
+				msg->from > ref->from))
+				ref = msg;
+		}
+		elem = elem->next;
+	}
+	if (!msg || msg->from < clt->specs->id)
 		return (0);
 	clt->specs->targeted_incantation_id = msg->from;
 	clt->specs->ai_mode = FOLLOWER;
 	return (1);
-	return 0;
 }
 
 int ai_shouter(clt_config_t *clt)
@@ -28,7 +39,8 @@ int ai_shouter(clt_config_t *clt)
 	int lvl = clt->specs->level;
 
 	send_request(LOOK, clt);
-	//if (check_others_broadcasts(clt))
+	if (check_others_broadcasts(clt))
+		return (ZAPPY_EXIT_SUCCESS);
 	if ((*tile)[PLAYER] != (size_t) INCANTATION_OBJ[lvl][PLAYER]) {
 		send_request(BROADCAST, clt, "incantation:need_players:%d",
 				lvl);

@@ -45,6 +45,8 @@ typedef enum ai_modes {
 	SEARCHER,
 	FOLLOWER,
 	SHOUTER,
+	EATER,
+	LAST_MODE,
 	DEBILOUS
 } ai_mode_t;
 
@@ -89,6 +91,7 @@ typedef struct client_specifications_s {
 	unsigned int level;
 	char *team;
 	ai_mode_t ai_mode;
+	ai_mode_t last_ai_mode;
 	int forwarding;
 	vec_t target;
 	int targeted_incantation_id;

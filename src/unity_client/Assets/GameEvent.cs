@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class Chunk {
@@ -25,9 +26,26 @@ public class Chunk {
 
 public class Map {
 	public List<List<Chunk>> chunks{get; set;}
+	public Canvas RessourceUI{get; set;}
+	public Text[] TextUI{get;set;}
 	public Map() {
 		chunks = new List<List<Chunk>>();
+		RessourceUI = GameObject.Find("RessourceUI").GetComponent<Canvas>();
+		TextUI = GameObject.Find("Ressource").GetComponentsInChildren<Text>();
 	}
+
+	public void DisplayRessource(float X, float Y) {
+		if(X != -1) {
+			RessourceUI.enabled = true;
+			for(int i = 0; i < chunks[(int)X][(int)Y].Quantity.Count ; i++){
+				TextUI[i].text = chunks[(int)X][(int)Y].Quantity[i].ToString();
+			}
+		}
+		else {
+			RessourceUI.enabled = false;
+		}
+	}
+
 }
 
 public class Player {
@@ -37,10 +55,13 @@ public class Player {
 	public List<int> Ressource{get; set;}
 	public GameObject Sprite{get; set;}
 	public Vector3 PosTile{get; set;}
+	public int Orientation{get; set;}
+	private Animator animator;
 
 	public Player(int id, GameObject sprite, int orient, string team) {
 		Id = id;
 		Sprite = sprite;
+		animator = sprite.GetComponent<Animator>();
 		Team = team;
 		Level = 1;
 		Ressource = new List<int>();
@@ -51,11 +72,12 @@ public class Player {
 	}
 
 	public void setPosRot(int X, int Y, int orient) {
-		Sprite.transform.position = new Vector3(X, 0, Y);
+		Sprite.transform.position = new Vector3(X * 10 + 5, 0, Y * 10 + 5);
 		setOrientation(orient);
 	}
 
 	public void setOrientation(int orient) {
+		Orientation = orient;
 		switch (orient) {
 			case 1:
 				Sprite.transform.eulerAngles = new Vector3(
@@ -80,10 +102,24 @@ public class Player {
 		Ressource[ressource] = quantity;
 	}
 
-	public Vector2 GetPos()	{
+	public Vector2 getPos()	{
 		return new Vector2((int)(Sprite.transform.position.x / 10), (int)(Sprite.transform.position.y / 10));
 	}
 
+	public void setTrigger(string trigger)
+	{
+		animator.SetTrigger(trigger);
+	}
+
+	public void setTrigger(string trigger, bool state)
+	{
+		animator.SetBool(trigger, state);
+	}
+
+	public void setTrigger(string trigger, float value)
+	{
+		animator.SetFloat(trigger, value < 0.1f ? 0.1f : value);
+	}
 }
 
 public class Egg {
@@ -170,6 +206,9 @@ public class GameEvent : MonoBehaviour {
 
 	void Welcome(string[] args) {
 		SendMessageServer("SPECTATOR\n");
+		SendMessageServer("msz\n");
+		SendMessageServer("tna\n");
+		SendMessageServer("sgt\n");
 	}
 
 	void MapSize(string[] args) {
@@ -206,7 +245,7 @@ public class GameEvent : MonoBehaviour {
 				virtualMap.chunks[Y][X].Ressource.Count == 0) {
 				for (int i = 3; i < 10; i++){
 					GameObject clone = Instantiate(ItemObject[i-3]) as GameObject;
-					clone.transform.Translate(new Vector3(X*10, 0, Y*10));
+					clone.transform.Translate(new Vector3(Y*10, 0, X*10));
 					if (i == 3 || i == 6 || i == 9)
 						clone.transform.Rotate(new Vector3(-90, 0, 0));
 					virtualMap.chunks[Y][X].Ressource.Add(clone);
@@ -219,7 +258,7 @@ public class GameEvent : MonoBehaviour {
 						virtualMap.chunks[Y][X].SetQuantity(i-3, quantity);
 						if (quantity > 10)
 							quantity = 10;
-						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(2+quantity, 2+quantity, 2+quantity);
+						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(2+quantity, 5+quantity, 5+quantity);
 					}
 					else
 						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(0, 0, 0);
@@ -251,11 +290,13 @@ public class GameEvent : MonoBehaviour {
 	}
 	void PlayerPosition(string[] args) {
 		if (args.Length == 5) {
+			Vector2 pos = new Vector2(int.Parse(args[2]), int.Parse(args[3]));
+			int orient = int.Parse(args[4]);
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
-			int X = int.Parse(args[2])*10+5;
-			int Y = int.Parse(args[3])*10+5;
-			int Orient = int.Parse(args[4]);
-			TmpPlayer.setPosRot(X, Y, Orient);
+			if (TmpPlayer.getPos() != pos || TmpPlayer.Orientation != orient) {
+				TmpPlayer.setTrigger("Incantation", false);
+				TmpPlayer.setPosRot((int) pos.x, (int) pos.y, orient);
+			}
 		}
 	}
 
@@ -276,57 +317,65 @@ public class GameEvent : MonoBehaviour {
 	void Explusion(string[] args) {
 		if (args.Length == 2) {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
+			TmpPlayer.setTrigger("Eject");
 		}
 	}
 
 	void PlayerMessage(string[] args) {
-		if (args.Length == 2) {
+		if (args.Length >= 2) {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
+			TmpPlayer.setTrigger("Broadcast");
 		}
 	}
 
 	void StartIncantation(string[] args) {
 		int X = int.Parse(args[1]);
 		int Y = int.Parse(args[2]);
-			for(int j = 4; j < args.Length; j++){
+			for (int j = 4; j < args.Length; j++){
 				Player TmpPlayer = FindPlayer(int.Parse(args[j]));
+				TmpPlayer.setTrigger("Incantation", true);
 			}
 	}
 
 	void EndIncantation(string[] args) {
 		if (args.Length == 3) {
-			int X = int.Parse(args[1]);
-			int Y = int.Parse(args[2]);
+			Vector2 pos = new Vector2(int.Parse(args[1]), int.Parse(args[2]));
 			string resultat = args[3];
+			foreach (Player player in Players)
+				if (player.getPos() == pos)
+					player.setTrigger("Incantation", false);
 		}
 	}
 
 	void LayingEgg(string[] args){
 		if (args.Length == 2) {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
+			TmpPlayer.setTrigger("Egg");
 		}
 	}
 
 	void DropRessource(string[] args){
 		if (args.Length == 3) {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
-			int ressource = int.Parse(args[2]);
+			TmpPlayer.setTrigger("Obj");
 			TmpPlayer.Ressource[int.Parse(args[2])] -= 1;
-			SendMessageServer("bct "+TmpPlayer.GetPos().x+ " "+TmpPlayer.GetPos().y+"\n");
+			SendMessageServer("bct "+TmpPlayer.getPos().x+ " "+TmpPlayer.getPos().y+"\n");
 		}
 	}
 
 	void CollectRessource(string[] args) {
 		if (args.Length == 3) {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
+			TmpPlayer.setTrigger("Obj");
 			TmpPlayer.Ressource[int.Parse(args[2])] += 1;
-			SendMessageServer("bct "+TmpPlayer.GetPos().x+ " "+TmpPlayer.GetPos().y+"\n");
+			SendMessageServer("bct "+TmpPlayer.getPos().x+ " "+TmpPlayer.getPos().y+"\n");
 		}
 	}
 
 	void PlayerDeath(string[] args) {
 		if (args.Length == 2) {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
+			TmpPlayer.setTrigger("Dead");
 			GameObject.Destroy(TmpPlayer.Sprite);
 			Players.Remove(TmpPlayer);
 		}
@@ -334,7 +383,6 @@ public class GameEvent : MonoBehaviour {
 
 	void LaidEgg(string[] args) {
 		if (args.Length == 5) {
-			Debug.Log("Egg!!");
 			int Id = int.Parse(args[1]);
 			int X = int.Parse(args[3]);
 			int Y = int.Parse(args[4]);
@@ -370,6 +418,8 @@ public class GameEvent : MonoBehaviour {
 	void SetFrequence(string[] args) {
 		if (args.Length == 2) {
 			Frequence = int.Parse(args[1]);
+			foreach (Player player in Players)
+				player.setTrigger("Time", 1/Frequence);
 			timerppo = 0;
 		}
 	}
@@ -462,18 +512,9 @@ public class GameEvent : MonoBehaviour {
 	void Update () {
 		if (socketConnection == null)
 			return;
-		if (map == null){
-			SendMessageServer("msz\n");
-		}
-		else {
-			if (isResource <= 3)
-				SendMessageServer("mct\n");
-			if (Teams.Count == 0)
-				SendMessageServer("tna\n");
-			if (Frequence == -1)
-				SendMessageServer("sgt\n");
-		}
-		if (timerppo != -1){
+		if (map != null && isResource <= 3)
+			SendMessageServer("mct\n");
+		if (timerppo != -1) {
 			timerppo -= Time.deltaTime;
 			if (timerppo <= 0.0f) {
 				for (int i = 0; i < Players.Count; i++)
@@ -481,6 +522,15 @@ public class GameEvent : MonoBehaviour {
 				timerppo = 1/Frequence;
 			}
 		}
+		if (Input.GetMouseButtonDown(0)) {
+        	RaycastHit hit;
+            	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
+            		Debug.Log("hit :"+ hit.collider.name);
+			virtualMap.DisplayRessource(hit.transform.position.x/10, hit.transform.position.z/10);
+		}
+		else
+			virtualMap.DisplayRessource(-1, 0);
+        }
 
 	}
 }
