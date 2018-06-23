@@ -18,7 +18,7 @@ public class GameEvent : MonoBehaviour {
 	private TcpClient socketConnection;
 	private string host = "127.0.0.1";
 	private int port = 0;
-	private Map virtualMap = null;
+	public Map virtualMap = null;
 	private GameObject EggModel;
 	private GameObject Character;
 	private List<string> Teams = new List<string>();
@@ -64,6 +64,11 @@ public class GameEvent : MonoBehaviour {
 		MessageCommand["smg"] = new FunctionServer(ServerMessage);
 		MessageCommand["suc"] = new FunctionServer(UnknowMessage);
 		MessageCommand["sbp"] = new FunctionServer(UnknownParameter);
+	}
+
+	public Map GetVMap()
+	{
+		return virtualMap;
 	}
 
 	Player FindPlayer(int id)
