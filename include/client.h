@@ -135,8 +135,14 @@ int init_server(clt_config_t *client);
 int handle_poll(clt_config_t *client);
 void launch_ai(clt_config_t *clt);
 clt_params_t *client_parse_arguments(int ac, char **av);
-double get_tile_ratio(clt_config_t *client, ssize_t y, ssize_t x);
+double get_tile_ratio(
+	clt_config_t *client,
+	double (* searcher)(clt_config_t *, ssize_t, ssize_t),
+	ssize_t x, ssize_t y);
+int get_obj_ratio(clt_config_t *client, tile_t *tile);
+int get_food_ratio(clt_config_t *client, tile_t * tile);
 int tilecmp(tile_t *t1, tile_t *t2);
+double ratio_searcher(clt_config_t *client, ssize_t y, ssize_t x);
 
 void send_active_request(clt_config_t *client, char *msg, ...);
 void vsend_active_request(clt_config_t *client, char *msg, va_list *av);

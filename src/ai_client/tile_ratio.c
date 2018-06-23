@@ -41,17 +41,9 @@ double get_distance_from_tile(clt_config_t *client, ssize_t x, ssize_t y)
 	return (sqrt(vec.x * vec.x + vec.y * vec.y));
 }
 
-double get_tile_ratio(clt_config_t *client, ssize_t y, ssize_t x)
+double get_tile_ratio(clt_config_t *client,
+			double (* searcher)(clt_config_t *, ssize_t, ssize_t),
+			ssize_t x, ssize_t y)
 {
-	tile_t *tile = map_get_tile(client->map, x, y);
-	int food_ratio = get_food_ratio(client, tile);
-	int obj_ratio = get_obj_ratio(client, tile);
-	double dist = get_distance_from_tile(client, x, y);
-
-	if (dist > 1)
-		return ((double)food_ratio
-				+ ((double)obj_ratio / dist) * 10
-					* ((* tile)[PLAYER] == 0));
-	else
-		return (food_ratio + obj_ratio * 10 * ((* tile)[PLAYER] == 0));
+	return (searcher(client, x, y));
 }

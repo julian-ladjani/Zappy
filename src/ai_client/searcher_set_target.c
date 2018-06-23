@@ -40,8 +40,10 @@ void update_target_tile(clt_config_t *clt)
 
 	for (ssize_t y = 0; y < (ssize_t) clt->map->height; ++y) {
 		for (ssize_t x = 0; x < (ssize_t) clt->map->width; ++x) {
-			ratio = get_tile_ratio(clt, y, x);
+			printf("-- : %lf\n", max_ratio);
+			ratio = get_tile_ratio(clt, ratio_searcher, x, y);
 			if (ratio >= max_ratio && ratio > 0) {
+				printf("FOUND : %lf\n", max_ratio);
 				max_ratio = ratio;
 				clt->specs->target.y = y;
 				clt->specs->target.x = x;
