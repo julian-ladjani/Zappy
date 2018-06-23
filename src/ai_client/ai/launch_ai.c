@@ -19,10 +19,20 @@ size_t get_ai_logic(ai_mode_t mode)
 void launch_ai(clt_config_t *clt)
 {
 	size_t index = get_ai_logic(clt->specs->ai_mode);
+	ai_mode_t ai_mode = SEARCHER;
+	ai_mode_t last_ai_mode = SEARCHER;
 
 	while (clt->status != ZAPPY_CLT_DEAD) {
 		if (ais[index].logic(clt) == ZAPPY_EXIT_FAILURE)
 			return;
-		index = get_ai_logic(clt->specs->ai_mode);
+		if (ai_mode != clt->specs->ai_mode) {
+			if (clt->specs->ai_mode == LAST_MODE) {
+				index = get_ai_logic(last_ai_mode);
+				clt->specs->ai_mode = last_ai_mode;
+			} else
+				index = get_ai_logic(clt->specs->ai_mode);
+			last_ai_mode = ai_mode;
+			ai_mode = clt->specs->ai_mode;
+		}
 	}
 }

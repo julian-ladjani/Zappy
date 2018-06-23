@@ -50,7 +50,8 @@ double get_tile_ratio(clt_config_t *client, ssize_t y, ssize_t x)
 
 	if (dist > 1)
 		return ((double)food_ratio
-				+ ((double)obj_ratio / dist) * 10);
+				+ ((double)obj_ratio / dist) * 10
+					* ((* tile)[PLAYER] == 0));
 	else
-		return (food_ratio + obj_ratio * 10);
+		return (food_ratio + obj_ratio * 10 * ((* tile)[PLAYER] == 0));
 }
