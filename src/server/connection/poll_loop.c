@@ -49,13 +49,6 @@ int poll_loop(server_config_t *server_config)
 	for (int i = 0; i < (int) server_config->nfds; i++) {
 		if (server_config->poll_fd[i].revents == 0)
 			continue;
-		if (server_config->poll_fd[i].revents != POLLIN &&
-			server_config->poll_fd[i].revents != POLLHUP &&
-			server_config->poll_fd[i].revents !=
-				(POLLHUP | POLLIN)) {
-			cleanup_server_exit(server_config,
-				ZAPPY_EXIT_FAILURE);
-		}
 		if (server_config->poll_fd[i].fd ==
 			server_config->master->fd)
 			poll_accept_client(server_config);
