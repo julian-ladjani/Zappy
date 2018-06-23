@@ -18,7 +18,7 @@ void send_to_player_in_incantation(server_config_t *server,
 		if (player && user->type == ZAPPY_USER_AI
 			&& player->pos.x == user->pos.x
 			&& player->pos.y == user->pos.y)
-			dprintf(user->fd, "%s", msg);
+			dprintf(player->fd, "%s", msg);
 		player_list = player_list->next;
 	}
 }
