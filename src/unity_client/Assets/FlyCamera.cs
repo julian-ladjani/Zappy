@@ -18,7 +18,7 @@ public class FlyCamera : MonoBehaviour {
     public float maximumY = 60F;
     public float h = 0;
     float rotationY = 0F;
-
+    Map map = null;
 
 	void Start ()
 	{
@@ -67,23 +67,25 @@ public class FlyCamera : MonoBehaviour {
         else{
             transform.Translate(p);
         }
-        //LimiteMap();
+        LimiteMap();
     }
 
     private void LimiteMap()
     {
+        if((map = GameObject.Find("GameEvent").GetComponent<GameEvent>().GetVMap()) == null)
+            return;
         if ( transform.position.y < 1)
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
-        if ( transform.position.y > 25)
-            transform.position = new Vector3(transform.position.x, 25, transform.position.z);
-        if ( transform.position.z > 50)
-            transform.position = new Vector3(transform.position.x, transform.position.y, 50);
-        if ( transform.position.z < -50)
-            transform.position = new Vector3(transform.position.x, transform.position.z, -50);
-        if ( transform.position.x > 50)
-            transform.position = new Vector3(50,transform.position.y, transform.position.z);
-        if ( transform.position.x < -50)
-            transform.position = new Vector3(-50, transform.position.y, transform.position.z);
+        if ( transform.position.y > map.chunks.Count*3)
+            transform.position = new Vector3(transform.position.x, map.chunks.Count*3, transform.position.z);
+        if ( transform.position.z > map.chunks.Count*10)
+            transform.position = new Vector3(transform.position.x, transform.position.y, map.chunks.Count*10);
+        if ( transform.position.z < -20)
+            transform.position = new Vector3(transform.position.x, transform.position.y, -20);
+        if ( transform.position.x > map.chunks[0].Count*10)
+            transform.position = new Vector3(map.chunks[0].Count*10,transform.position.y, transform.position.z);
+        if ( transform.position.x < -20)
+            transform.position = new Vector3(-20, transform.position.y, transform.position.z);
     }
 
     private Vector3 GetBaseInput() { //returns the basic values, if it's 0 than it's not active.
