@@ -6,124 +6,18 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.Networking;
-
-public class Chunk {
-	public List<GameObject> Ressource{get; set;}
-	public List<int> Quantity{get;set;}
-	public Chunk() {
-		Ressource = new List<GameObject>();
-		Quantity = new List<int>();
-		for (int i = 0; i < 7; i++)
-			Quantity.Add(0);
-	}
-	public void SetQuantity(int ressource, int quantity) {
-		Quantity[ressource] = quantity;
-	}
-}
-
-public class Map {
-	public List<List<Chunk>> chunks{get; set;}
-	public Map() {
-		chunks = new List<List<Chunk>>();
-	}
-}
-
-public class Player {
-	public int Id{get; set;}
-	public string Team{get; set;}
-	public int Level{get; set;}
-	public List<int> Ressource{get; set;}
-	public GameObject Sprite{get; set;}
-	public Vector3 PosTile{get; set;}
-	public int Orientation{get; set;}
-	private Animator animator;
-
-	public Player(int id, GameObject sprite, int orient, string team) {
-		Id = id;
-		Sprite = sprite;
-		animator = sprite.GetComponent<Animator>();
-		Team = team;
-		Level = 1;
-		Ressource = new List<int>();
-		for (int i = 0; i < 6; i++)
-			Ressource.Add(0);
-		Sprite.transform.localScale = new Vector3(7, 7, 7);
-		setOrientation(orient);
-	}
-
-	public void setPosRot(int X, int Y, int orient) {
-		Sprite.transform.position = new Vector3(X * 10 + 5, 0, Y * 10 + 5);
-		setOrientation(orient);
-	}
-
-	public void setOrientation(int orient) {
-		Orientation = orient;
-		switch (orient) {
-			case 1:
-				Sprite.transform.eulerAngles = new Vector3(
-				Sprite.transform.eulerAngles.x, 0, Sprite.transform.eulerAngles.z);
-				break;
-			case 2:
-				Sprite.transform.eulerAngles = new Vector3(
-				Sprite.transform.eulerAngles.x, 90, Sprite.transform.eulerAngles.z);
-				break;
-			case 3:
-				Sprite.transform.eulerAngles = new Vector3(
-				Sprite.transform.eulerAngles.x, 180, Sprite.transform.eulerAngles.z);
-				break;
-			case 4:
-				Sprite.transform.eulerAngles = new Vector3(
-				Sprite.transform.eulerAngles.x, 270, Sprite.transform.eulerAngles.z);
-				break;
-		}
-	}
-
-	public void SetQuantity(int ressource, int quantity) {
-		Ressource[ressource] = quantity;
-	}
-
-	public Vector2 getPos()	{
-		return new Vector2((int)(Sprite.transform.position.x / 10), (int)(Sprite.transform.position.y / 10));
-	}
-
-	public void setTrigger(string trigger)
-	{
-		animator.SetTrigger(trigger);
-	}
-
-	public void setTrigger(string trigger, bool state)
-	{
-		animator.SetBool(trigger, state);
-	}
-
-	public void setTrigger(string trigger, float value)
-	{
-		animator.SetFloat(trigger, value < 0.1f ? 0.1f : value);
-	}
-}
-
-public class Egg {
-	public int Id;
-	public GameObject Sprite{get; set;}
-
-	public Egg(int id, GameObject sprite) {
-		Id = id;
-		Sprite = sprite;
-		Sprite.transform.localScale = new Vector3(1, 1, 1);
-	}
-
-}
 
 public class GameEvent : MonoBehaviour {
 
 	private delegate void FunctionServer(string[] args);
 	private Dictionary<string, FunctionServer> MessageCommand = new Dictionary<string, FunctionServer>();
 	private List<GameObject> ItemObject = new List<GameObject>();
+	public GameObject prefab;
 	private TcpClient socketConnection;
 	private string host = "127.0.0.1";
 	private int port = 0;
-	private Terrain map;
 	private Map virtualMap = null;
 	private GameObject EggModel;
 	private GameObject Character;
@@ -135,7 +29,6 @@ public class GameEvent : MonoBehaviour {
 	private int isResource = 0;
 	// Use this for initialization
 	void Start () {
-		map = null;
 		ItemObject.Add(GameObject.Find("Mush"));
 		ItemObject.Add(GameObject.Find("Rock"));
 		ItemObject.Add(GameObject.Find("Straw"));
@@ -187,15 +80,24 @@ public class GameEvent : MonoBehaviour {
 
 	void Welcome(string[] args) {
 		SendMessageServer("SPECTATOR\n");
+		SendMessageServer("msz\n");
+		SendMessageServer("tna\n");
+		SendMessageServer("sgt\n");
 	}
 
 	void MapSize(string[] args) {
 		if (args.Length == 3) {
 			int X = int.Parse(args[1]);
 			int Y = int.Parse(args[2]);
-			if(map == null)
-				map = GameObject.Find("Map").GetComponent<Terrain>();
-			map.terrainData.size = new Vector3 (X*10, 1, Y*10);
+			for (int i = 0; i < X; i++)
+			{
+				for (int idx = 0; idx < X; idx++)
+				{
+					var test = Instantiate(prefab);
+					test.transform.localScale = new Vector3(10f, 1f, 10f);
+					test.transform.position = new Vector3(5f + i * 10, -0.5f, 5f + idx * 10);
+				}
+			}
 			virtualMap = new Map();
 			for (int i = 0; i < Y; i++) {
 				virtualMap.chunks.Add(new List<Chunk>());
@@ -213,7 +115,7 @@ public class GameEvent : MonoBehaviour {
 				virtualMap.chunks[Y][X].Ressource.Count == 0) {
 				for (int i = 3; i < 10; i++){
 					GameObject clone = Instantiate(ItemObject[i-3]) as GameObject;
-					clone.transform.Translate(new Vector3(X*10, 0, Y*10));
+					clone.transform.Translate(new Vector3(Y*10, 0, X*10));
 					if (i == 3 || i == 6 || i == 9)
 						clone.transform.Rotate(new Vector3(-90, 0, 0));
 					virtualMap.chunks[Y][X].Ressource.Add(clone);
@@ -480,18 +382,11 @@ public class GameEvent : MonoBehaviour {
 	void Update () {
 		if (socketConnection == null)
 			return;
-		if (map == null){
-			SendMessageServer("msz\n");
+		if (virtualMap != null && isResource < 3){
+			Debug.Log("da!");
+			SendMessageServer("mct\n");
 		}
-		else {
-			if (isResource <= 3)
-				SendMessageServer("mct\n");
-			if (Teams.Count == 0)
-				SendMessageServer("tna\n");
-			if (Frequence == -1)
-				SendMessageServer("sgt\n");
-		}
-		if (timerppo != -1){
+		if (timerppo != -1) {
 			timerppo -= Time.deltaTime;
 			if (timerppo <= 0.0f) {
 				for (int i = 0; i < Players.Count; i++)
@@ -499,6 +394,15 @@ public class GameEvent : MonoBehaviour {
 				timerppo = 1/Frequence;
 			}
 		}
+		if (Input.GetMouseButtonDown(0)) {
+        	RaycastHit hit;
+            	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
+            		Debug.Log("hit :"+ hit.collider.name);
+			virtualMap.DisplayRessource(hit.transform.position.x/10, hit.transform.position.z/10);
+		}
+		else
+			virtualMap.DisplayRessource(-1, 0);
+        }
 
 	}
 }
