@@ -139,10 +139,10 @@ public class GameEvent : MonoBehaviour {
 	private delegate void FunctionServer(string[] args);
 	private Dictionary<string, FunctionServer> MessageCommand = new Dictionary<string, FunctionServer>();
 	private List<GameObject> ItemObject = new List<GameObject>();
+	public GameObject prefab;
 	private TcpClient socketConnection;
 	private string host = "127.0.0.1";
 	private int port = 0;
-	private Terrain map;
 	private Map virtualMap = null;
 	private GameObject EggModel;
 	private GameObject Character;
@@ -154,7 +154,6 @@ public class GameEvent : MonoBehaviour {
 	private int isResource = 0;
 	// Use this for initialization
 	void Start () {
-		map = null;
 		ItemObject.Add(GameObject.Find("Mush"));
 		ItemObject.Add(GameObject.Find("Rock"));
 		ItemObject.Add(GameObject.Find("Straw"));
@@ -215,19 +214,15 @@ public class GameEvent : MonoBehaviour {
 		if (args.Length == 3) {
 			int X = int.Parse(args[1]);
 			int Y = int.Parse(args[2]);
-			var obj = GameObject.Find("MapCube");
 			for (int i = 0; i < X; i++)
 			{
 				for (int idx = 0; idx < X; idx++)
 				{
-					var test = Instantiate(obj);
+					var test = Instantiate(prefab);
 					test.transform.localScale = new Vector3(10f, 1f, 10f);
 					test.transform.position = new Vector3(5f + i * 10, -0.5f, 5f + idx * 10);
 				}
 			}
-			if(map == null)
-				map = GameObject.Find("Map").GetComponent<Terrain>();
-			map.terrainData.size = new Vector3 (X*10, 1, Y*10);
 			virtualMap = new Map();
 			for (int i = 0; i < Y; i++) {
 				virtualMap.chunks.Add(new List<Chunk>());
@@ -258,7 +253,7 @@ public class GameEvent : MonoBehaviour {
 						virtualMap.chunks[Y][X].SetQuantity(i-3, quantity);
 						if (quantity > 10)
 							quantity = 10;
-						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(2+quantity, 5+quantity, 5+quantity);
+						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(2+quantity, 2+quantity, 2+quantity);
 					}
 					else
 						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(0, 0, 0);
@@ -512,7 +507,7 @@ public class GameEvent : MonoBehaviour {
 	void Update () {
 		if (socketConnection == null)
 			return;
-		if (map != null && isResource <= 3)
+		if (virtualMap != null && isResource <= 3)
 			SendMessageServer("mct\n");
 		if (timerppo != -1) {
 			timerppo -= Time.deltaTime;
