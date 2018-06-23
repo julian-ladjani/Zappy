@@ -94,7 +94,7 @@ public class GameEvent : MonoBehaviour {
 		if (args.Length == 3) {
 			int X = int.Parse(args[1]);
 			int Y = int.Parse(args[2]);
-			for (int i = 0; i < X; i++)
+			for (int i = 0; i < Y; i++)
 			{
 				for (int idx = 0; idx < X; idx++)
 				{

@@ -64,6 +64,9 @@ int ai_searcher(clt_config_t *clt)
 	for (int i = 0; i < 5 && (*tile)[FOOD] != 0; ++i)
 		send_request(TAKE, clt, FOOD);
 	take_obj_from_ref(clt, (tile_t *)(INCANTATION_OBJ + clt->specs->level));
+	printf("TARGET :\n");
+	print_cell(map_get_tile(clt->map, clt->specs->target.x,
+				clt->specs->target.y));
 	update_target_tile(clt);
 	move_player_to_target(clt);
 	if (find_incantation(clt))
