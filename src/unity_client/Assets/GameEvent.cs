@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
@@ -214,6 +215,16 @@ public class GameEvent : MonoBehaviour {
 		if (args.Length == 3) {
 			int X = int.Parse(args[1]);
 			int Y = int.Parse(args[2]);
+			var obj = GameObject.Find("MapCube");
+			for (int i = 0; i < X; i++)
+			{
+				for (int idx = 0; idx < X; idx++)
+				{
+					var test = Instantiate(obj);
+					test.transform.localScale = new Vector3(10f, 1f, 10f);
+					test.transform.position = new Vector3(5f + i * 10, -0.5f, 5f + idx * 10);
+				}
+			}
 			if(map == null)
 				map = GameObject.Find("Map").GetComponent<Terrain>();
 			map.terrainData.size = new Vector3 (X*10, 1, Y*10);
