@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class Chunk {
@@ -24,9 +25,26 @@ public class Chunk {
 
 public class Map {
 	public List<List<Chunk>> chunks{get; set;}
+	public Canvas RessourceUI{get; set;}
+	public Text[] TextUI{get;set;}
 	public Map() {
 		chunks = new List<List<Chunk>>();
+		RessourceUI = GameObject.Find("RessourceUI").GetComponent<Canvas>();
+		TextUI = GameObject.Find("Ressource").GetComponentsInChildren<Text>();
 	}
+
+	public void DisplayRessource(float X, float Y) {
+		if(X != -1) {
+			RessourceUI.enabled = true;
+			for(int i = 0; i < chunks[(int)X][(int)Y].Quantity.Count ; i++){
+				TextUI[i].text = chunks[(int)X][(int)Y].Quantity[i].ToString();
+			}
+		}
+		else {
+			RessourceUI.enabled = false;
+		}
+	}
+
 }
 
 public class Player {
@@ -169,6 +187,9 @@ public class GameEvent : MonoBehaviour {
 
 	void Welcome(string[] args) {
 		SendMessageServer("SPECTATOR\n");
+		SendMessageServer("msz\n");
+		SendMessageServer("tna\n");
+		SendMessageServer("sgt\n");
 	}
 
 	void MapSize(string[] args) {
@@ -195,7 +216,7 @@ public class GameEvent : MonoBehaviour {
 				virtualMap.chunks[Y][X].Ressource.Count == 0) {
 				for (int i = 3; i < 10; i++){
 					GameObject clone = Instantiate(ItemObject[i-3]) as GameObject;
-					clone.transform.Translate(new Vector3(X*10, 0, Y*10));
+					clone.transform.Translate(new Vector3(Y*10, 0, X*10));
 					if (i == 3 || i == 6 || i == 9)
 						clone.transform.Rotate(new Vector3(-90, 0, 0));
 					virtualMap.chunks[Y][X].Ressource.Add(clone);
@@ -208,7 +229,7 @@ public class GameEvent : MonoBehaviour {
 						virtualMap.chunks[Y][X].SetQuantity(i-3, quantity);
 						if (quantity > 10)
 							quantity = 10;
-						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(2+quantity, 2+quantity, 2+quantity);
+						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(2+quantity, 5+quantity, 5+quantity);
 					}
 					else
 						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(0, 0, 0);
@@ -451,18 +472,9 @@ public class GameEvent : MonoBehaviour {
 	void Update () {
 		if (socketConnection == null)
 			return;
-		if (map == null){
-			SendMessageServer("msz\n");
-		}
-		else {
-			if (isResource <= 3)
-				SendMessageServer("mct\n");
-			if (Teams.Count == 0)
-				SendMessageServer("tna\n");
-			if (Frequence == -1)
-				SendMessageServer("sgt\n");
-		}
-		if (timerppo != -1){
+		if (map != null && isResource <= 3)
+			SendMessageServer("mct\n");
+		if (timerppo != -1) {
 			timerppo -= Time.deltaTime;
 			if (timerppo <= 0.0f) {
 				for (int i = 0; i < Players.Count; i++)
@@ -470,6 +482,15 @@ public class GameEvent : MonoBehaviour {
 				timerppo = 1/Frequence;
 			}
 		}
+		if (Input.GetMouseButtonDown(0)) {
+        	RaycastHit hit;
+            	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
+            		Debug.Log("hit :"+ hit.collider.name);
+			virtualMap.DisplayRessource(hit.transform.position.x/10, hit.transform.position.z/10);
+		}
+		else
+			virtualMap.DisplayRessource(-1, 0);
+        }
 
 	}
 }
