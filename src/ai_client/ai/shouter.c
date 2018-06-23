@@ -38,10 +38,10 @@ int ai_shouter(clt_config_t *clt)
 	tile_t *tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
 	int lvl = clt->specs->level;
 
-	if (clt->specs->inventory[FOOD] < 5) {
+/*	if (clt->specs->inventory[FOOD] < 5) {
 		clt->specs->ai_mode = EATER;
 		return (ZAPPY_EXIT_SUCCESS);
-	}
+	}*/
 	send_request(LOOK, clt);
 	if (check_others_broadcasts(clt))
 		return (ZAPPY_EXIT_SUCCESS);
