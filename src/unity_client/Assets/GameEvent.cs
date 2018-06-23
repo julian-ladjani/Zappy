@@ -165,7 +165,7 @@ public class GameEvent : MonoBehaviour {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
 			if (TmpPlayer.getPos() != pos || TmpPlayer.Orientation != orient) {
 				TmpPlayer.setTrigger("Incantation", false);
-				TmpPlayer.setPosRot((int) pos.x, (int) pos.y, orient);
+				TmpPlayer.setPosRot((int) pos.x, (int) pos.y, orient, 7/Frequence);
 			}
 		}
 	}
@@ -380,6 +380,7 @@ public class GameEvent : MonoBehaviour {
 	}
 
 	void Update () {
+		float time = Time.deltaTime;
 		if (socketConnection == null)
 			return;
 		if (virtualMap != null && isResource < 3){
@@ -387,12 +388,14 @@ public class GameEvent : MonoBehaviour {
 			SendMessageServer("mct\n");
 		}
 		if (timerppo != -1) {
-			timerppo -= Time.deltaTime;
-			if (timerppo <= 0.0f) {
-				for (int i = 0; i < Players.Count; i++)
-					SendMessageServer("ppo #"+ Players[i].Id +"\n");
-				timerppo = 1/Frequence;
+			timerppo -= time;
+			foreach (Player player in Players) {
+				player.moveTowardGoal(time);
+				if (timerppo <= 0.0f)
+					SendMessageServer ("ppo #" + player.Id + "\n");
 			}
+			if (timerppo <= 0.0f)
+				timerppo = 1/Frequence;
 		}
 		if (Input.GetMouseButtonDown(0)) {
         	RaycastHit hit;

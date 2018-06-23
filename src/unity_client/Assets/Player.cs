@@ -8,7 +8,8 @@ public class Player {
 	public int Level{get; set;}
 	public List<int> Ressource{get; set;}
 	public GameObject Sprite{get; set;}
-	public Vector3 PosTile{get; set;}
+	private Vector3 GoalPos;
+	private float GoalSpeed;
 	public int Orientation{get; set;}
 	private Animator animator;
 
@@ -18,6 +19,8 @@ public class Player {
 		animator = sprite.GetComponent<Animator>();
 		Team = team;
 		Level = 1;
+		GoalPos = sprite.transform.position;
+		GoalSpeed = 0;
 		Ressource = new List<int>();
 		for (int i = 0; i < 6; i++)
 			Ressource.Add(0);
@@ -25,8 +28,10 @@ public class Player {
 		setOrientation(orient);
 	}
 
-	public void setPosRot(int X, int Y, int orient) {
-		Sprite.transform.position = new Vector3(X * 10 + 5, 0, Y * 10 + 5);
+	public void setPosRot(int X, int Y, int orient, float time) {
+		GoalPos = new Vector3(X * 10 + 5, 0, Y * 10 + 5);
+		GoalSpeed = Vector3.Distance(GoalPos, Sprite.transform.position) / time;
+		setTrigger("Speed", GoalSpeed);
 		setOrientation(orient);
 	}
 
@@ -52,12 +57,22 @@ public class Player {
 		}
 	}
 
+	public void moveTowardGoal(float time) {
+		if (Sprite.transform.position == GoalPos)
+			return;
+		Sprite.transform.position = Vector3.MoveTowards(Sprite.transform.position, GoalPos, GoalSpeed);
+		if (Sprite.transform.position == GoalPos) {
+			GoalSpeed = 0;
+			setTrigger("Speed", 0);
+		}
+	}
+
 	public void SetQuantity(int ressource, int quantity) {
 		Ressource[ressource] = quantity;
 	}
 
 	public Vector2 getPos()	{
-		return new Vector2((int)(Sprite.transform.position.x / 10), (int)(Sprite.transform.position.z / 10));
+		return new Vector2((int)(GoalPos.x / 10), (int)(GoalPos.z / 10));
 	}
 
 	public void setTrigger(string trigger)
