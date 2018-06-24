@@ -14,7 +14,7 @@ void dump_broadcast(void *elem)
 
 	printf("Message : %d - %d - %s\n", msg->id, msg->from,
 		broadcast_type_str
-			(((msg_infos_inc_t *)msg->content)->state));
+			(((msg_infos_inc_t *) msg->content)->state));
 }
 
 char *broadcast_type_str(incantation_state_t s)
@@ -52,15 +52,15 @@ int broadcast_compare_from(void *elem, void *criteria)
 int broadcast_add_elem(clt_config_t *client, clt_msg_t *msg)
 {
 	list_t *elem = list_get_elem_by_search
-		(client->server->broadcasts_queue, (void *)msg,
+		(client->server->broadcasts_queue, (void *) msg,
 			broadcast_compare_from);
-	int _for = ((msg_infos_inc_t *)msg->content)->_for;
+	int _for = ((msg_infos_inc_t *) msg->content)->_for;
 
 	if (elem && (_for == (int) client->specs->id || _for == 0)) {
 		client->server->broadcasts_queue =
 			list_delete_elem(elem, clean_broadcast);
 	}
 	client->server->broadcasts_queue = list_add_elem_at_pos
-		(client->server->broadcasts_queue, (void *)msg, LIST_FIRST);
+		(client->server->broadcasts_queue, (void *) msg, LIST_FIRST);
 	return (0);
 }

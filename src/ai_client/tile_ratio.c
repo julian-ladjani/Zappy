@@ -22,7 +22,7 @@ int get_obj_ratio(clt_config_t *client, tile_t *tile)
 		if (INCANTATION_OBJ[client->specs->level][i] && (*tile)[i]) {
 			tmp = INCANTATION_OBJ[client->specs->level][i]
 				- client->specs->inventory[i];
-			if ((ssize_t)(*tile)[i] > tmp || tmp > 0)
+			if ((ssize_t) (*tile)[i] > tmp || tmp > 0)
 				ratio += tmp;
 			else if (tmp > 0)
 				ratio += (*tile)[i];
@@ -40,8 +40,8 @@ double get_distance_from_tile(clt_config_t *client, ssize_t x, ssize_t y)
 }
 
 double get_tile_ratio(clt_config_t *client,
-			double (* searcher)(clt_config_t *, ssize_t, ssize_t),
-			ssize_t x, ssize_t y)
+	double (*searcher)(clt_config_t *, ssize_t, ssize_t),
+	ssize_t x, ssize_t y)
 {
 	return (searcher(client, x, y));
 }

@@ -33,8 +33,8 @@ static int parse_infos(clt_config_t *client)
 	}
 	for (size_t j = 0; srv_requests[j].flag; ++j) {
 		if (!strncmp(client->server->response_request,
-				srv_requests[j].flag,
-				strlen(srv_requests[j].flag))) {
+			srv_requests[j].flag,
+			strlen(srv_requests[j].flag))) {
 			return (handle_info(client, j));
 		}
 	}
@@ -54,7 +54,7 @@ static void fill_command(clt_config_t *client, unsigned int pos, char end)
 			(client->server->response_request,
 				circbuf_nbufferise(client->server->buf, pos));
 		client->server->buf->free_nspace(client->server->buf,
-							pos + end);
+			pos + end);
 	}
 }
 
