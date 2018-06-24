@@ -84,15 +84,20 @@ int handle_poll(clt_config_t *client)
 	client->server->pollfd->fd = client->server->socket->fd;
 	if (client->status == ZAPPY_CLT_DEAD)
 		return (ZAPPY_EXIT_FAILURE);
-	poll_rv = poll(client->server->pollfd, 1, 200);
+	poll_rv = poll(client->server->pollfd, 1, 3000);
 	if (poll_rv < 0) {
 		dprintf(2, "poll() failed\n");
 		return (ZAPPY_EXIT_FAILURE);
 	}
+	if (client->server->pollfd->revents != POLLIN &&
+		client->server->pollfd->revents != POLLHUP &&
+		client->server->pollfd->revents != (POLLHUP | POLLIN)) {
+		cleanup_client_exit(client, ZAPPY_EXIT_FAILURE);
+	}
 	if (poll_rv >= 0 && client->server->pollfd->revents == POLLIN) {
-		client->server->buf->recv(
-			client->server->pollfd->fd,
-			client->server->buf, CIRCBUF_SIZE());
+		if (client->server->buf->recv(client->server->pollfd->fd,
+			client->server->buf, CIRCBUF_SIZE()) == 0)
+			cleanup_client_exit(client, ZAPPY_EXIT_FAILURE);
 		return (read_command(client));
 	}
 	return (ZAPPY_EXIT_NOTHING);
