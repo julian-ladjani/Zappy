@@ -33,7 +33,7 @@
 #define ZAPPY_IS_OK(s) (strcmp("ok", s) == 0)
 
 typedef struct client_config_s clt_config_t;
-typedef int (* clt_func_t)(clt_config_t *);
+typedef int (*clt_func_t)(clt_config_t *);
 
 typedef struct client_parameters_s {
 	int port;
@@ -131,7 +131,8 @@ uint8_t clt_cmd_get_args_eject(clt_config_t *client, va_list *, char s);
 uint8_t clt_cmd_get_args_take(clt_config_t *client, va_list *, char s);
 uint8_t clt_cmd_get_args_set(clt_config_t *client, va_list *, char s);
 uint8_t clt_cmd_get_args_incantation(clt_config_t *client, va_list *, char s);
-uint8_t clt_cmd_get_args_incantation_wait(clt_config_t *clt, va_list *, char s);
+uint8_t
+clt_cmd_get_args_incantation_wait(clt_config_t *clt, va_list *, char s);
 
 void show_help_client(void);
 int init_server(clt_config_t *client);
@@ -142,10 +143,10 @@ clt_params_t *client_parse_arguments(int ac, char **av);
 void free_client_config(clt_config_t *client);
 double get_tile_ratio(
 	clt_config_t *client,
-	double (* searcher)(clt_config_t *, ssize_t, ssize_t),
+	double (*searcher)(clt_config_t *, ssize_t, ssize_t),
 	ssize_t x, ssize_t y);
 int get_obj_ratio(clt_config_t *client, tile_t *tile);
-int get_food_ratio(tile_t * tile);
+int get_food_ratio(tile_t *tile);
 int tilecmp(tile_t *t1, tile_t *t2);
 double ratio_searcher(clt_config_t *client, ssize_t y, ssize_t x);
 double ratio_eater(clt_config_t *client, ssize_t x, ssize_t y);
@@ -163,7 +164,7 @@ int condition_pre_incantation(clt_config_t *client);
 int condition_end_incantation(clt_config_t *client);
 double get_distance_from_tile(clt_config_t *client, ssize_t x, ssize_t y);
 void update_target_tile(clt_config_t *clt,
-			double (* searcher)(clt_config_t *, ssize_t, ssize_t));
+	double (*searcher)(clt_config_t *, ssize_t, ssize_t));
 void move_player_to_target(clt_config_t *clt);
 void clear_tile_from_ref(clt_config_t *clt, tile_t *tile, tile_t *ref);
 void take_obj_from_ref(clt_config_t *clt, tile_t *ref);

@@ -39,7 +39,8 @@ static void send_broadcast_to_other_ai(server_config_t *server,
 				map_rotate_orientation(user->orientation,
 					map_get_orientation(
 						map_get_dir(server->map,
-							user_pos, pos))), msg);
+							user_pos, pos))),
+				msg);
 		}
 		user_list = user_list->next;
 	}

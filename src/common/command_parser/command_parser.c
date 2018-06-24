@@ -31,7 +31,8 @@ static cmdparams_t *new_cmdparams(const char *str, const char *sep)
 	return (cmd);
 }
 
-static void parse_parameters(cmdparams_t *cmdparams, char *cmd, const char *sep)
+static void parse_parameters(cmdparams_t *cmdparams,
+	char *cmd, const char *sep)
 {
 	cmdparams->name = sstrtok(cmd, sep);
 	for (unsigned int i = 0; i < cmdparams->nb_args; ++i) {
@@ -55,7 +56,7 @@ cmdparams_t *parse_arguments(char *cmd, const char *sep)
 
 void free_arguments(void *cmd)
 {
-	cmdparams_t *cmdparams = (cmdparams_t *)cmd;
+	cmdparams_t *cmdparams = (cmdparams_t *) cmd;
 
 	if (cmdparams) {
 		free(cmdparams->name);

@@ -11,7 +11,7 @@
 
 int initialise_socket_poll(server_config_t *server_config)
 {
-	memset(server_config->poll_fd, 0 , sizeof(server_config->poll_fd));
+	memset(server_config->poll_fd, 0, sizeof(server_config->poll_fd));
 	server_config->poll_fd[0].fd = server_config->master->fd;
 	server_config->poll_fd[0].events = POLLIN;
 	server_config->nfds = 1;
