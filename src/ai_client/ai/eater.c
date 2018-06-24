@@ -13,9 +13,9 @@ int ai_eater(clt_config_t *clt)
 
 	send_request(LOOK, clt);
 	for (int i = 0; (*tile)[FOOD] != 0 &&
-			clt->specs->inventory[FOOD] < 20; ++i)
+			clt->specs->inventory[FOOD] < 10; ++i)
 		send_request(TAKE, clt, FOOD);
-	if (clt->specs->inventory[FOOD] >= 20) {
+	if (clt->specs->inventory[FOOD] >= 10) {
 		clt->specs->ai_mode = LAST_MODE;
 		clt->specs->target = clt->specs->last_target;
 		return (ZAPPY_EXIT_SUCCESS);

@@ -16,6 +16,8 @@ public class GameEvent : MonoBehaviour {
 	private Dictionary<string, FunctionServer> MessageCommand = new Dictionary<string, FunctionServer>();
 	private List<GameObject> ItemObject = new List<GameObject>();
 	public GameObject prefab;
+	public GameObject particlePrefab;
+	public bool playing = true;
 	private TcpClient socketConnection;
 	private string host = "127.0.0.1";
 	private int port = 0;
@@ -209,6 +211,7 @@ public class GameEvent : MonoBehaviour {
             SendMessageServer("mct\n");
         }
 	}
+
 	void PlayerPosition(string[] args) {
 		if (args.Length == 5) {
 			Vector2 pos = new Vector2(int.Parse(args[2]), int.Parse(args[3]));
@@ -348,9 +351,19 @@ public class GameEvent : MonoBehaviour {
 	}
 
 	void EndGame(string[] args) {
+
+		if (args.Length == 2) {
+			playing = false;
+			string  team = args[1];
+			foreach (Player player in Players) {
+				if (player.Team == team)
+					player.setTrigger("Incantation", true);
+				else
+					player.setTrigger("Dead");
+			}
 		End.GetComponentInChildren<Text>().text = "The Team Winner is\n\t"+args[1];
 		End.enabled = true;
-
+		}
 	}
 
 	void ServerMessage(string[] args) {
@@ -473,12 +486,12 @@ public class GameEvent : MonoBehaviour {
         	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
         		Debug.Log("hit :"+ hit.collider.name);
 			if (hit.collider.name != "Necromancer")
-				virtualMap.DisplayRessource(hit.transform.position.x/10, hit.transform.position.z/10);
+				virtualMap.DisplayRessource(hit.transform.position.x/10, hit.transform.position.z/10, particlePrefab);
 			else
 				DisplayInventary(hit.collider.gameObject);
 			}
 			else{
-				virtualMap.DisplayRessource(-1, 0);
+				virtualMap.DisplayRessource(-1, 0, null);
 				DisplayInventary(null);
 			}
 		}

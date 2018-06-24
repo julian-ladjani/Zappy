@@ -14,6 +14,14 @@ incantation_state_t get_incantation_state(char *str)
 		return (START);
 	if (!strncmp(str, ZPY_MSG_INC_CANCELED, strlen(ZPY_MSG_INC_CANCELED)))
 		return (CANCELED);
+	if (!strncmp(str, ZPY_MSG_INC_HELPING, strlen(ZPY_MSG_INC_HELPING)))
+		return (HELPING);
+	if (!strncmp(str, ZPY_MSG_INC_STOP_HELPING,
+			strlen(ZPY_MSG_INC_STOP_HELPING)))
+		return (STOP_HELPING);
+	if (!strncmp(str, ZPY_MSG_INC_NEED_STOP_HELPING,
+			strlen(ZPY_MSG_INC_NEED_STOP_HELPING)))
+		return (NEED_STOP_HELPING);
 	return (NEED_HELP);
 }
 
@@ -24,8 +32,6 @@ void broadcast_setter_incantation(clt_msg_t *msg, char *str)
 
 	if (!infos)
 		return;
-	if (*str == ':')
-		++str;
 	str = sstrtok(NULL, ":");
 	if (!str) {
 		free(infos);
@@ -38,6 +44,8 @@ void broadcast_setter_incantation(clt_msg_t *msg, char *str)
 		return;
 	}
 	infos->level = atoi(str);
+	infos->_for = (infos->state == NEED_STOP_HELPING) ?
+			atoi(sstrtok(NULL, ":")) : 0;
 	msg->type = MSG_INCANTATION;
 	msg->content = (void *)infos;
 }
