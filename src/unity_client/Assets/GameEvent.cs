@@ -90,7 +90,6 @@ public class GameEvent : MonoBehaviour {
 			InventaryUI.enabled = true;
 			for (int i = 0; i < Players.Count; i++)
 				if (Players[i].Sprite == sprite.transform.parent.gameObject) {
-					Debug.Log(InventaryTextUI.Length);
 					for (int j = 0; j < Players[i].Ressource.Count ; j++)
 						InventaryTextUI[j].text = ":  " + Players[i].Ressource[j].ToString();
 						InventaryInfoTextUI[0].text = Players[i].Id.ToString();
@@ -236,11 +235,8 @@ public class GameEvent : MonoBehaviour {
 		}
 	}
 	void PlayerInventory(string[] args) {
-		Debug.Log("da!");
 		Player TmpPlayer = FindPlayer(int.Parse(args[1]));
-		Debug.Log("da!");
 		for (int j = 4; j < 11; j++){
-			Debug.Log(args[j]);
 			TmpPlayer.SetQuantity(j-4, int.Parse(args[j]));
 		}
 	}
@@ -269,7 +265,7 @@ public class GameEvent : MonoBehaviour {
 	}
 
 	void EndIncantation(string[] args) {
-		if (args.Length == 3) {
+		if (args.Length == 4) {
 			Vector2 pos = new Vector2(int.Parse(args[1]), int.Parse(args[2]));
 			string resultat = args[3];
 			foreach (Player player in Players) {
@@ -328,10 +324,9 @@ public class GameEvent : MonoBehaviour {
 	void HatchEgg(string[] args) {
 		if (args.Length == 5) {
 			for(int i = 0; i < Eggs.Count; i++)
-				if(Eggs[i].Id == int.Parse(args[1])) {
+				if(Eggs[i].Id == int.Parse(args[1])) 
 					Debug.Log("Egg "+ Eggs[i].Id + "Hatch");
 				}
-		}
 	}
 
 	void PlayerInEgg(string[] args) {
@@ -426,7 +421,7 @@ public class GameEvent : MonoBehaviour {
                         	Array.Copy(bytes, 0, incommingData, 0, length);
                         	// Convert byte array to string message.
                         	string serverMessage = Encoding.ASCII.GetString(incommingData);
-				//Debug.Log("server message received as: " + serverMessage);
+							//Debug.Log("server message received as: " + serverMessage);
                         	UnityMainThreadDispatcher.Instance().Enqueue(() => TryData(serverMessage));
                     	}
                 }
@@ -446,7 +441,7 @@ public class GameEvent : MonoBehaviour {
         if (socketConnection == null)
             return;
         try {
-		//Debug.Log("Sending message: " + clientMessage);
+//		Debug.Log("Sending message: " + clientMessage);
 		// Get a stream object for writing.
 		NetworkStream stream = socketConnection.GetStream();
 		if (stream.CanWrite) {
@@ -484,7 +479,7 @@ public class GameEvent : MonoBehaviour {
 		foreach (Player player in Players) {
 			player.moveTowardGoal(time);
 			if (timerppo <= 0.0f)
-				SendMessageServer ("ppo #" + player.Id + "\n");
+				SendMessageServer("ppo #" + player.Id + "\n");
 		}
 		if (timerppo <= 0.0f)
 			timerppo = 3.5f/Frequence;

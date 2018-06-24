@@ -34,9 +34,10 @@ public class Player {
 	}
 
 	public void changeLevel(int level)	{
+		Debug.Log("Trying to Change Level");
 		Level = level;
 		PlayerSkin playerSkin = Sprite.transform.GetChild(1).GetChild(1).GetComponent<PlayerSkin>();
-		playerSkin.level = level;
+		playerSkin.setLevel(level);
 	}
 
 	public void setPosRot(int X, int Y, int orient, float time) {

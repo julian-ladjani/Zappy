@@ -14,7 +14,9 @@ public class PlayerSkin : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log("Updating");
 		if (level != oldLevel) {
+			Debug.Log("Changing Level");
 			oldLevel = level;
 			Renderer rend = gameObject.GetComponent<Renderer>();
 			if (level > 0 && level < 8)
@@ -22,5 +24,11 @@ public class PlayerSkin : MonoBehaviour {
 			else
 				rend.material.mainTexture = textures[0];
 		}
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+		Debug.Log("Trying to update");
+		Update();
 	}
 }
