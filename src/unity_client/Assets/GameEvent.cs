@@ -21,6 +21,7 @@ public class GameEvent : MonoBehaviour {
 	public Map virtualMap = null;
 	private GameObject EggModel;
 	private GameObject Character;
+	public Color[] colors;
 	private List<string> Teams = new List<string>();
 	private List<Player> Players = new List<Player>();
 	private List<Egg> Eggs = new List<Egg>();
@@ -78,6 +79,7 @@ public class GameEvent : MonoBehaviour {
 			}
 		GameObject clone = Instantiate(Character) as GameObject;
 		clone.transform.position = new Vector3(0, 0, 0);
+	
 		Players.Add(new Player(id, clone, 1, "Unknow"));
 		return Players[Players.Count];
 	}
@@ -158,6 +160,9 @@ public class GameEvent : MonoBehaviour {
 			string Team = args[6];
 			GameObject clone = Instantiate(Character) as GameObject;
 			clone.transform.position = new Vector3(X, 0, Y);
+			var grandChild = clone.gameObject.transform.GetChild(0).GetChild(0).gameObject;
+			Renderer rend = grandChild.GetComponent<Renderer>();
+			rend.material.SetColor("_Color", colors[Teams.IndexOf(Team) % colors.Length + 1]);
 			Players.Add(new Player(Id, clone, Orient, Team));
 			SendMessageServer("mct\n");
 		}
