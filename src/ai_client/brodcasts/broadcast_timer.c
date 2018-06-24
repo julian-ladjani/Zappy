@@ -18,7 +18,7 @@ int test_broadcast_timer(void *elem, __attribute__((unused))void *criteria)
 {
 	clt_msg_t *msg = (clt_msg_t *)elem;
 
-	return (msg->timer > 3);
+	return (msg->timer > 6);
 }
 
 void manage_broadcast_timer(clt_config_t *clt)
