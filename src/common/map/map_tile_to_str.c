@@ -24,7 +24,8 @@ char *tile_to_str_quantity(tile_t *tile)
 {
 	char *str = NULL;
 
-	asprintf(&str, "%lu %lu %lu %lu %lu %lu %lu", (*tile)[FOOD],
+	asprintf(&str, "%lu %lu %lu %lu %lu %lu %lu",
+		(ssize_t) (((float) (*tile)[FOOD]) / 126),
 		(*tile)[LINEMATE], (*tile)[DERAUMERE], (*tile)[SIBUR],
 		(*tile)[MENDIANE], (*tile)[PHIRAS], (*tile)[THYSTAME]);
 	return (str);
