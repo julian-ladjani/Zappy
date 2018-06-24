@@ -8,7 +8,7 @@
 #include <broadcast.h>
 #include "client.h"
 
-static vec_t get_tile_from_dir(ssize_t x, ssize_t y, int dir, cardinal_dir_t c)
+vec_t get_tile_from_dir(ssize_t x, ssize_t y, int dir, cardinal_dir_t c)
 {
 	static const vec_t vecs[8] = {{0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
 					{0, -1}, {1, -1}, {1, 0}, {1, 1}};
@@ -78,9 +78,12 @@ static void find_incantation(clt_config_t *clt)
 	}
 	if (msg->dir == 0)
 		return;
-	clt->specs->target = get_tile_from_dir(clt->specs->x, clt->specs->y,
-				msg->dir, clt->specs->orientation);
-	move_player_to_target(clt);
+	clt->specs->target = get_tile_from_dir
+		(clt->specs->x, clt->specs->y, msg->dir,
+		clt->specs->orientation);
+	if ((*map_get_tile(clt->map, clt->specs->target.x, clt->specs->target
+		.y))[PLAYER] < INCANTATION_OBJ[clt->specs->level][PLAYER])
+		move_player_to_target(clt);
 	return;
 }
 

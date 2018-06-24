@@ -79,9 +79,7 @@ void shout_status(clt_config_t *clt)
 		if (tilecmp(tile, (tile_t *) (INCANTATION_OBJ + lvl)) != 0)
 			clt->specs->ai_mode = SEARCHER;
 		if ((*tile)[PLAYER] > (size_t) INCANTATION_OBJ[lvl][PLAYER])
-			send_leave_tile_to_players(
-				clt, (int) ((*tile)[PLAYER] -
-						INCANTATION_OBJ[lvl][PLAYER]));
+			send_request(EJECT, clt);
 		return;
 	}
 	send_request(BROADCAST, clt, "incantation:start:%d", lvl);
