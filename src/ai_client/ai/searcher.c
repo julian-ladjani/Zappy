@@ -65,13 +65,8 @@ int ai_searcher(clt_config_t *clt)
 	for (int i = 0; (i < 5 || clt->specs->inventory[FOOD] < 10) &&
 			(*tile)[FOOD] != 0; ++i)
 		send_request(TAKE, clt, FOOD);
-	take_obj_from_ref(clt, (tile_t *)(INCANTATION_OBJ + clt->specs->level));
-	if (ZAPPY_DEBUG) {
-		print_map(clt->map);
-		printf("TARGET :\n");
-		print_cell(map_get_tile(clt->map, clt->specs->target.x,
-					clt->specs->target.y));
-	}
+	take_obj_from_ref(
+		clt, (tile_t *)(INCANTATION_OBJ + clt->specs->level));
 	update_target_tile(clt, ratio_searcher);
 	move_player_to_target(clt);
 	if (find_incantation(clt))
