@@ -80,6 +80,11 @@ public class GameEvent : MonoBehaviour {
 		End = GameObject.Find("End").GetComponent<Canvas>();
 	}
 
+	public void SliderOnChange(Single value)
+	{
+		SendMessageServer("sst "+value+"\n");
+	}
+
 	public void DisplayInventary(GameObject sprite) {
 		if (sprite != null) {
 			InventaryUI.enabled = true;
@@ -227,7 +232,7 @@ public class GameEvent : MonoBehaviour {
 	void PlayerLevel(string[] args) {
 		if (args.Length == 3) {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
-			TmpPlayer.Level = int.Parse(args[2]);
+			TmpPlayer.changeLevel(int.Parse(args[2]));
 		}
 	}
 	void PlayerInventory(string[] args) {
@@ -267,9 +272,11 @@ public class GameEvent : MonoBehaviour {
 		if (args.Length == 3) {
 			Vector2 pos = new Vector2(int.Parse(args[1]), int.Parse(args[2]));
 			string resultat = args[3];
-			foreach (Player player in Players)
+			foreach (Player player in Players) {
+				SendMessageServer("plv #" + player.Id + "\n");
 				if (player.getPos() == pos)
 					player.setTrigger("Incantation", false);
+			}
 		}
 	}
 
@@ -490,7 +497,7 @@ public class GameEvent : MonoBehaviour {
 			else
 				DisplayInventary(hit.collider.gameObject);
 			}
-			else{
+	        else{
 				virtualMap.DisplayRessource(-1, 0, null);
 				DisplayInventary(null);
 			}

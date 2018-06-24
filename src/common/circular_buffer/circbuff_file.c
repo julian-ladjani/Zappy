@@ -39,7 +39,7 @@ void circbuf_send(int fd, circbuf_t *cb)
 		send(fd, cb->tail, cb->get_tspace(cb), 0);
 		send(fd, cb->buf, cb->size - cb->get_hspace(cb), 0);
 	} else {
-		send(fd, cb->tail, (unsigned int)abs(
-			(int)(cb->head - cb->tail)), 0);
+		send(fd, cb->tail, (unsigned int) abs(
+			(int) (cb->head - cb->tail)), 0);
 	}
 }

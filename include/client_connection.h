@@ -18,8 +18,7 @@ const clt_func_t pre_requests[4] = {
 	NULL
 };
 
-typedef struct launcher_s
-{
+typedef struct launcher_s {
 	char *flag;
 	clt_func_t request;
 } launcher_t;

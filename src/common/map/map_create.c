@@ -49,7 +49,7 @@ static uint8_t malloc_map(map_t *map)
 		return (0);
 	}
 	map->tiles[0] = calloc(sizeof(tile_t) * map->height
-			* (map->width + 0), sizeof(tile_t));
+		* (map->width + 0), sizeof(tile_t));
 	if (!map->tiles[0]) {
 		map_free(map);
 		dprintf(2, "Invalid malloc\n");
