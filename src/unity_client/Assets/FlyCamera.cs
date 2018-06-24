@@ -19,13 +19,17 @@ public class FlyCamera : MonoBehaviour {
     public float h = 0;
     float rotationY = 0F;
     Map map = null;
+    private Canvas Option;
 
 	void Start ()
 	{
 		transform.Rotate(h,0,0);
+        Option = GameObject.Find("Option").GetComponent<Canvas>();
 
 	}
 	void Update () {
+        if (Option.enabled)
+            return;
         if(Input.GetMouseButton(0))
 	    {
 	        if (axes == RotationAxes.MouseXAndY)
@@ -72,10 +76,9 @@ public class FlyCamera : MonoBehaviour {
 
     private void LimiteMap()
     {
-        if((map = GameObject.Find("GameEvent").GetComponent<GameEvent>().GetVMap()) == null)
-            return;
         if ( transform.position.y < 1)
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+        map = GameObject.Find("GameEvent").GetComponent<GameEvent>().GetVMap();
         if ( transform.position.y > map.chunks.Count*5)
             transform.position = new Vector3(transform.position.x, map.chunks.Count*5, transform.position.z);
         if ( transform.position.z > map.chunks.Count*10)
