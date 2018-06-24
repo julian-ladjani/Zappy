@@ -41,9 +41,8 @@ int srvrequest_elevation_underway(clt_config_t *client)
 		!strcmp(client->server->active_request, "Incantation")) {
 		send_request(INCANTATION_WAIT, client);
 		client->server->active_request = NULL;
-	} else {
+	} else if (client->specs->ai_mode == FOLLOWER)
 		client->incantation = 1;
-	}
 	return (ZAPPY_EXIT_SUCCESS);
 }
 

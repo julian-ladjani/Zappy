@@ -23,18 +23,20 @@ typedef struct ai_names_s {
 
 //const ai_builder_t ais[1] = {{SEARCHER, ai_test}};
 
-const ai_builder_t ais[5] = {
+const ai_builder_t ais[6] = {
 	{SEARCHER, ai_searcher},
 	{SHOUTER, ai_shouter},
 	{FOLLOWER, ai_follower},
 	{EATER, ai_eater},
+	{TEST, ai_test},
 	{DEBILOUS, NULL}};
 
-const ai_name_t ais_names[5] = {
+const ai_name_t ais_names[6] = {
 	{SEARCHER, "Searcher"},
 	{SHOUTER, "Shouter"},
 	{FOLLOWER, "Follower"},
 	{EATER, "Eater"},
+	{TEST, "Test"},
 	{DEBILOUS, NULL}
 };
 

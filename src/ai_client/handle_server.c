@@ -91,8 +91,9 @@ int handle_poll(clt_config_t *client)
 	}
 	if (poll_rv >= 0 && client->server->pollfd->revents == POLLIN) {
 		if (client->server->buf->recv(client->server->pollfd->fd,
-			client->server->buf, CIRCBUF_SIZE()) == 0)
+			client->server->buf, CIRCBUF_SIZE()) <= 0) {
 			cleanup_client_exit(client, ZAPPY_EXIT_FAILURE);
+		}
 		return (read_command(client));
 	}
 	return (ZAPPY_EXIT_NOTHING);

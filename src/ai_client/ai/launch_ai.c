@@ -41,6 +41,7 @@ void launch_ai(clt_config_t *clt)
 				index = get_ai_logic(clt->specs->ai_mode);
 			last_ai_mode = ai_mode;
 			ai_mode = clt->specs->ai_mode;
+			clt->incantation = 0;
 		}
 	}
 }
