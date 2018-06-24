@@ -93,7 +93,7 @@ public class ConnectMenu : MonoBehaviour {
 		if (isFail && !Fail.enabled){
 			Fail.enabled = true;
 		}
-		if (Input.GetKey (KeyCode.Escape) && isGame) {
+		if (Input.GetKeyDown(KeyCode.Escape) && isGame) {
 			Option.enabled = !Option.enabled;
 	}
 
