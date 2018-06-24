@@ -10,6 +10,5 @@
 
 int ai_test(clt_config_t *clt)
 {
-	send_request(BROADCAST, clt, "incantation:start:%d",clt->specs->level);
-	return (ZAPPY_EXIT_SUCCESS);
+	send_request(INVENTORY, clt);
 }
