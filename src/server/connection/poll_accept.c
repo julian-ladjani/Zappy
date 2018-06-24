@@ -40,8 +40,6 @@ void poll_accept_client(server_config_t *server_config)
 			(struct sockaddr *) &s_in_client, &s_in_size);
 		if (client_fd == -1 && errno != EWOULDBLOCK) {
 			printf("Error: When Accept Incoming Connection\n");
-			cleanup_server_exit(server_config,
-				ZAPPY_EXIT_FAILURE);
 		} else if (client_fd != -1)
 			accept_client(server_config, client_fd);
 	} while (client_fd != -1);
