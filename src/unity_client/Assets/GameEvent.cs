@@ -172,27 +172,32 @@ public class GameEvent : MonoBehaviour {
 
 	}
 
-	void AddTeam(string[] args) {
-		if (args.Length == 2) {
-			Teams.Add(args[1]);
-		}
-	}
+    void AddTeam(string[] args)
+    {
+        if (args.Length == 2 && !Teams.Contains(args[1]))
+        {
+            Teams.Add(args[1]);
+        }
+    }
 
-	void NewPlayer(string[] args){
-		if (args.Length == 7) {
-			int Id = int.Parse(args[1].TrimStart('#'));
-			int X = int.Parse(args[2])*10+5;
-			int Y = int.Parse(args[3])*10+5;
-			int Orient = int.Parse(args[4]);
-			string Team = args[6];
-			GameObject clone = Instantiate(Character) as GameObject;
-			clone.transform.position = new Vector3(X, 0, Y);
-			var grandChild = clone.gameObject.transform.GetChild(0).GetChild(0).gameObject;
-			Renderer rend = grandChild.GetComponent<Renderer>();
-			rend.material.SetColor("_Color", colors[Teams.IndexOf(Team) > 0 ? (Teams.IndexOf(Team) % colors.Length) : 0]);
-			Players.Add(new Player(Id, clone, Orient, Team));
-			SendMessageServer("mct\n");
-		}
+	void NewPlayer(string[] args)
+	{
+        if (args.Length == 7) {
+            int Id = int.Parse(args[1].TrimStart('#'));
+            int X = int.Parse(args[2]) * 10 + 5;
+            int Y = int.Parse(args[3]) * 10 + 5;
+            int Orient = int.Parse(args[4]);
+            string Team = args[6];
+            GameObject clone = Instantiate(Character) as GameObject;
+            clone.transform.position = new Vector3(X, 0, Y);
+            AddTeam(new[] {"tna", Team});
+            var grandChild = clone.gameObject.transform.GetChild(0).GetChild(0).gameObject;
+            Renderer rend = grandChild.GetComponent<Renderer>();
+            rend.material.SetColor("_Color",
+                colors[Teams.IndexOf(Team) > 0 ? (Teams.IndexOf(Team) % colors.Length) : 0]);
+            Players.Add(new Player(Id, clone, Orient, Team));
+            SendMessageServer("mct\n");
+        }
 	}
 	void PlayerPosition(string[] args) {
 		if (args.Length == 5) {
@@ -349,63 +354,78 @@ public class GameEvent : MonoBehaviour {
 	public void ParseCommand(string arg)
 	{
 		string[] args = arg.Split(' ');
+
 //		Debug.Log(args[0]);
-		foreach (var cmd in MessageCommand) {
-		if (cmd.Key.Equals(args[0]))
-			cmd.Value.Invoke(args);
-		}
-	}
+        foreach (var cmd in MessageCommand)
+        {
+            if (cmd.Key.Equals(args[0]))
+                cmd.Value.Invoke(args);
+        }
+    }
 
-	public void TryData(string serverMessage){
-		string[] args = serverMessage.Split('\n');
-		for(int i = 0; i < args.Length-1; i++) {
+    public void TryData(string serverMessage)
+    {
+        string[] args = serverMessage.Split('\n');
+        for (int i = 0; i < args.Length - 1; i++)
+        {
 //			Debug.Log(args[i] +" "+ i);
-			ParseCommand(args[i]);
-		}
-	}
-	public void ListenForData() {
-		try {
-			socketConnection = new TcpClient(host, port);
-			Byte[] bytes = new Byte[1024];
-			while (true) {
-				// Get a stream object for reading
-				using (NetworkStream stream = socketConnection.GetStream()) {
-					int length;
-					// Read incomming stream into byte arrary.
-					while ((length = stream.Read(bytes, 0, bytes.Length)) != 0) {
-						var incommingData = new byte[length];
-						Array.Copy(bytes, 0, incommingData, 0, length);
-						// Convert byte array to string message.
-						string serverMessage = Encoding.ASCII.GetString(incommingData);
-//						Debug.Log("server message received as: " + serverMessage);
-						UnityMainThreadDispatcher.Instance().Enqueue(() => TryData(serverMessage));
-					}
-				}
-			}
-		}
-		catch (SocketException socketException) {
-			Debug.Log("Socket exception: " + socketException);
-			UnityMainThreadDispatcher.Instance().Enqueue(() => GameObject.Find("Fail").GetComponent<Canvas>().enabled = true);
-		}
-	}
+            ParseCommand(args[i]);
+        }
+    }
 
-	private void SendMessageServer(string clientMessage) {
-		if (socketConnection == null) {
-			return;
-		}
-		try {
-//			Debug.Log("Sending message: " + clientMessage);
-			// Get a stream object for writing.
-			NetworkStream stream = socketConnection.GetStream();
-			if (stream.CanWrite) {
-				// Convert string message to byte array.
-				byte[] clientMessageAsByteArray = Encoding.ASCII.GetBytes(clientMessage);
-				// Write byte array to socketConnection stream.
-				stream.Write(clientMessageAsByteArray, 0, clientMessageAsByteArray.Length);
-				//Debug.Log(clientMessage +" :Client sent his message - should be received by server");
+    public void ListenForData()
+    {
+        try
+        {
+            socketConnection = new TcpClient(host, port);
+            Byte[] bytes = new Byte[1024];
+            while (true)
+            {
+                // Get a stream object for reading
+                using (NetworkStream stream = socketConnection.GetStream())
+                {
+                    int length;
+                    // Read incomming stream into byte arrary.
+                    while ((length = stream.Read(bytes, 0, bytes.Length)) != 0)
+                    {
+                        var incommingData = new byte[length];
+                        Array.Copy(bytes, 0, incommingData, 0, length);
+                        // Convert byte array to string message.
+                        string serverMessage = Encoding.ASCII.GetString(incommingData);
+//						Debug.Log("server message received as: " + serverMessage);
+                        UnityMainThreadDispatcher.Instance().Enqueue(() => TryData(serverMessage));
+                    }
+                }
+            }
+        }
+        catch (SocketException socketException)
+        {
+            Debug.Log("Socket exception: " + socketException);
+            UnityMainThreadDispatcher.Instance()
+                .Enqueue(() => GameObject.Find("Fail").GetComponent<Canvas>().enabled = true);
+        }
+    }
+
+    private void SendMessageServer(string clientMessage)
+    {
+        if (socketConnection == null)
+        {
+            return;
+        }
+
+        try {
+		//Debug.Log("Sending message: " + clientMessage);
+		// Get a stream object for writing.
+		NetworkStream stream = socketConnection.GetStream();
+		if (stream.CanWrite) {
+			// Convert string message to byte array.
+			byte[] clientMessageAsByteArray = Encoding.ASCII.GetBytes(clientMessage);
+			// Write byte array to socketConnection stream.
+			stream.Write(clientMessageAsByteArray, 0, clientMessageAsByteArray.Length);
+			//Debug.Log(clientMessage +" :Client sent his message - should be received by server");
 			}
 		}
-		catch (SocketException socketException) {
+	catch (SocketException socketException) {
 			Debug.Log("Socket exception: " + socketException);
 		}
 	}
@@ -440,7 +460,6 @@ public class GameEvent : MonoBehaviour {
 				virtualMap.DisplayRessource(-1, 0);
 				DisplayInventary(-1, 0);
 			}
-        }
-
+		}
 	}
 }

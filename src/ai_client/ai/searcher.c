@@ -62,7 +62,8 @@ int ai_searcher(clt_config_t *clt)
 	send_request(LOOK, clt);
 	send_request(CONNECT, clt);
 	tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
-	for (int i = 0; i < 5 && (*tile)[FOOD] != 0; ++i)
+	for (int i = 0; (i < 5 || clt->specs->inventory[FOOD] < 10) &&
+			(*tile)[FOOD] != 0; ++i)
 		send_request(TAKE, clt, FOOD);
 	take_obj_from_ref(clt, (tile_t *)(INCANTATION_OBJ + clt->specs->level));
 	if (ZAPPY_DEBUG) {

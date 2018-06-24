@@ -38,6 +38,8 @@ void move_player_to_target(clt_config_t *clt)
 		send_request(FORWARD, clt);
 		send_request(FORWARD, clt);
 		send_request(LEFT, clt);
+		clt->specs->target.y = clt->specs->y;
+		clt->specs->target.x = clt->specs->x;
 	}
 	if ((ssize_t)clt->specs->y == clt->specs->target.y &&
 	    clt->specs->target.x == (ssize_t)clt->specs->x)

@@ -43,5 +43,5 @@ int prerequest_team_slots(clt_config_t *client)
 	if (!is_number(str))
 		return (ZAPPY_EXIT_FAILURE);
 	client->slots = atoi(str);
-	return (ZAPPY_EXIT_SUCCESS);
+	return (client->slots ? ZAPPY_EXIT_SUCCESS : ZAPPY_EXIT_FAILURE);
 }

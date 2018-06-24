@@ -47,6 +47,7 @@ typedef enum ai_modes {
 	SHOUTER,
 	EATER,
 	LAST_MODE,
+	TEST,
 	DEBILOUS
 } ai_mode_t;
 
