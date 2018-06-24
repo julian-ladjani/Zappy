@@ -76,8 +76,8 @@ public class FlyCamera : MonoBehaviour {
             return;
         if ( transform.position.y < 1)
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
-        if ( transform.position.y > map.chunks.Count*3)
-            transform.position = new Vector3(transform.position.x, map.chunks.Count*3, transform.position.z);
+        if ( transform.position.y > map.chunks.Count*5)
+            transform.position = new Vector3(transform.position.x, map.chunks.Count*5, transform.position.z);
         if ( transform.position.z > map.chunks.Count*10)
             transform.position = new Vector3(transform.position.x, transform.position.y, map.chunks.Count*10);
         if ( transform.position.z < -20)

@@ -21,7 +21,7 @@ public class Map {
 		if(X != -1) {
 			RessourceUI.enabled = true;
 			for(int i = 0; i < chunks[(int)X][(int)Y].Quantity.Count ; i++) {
-				TextUI[i].text = ":" + chunks[(int)X][(int)Y].Quantity[i].ToString();
+				TextUI[i].text = ":  " + chunks[(int)X][(int)Y].Quantity[i].ToString();
 			}
 			for(int i = 0; i < MeshUI.Length; i++) {
 				MeshUI[i].enabled = true;
