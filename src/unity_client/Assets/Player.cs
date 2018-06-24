@@ -21,7 +21,7 @@ public class Player {
 		Sprite = sprite;
 		animator = sprite.GetComponent<Animator>();
 		Team = team;
-		Level = 1;
+		changeLevel(1);
 		GoalPos = sprite.transform.position;
 		GoalSpeed = 0;
 		GoalRotSpeed = 0;
@@ -31,6 +31,12 @@ public class Player {
 		Sprite.transform.localScale = new Vector3(7, 7, 7);
 		setOrientation(orient);
 		GoalRot = getOrientationfromOrient(orient);
+	}
+
+	public void changeLevel(int level)	{
+		Level = level;
+		PlayerSkin playerSkin = Sprite.transform.GetChild(1).GetChild(1).GetComponent<PlayerSkin>();
+		playerSkin.level = level;
 	}
 
 	public void setPosRot(int X, int Y, int orient, float time) {

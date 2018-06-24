@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.496413, b: 0.5748175, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641252, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1398,6 +1398,32 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 237737587}
+--- !u!1 &238034030 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100090, guid: 8b79114391319fb4bb56f64adb410eff, type: 2}
+  m_PrefabInternal: {fileID: 1001350795}
+--- !u!114 &238034032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 238034030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d420f54fe32b443b8cc71c7f8b3ec30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textures:
+  - {fileID: 2800000, guid: 29882cbd2263c4ab081a737f4194b913, type: 3}
+  - {fileID: 2800000, guid: f98b9e6ee129c456baa21a52853e30b0, type: 3}
+  - {fileID: 2800000, guid: b0845b24fcbd844bd8332ec0138cf220, type: 3}
+  - {fileID: 2800000, guid: d80e95aac84634d7cb0eae00c1b84188, type: 3}
+  - {fileID: 2800000, guid: 3be1636d368bb4f5f98ad609550313a8, type: 3}
+  - {fileID: 2800000, guid: 67675b42983094678a588e2ca39c8e32, type: 3}
+  - {fileID: 2800000, guid: 2aa74c6eaba0f46a094bcd0d9fb55551, type: 3}
+  - {fileID: 2800000, guid: 6a8e038bc036140fe8ed1c978222efa0, type: 3}
+  - {fileID: 2800000, guid: 85165553c20cc4d5ab74afeda9a70fc6, type: 3}
+  level: 1
 --- !u!1 &249475525
 GameObject:
   m_ObjectHideFlags: 0
