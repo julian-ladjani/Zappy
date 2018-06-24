@@ -26,8 +26,11 @@ int check_others_broadcasts(clt_config_t *clt)
 		}
 		elem = elem->next;
 	}
+	if (ref)
+		printf("From : %d | Je susi : %ld\n", ref->from, clt->specs->id);
 	if (!ref || (size_t) ref->from < clt->specs->id)
 		return (0);
+	printf("BON BAH JE PARS\n");
 	clt->specs->targeted_incantation_id = ref->from;
 	clt->specs->ai_mode = FOLLOWER;
 	return (1);
@@ -62,9 +65,14 @@ int ai_shouter(clt_config_t *clt)
 		clt->specs->last_target = clt->specs->target;
 		return (ZAPPY_EXIT_SUCCESS);
 	}
-	if (!condition_pre_incantation(clt))
+	if (!condition_pre_incantation(clt)) {
+		if (clt->specs->y == clt->specs->target.y &&
+			clt->specs->x == clt->specs->target.x) {
+			clt->specs->ai_mode = SEARCHER;
+			return (ZAPPY_EXIT_SUCCESS);
+		}
 		move_player_to_target(clt);
-	else
+	} else
 		shout_status(clt);
 	return (ZAPPY_EXIT_SUCCESS);
 }

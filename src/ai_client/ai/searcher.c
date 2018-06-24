@@ -32,7 +32,7 @@ static void prepare_incantation(clt_config_t *clt)
 	if (condition_pre_incantation(clt)) {
 		if (clt->slots < 8)
 			send_request(FORK, clt);
-		if ((*tile)[PLAYER] == (*ref)[PLAYER]) {
+		if ((*tile)[PLAYER] == (*ref)[PLAYER] && (*tile)[PLAYER] == 1) {
 			send_request(BROADCAST, clt, "incantation:start:%d",
 					clt->specs->level);
 			send_request(INCANTATION, clt);
