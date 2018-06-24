@@ -24,7 +24,22 @@ double ratio_searcher(clt_config_t *client, ssize_t x, ssize_t y)
 
 	if (dist > 1)
 		return (((double)obj_ratio / dist) * 10
-			  * ((*tile)[PLAYER] == 0));
+				* ((*tile)[PLAYER] == 0));
 	else
 		return (obj_ratio * 10 * ((*tile)[PLAYER] == 0));
+}
+
+vec_t get_tile_from_dir(ssize_t x, ssize_t y, int dir, cardinal_dir_t c)
+{
+	static const vec_t vecs[8] = {{0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
+					{0, -1}, {1, -1}, {1, 0}, {1, 1}};
+	int index = (8 - 2 * (c - 1) + dir) % 8;
+	vec_t vec;
+
+	if (index == 0)
+		index = 8;
+	--index;
+	vec.x = vecs[index].x + x;
+	vec.y = vecs[index].y + y;
+	return (vec);
 }

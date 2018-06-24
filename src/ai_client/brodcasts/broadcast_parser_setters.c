@@ -27,13 +27,12 @@ incantation_state_t get_incantation_state(char *str)
 
 void broadcast_setter_incantation(clt_msg_t *msg, char *str)
 {
-	msg_infos_incantation_t *infos =
-		malloc(sizeof(msg_infos_incantation_t));
+	msg_infos_inc_t *infos =
+		malloc(sizeof(msg_infos_inc_t));
 
 	if (!infos)
 		return;
-	str = sstrtok(NULL, ":");
-	if (!str) {
+	if (!(str = sstrtok(NULL, ":"))) {
 		free(infos);
 		return;
 	}

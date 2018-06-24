@@ -45,7 +45,7 @@ void take_obj_from_ref(clt_config_t *clt, tile_t *ref)
 		if ((*tile)[i] != 0 && clt->specs->inventory[i] < (*ref)[i])
 			send_request(LOOK, clt);
 		while ((*tile)[i] != 0 &&
-		       clt->specs->inventory[i] < (*ref)[i]) {
+			clt->specs->inventory[i] < (*ref)[i]) {
 			send_request(TAKE, clt, i);
 		}
 	}

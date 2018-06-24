@@ -7,8 +7,6 @@
 
 #include "client.h"
 
-
-
 static void turn_player_to_dir(clt_config_t *clt, cardinal_dir_t dir)
 {
 	while (clt->specs->orientation != dir)
@@ -42,7 +40,7 @@ void move_player_to_target(clt_config_t *clt)
 		clt->specs->target.x = clt->specs->x;
 	}
 	if ((ssize_t)clt->specs->y == clt->specs->target.y &&
-	    clt->specs->target.x == (ssize_t)clt->specs->x)
+		clt->specs->target.x == (ssize_t)clt->specs->x)
 		return;
 	turn_player_to_target(clt);
 	send_request(FORWARD, clt);

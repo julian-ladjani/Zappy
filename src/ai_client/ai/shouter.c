@@ -13,12 +13,12 @@ int check_others_broadcasts(clt_config_t *clt)
 	list_t *elem = clt->server->broadcasts_queue;
 	clt_msg_t *msg = NULL;
 	clt_msg_t *ref = NULL;
-	msg_infos_incantation_t *infos;
+	msg_infos_inc_t *infos;
 
 	while (elem) {
 		msg = (clt_msg_t *) elem->elem;
 		if (msg && msg->type == MSG_INCANTATION) {
-			infos = (msg_infos_incantation_t *) msg->content;
+			infos = (msg_infos_inc_t *) msg->content;
 			if (infos->level == (int) clt->specs->level &&
 				infos->state == NEED_HELP &&
 				(!ref || msg->from > ref->from))
@@ -29,11 +29,10 @@ int check_others_broadcasts(clt_config_t *clt)
 	if (!ref || (size_t) ref->from < clt->specs->id)
 		return (0);
 	clt->specs->targeted_incantation_id = ref->from;
-	clt->specs->ai_mode = FOLLOWER;
-	return (1);
+	return ((clt->specs->ai_mode = FOLLOWER) == FOLLOWER);
 }
 
-int compare_broadcast_id(const void *elem1,const void *elem2)
+int compare_broadcast_id(const void *elem1, const void *elem2)
 {
 	clt_msg_t *msg1 = (clt_msg_t *) elem1;
 	clt_msg_t *msg2 = (clt_msg_t *) elem2;
@@ -46,12 +45,12 @@ void send_leave_tile_to_players(clt_config_t *clt, int nb_players_to_leave)
 	list_t *elem = list_sort(
 		clt->server->broadcasts_queue, compare_broadcast_id);
 	clt_msg_t *msg = NULL;
-	msg_infos_incantation_t *infos;
+	msg_infos_inc_t *infos;
 
 	while (elem && nb_players_to_leave) {
 		msg = (clt_msg_t *) elem->elem;
 		if (msg && msg->type == MSG_INCANTATION) {
-			infos = (msg_infos_incantation_t *) msg->content;
+			infos = (msg_infos_inc_t *) msg->content;
 			if (infos->level == (int) clt->specs->level &&
 				infos->state == HELPING) {
 				send_request(BROADCAST, clt,
