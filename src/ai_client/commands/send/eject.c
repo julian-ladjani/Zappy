@@ -22,6 +22,7 @@ int srvrequest_eject(clt_config_t *client)
 static uint8_t clt_cmd_eject_receiver(clt_config_t *client)
 {
 	return (1);
+	(void) client;
 }
 
 static uint8_t clt_cmd_eject(clt_config_t *client)
