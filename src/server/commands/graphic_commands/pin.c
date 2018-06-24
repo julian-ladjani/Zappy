@@ -23,7 +23,8 @@ uint8_t srv_cmd_pin(server_config_t *server,
 		return (1);
 	}
 	inventory = tile_to_str_quantity(&player->inventory);
-	dprintf(user->fd, "pin %d %s\n", player->id, inventory);
+	dprintf(user->fd, "pin %d %lu %lu %s\n", player->id, player->pos.x,
+		player->pos.y, inventory);
 	if (inventory)
 		free(inventory);
 	return (0);

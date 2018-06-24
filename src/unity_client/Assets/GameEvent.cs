@@ -30,6 +30,7 @@ public class GameEvent : MonoBehaviour {
 	private float timerppo = 0;
 	private Canvas InventaryUI;
 	private Text[] InventaryTextUI;
+	private Text[] InventaryInfoTextUI;
 	private MeshRenderer[] InventaryMeshUI;
 	// Use this for initialization
 	void Start () {
@@ -70,16 +71,21 @@ public class GameEvent : MonoBehaviour {
 		MessageCommand["sbp"] = new FunctionServer(UnknownParameter);
 		InventaryUI = GameObject.Find("InventaryUI").GetComponent<Canvas>();
 		InventaryTextUI = GameObject.Find("Quantity").GetComponentsInChildren<Text>();
+		InventaryInfoTextUI = GameObject.Find("InfoModif").GetComponentsInChildren<Text>();
 		InventaryMeshUI = GameObject.Find("Quantity").GetComponentsInChildren<MeshRenderer>();
 	}
 
-	public void DisplayInventary(float X, float Y) {
-		if (X != -1) {
+	public void DisplayInventary(GameObject sprite) {
+		if (sprite != null) {
 			InventaryUI.enabled = true;
 			for (int i = 0; i < Players.Count; i++)
-				if (Players[i].Sprite.transform.position.x == X && Players[i].Sprite.transform.position.y == Y) {
-					for (int j = 0; j < Players[i].Ressource.Count ; i++)
-						InventaryTextUI[i].text = ":  " + Players[i].Ressource[i].ToString();
+				if (Players[i].Sprite == sprite.transform.parent.gameObject) {
+					Debug.Log(InventaryTextUI.Length);
+					for (int j = 0; j < Players[i].Ressource.Count ; j++)
+						InventaryTextUI[j].text = ":  " + Players[i].Ressource[j].ToString();
+						InventaryInfoTextUI[0].text = Players[i].Id.ToString();
+						InventaryInfoTextUI[1].text = Players[i].Level.ToString();
+						InventaryInfoTextUI[2].text = Players[i].Team;
 						break;
 				}
 			for (int i = 0; i < InventaryMeshUI.Length; i++) {
@@ -196,6 +202,7 @@ public class GameEvent : MonoBehaviour {
             rend.material.SetColor("_Color",
                 colors[Teams.IndexOf(Team) > 0 ? (Teams.IndexOf(Team) % colors.Length) : 0]);
             Players.Add(new Player(Id, clone, Orient, Team));
+	    SendMessageServer("pin #"+Players[Players.Count-1].Id+"\n");
             SendMessageServer("mct\n");
         }
 	}
@@ -218,10 +225,12 @@ public class GameEvent : MonoBehaviour {
 		}
 	}
 	void PlayerInventory(string[] args) {
-		if (args.Length == 10) {
+		Debug.Log("da!");
 		Player TmpPlayer = FindPlayer(int.Parse(args[1]));
-		for (int j = 3; j < 10; j++)
-			TmpPlayer.SetQuantity(j-3, int.Parse(args[j]));
+		Debug.Log("da!");
+		for (int j = 4; j < 11; j++){
+			Debug.Log(args[j]);
+			TmpPlayer.SetQuantity(j-4, int.Parse(args[j]));
 		}
 	}
 
@@ -392,6 +401,7 @@ public class GameEvent : MonoBehaviour {
                         Array.Copy(bytes, 0, incommingData, 0, length);
                         // Convert byte array to string message.
                         string serverMessage = Encoding.ASCII.GetString(incommingData);
+			Debug.Log(serverMessage);
 //						Debug.Log("server message received as: " + serverMessage);
                         UnityMainThreadDispatcher.Instance().Enqueue(() => TryData(serverMessage));
                     }
@@ -451,14 +461,14 @@ public class GameEvent : MonoBehaviour {
         	RaycastHit hit;
         	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
         		Debug.Log("hit :"+ hit.collider.name);
-			if (hit.collider.name != "Darius")
+			if (hit.collider.name != "Necromancer")
 				virtualMap.DisplayRessource(hit.transform.position.x/10, hit.transform.position.z/10);
 			else
-				DisplayInventary(hit.transform.position.x, hit.transform.position.z);
+				DisplayInventary(hit.collider.gameObject);
 			}
 			else{
 				virtualMap.DisplayRessource(-1, 0);
-				DisplayInventary(-1, 0);
+				DisplayInventary(null);
 			}
 		}
 	}
