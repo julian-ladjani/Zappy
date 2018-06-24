@@ -16,6 +16,7 @@ public class GameEvent : MonoBehaviour {
 	private Dictionary<string, FunctionServer> MessageCommand = new Dictionary<string, FunctionServer>();
 	private List<GameObject> ItemObject = new List<GameObject>();
 	public GameObject prefab;
+	public bool playing = true;
 	private TcpClient socketConnection;
 	private string host = "127.0.0.1";
 	private int port = 0;
@@ -206,6 +207,7 @@ public class GameEvent : MonoBehaviour {
             SendMessageServer("mct\n");
         }
 	}
+
 	void PlayerPosition(string[] args) {
 		if (args.Length == 5) {
 			Vector2 pos = new Vector2(int.Parse(args[2]), int.Parse(args[3]));
@@ -345,7 +347,16 @@ public class GameEvent : MonoBehaviour {
 	}
 
 	void EndGame(string[] args) {
-
+		if (args.Length == 2) {
+			playing = false;
+			string  team = args[1];
+			foreach (Player player in Players) {
+				if (player.Team == team)
+					player.setTrigger("Incantation", true);
+				else
+					player.setTrigger("Dead");
+			}
+		}
 	}
 
 	void ServerMessage(string[] args) {
@@ -401,7 +412,6 @@ public class GameEvent : MonoBehaviour {
                         Array.Copy(bytes, 0, incommingData, 0, length);
                         // Convert byte array to string message.
                         string serverMessage = Encoding.ASCII.GetString(incommingData);
-			Debug.Log(serverMessage);
 //						Debug.Log("server message received as: " + serverMessage);
                         UnityMainThreadDispatcher.Instance().Enqueue(() => TryData(serverMessage));
                     }
@@ -466,7 +476,7 @@ public class GameEvent : MonoBehaviour {
 			else
 				DisplayInventary(hit.collider.gameObject);
 			}
-			else{
+			else {
 				virtualMap.DisplayRessource(-1, 0);
 				DisplayInventary(null);
 			}
