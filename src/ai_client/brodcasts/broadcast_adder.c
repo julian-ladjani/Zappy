@@ -28,10 +28,12 @@ int broadcast_add_elem(clt_config_t *client, clt_msg_t *msg)
 	list_t *elem = list_get_elem_by_search
 		(client->server->broadcasts_queue, (void *)msg,
 		 broadcast_compare_from);
+	int _for = ((msg_infos_incantation_t *)msg->content)->_for;
 
-	if (elem)
+	if (elem && (_for == client->specs->id || _for == 0)) {
 		client->server->broadcasts_queue =
 			list_delete_elem(elem, clean_broadcast);
+	}
 	client->server->broadcasts_queue = list_add_elem_at_pos
 		(client->server->broadcasts_queue, (void *)msg, LIST_FIRST);
 	return (0);

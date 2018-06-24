@@ -16,7 +16,6 @@ int srvrequest_dead(clt_config_t *client)
 
 int srvrequest_message(clt_config_t *client)
 {
-	printf("%d\n", list_size(client->server->broadcasts_queue));
 	clt_msg_t *msg = calloc(sizeof(clt_msg_t), sizeof(clt_msg_t));
 	char *tmp;
 

@@ -65,8 +65,8 @@ int send_request(send_cmd_t request_id, clt_config_t *client, ...)
 		va_copy(av_receive, av_send);
 		client->server->active_request = requests[i].cmd_name;
 		if (ZAPPY_DEBUG)
-			printf("\e[33m[%d %s] \e[32mSend : %s\e[0m\n",
-				client->specs->level + 1,
+			printf("\e[33m[%ld %d %s] \e[32mSend : %s\e[0m\n",
+				client->specs->id, client->specs->level + 1,
 				get_ai_name(client->specs->ai_mode),
 				requests[i].cmd_name);
 		if (handle_request(i, client, &av_send, &av_receive) == 84)

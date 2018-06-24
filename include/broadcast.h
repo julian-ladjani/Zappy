@@ -11,6 +11,9 @@
 #define ZPY_MSG_INCANTATION "incantation"
 #define ZPY_MSG_INC_START "start"
 #define ZPY_MSG_INC_CANCELED "canceled"
+#define ZPY_MSG_INC_HELPING "helping"
+#define ZPY_MSG_INC_STOP_HELPING "stop_helping"
+#define ZPY_MSG_INC_NEED_STOP_HELPING "need_stop_helping"
 
 #include "client.h"
 
@@ -22,12 +25,16 @@ typedef enum client_brocasted_types_s {
 typedef enum client_incantation_state_s {
 	START,
 	NEED_HELP,
+	NEED_STOP_HELPING,
+	HELPING,
+	STOP_HELPING,
 	CANCELED
 } incantation_state_t;
 
 typedef struct client_message_incantation_s {
 	incantation_state_t state;
 	int level;
+	int _for;
 } msg_infos_incantation_t;
 
 
