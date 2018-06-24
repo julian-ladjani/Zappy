@@ -490,7 +490,7 @@ public class GameEvent : MonoBehaviour {
 			else
 				DisplayInventary(hit.collider.gameObject);
 			}
-			else{
+	        else{
 				virtualMap.DisplayRessource(-1, 0, null);
 				DisplayInventary(null);
 			}
