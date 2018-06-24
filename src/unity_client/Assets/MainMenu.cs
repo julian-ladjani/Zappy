@@ -38,7 +38,7 @@ public class MainMenu : MonoBehaviour {
 		musicMain.Pause();
 	}
 	// Update is called once per frame
-	private void Quit () {
+	public void Quit () {
 		Application.Quit();
 	}
 }
