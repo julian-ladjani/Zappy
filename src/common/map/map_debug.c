@@ -57,7 +57,6 @@ void print_cell(tile_t *tile)
 
 void print_map(map_t *map)
 {
-//	system("clear");
 	for (size_t i = 0; OBJ_NAMES[i]; ++i)
 		printf("%s%10s%s\e[0m", colors[i],
 			compl_colors[i], OBJ_NAMES[i]);
