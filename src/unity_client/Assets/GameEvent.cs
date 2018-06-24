@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Analytics;
 using UnityEngine.Networking;
 
@@ -27,6 +28,9 @@ public class GameEvent : MonoBehaviour {
 	private List<Egg> Eggs = new List<Egg>();
 	private int Frequence = 100;
 	private float timerppo = 0;
+	private Canvas InventaryUI;
+	private Text[] InventaryTextUI;
+	private MeshRenderer[] InventaryMeshUI;
 	// Use this for initialization
 	void Start () {
 		ItemObject.Add(GameObject.Find("Mush"));
@@ -64,6 +68,30 @@ public class GameEvent : MonoBehaviour {
 		MessageCommand["smg"] = new FunctionServer(ServerMessage);
 		MessageCommand["suc"] = new FunctionServer(UnknowMessage);
 		MessageCommand["sbp"] = new FunctionServer(UnknownParameter);
+		InventaryUI = GameObject.Find("InventaryUI").GetComponent<Canvas>();
+		InventaryTextUI = GameObject.Find("Quantity").GetComponentsInChildren<Text>();
+		InventaryMeshUI = GameObject.Find("Quantity").GetComponentsInChildren<MeshRenderer>();
+	}
+
+	public void DisplayInventary(float X, float Y) {
+		if (X != -1) {
+			InventaryUI.enabled = true;
+			for (int i = 0; i < Players.Count; i++)
+				if (Players[i].Sprite.transform.position.x == X && Players[i].Sprite.transform.position.y == Y) {
+					for (int j = 0; j < Players[i].Ressource.Count ; i++)
+						InventaryTextUI[i].text = ":  " + Players[i].Ressource[i].ToString();
+						break;
+				}
+			for (int i = 0; i < InventaryMeshUI.Length; i++) {
+				InventaryMeshUI[i].enabled = true;
+			}
+		}
+		else {
+			InventaryUI.enabled = false;
+			for (int i = 0; i < InventaryMeshUI.Length; i++) {
+				InventaryMeshUI[i].enabled = false;
+			}
+		}
 	}
 
 	public Map GetVMap()
@@ -399,14 +427,19 @@ public class GameEvent : MonoBehaviour {
 		}
 		if (timerppo <= 0.0f)
 			timerppo = 3.5f/Frequence;
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(1)) {
         	RaycastHit hit;
         	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
         		Debug.Log("hit :"+ hit.collider.name);
+			if (hit.collider.name != "Darius")
 				virtualMap.DisplayRessource(hit.transform.position.x/10, hit.transform.position.z/10);
-			}
 			else
+				DisplayInventary(hit.transform.position.x, hit.transform.position.z);
+			}
+			else{
 				virtualMap.DisplayRessource(-1, 0);
+				DisplayInventary(-1, 0);
+			}
         }
 
 	}
