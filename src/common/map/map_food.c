@@ -20,3 +20,14 @@ void map_add_bonus_food(map_t *map)
 			tile_add_bonus_food(map->tiles[y] + x);
 	}
 }
+
+void map_add_inventory_on_tile(tile_t *tile, tile_t *inventory)
+{
+	(*tile)[FOOD] += (int) (((float) (*inventory)[FOOD]) / 126);
+	(*tile)[LINEMATE] += (*inventory)[LINEMATE];
+	(*tile)[DERAUMERE] += (*inventory)[DERAUMERE];
+	(*tile)[SIBUR] += (*inventory)[SIBUR];
+	(*tile)[MENDIANE] += (*inventory)[MENDIANE];
+	(*tile)[PHIRAS] += (*inventory)[PHIRAS];
+	(*tile)[THYSTAME] += (*inventory)[THYSTAME];
+}
