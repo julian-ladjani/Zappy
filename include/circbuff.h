@@ -11,17 +11,16 @@
 #define CIRCBUF_SIZE() 2042
 
 typedef struct circbuf_s circbuf_t;
-typedef long int (* filefunc_t)(int , circbuf_t *, unsigned int);
-typedef void (* printfunc_t)(int , circbuf_t *);
-typedef char *(* nextfunc_t)(circbuf_t *, char *);
-typedef char *(* buffunc_t)(circbuf_t *);
-typedef char *(* nbuffunc_t)(circbuf_t *, unsigned int);
-typedef unsigned int (* spacefunc_t)(const circbuf_t *);
-typedef long int (* nfreefunc_t)(circbuf_t *, unsigned int);
-typedef void (* freefunc_t)(circbuf_t *);
+typedef long int (*filefunc_t)(int, circbuf_t *, unsigned int);
+typedef void (*printfunc_t)(int, circbuf_t *);
+typedef char *(*nextfunc_t)(circbuf_t *, char *);
+typedef char *(*buffunc_t)(circbuf_t *);
+typedef char *(*nbuffunc_t)(circbuf_t *, unsigned int);
+typedef unsigned int (*spacefunc_t)(const circbuf_t *);
+typedef long int (*nfreefunc_t)(circbuf_t *, unsigned int);
+typedef void (*freefunc_t)(circbuf_t *);
 
-struct circbuf_s
-{
+struct circbuf_s {
 	char *buf;
 	char *head;
 	char *tail;

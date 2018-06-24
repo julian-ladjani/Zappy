@@ -25,7 +25,8 @@ void exec_graphic_command(server_config_t *server_config,
 {
 	for (int i = 0; GRAPHIC_COMMANDS[i].name; ++i) {
 		if (!strcasecmp(GRAPHIC_COMMANDS[i].name, cmdparams->name)) {
-			GRAPHIC_COMMANDS[i].cmd(server_config, user, cmdparams);
+			GRAPHIC_COMMANDS[i].cmd(server_config, user,
+				cmdparams);
 			return;
 		}
 	}

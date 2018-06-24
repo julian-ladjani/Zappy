@@ -35,11 +35,12 @@ void server_exit_catch(int sig)
 
 void server_main_loop(server_config_t *server_config)
 {
-	server_config->state = ZAPPY_SERVER_RUNNING;
 	int ret;
 
+	server_config->state = ZAPPY_SERVER_RUNNING;
 	SERVER_CONFIG = server_config;
 	signal(SIGINT, server_exit_catch);
+	signal(SIGPIPE, SIG_IGN);
 	printf("Info: Start Listening Client\n");
 	listen_for_client(server_config);
 	server_timer_start(server_config);

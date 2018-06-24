@@ -10,10 +10,9 @@
 
 #include "client.h"
 
-typedef void (* clt_parse_func_t)(clt_params_t *params, char *arg);
+typedef void (*clt_parse_func_t)(clt_params_t *params, char *arg);
 
-typedef struct parse_client_s
-{
+typedef struct parse_client_s {
 	char *flag;
 	clt_parse_func_t func;
 } parse_client_t;
