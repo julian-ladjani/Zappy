@@ -89,11 +89,6 @@ int handle_poll(clt_config_t *client)
 		dprintf(2, "poll() failed\n");
 		return (ZAPPY_EXIT_FAILURE);
 	}
-	if (client->server->pollfd->revents != POLLIN &&
-		client->server->pollfd->revents != POLLHUP &&
-		client->server->pollfd->revents != (POLLHUP | POLLIN)) {
-		cleanup_client_exit(client, ZAPPY_EXIT_FAILURE);
-	}
 	if (poll_rv >= 0 && client->server->pollfd->revents == POLLIN) {
 		if (client->server->buf->recv(client->server->pollfd->fd,
 			client->server->buf, CIRCBUF_SIZE()) == 0)

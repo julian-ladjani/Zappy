@@ -9,9 +9,11 @@
 
 static uint8_t clt_cmd_incantation_receiver(clt_config_t *client)
 {
+	printf("JE VOUS RECOIS !\n");
 	if (!client->incantation == 1) {
+		send_request(INCANTATION_WAIT, client);
 		send_request(BROADCAST, client, "incantation:cancel:%d",
-			     client->specs->level);
+				client->specs->level);
 	}
 	client->incantation = 0;
 	return (1);
