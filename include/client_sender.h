@@ -19,7 +19,7 @@ const request_t requests[13] = {
 	{FORK, "Fork", clt_cmd_get_args_fork},
 	{FORWARD, "Forward", clt_cmd_get_args_forward},
 	{INCANTATION, "Incantation", clt_cmd_get_args_incantation},
-	{INCANTATION_WAIT, "Incantation Wait", clt_cmd_get_args_incantation},
+	{INCANTATION_WAIT, "IncantationWait", clt_cmd_get_args_incantation},
 	{INVENTORY, "Inventory", clt_cmd_get_args_inventory},
 	{LEFT, "Left", clt_cmd_get_args_left},
 	{LOOK, "Look", clt_cmd_get_args_look},

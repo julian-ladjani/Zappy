@@ -114,8 +114,8 @@ int prerequest_team_slots(clt_config_t *client);
 
 int srvrequest_dead(clt_config_t *client);
 int srvrequest_message(clt_config_t *client);
-int srvrequest_elevation_ko(clt_config_t *client);
 int srvrequest_elevation_underway(clt_config_t *client);
+int srvrequest_current_level(clt_config_t *client);
 
 uint8_t clt_cmd_get_args_forward(clt_config_t *client, va_list *, char s);
 uint8_t clt_cmd_get_args_right(clt_config_t *client, va_list *, char s);

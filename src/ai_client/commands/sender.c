@@ -72,7 +72,5 @@ int send_request(send_cmd_t request_id, clt_config_t *client, ...)
 		if (handle_request(i, client, &av_send, &av_receive) == 84)
 			return (0);
 	}
-	if (client->incantation == 1)
-		send_request(INCANTATION_WAIT, client);
 	return (1);
 }

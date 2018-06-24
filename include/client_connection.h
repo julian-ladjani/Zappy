@@ -28,7 +28,7 @@ const launcher_t srv_requests[5] = {
 	{"dead", srvrequest_dead},
 	{"message ", srvrequest_message},
 	{"Elevation", srvrequest_elevation_underway},
-	{"ko", srvrequest_elevation_ko},
+	{"Current", srvrequest_current_level},
 	{NULL, NULL}
 };
 

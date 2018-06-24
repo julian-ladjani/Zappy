@@ -37,17 +37,21 @@ int srvrequest_message(clt_config_t *client)
 
 int srvrequest_elevation_underway(clt_config_t *client)
 {
-	client->incantation = 1;
+	if (client->server->active_request &&
+		!strcmp(client->server->active_request, "Incantation")) {
+		send_request(INCANTATION_WAIT, client);
+		client->server->active_request = NULL;
+	}
 	return (ZAPPY_EXIT_SUCCESS);
 }
 
-int srvrequest_elevation_ko(clt_config_t *client)
+int srvrequest_current_level(clt_config_t *client)
 {
-	if (client->incantation == 1 &&
-		!strcmp(client->server->active_request, "Incantation")) {
-		client->incantation = 0;
+	if (client->server->active_request &&
+	    !strcmp(client->server->active_request, "IncantationWait"))
 		client->server->active_request = NULL;
-		return (ZAPPY_EXIT_SUCCESS);
-	}
-	return (ZAPPY_EXIT_FAILURE);
+	client->specs->level =
+		(unsigned int) atoi(client->server->response_request + 14) - 1;
+	client->incantation = 0;
+	return (ZAPPY_EXIT_SUCCESS);
 }

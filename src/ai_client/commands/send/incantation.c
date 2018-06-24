@@ -9,8 +9,10 @@
 
 static uint8_t clt_cmd_incantation_receiver(clt_config_t *client)
 {
-	if (!ZAPPY_IS_KO(client->server->response_request))
-		++client->specs->level;
+	if (!client->incantation == 1) {
+		send_request(BROADCAST, client, "incantation:cancel:%d",
+			     client->specs->level);
+	}
 	client->incantation = 0;
 	return (1);
 }
@@ -20,7 +22,8 @@ static uint8_t clt_cmd_incantation(clt_config_t *client)
 	if (!strcmp(client->server->active_request, "Incantation"))
 		dprintf(client->server->pollfd->fd, "%s\n",
 			client->server->active_request);
-	client->incantation = 1;
+	else
+		client->incantation = 1;
 	return (1);
 }
 
