@@ -80,6 +80,11 @@ public class GameEvent : MonoBehaviour {
 		End = GameObject.Find("End").GetComponent<Canvas>();
 	}
 
+	public void SliderOnChange(Single value)
+	{
+		SendMessageServer("sst "+value+"\n");
+	}
+
 	public void DisplayInventary(GameObject sprite) {
 		if (sprite != null) {
 			InventaryUI.enabled = true;
