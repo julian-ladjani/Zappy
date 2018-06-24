@@ -11,7 +11,6 @@
 int srvrequest_dead(clt_config_t *client)
 {
 	client->status = ZAPPY_CLT_DEAD;
-	printf("Je meurs !\n");
 	return (ZAPPY_EXIT_SUCCESS);
 }
 
@@ -38,30 +37,12 @@ int srvrequest_message(clt_config_t *client)
 
 int srvrequest_elevation_underway(clt_config_t *client)
 {
-	printf("JE CHNAGE EN \n");
-	printf("JE CHNAGE EN \n");
-	printf("JE CHNAGE EN \n");
-	printf("JE CHNAGE EN \n");
-	printf("JE CHNAGE EN \n");
-	printf("JE CHNAGE EN \n");
-	printf("JE CHNAGE EN \n");
-	printf("JE CHNAGE EN \n");
-	printf("JE CHNAGE EN \n");
 	if (client->server->active_request &&
 		!strcmp(client->server->active_request, "Incantation")) {
 		send_request(INCANTATION_WAIT, client);
 		client->server->active_request = NULL;
-	} else /*if (client->specs->ai_mode == SHOUTER)*/ {
+	} else {
 		client->incantation = 1;
-		printf("JE CHNAGE EN 1\n");
-		printf("JE CHNAGE EN 1\n");
-		printf("JE CHNAGE EN 1\n");
-		printf("JE CHNAGE EN 1\n");
-		printf("JE CHNAGE EN 1\n");
-		printf("JE CHNAGE EN 1\n");
-		printf("JE CHNAGE EN 1\n");
-		printf("JE CHNAGE EN 1\n");
-		printf("JE CHNAGE EN 1\n");
 	}
 	return (ZAPPY_EXIT_SUCCESS);
 }

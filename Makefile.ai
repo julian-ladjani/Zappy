@@ -77,7 +77,8 @@ SRCS =	src/ai_client/main.c						\
 	src/ai_client/ai/test.c						\
         src/ai_client/brodcasts/broadcast_adder.c			\
         src/ai_client/brodcasts/broadcast_timer.c			\
-        src/ai_client/ai/eater.c
+        src/ai_client/ai/eater.c					\
+	src/ai_client/cleanup.c
 
 OBJDIR = obj
 

@@ -66,8 +66,8 @@ int ai_shouter(clt_config_t *clt)
 		return (ZAPPY_EXIT_SUCCESS);
 	}
 	if (!condition_pre_incantation(clt)) {
-		if (clt->specs->y == clt->specs->target.y &&
-			clt->specs->x == clt->specs->target.x) {
+		if ((ssize_t) clt->specs->y == clt->specs->target.y &&
+			(ssize_t) clt->specs->x == clt->specs->target.x) {
 			clt->specs->ai_mode = SEARCHER;
 			return (ZAPPY_EXIT_SUCCESS);
 		}
