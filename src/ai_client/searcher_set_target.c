@@ -28,8 +28,8 @@ static void set_player_target_forward(clt_config_t *client)
 }
 
 void update_target_tile(clt_config_t *clt,
-			double (* ratio_finder)
-				(clt_config_t *, ssize_t, ssize_t))
+	double (*ratio_finder)
+		(clt_config_t *, ssize_t, ssize_t))
 {
 	double ratio;
 	double max_ratio = -1;

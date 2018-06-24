@@ -16,7 +16,7 @@ static void *go_search_mode(clt_config_t *clt, ai_mode_t mode)
 	return (NULL);
 }
 
-static msg_infos_inc_t * check_need_to_leave(clt_config_t *clt, clt_msg_t *msg)
+static msg_infos_inc_t *check_need_to_leave(clt_config_t *clt, clt_msg_t *msg)
 {
 	msg_infos_inc_t *infos;
 
@@ -50,9 +50,9 @@ static void find_incantation(clt_config_t *clt)
 		return;
 	clt->specs->target = get_tile_from_dir
 		(clt->specs->x, clt->specs->y, msg->dir,
-		clt->specs->orientation);
+			clt->specs->orientation);
 	if ((*map_get_tile(clt->map, clt->specs->target.x,
-				clt->specs->target.y))[PLAYER] <
+		clt->specs->target.y))[PLAYER] <
 		INCANTATION_OBJ[clt->specs->level][PLAYER])
 		move_player_to_target(clt);
 }
@@ -64,7 +64,7 @@ int wait_for_incantation(clt_config_t *clt)
 	clt_msg_t *msg = broadcast_search_for
 		(clt, condition_targeted_incantation);
 
-	if (msg && ((msg_infos_inc_t *)msg->content)->state == CANCELED) {
+	if (msg && ((msg_infos_inc_t *) msg->content)->state == CANCELED) {
 		clt->specs->ai_mode = SEARCHER;
 		clt->incantation = 0;
 		return (ZAPPY_EXIT_SUCCESS);

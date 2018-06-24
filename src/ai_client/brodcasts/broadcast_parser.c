@@ -10,7 +10,7 @@
 #include "broadcast_parser.h"
 
 static void broadcast_set_content(clt_config_t *client, clt_msg_t *msg,
-					char *content)
+	char *content)
 {
 	size_t flaglen;
 
@@ -34,7 +34,7 @@ int broadcast_parser(clt_config_t *client, clt_msg_t *msg)
 	while (tmp && *tmp == ' ')
 		++tmp;
 	if (!tmp || strncmp(tmp, client->specs->team,
-				strlen(client->specs->team)))
+		strlen(client->specs->team)))
 		return (ZAPPY_EXIT_FAILURE);
 	if (!(tmp = sstrtok(NULL, ":")))
 		return (ZAPPY_EXIT_FAILURE);
