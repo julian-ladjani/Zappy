@@ -11,6 +11,7 @@ int ai_eater(clt_config_t *clt)
 {
 	tile_t *tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
 
+	send_request(LOOK, clt);
 	for (int i = 0; (*tile)[FOOD] != 0 &&
 			clt->specs->inventory[FOOD] < 12; ++i)
 		send_request(TAKE, clt, FOOD);
@@ -19,7 +20,9 @@ int ai_eater(clt_config_t *clt)
 		clt->specs->target = clt->specs->last_target;
 		return (ZAPPY_EXIT_SUCCESS);
 	}
-	update_target_tile(clt, ratio_eater);
-	send_request(FORWARD, clt);
+	if (clt->specs->y == clt->specs->target.y &&
+		clt->specs->x == clt->specs->target.x)
+		update_target_tile(clt, ratio_eater);
+	move_player_to_target(clt);
 	return (ZAPPY_EXIT_SUCCESS);
 }

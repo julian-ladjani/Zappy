@@ -45,11 +45,15 @@ void update_target_tile(clt_config_t *clt,
 			ratio = get_tile_ratio(clt, ratio_finder, x, y);
 			if (ratio >= max_ratio && ratio > 0) {
 				max_ratio = ratio;
-				clt->specs->target.y = y;
-				clt->specs->target.x = x;
+				clt->specs->target.y = map_get_abs
+					(y, clt->map->height);
+				clt->specs->target.x = map_get_abs
+					(x, clt->map->width);
 			}
 		}
 	}
+	print_cell(map_get_tile(clt->map, clt->specs->target.x,
+				clt->specs->target.y));
 	if (max_ratio == -1)
 		set_player_target_forward(clt);
 }

@@ -15,7 +15,8 @@ static uint8_t clt_cmd_fork_receiver(clt_config_t *client)
 
 static uint8_t clt_cmd_fork(clt_config_t *client)
 {
-	(void) client;
+	dprintf(client->server->pollfd->fd, "%s\n",
+		client->server->active_request);
 	return (1);
 }
 

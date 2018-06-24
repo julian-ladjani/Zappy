@@ -30,6 +30,8 @@ static void prepare_incantation(clt_config_t *clt)
 		fill_tile_from_inv(clt, tile, ref);
 	}
 	if (condition_pre_incantation(clt)) {
+		if (clt->slots < 8)
+			send_request(FORK, clt);
 		if ((*tile)[PLAYER] == (*ref)[PLAYER]) {
 			send_request(BROADCAST, clt, "incantation:start:%d",
 					clt->specs->level);
@@ -58,6 +60,7 @@ int ai_searcher(clt_config_t *clt)
 	if (find_incantation(clt))
 		return (ZAPPY_EXIT_SUCCESS);
 	send_request(LOOK, clt);
+	send_request(CONNECT, clt);
 	tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
 	for (int i = 0; i < 5 && (*tile)[FOOD] != 0; ++i)
 		send_request(TAKE, clt, FOOD);

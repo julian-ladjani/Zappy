@@ -7,7 +7,15 @@
 
 #include "map.h"
 
-static ssize_t get_dir(ssize_t from, ssize_t to, size_t size)
+ssize_t get_shortest(ssize_t from, ssize_t to, size_t size)
+{
+	if ((size_t) abs((int) (from - to)) * 2 < size)
+		return (from - to);
+	else
+		return (to - from);
+}
+
+ssize_t get_dir(ssize_t from, ssize_t to, size_t size)
 {
 	if ((size_t) abs((int) (from - to)) * 2 < size)
 		return (from - to);

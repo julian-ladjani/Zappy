@@ -79,5 +79,6 @@ char *tile_to_str_quantity(tile_t *tile);
 void str_to_tile(char *str, tile_t *tile);
 uint8_t is_number(const char *str);
 void print_cell(tile_t *tile);
+ssize_t get_shortest(ssize_t from, ssize_t to, size_t size);
 
 #endif /* PSU_ZAPPY_2017_MAP_H */

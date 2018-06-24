@@ -9,13 +9,15 @@
 
 static uint8_t clt_cmd_connect_nbr_receiver(clt_config_t *client)
 {
-	(void) client;
+	if (is_number(client->server->response_request))
+		client->slots = atoi(client->server->response_request);
 	return (1);
 }
 
 static uint8_t clt_cmd_connect_nbr(clt_config_t *client)
 {
-	(void) client;
+	dprintf(client->server->pollfd->fd, "%s\n",
+		client->server->active_request);
 	return (1);
 }
 
