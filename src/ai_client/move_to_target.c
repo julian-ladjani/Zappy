@@ -19,14 +19,11 @@ static void turn_player_to_target(clt_config_t *clt)
 {
 	ssize_t dif;
 
-	printf("%ld %ld\n", clt->specs->y, clt->specs->target.y);
-	if (clt->specs->y != clt->specs->target.y) {
+	if ((ssize_t) clt->specs->y != clt->specs->target.y) {
 		dif = get_shortest(clt->specs->y, clt->specs->target.y,
 					clt->map->height);
-		printf("TURNING NORTH : %ld\n", dif);
 		turn_player_to_dir(clt, dif > 0 ? SOUTH : NORTH);
 	} else {
-		printf("TURNING EAST\n");
 		dif = get_shortest(clt->specs->x, clt->specs->target.x,
 					clt->map->width);
 		turn_player_to_dir(clt, dif > 0 ? WEST : EAST);

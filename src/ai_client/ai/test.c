@@ -11,4 +11,5 @@
 int ai_test(clt_config_t *clt)
 {
 	send_request(INVENTORY, clt);
+	return (ZAPPY_EXIT_SUCCESS);
 }

@@ -20,8 +20,8 @@ int ai_eater(clt_config_t *clt)
 		clt->specs->target = clt->specs->last_target;
 		return (ZAPPY_EXIT_SUCCESS);
 	}
-	if (clt->specs->y == clt->specs->target.y &&
-		clt->specs->x == clt->specs->target.x)
+	if ((ssize_t) clt->specs->y == clt->specs->target.y &&
+		(ssize_t) clt->specs->x == clt->specs->target.x)
 		update_target_tile(clt, ratio_eater);
 	move_player_to_target(clt);
 	return (ZAPPY_EXIT_SUCCESS);
