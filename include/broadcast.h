@@ -35,7 +35,7 @@ typedef struct client_message_incantation_s {
 	incantation_state_t state;
 	int level;
 	int _for;
-} msg_infos_incantation_t;
+} msg_infos_inc_t;
 
 typedef struct client_message_s {
 	void *content;
@@ -53,5 +53,7 @@ clt_msg_t *broadcast_search_for(
 	clt_config_t *clt, int (*checker)(clt_config_t *, void *));
 int broadcast_add_elem(clt_config_t *client, clt_msg_t *msg);
 void manage_broadcast_timer(clt_config_t *clt);
+char *broadcast_type_str(incantation_state_t s);
+void dump_broadcast(void *elem);
 
 #endif /* PSU_ZAPPY_2017_BROADCAST_H */

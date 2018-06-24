@@ -7,8 +7,6 @@
 
 #include "client.h"
 
-
-
 static void turn_player_to_dir(clt_config_t *clt, cardinal_dir_t dir)
 {
 	while (clt->specs->orientation != dir)
@@ -21,11 +19,11 @@ static void turn_player_to_target(clt_config_t *clt)
 
 	if ((ssize_t) clt->specs->y != clt->specs->target.y) {
 		dif = get_shortest(clt->specs->y, clt->specs->target.y,
-					clt->map->height);
+			clt->map->height);
 		turn_player_to_dir(clt, dif > 0 ? SOUTH : NORTH);
 	} else {
 		dif = get_shortest(clt->specs->x, clt->specs->target.x,
-					clt->map->width);
+			clt->map->width);
 		turn_player_to_dir(clt, dif > 0 ? WEST : EAST);
 	}
 
@@ -33,7 +31,7 @@ static void turn_player_to_target(clt_config_t *clt)
 
 void move_player_to_target(clt_config_t *clt)
 {
-	if (clt->specs->forwarding >= (int)clt->map->width) {
+	if (clt->specs->forwarding >= (int) clt->map->width) {
 		send_request(RIGHT, clt);
 		send_request(FORWARD, clt);
 		send_request(FORWARD, clt);
@@ -41,8 +39,8 @@ void move_player_to_target(clt_config_t *clt)
 		clt->specs->target.y = clt->specs->y;
 		clt->specs->target.x = clt->specs->x;
 	}
-	if ((ssize_t)clt->specs->y == clt->specs->target.y &&
-	    clt->specs->target.x == (ssize_t)clt->specs->x)
+	if ((ssize_t) clt->specs->y == clt->specs->target.y &&
+		clt->specs->target.x == (ssize_t) clt->specs->x)
 		return;
 	turn_player_to_target(clt);
 	send_request(FORWARD, clt);

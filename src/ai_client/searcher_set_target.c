@@ -13,29 +13,23 @@ static void set_player_target_forward(clt_config_t *client)
 
 	specs->target.y = (ssize_t) specs->y;
 	specs->target.x = (ssize_t) specs->x;
-	switch (specs->orientation) {
-		case (NORTH):
-			specs->target.y = map_get_abs
-				(specs->target.y + 1, client->map->height);
-			break;
-		case (EAST):
-			specs->target.x = map_get_abs
-				(specs->target.x + 1, client->map->width);
-			break;
-		case (SOUTH):
-			specs->target.y = map_get_abs
-				(specs->target.y - 1, client->map->height);
-			break;
-		case (WEST):
-			specs->target.x = map_get_abs
-				(specs->target.x - 1, client->map->width);
-			break;
-	}
+	if (specs->orientation == NORTH)
+		specs->target.y = map_get_abs
+			(specs->target.y + 1, client->map->height);
+	if (specs->orientation == EAST)
+		specs->target.x = map_get_abs
+			(specs->target.x + 1, client->map->width);
+	if (specs->orientation == SOUTH)
+		specs->target.y = map_get_abs
+			(specs->target.y - 1, client->map->height);
+	if (specs->orientation == WEST)
+		specs->target.x = map_get_abs
+			(specs->target.x - 1, client->map->width);
 }
 
 void update_target_tile(clt_config_t *clt,
-			double (* ratio_finder)
-				(clt_config_t *, ssize_t, ssize_t))
+	double (*ratio_finder)
+		(clt_config_t *, ssize_t, ssize_t))
 {
 	double ratio;
 	double max_ratio = -1;
@@ -52,8 +46,6 @@ void update_target_tile(clt_config_t *clt,
 			}
 		}
 	}
-	print_cell(map_get_tile(clt->map, clt->specs->target.x,
-				clt->specs->target.y));
 	if (max_ratio == -1)
 		set_player_target_forward(clt);
 }

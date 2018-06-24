@@ -118,6 +118,7 @@ int srvrequest_message(clt_config_t *client);
 int srvrequest_elevation_underway(clt_config_t *client);
 int srvrequest_current_level(clt_config_t *client);
 int srvrequest_ko(clt_config_t *client);
+int srvrequest_eject(clt_config_t *client);
 
 uint8_t clt_cmd_get_args_forward(clt_config_t *client, va_list *, char s);
 uint8_t clt_cmd_get_args_right(clt_config_t *client, va_list *, char s);
@@ -171,5 +172,6 @@ void take_obj_from_ref(clt_config_t *clt, tile_t *ref);
 void fill_tile_from_inv(clt_config_t *clt, tile_t *tile, tile_t *ref);
 void cleanup_client_exit(clt_config_t *client, int exit_value);
 void clean_broadcast(void *elem);
+vec_t get_tile_from_dir(ssize_t x, ssize_t y, int dir, cardinal_dir_t c);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

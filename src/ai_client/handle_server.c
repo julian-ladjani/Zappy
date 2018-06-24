@@ -7,33 +7,35 @@
 
 #include <client_connection.h>
 
+static int handle_info(clt_config_t *client, size_t j)
+{
+	int r_value = srv_requests[j].request(client);
+
+	if (r_value == ZAPPY_EXIT_FAILURE) {
+		client->server->active_request = NULL;
+		return (ZAPPY_EXIT_SUCCESS);
+	}
+	free(client->server->response_request);
+	client->server->response_request = NULL;
+	return (ZAPPY_EXIT_SUCCESS);
+}
+
 static int parse_infos(clt_config_t *client)
 {
 	static int i = 0;
 	int r_value;
 
-	if (ZAPPY_DEBUG)
-		printf("\e[31m%s\e[0m\n",
-			client->server->response_request);
 	if (pre_requests[i]) {
 		r_value = pre_requests[i++](client);
-		if (pre_requests[i] == NULL &&
-			r_value == ZAPPY_EXIT_SUCCESS)
-				client->status = ZAPPY_CLT_READY;
+		if (pre_requests[i] == NULL && r_value == ZAPPY_EXIT_SUCCESS)
+			client->status = ZAPPY_CLT_READY;
 		return (r_value);
 	}
 	for (size_t j = 0; srv_requests[j].flag; ++j) {
 		if (!strncmp(client->server->response_request,
-				srv_requests[j].flag,
-				strlen(srv_requests[j].flag))) {
-			r_value = srv_requests[j].request(client);
-			if (r_value == ZAPPY_EXIT_FAILURE) {
-				client->server->active_request = NULL;
-				return ZAPPY_EXIT_SUCCESS;
-			}
-			free(client->server->response_request);
-			client->server->response_request = NULL;
-			return (ZAPPY_EXIT_SUCCESS);
+			srv_requests[j].flag,
+			strlen(srv_requests[j].flag))) {
+			return (handle_info(client, j));
 		}
 	}
 	client->server->active_request = NULL;
@@ -52,7 +54,7 @@ static void fill_command(clt_config_t *client, unsigned int pos, char end)
 			(client->server->response_request,
 				circbuf_nbufferise(client->server->buf, pos));
 		client->server->buf->free_nspace(client->server->buf,
-							pos + end);
+			pos + end);
 	}
 }
 
@@ -69,6 +71,9 @@ static int read_command(clt_config_t *client)
 	while (pos >= 0) {
 		fill_command(client, (unsigned int) pos, 1);
 		client->server->long_command = 0;
+		if (ZAPPY_DEBUG)
+			printf("\e[31m%s\e[0m\n",
+				client->server->response_request);
 		r_value = parse_infos(client);
 		if (r_value == ZAPPY_EXIT_FAILURE)
 			return (ZAPPY_EXIT_FAILURE);

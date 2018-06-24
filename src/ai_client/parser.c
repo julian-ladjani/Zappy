@@ -36,7 +36,7 @@ static void client_parse_find_option(clt_params_t *params, char **arg)
 clt_params_t *client_parse_arguments(int ac, char **av)
 {
 	clt_params_t *params = calloc(sizeof(clt_params_t),
-					sizeof(clt_params_t));
+		sizeof(clt_params_t));
 
 	if (!params)
 		return (NULL);

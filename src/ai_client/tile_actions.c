@@ -25,7 +25,8 @@ void fill_tile_from_inv(clt_config_t *clt, tile_t *tile, tile_t *ref)
 	for (int i = 1; i < 7; ++i) {
 		send_request(LOOK, clt);
 		tmp = (*tile)[i];
-		while ((*tile)[i] < (*ref)[i] && clt->specs->inventory[i] > 0) {
+		while ((*tile)[i] < (*ref)[i] &&
+			clt->specs->inventory[i] > 0) {
 			send_request(SET, clt, i);
 			if (tmp == (*tile)[i]) {
 				send_request(INVENTORY, clt);
@@ -45,7 +46,7 @@ void take_obj_from_ref(clt_config_t *clt, tile_t *ref)
 		if ((*tile)[i] != 0 && clt->specs->inventory[i] < (*ref)[i])
 			send_request(LOOK, clt);
 		while ((*tile)[i] != 0 &&
-		       clt->specs->inventory[i] < (*ref)[i]) {
+			clt->specs->inventory[i] < (*ref)[i]) {
 			send_request(TAKE, clt, i);
 		}
 	}

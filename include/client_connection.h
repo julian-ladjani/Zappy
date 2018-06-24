@@ -23,12 +23,13 @@ typedef struct launcher_s {
 	clt_func_t request;
 } launcher_t;
 
-const launcher_t srv_requests[6] = {
+const launcher_t srv_requests[7] = {
 	{"dead", srvrequest_dead},
 	{"message ", srvrequest_message},
 	{"Elevation", srvrequest_elevation_underway},
 	{"Current", srvrequest_current_level},
 	{"ko", srvrequest_ko},
+	{"eject", srvrequest_eject},
 	{NULL, NULL}
 };
 

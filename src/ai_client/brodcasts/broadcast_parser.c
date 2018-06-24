@@ -10,7 +10,7 @@
 #include "broadcast_parser.h"
 
 static void broadcast_set_content(clt_config_t *client, clt_msg_t *msg,
-					char *content)
+	char *content)
 {
 	size_t flaglen;
 
@@ -31,21 +31,18 @@ int broadcast_parser(clt_config_t *client, clt_msg_t *msg)
 	char *tmp;
 
 	tmp = sstrtok(NULL, ":");
-	while (*tmp == ' ')
+	while (tmp && *tmp == ' ')
 		++tmp;
 	if (!tmp || strncmp(tmp, client->specs->team,
-			    strlen(client->specs->team)))
+		strlen(client->specs->team)))
 		return (ZAPPY_EXIT_FAILURE);
-	tmp = sstrtok(NULL, ":");
-	if (!tmp)
+	if (!(tmp = sstrtok(NULL, ":")))
 		return (ZAPPY_EXIT_FAILURE);
 	msg->from = atoi(tmp);
-	tmp = sstrtok(NULL, ":");
-	if (!tmp)
+	if (!(tmp = sstrtok(NULL, ":")))
 		return (ZAPPY_EXIT_FAILURE);
 	msg->id = atoi(tmp);
-	tmp = sstrtok(NULL, ":");
-	if (!tmp)
+	if (!(tmp = sstrtok(NULL, ":")))
 		return (ZAPPY_EXIT_FAILURE);
 	broadcast_set_content(client, msg, tmp);
 	return ((msg->type == MSG_UNKNOWN) ? ZAPPY_EXIT_FAILURE :
