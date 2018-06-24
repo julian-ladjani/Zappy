@@ -2320,6 +2320,14 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 3308844, guid: 5b1f42b67720e0a448cd645f5eb8395d, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 08690aac6fd195146937f19744207757, type: 3}
+    - target: {fileID: 177306, guid: 5b1f42b67720e0a448cd645f5eb8395d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967294
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6595822, guid: 5b1f42b67720e0a448cd645f5eb8395d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5b1f42b67720e0a448cd645f5eb8395d, type: 2}
