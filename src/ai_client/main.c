@@ -12,21 +12,6 @@
 #include "map.h"
 #include "ressources_str.h"
 
-void free_client_config(clt_config_t *client)
-{
-	if (!client)
-		return;
-	map_free(client->map);
-	free(client->server->broadcasts_queue);
-	if (client->server)
-		free(client->server->socket);
-	free(client->server);
-	free(client->specs);
-	client->server = NULL;
-	client->specs = NULL;
-	free(client);
-}
-
 static void init_server_socket_informations(
 	char *machine, in_port_t port, clt_config_t *client)
 {
@@ -73,11 +58,14 @@ static clt_config_t *init_config(clt_params_t *params)
 		return (NULL);
 	init_server_socket_informations(
 		params->machine, (in_port_t) params->port, client);
-	if (!client->server)
+	if (!client->server) {
+		free(params);
 		return (NULL);
+	}
 	client->specs = init_client_specs(params->team);
 	client->server->pollfd->fd = -1;
 	client->server->pollfd->events = POLLIN;
+	free(params);
 	return (client);
 }
 

@@ -137,6 +137,7 @@ int handle_poll(clt_config_t *client);
 void launch_ai(clt_config_t *clt);
 char *get_ai_name(ai_mode_t type);
 clt_params_t *client_parse_arguments(int ac, char **av);
+void free_client_config(clt_config_t *client);
 double get_tile_ratio(
 	clt_config_t *client,
 	double (* searcher)(clt_config_t *, ssize_t, ssize_t),
@@ -165,6 +166,7 @@ void move_player_to_target(clt_config_t *clt);
 void clear_tile_from_ref(clt_config_t *clt, tile_t *tile, tile_t *ref);
 void take_obj_from_ref(clt_config_t *clt, tile_t *ref);
 void fill_tile_from_inv(clt_config_t *clt, tile_t *tile, tile_t *ref);
+void cleanup_client_exit(clt_config_t *client, int exit_value);
 void clean_broadcast(void *elem);
 
 #endif /* PSU_ZAPPY_2017_CLIENT_H */

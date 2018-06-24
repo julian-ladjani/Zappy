@@ -33,6 +33,7 @@ static uint8_t clt_cmd_broadcast(clt_config_t *client, char *msg, va_list *av)
 		return (0);
 	send_active_request(client, "%s:%d:%ld:%s", client->specs->team,
 				client->specs->id, id++, tmp);
+	free(tmp);
 	return (1);
 }
 

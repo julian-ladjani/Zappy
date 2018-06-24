@@ -75,7 +75,6 @@ int wait_for_incantation(clt_config_t *clt)
 
 int ai_follower(clt_config_t *clt)
 {
-	printf("FOLLOWER !\n");
 	tile_t *tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
 
 	if (clt->incantation == 1)

@@ -34,11 +34,11 @@ public class Player {
 	}
 
 	public void setPosRot(int X, int Y, int orient, float time) {
-		GoalPos = new Vector3(X * 10 + 5, 0, Y * 10 + 5);
+		GoalPos = new Vector3(X * 10 + UnityEngine.Random.Range(2.5f, 7.5f), 0, Y * 10 + UnityEngine.Random.Range(2.5f, 7.5f));
 		GoalSpeed = Vector3.Distance(GoalPos, Sprite.transform.position) / time;
 		setTrigger("Speed", GoalSpeed);
 		Orientation = orient;
-		GoalRot = getOrientationfromOrient(orient);
+		GoalRot = getOrientationfromOrient(orient) + UnityEngine.Random.Range(-22.5f, 22.5f);
 		GoalRotSpeed = Math.Abs(Sprite.transform.rotation.eulerAngles.y - GoalRot) / time;
 	}
 

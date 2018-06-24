@@ -27,6 +27,8 @@ void user_quit(server_config_t *server_config, server_user_t *user,
 	printf("Connection - %d Quit With Message: %s\n", user->fd,
 		message);
 	if (user->type == ZAPPY_USER_AI && user->team != NULL) {
+		map_add_inventory_on_tile(map_get_tile(server_config->map,
+			user->pos.x, user->pos.y), &user->inventory);
 		if ((size_t) user->team->slots >
 			server_config->arguments->client_nb)
 			user->team->slots -= 1;
