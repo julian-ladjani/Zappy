@@ -26,7 +26,7 @@ public class Player {
 		GoalSpeed = 0;
 		GoalRotSpeed = 0;
 		Ressource = new List<int>();
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 7; i++)
 			Ressource.Add(0);
 		Sprite.transform.localScale = new Vector3(7, 7, 7);
 		setOrientation(orient);
