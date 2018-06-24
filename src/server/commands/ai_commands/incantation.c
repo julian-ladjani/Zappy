@@ -7,15 +7,16 @@
 
 #include "server_function.h"
 
-char check_incantation_ressources(server_config_t *server, server_user_t *user)
+char check_incantation_ressources(server_config_t *server,
+	server_user_t *user)
 {
 	tile_t *tile = map_get_tile(server->map, user->pos.x, user->pos.y);
 
 	if (user->level < 1 || user->level > 7)
 		return (0);
 	if (find_nb_user_at_pos_and_level(server, user->pos.x,
-			user->pos.y, user->level)
-		!= (int)INCANTATION_OBJ[user->level - 1][PLAYER])
+		user->pos.y, user->level)
+		!= (int) INCANTATION_OBJ[user->level - 1][PLAYER])
 		return (0);
 	for (int i = LINEMATE; i <= THYSTAME; ++i)
 		if (INCANTATION_OBJ[user->level - 1][i] != (*tile)[i])
