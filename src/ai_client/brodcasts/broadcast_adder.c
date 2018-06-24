@@ -56,7 +56,7 @@ int broadcast_add_elem(clt_config_t *client, clt_msg_t *msg)
 			broadcast_compare_from);
 	int _for = ((msg_infos_inc_t *)msg->content)->_for;
 
-	if (elem && (_for == client->specs->id || _for == 0)) {
+	if (elem && (_for == (int) client->specs->id || _for == 0)) {
 		client->server->broadcasts_queue =
 			list_delete_elem(elem, clean_broadcast);
 	}
