@@ -44,8 +44,9 @@ int srvrequest_elevation_underway(clt_config_t *client)
 int srvrequest_elevation_ko(clt_config_t *client)
 {
 	if (client->incantation == 1 &&
-		strcmp(client->server->active_request, "Incantation") == 0) {
+		!strcmp(client->server->active_request, "Incantation")) {
 		client->incantation = 0;
+		client->server->active_request = NULL;
 		return (ZAPPY_EXIT_SUCCESS);
 	}
 	return (ZAPPY_EXIT_FAILURE);

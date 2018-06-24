@@ -94,6 +94,7 @@ typedef struct client_specifications_s {
 	ai_mode_t last_ai_mode;
 	int forwarding;
 	vec_t target;
+	vec_t last_target;
 	int targeted_incantation_id;
 } clt_specs_t;
 

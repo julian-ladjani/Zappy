@@ -49,13 +49,19 @@ static void find_incantation(clt_config_t *clt)
 
 int ai_follower(clt_config_t *clt)
 {
+	printf("FOLLOWER !\n");
 	tile_t *tile = map_get_tile(clt->map, clt->specs->x, clt->specs->y);
 
 	for (int i = 0; i < 5 && (*tile)[FOOD] != 0; ++i)
 		send_request(TAKE, clt, FOOD);
+	send_request(INVENTORY, clt);
+	if (clt->specs->inventory[FOOD] < 5) {
+		printf("JE VEUX PASSER ENMDOE EATER !\n");
+		clt->specs->ai_mode = EATER;
+		return (ZAPPY_EXIT_SUCCESS);
+	}
 	manage_broadcast_timer(clt);
 	send_request(LOOK, clt);
-	send_request(INVENTORY, clt);
 	find_incantation(clt);
 	if (ZAPPY_DEBUG)
 		print_map(clt->map);
