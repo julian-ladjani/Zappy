@@ -23,18 +23,55 @@ static vec_t get_tile_from_dir(ssize_t x, ssize_t y, int dir, cardinal_dir_t c)
 	return (vec);
 }
 
+char *broadcast_type_str(incantation_state_t s)
+{
+	if (s == NEED_STOP_HELPING)
+		return ("need stop helping");
+	if (s == HELPING)
+		return ("helping");
+	if (s == NEED_HELP)
+		return ("need help");
+	if (s == START)
+		return ("start");
+	if (s == STOP_HELPING)
+		return ("stop helping");
+	if (s == CANCELED)
+		return ("canceled");
+	return NULL;
+}
+
+void dump_broadcast(void *elem)
+{
+	clt_msg_t *msg = elem;
+
+	printf("Message : %d - %d - %s\n", msg->id, msg->from,
+		broadcast_type_str
+		(((msg_infos_incantation_t *)msg->content)->state));
+}
+
 static void find_incantation(clt_config_t *clt)
 {
 	clt_msg_t *msg = broadcast_search_for
 		(clt, condition_targeted_incantation);
 	msg_infos_incantation_t *infos;
 
+	list_dump(clt->server->broadcasts_queue, dump_broadcast);
 	if (!msg) {
 		clt->incantation = 0;
+		send_request(BROADCAST, clt, "incantation:stop_helping:%ld",
+				clt->specs->level);
 		clt->specs->ai_mode = SEARCHER;
 		return;
 	}
+	printf("LOCKED TO : %d\n", msg->from);
 	infos = (msg_infos_incantation_t *) msg->content;
+	if (infos->state == NEED_STOP_HELPING) {
+		send_request(BROADCAST, clt, "incantation:stop_helping:%ld",
+			     clt->specs->level);
+		send_request(FORWARD, clt);
+		clt->specs->ai_mode = SEARCHER;
+		return;
+	}
 	if (infos->state == START) {
 		clt->incantation = 1;
 		return;
@@ -83,10 +120,13 @@ int ai_follower(clt_config_t *clt)
 		send_request(TAKE, clt, FOOD);
 	send_request(INVENTORY, clt);
 	if (clt->specs->inventory[FOOD] < 5) {
-		printf("JE VEUX PASSER ENMDOE EATER !\n");
 		clt->specs->ai_mode = EATER;
+		send_request(BROADCAST, clt, "incantation:stop_helping:%ld",
+				clt->specs->level);
 		return (ZAPPY_EXIT_SUCCESS);
 	}
+	send_request(BROADCAST, clt, "incantation:helping:%ld",
+		clt->specs->level);
 	manage_broadcast_timer(clt);
 	send_request(LOOK, clt);
 	find_incantation(clt);

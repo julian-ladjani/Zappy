@@ -471,7 +471,7 @@ public class GameEvent : MonoBehaviour {
         	RaycastHit hit;
         	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
         		Debug.Log("hit :"+ hit.collider.name);
-			if (hit.collider.name != "Darius")
+			if (hit.collider.name != "Necromancer")
 				virtualMap.DisplayRessource(hit.transform.position.x/10, hit.transform.position.z/10);
 			else
 				DisplayInventary(hit.collider.gameObject);

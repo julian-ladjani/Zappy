@@ -44,9 +44,9 @@ void server_main_loop(server_config_t *server_config)
 	listen_for_client(server_config);
 	server_timer_start(server_config);
 	while (server_config->state != ZAPPY_SERVER_STOP) {
-		ret = poll(server_config->poll_fd, server_config->nfds, 0);
+		ret = poll(server_config->poll_fd, server_config->nfds, 1);
 		if (ret < 0)
-			break;
+			continue;
 		else if (ret > 0)
 			poll_loop(server_config);
 		exec_pending_command(server_config);

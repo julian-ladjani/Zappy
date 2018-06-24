@@ -29,7 +29,7 @@ int condition_targeted_incantation(clt_config_t *clt, void *elem)
 		return (0);
 	infos = (msg_infos_incantation_t *) msg->content;
 	return (infos && msg->type == MSG_INCANTATION &&
-		msg->from == clt->specs->targeted_incantation_id &&
+		(infos->state == NEED_HELP || infos->state == START) &&
 		infos->level == (int) clt->specs->level);
 }
 
