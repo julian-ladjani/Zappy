@@ -79,7 +79,6 @@ public class GameEvent : MonoBehaviour {
 			}
 		GameObject clone = Instantiate(Character) as GameObject;
 		clone.transform.position = new Vector3(0, 0, 0);
-	
 		Players.Add(new Player(id, clone, 1, "Unknow"));
 		return Players[Players.Count];
 	}
@@ -162,7 +161,7 @@ public class GameEvent : MonoBehaviour {
 			clone.transform.position = new Vector3(X, 0, Y);
 			var grandChild = clone.gameObject.transform.GetChild(0).GetChild(0).gameObject;
 			Renderer rend = grandChild.GetComponent<Renderer>();
-			rend.material.SetColor("_Color", colors[Teams.IndexOf(Team) % colors.Length + 1]);
+			rend.material.SetColor("_Color", colors[Teams.IndexOf(Team) > 0 ? (Teams.IndexOf(Team) % colors.Length) : 0]);
 			Players.Add(new Player(Id, clone, Orient, Team));
 			SendMessageServer("mct\n");
 		}
@@ -298,7 +297,7 @@ public class GameEvent : MonoBehaviour {
 		if (args.Length == 2) {
 			Frequence = int.Parse(args[1]);
 			foreach (Player player in Players)
-				player.setTrigger("Time", 1/Frequence);
+				player.setTrigger("Time", 7/Frequence);
 			timerppo = 0;
 		}
 	}
@@ -322,7 +321,7 @@ public class GameEvent : MonoBehaviour {
 	public void ParseCommand(string arg)
 	{
 		string[] args = arg.Split(' ');
-		Debug.Log(args[0]);
+//		Debug.Log(args[0]);
 		foreach (var cmd in MessageCommand) {
 		if (cmd.Key.Equals(args[0]))
 			cmd.Value.Invoke(args);
@@ -332,7 +331,7 @@ public class GameEvent : MonoBehaviour {
 	public void TryData(string serverMessage){
 		string[] args = serverMessage.Split('\n');
 		for(int i = 0; i < args.Length-1; i++) {
-			Debug.Log(args[i] +" "+ i);
+//			Debug.Log(args[i] +" "+ i);
 			ParseCommand(args[i]);
 		}
 	}
@@ -350,7 +349,7 @@ public class GameEvent : MonoBehaviour {
 						Array.Copy(bytes, 0, incommingData, 0, length);
 						// Convert byte array to string message.
 						string serverMessage = Encoding.ASCII.GetString(incommingData);
-						Debug.Log("server message received as: " + serverMessage);
+//						Debug.Log("server message received as: " + serverMessage);
 						UnityMainThreadDispatcher.Instance().Enqueue(() => TryData(serverMessage));
 					}
 				}
@@ -367,7 +366,7 @@ public class GameEvent : MonoBehaviour {
 			return;
 		}
 		try {
-			Debug.Log("Sending message: " + clientMessage);
+//			Debug.Log("Sending message: " + clientMessage);
 			// Get a stream object for writing.
 			NetworkStream stream = socketConnection.GetStream();
 			if (stream.CanWrite) {
