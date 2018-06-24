@@ -28,7 +28,9 @@ public class GameEvent : MonoBehaviour {
 	private List<Egg> Eggs = new List<Egg>();
 	private int Frequence = 100;
 	private float timerppo = 0;
+	private float timercheck = 10;
 	private Canvas InventaryUI;
+	private Canvas End;
 	private Text[] InventaryTextUI;
 	private Text[] InventaryInfoTextUI;
 	private MeshRenderer[] InventaryMeshUI;
@@ -73,6 +75,7 @@ public class GameEvent : MonoBehaviour {
 		InventaryTextUI = GameObject.Find("Quantity").GetComponentsInChildren<Text>();
 		InventaryInfoTextUI = GameObject.Find("InfoModif").GetComponentsInChildren<Text>();
 		InventaryMeshUI = GameObject.Find("Quantity").GetComponentsInChildren<MeshRenderer>();
+		End = GameObject.Find("End").GetComponent<Canvas>();
 	}
 
 	public void DisplayInventary(GameObject sprite) {
@@ -345,6 +348,8 @@ public class GameEvent : MonoBehaviour {
 	}
 
 	void EndGame(string[] args) {
+		End.GetComponentInChildren<Text>().text = "The Team Winner is\n\t"+args[1];
+		End.enabled = true;
 
 	}
 
@@ -393,18 +398,17 @@ public class GameEvent : MonoBehaviour {
                 // Get a stream object for reading
                 using (NetworkStream stream = socketConnection.GetStream())
                 {
-                    int length;
-                    // Read incomming stream into byte arrary.
-                    while ((length = stream.Read(bytes, 0, bytes.Length)) != 0)
-                    {
-                        var incommingData = new byte[length];
-                        Array.Copy(bytes, 0, incommingData, 0, length);
-                        // Convert byte array to string message.
-                        string serverMessage = Encoding.ASCII.GetString(incommingData);
-			Debug.Log(serverMessage);
-//						Debug.Log("server message received as: " + serverMessage);
-                        UnityMainThreadDispatcher.Instance().Enqueue(() => TryData(serverMessage));
-                    }
+                	int length;
+                    	// Read incomming stream into byte arrary.
+                   	while ((length = stream.Read(bytes, 0, bytes.Length)) != 0)
+                    	{
+                        	var incommingData = new byte[length];
+                        	Array.Copy(bytes, 0, incommingData, 0, length);
+                        	// Convert byte array to string message.
+                        	string serverMessage = Encoding.ASCII.GetString(incommingData);
+				//Debug.Log("server message received as: " + serverMessage);
+                        	UnityMainThreadDispatcher.Instance().Enqueue(() => TryData(serverMessage));
+                    	}
                 }
             }
         }
@@ -418,11 +422,9 @@ public class GameEvent : MonoBehaviour {
 
     private void SendMessageServer(string clientMessage)
     {
-        if (socketConnection == null)
-        {
-            return;
-        }
 
+        if (socketConnection == null)
+            return;
         try {
 		//Debug.Log("Sending message: " + clientMessage);
 		// Get a stream object for writing.
@@ -433,7 +435,11 @@ public class GameEvent : MonoBehaviour {
 			// Write byte array to socketConnection stream.
 			stream.Write(clientMessageAsByteArray, 0, clientMessageAsByteArray.Length);
 			//Debug.Log(clientMessage +" :Client sent his message - should be received by server");
-			}
+		}
+		else{
+			End.GetComponentInChildren<Text>().text = "Connection Lose";
+			End.enabled = true;
+		}
 		}
 	catch (SocketException socketException) {
 			Debug.Log("Socket exception: " + socketException);
@@ -450,6 +456,11 @@ public class GameEvent : MonoBehaviour {
 		if (socketConnection == null)
 			return;
 		timerppo -= time;
+		timercheck -= time;
+		if (timercheck <= 0.0f){
+			SendMessageServer("check\n");
+			timercheck = 60;
+		}
 		foreach (Player player in Players) {
 			player.moveTowardGoal(time);
 			if (timerppo <= 0.0f)
