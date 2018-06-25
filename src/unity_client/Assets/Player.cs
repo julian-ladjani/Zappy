@@ -34,7 +34,6 @@ public class Player {
 	}
 
 	public void changeLevel(int level)	{
-		Debug.Log("Trying to Change Level");
 		Level = level;
 		PlayerSkin playerSkin = Sprite.transform.GetChild(1).GetChild(1).GetComponent<PlayerSkin>();
 		playerSkin.setLevel(level);

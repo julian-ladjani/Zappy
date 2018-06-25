@@ -86,7 +86,7 @@ public class ConnectMenu : MonoBehaviour {
 	public void DeconnectedonClick()
 	{
 		Option.enabled = false;
-		Application.LoadLevel(Application.loadedLevel);
+		SceneManager.LoadScene(Application.loadedLevel);
 	}
 
 	private void Update() {

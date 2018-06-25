@@ -23,14 +23,12 @@ public class FlyCamera : MonoBehaviour {
 
 	void Start ()
 	{
-		transform.Rotate(h,0,0);
         Option = GameObject.Find("Option").GetComponent<Canvas>();
-
 	}
 	void Update () {
         if (Option.enabled)
             return;
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButton(1))
 	    {
 	        if (axes == RotationAxes.MouseXAndY)
 	        {
