@@ -30,7 +30,7 @@ public class FlyCamera : MonoBehaviour {
 	void Update () {
         if (Option.enabled)
             return;
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButton(1))
 	    {
 	        if (axes == RotationAxes.MouseXAndY)
 	        {

@@ -483,7 +483,7 @@ public class GameEvent : MonoBehaviour {
 		}
 		if (timerppo <= 0.0f)
 			timerppo = 3.5f/Frequence;
-		if (Input.GetMouseButtonDown(1)) {
+		if (Input.GetMouseButtonDown(0)) {
         	RaycastHit hit;
         	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
         		Debug.Log("hit :"+ hit.collider.name);
