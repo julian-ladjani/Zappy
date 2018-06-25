@@ -177,6 +177,7 @@ public class GameEvent : MonoBehaviour {
 						virtualMap.chunks[Y][X].SetQuantity(i-3, quantity);
 						if (quantity > 10)
 							quantity = 10;
+						quantity = quantity / 2;
 						virtualMap.chunks[Y][X].Ressource[i-3].transform.localScale = new Vector3(2+quantity, 2+quantity, 2+quantity);
 					}
 					else
