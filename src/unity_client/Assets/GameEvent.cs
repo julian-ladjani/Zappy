@@ -201,7 +201,8 @@ public class GameEvent : MonoBehaviour {
             int Id = int.Parse(args[1].TrimStart('#'));
             int X = int.Parse(args[2]) * 10 + 5;
             int Y = int.Parse(args[3]) * 10 + 5;
-            int Orient = int.Parse(args[4]);
+			int Orient = int.Parse(args[4]);
+			int level = int.Parse(args[5]);
             string Team = args[6];
             GameObject clone = Instantiate(Character) as GameObject;
             clone.transform.position = new Vector3(X, 0, Y);
@@ -210,9 +211,10 @@ public class GameEvent : MonoBehaviour {
             Renderer rend = grandChild.GetComponent<Renderer>();
             rend.material.SetColor("_Color",
                 colors[Teams.IndexOf(Team) > 0 ? (Teams.IndexOf(Team) % colors.Length) : 0]);
-            Players.Add(new Player(Id, clone, Orient, Team));
-	    SendMessageServer("pin #"+Players[Players.Count-1].Id+"\n");
-            SendMessageServer("mct\n");
+			Player player = new Player(Id, clone, Orient, Team);
+			player.changeLevel(level);
+            Players.Add(player);
+	    	SendMessageServer("pin #"+Players[Players.Count-1].Id+"\nmct\n");
         }
 	}
 
@@ -287,8 +289,7 @@ public class GameEvent : MonoBehaviour {
 		if (args.Length == 3) {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
 			TmpPlayer.setTrigger("Obj");
-			TmpPlayer.Ressource[int.Parse(args[2])] -= 1;
-			SendMessageServer("bct "+TmpPlayer.getPos().x+ " "+TmpPlayer.getPos().y+"\n");
+			SendMessageServer("pin #" + TmpPlayer.Id + "\nbct "+TmpPlayer.getPos().x+ " "+TmpPlayer.getPos().y+"\n");
 		}
 	}
 
@@ -296,8 +297,7 @@ public class GameEvent : MonoBehaviour {
 		if (args.Length == 3) {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
 			TmpPlayer.setTrigger("Obj");
-			TmpPlayer.Ressource[int.Parse(args[2])] += 1;
-			SendMessageServer("bct "+TmpPlayer.getPos().x+ " "+TmpPlayer.getPos().y+"\n");
+			SendMessageServer("pin #" + TmpPlayer.Id + "\nbct "+TmpPlayer.getPos().x+ " "+TmpPlayer.getPos().y+"\n");
 		}
 	}
 
@@ -305,6 +305,7 @@ public class GameEvent : MonoBehaviour {
 		if (args.Length == 2) {
 			Player TmpPlayer = FindPlayer(int.Parse(args[1]));
 			TmpPlayer.setTrigger("Dead");
+			SendMessageServer("bct "+TmpPlayer.getPos().x+ " "+TmpPlayer.getPos().y+"\n");
 			GameObject.Destroy(TmpPlayer.Sprite);
 			Players.Remove(TmpPlayer);
 		}
