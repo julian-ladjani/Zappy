@@ -349,6 +349,8 @@ public class GameEvent : MonoBehaviour {
 			foreach (Player player in Players)
 				player.setTrigger("Time", 7/Frequence);
 			timerppo = 0;
+			GameObject.Find("Slider").GetComponent<Slider>().value = Frequence;
+			GameObject.Find("Frequence").GetComponent<Text>().text = Frequence.ToString();
 		}
 	}
 
