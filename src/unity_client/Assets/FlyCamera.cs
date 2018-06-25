@@ -76,17 +76,6 @@ public class FlyCamera : MonoBehaviour {
     {
         if ( transform.position.y < 1)
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
-        map = GameObject.Find("GameEvent").GetComponent<GameEvent>().GetVMap();
-        if ( transform.position.y > map.chunks.Count*5)
-            transform.position = new Vector3(transform.position.x, map.chunks.Count*5, transform.position.z);
-        if ( transform.position.z > map.chunks.Count*10)
-            transform.position = new Vector3(transform.position.x, transform.position.y, map.chunks.Count*10);
-        if ( transform.position.z < -20)
-            transform.position = new Vector3(transform.position.x, transform.position.y, -20);
-        if ( transform.position.x > map.chunks[0].Count*10)
-            transform.position = new Vector3(map.chunks[0].Count*10,transform.position.y, transform.position.z);
-        if ( transform.position.x < -20)
-            transform.position = new Vector3(-20, transform.position.y, transform.position.z);
     }
 
     private Vector3 GetBaseInput() { //returns the basic values, if it's 0 than it's not active.

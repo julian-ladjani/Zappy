@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
+using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 
 public class GameEvent : MonoBehaviour {
@@ -36,6 +37,8 @@ public class GameEvent : MonoBehaviour {
 	private Text[] InventaryTextUI;
 	private Text[] InventaryInfoTextUI;
 	private MeshRenderer[] InventaryMeshUI;
+	private Single _sliderData;
+	private Canvas Option;
 	// Use this for initialization
 	void Start () {
 		ItemObject.Add(GameObject.Find("Mush"));
@@ -78,11 +81,17 @@ public class GameEvent : MonoBehaviour {
 		InventaryInfoTextUI = GameObject.Find("InfoModif").GetComponentsInChildren<Text>();
 		InventaryMeshUI = GameObject.Find("Quantity").GetComponentsInChildren<MeshRenderer>();
 		End = GameObject.Find("End").GetComponent<Canvas>();
+		Option = GameObject.Find("Option").GetComponent<Canvas>();
 	}
 
-	public void SliderOnChange(Single value)
+	public void SliderChangeValue(Single value)
 	{
-		SendMessageServer("sst "+value+"\n");
+		_sliderData = value;
+	}
+	
+	public void SliderEndDrag(BaseEventData value)
+	{
+		SendMessageServer("sst "+_sliderData+"\n");
 	}
 
 	public void DisplayInventary(GameObject sprite) {
@@ -487,7 +496,7 @@ public class GameEvent : MonoBehaviour {
 		}
 		if (timerppo <= 0.0f)
 			timerppo = 3.5f/Frequence;
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(0) && Option.enabled == false) {
         	RaycastHit hit;
         	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) {
         		Debug.Log("hit :"+ hit.collider.name);
